@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="fc0a0467-01b0-4cb9-b097-5dd9f7a1311f" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../HTMLS_Japyld/ZUsuario/crearjuego.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../HTMLS_Japyld/404.html" beforeDir="false" afterPath="$PROJECT_DIR$/../HTMLS_Japyld/404.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../HTMLS_Japyld/blank.html" beforeDir="false" afterPath="$PROJECT_DIR$/../HTMLS_Japyld/blank1.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../HTMLS_Japyld/buttons.html" beforeDir="false" afterPath="$PROJECT_DIR$/../HTMLS_Japyld/buttons.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../HTMLS_Japyld/cards.html" beforeDir="false" afterPath="$PROJECT_DIR$/../HTMLS_Japyld/cards.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../HTMLS_Japyld/tables.html" beforeDir="false" afterPath="$PROJECT_DIR$/../HTMLS_Japyld/tables.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../HTMLS_Japyld/utilities-animation.html" beforeDir="false" afterPath="$PROJECT_DIR$/../HTMLS_Japyld/utilities-animation.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../HTMLS_Japyld/utilities-border.html" beforeDir="false" afterPath="$PROJECT_DIR$/../HTMLS_Japyld/utilities-border.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../HTMLS_Japyld/utilities-color.html" beforeDir="false" afterPath="$PROJECT_DIR$/../HTMLS_Japyld/utilities-color.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../HTMLS_Japyld/utilities-other.html" beforeDir="false" afterPath="$PROJECT_DIR$/../HTMLS_Japyld/utilities-other.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2QfEzEUYATxbopjEV3MWxs8udUV" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/PABLO/Desktop/PUCP/PUCP-2023-1/ING_WEB/Repositorio_Proyecto_Japyld/Proyecto_iweb/HTMLS_Japyld&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="fc0a0467-01b0-4cb9-b097-5dd9f7a1311f" name="Changes" comment="" />
+      <created>1685736495972</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1685736495972</updated>
+      <workItem from="1685736498496" duration="214000" />
+      <workItem from="1685736750796" duration="925000" />
+      <workItem from="1685740049473" duration="646000" />
+      <workItem from="1685840695110" duration="1230000" />
+      <workItem from="1685876863953" duration="20000" />
+      <workItem from="1685921836252" duration="32000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
