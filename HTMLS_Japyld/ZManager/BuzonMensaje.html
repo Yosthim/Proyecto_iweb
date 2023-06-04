@@ -9,10 +9,29 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Editar Juegos</title>
+    <title>Por Genero de Juego</title>
 
     <title>Gráfico de Barras con Bootstrap 4</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+    <style>
+        /* Estilos personalizados */
+        .custom-textbox {
+            border: 2px solid #ffffff;
+            border-radius: 10px;
+            padding: 10px;
+            font-size: 18px;
+            color: #333;
+            background-color: #F1F7F6;
+            outline: none;
+        }
+
+        .custom-textbox:focus {
+            border-color: #29B6A5;
+            box-shadow: 0 0 0 3px rgba(41, 182, 165, 0.2);
+        }
+    </style>
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <!-- Custom fonts for this template-->
@@ -329,178 +348,114 @@
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
-
-
-                <div class="container-fluid">
+                <div class="container-xl px-4 mt-4">
+                    <!-- Account page navigation-->
                     <br>
-                    <h1 class="h3 mb-2 text-gray-800 text-center">REVISAR Y EDITAR JUEGOS</h1>
-                    <br>
-                    <br>
-                    <div class="row">
-                        <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-primary shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                <h6>The Legend of Zelda</h6>
-                                            </div>
-                                            <img src="../img/Legend_of_Zelda.jpg" class="img-fluid" alt="Imagen">
-                                            <div class="mt-3">
-                                                <p class="mt-2">Precio: S/. 80</p>
-                                                <button class="btn btn-secondary">Editar</button>
-                                                <button class="btn btn-danger">Eliminar</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
 
-                        <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-success shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                <h6>The Legend of Zelda</h6>
-                                            </div>
-                                            <img src="../img/Legend_of_Zelda.jpg" class="img-fluid" alt="Imagen">
-                                            <div class="mt-3">
-                                                <p class="mt-2">Precio: S/. 80</p>
-                                                <button class="btn btn-secondary">Editar</button>
-                                                <button class="btn btn-danger">Eliminar</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="container-xl px-4 mt-4">
+                        <br>
+                        <br>
+                        <div class="row justify-content-center">
 
-                        <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-info shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                <h6>The Legend of Zelda</h6>
-                                            </div>
-                                            <img src="../img/Legend_of_Zelda.jpg" class="img-fluid" alt="Imagen">
-                                            <div class="mt-3">
-                                                <p class="mt-2">Precio: S/. 80</p>
-                                                <button class="btn btn-secondary">Editar</button>
-                                                <button class="btn btn-danger">Eliminar</button>
-                                            </div>
+                            <div class="col-xl-10">
+                                <!-- Account details card-->
+                                <div class="card mb-4">
+                                    <div class="card-header m-0 font-weight-bold text">MENSAJE NUEVO</div>
+                                    <div class="container">
+                                        <br>
+                                        <h6 class="text-primary" style="color:#31a290;">Destinatario</h6>
+                                        <div class="d-flex">
+                                            <div id="texto-editables" contenteditable="False" class="flex-grow-1 pr-3 custom-textbox" style="user-select: none;">Administrador</div>
+                                        </div>
+                                        <br>
+                                        <h6 class="text-primary" style="color:#31a290;">Asunto</h6>
+                                        <div class="d-flex">
+                                            <div id="texto-editable" contenteditable="True" class="flex-grow-1 pr-3 custom-textbox">The Mortuary Assistant propone al jugador</div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
 
-                        <!-- Pending Requests Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-warning shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                <h6>The Legend of Zelda</h6>
-                                            </div>
-                                            <img src="../img/Legend_of_Zelda.jpg" class="img-fluid" alt="Imagen">
-                                            <div class="mt-3">
-                                                <p class="mt-2">Precio: S/. 80</p>
-                                                <button class="btn btn-secondary">Editar</button>
-                                                <button class="btn btn-danger">Eliminar</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        </div>
-                    <br>
-                    <br>
-                    <div class="row">
-                        <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-primary shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                <h6>The Legend of Zelda</h6>
-                                            </div>
-                                            <img src="../img/Legend_of_Zelda.jpg" class="img-fluid" alt="Imagen">
-                                            <div class="mt-3">
-                                                <p class="mt-2">Precio: S/. 80</p>
-                                                <button class="btn btn-secondary">Editar</button>
-                                                <button class="btn btn-danger">Eliminar</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                                    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                                    <script>
+                                        $(document).ready(function() {
+                                            // Obtener el cuadro de texto editable y los botones
+                                            var textoEditable = $('#texto-editable');
+                                            var editarBtn = $('#editar-btn');
+                                            var guardarBtn = $('#guardar-btn');
 
-                        <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-success shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                <h6>The Legend of Zelda</h6>
-                                            </div>
-                                            <img src="../img/Legend_of_Zelda.jpg" class="img-fluid" alt="Imagen">
-                                            <div class="mt-3">
-                                                <p class="mt-2">Precio: S/. 80</p>
-                                                <button class="btn btn-secondary">Editar</button>
-                                                <button class="btn btn-danger">Eliminar</button>
-                                            </div>
+                                            // Al hacer clic en el botón "Editar"
+                                            editarBtn.click(function() {
+                                                // Habilitar la edición del cuadro de texto
+                                                textoEditable.attr('contenteditable', 'true');
+                                                textoEditable.focus();
+
+                                                // Ocultar el botón "Editar" y mostrar el botón "Guardar"
+                                                editarBtn.hide();
+                                                guardarBtn.show();
+                                            });
+
+                                            // Al hacer clic en el botón "Guardar"
+                                            guardarBtn.click(function() {
+                                                // Deshabilitar la edición del cuadro de texto
+                                                textoEditable.attr('contenteditable', 'false');
+
+                                                // Ocultar el botón "Guardar" y mostrar el botón "Editar"
+                                                guardarBtn.hide();
+                                                editarBtn.show();
+                                            });
+                                        });
+                                    </script>
+                                    <br>
+                                    <div class="container">
+                                        <h6 class="text-primary" style="color:#31a290;">Mensaje</h6>
+                                        <div class="d-flex">
+                                            <div id="texto-editable2" contenteditable="True" class="flex-grow-1 pr-3 custom-textbox">The Mortuary Assistant propone al jugador convertirse en el asistente de una morgue y realizar tareas de embalsamamiento mientras mantiene a raya a las fuerzas demoníacas y reúne pistas para desterrar al demonio y salvar su alma.</div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
 
-                        <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-info shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                <h6>The Legend of Zelda</h6>
-                                            </div>
-                                            <img src="../img/Legend_of_Zelda.jpg" class="img-fluid" alt="Imagen">
-                                            <div class="mt-3">
-                                                <p class="mt-2">Precio: S/. 80</p>
-                                                <button class="btn btn-secondary">Editar</button>
-                                                <button class="btn btn-danger">Eliminar</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                                    <script2 src="https://code.jquery.com/jquery-3.6.0.min.js"></script2>
+                                    <script>
+                                        $(document).ready(function() {
+                                            // Obtener el cuadro de texto editable y los botones
+                                            var textoEditable2 = $('#texto-editable');
+                                            var editarBtn2 = $('#editar-btn');
+                                            var guardarBtn2 = $('#guardar-btn');
 
-                        <!-- Pending Requests Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-warning shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                <h6>The Legend of Zelda</h6>
-                                            </div>
-                                            <img src="../img/Legend_of_Zelda.jpg" class="img-fluid" alt="Imagen">
-                                            <div class="mt-3">
-                                                <p class="mt-2">Precio: S/. 80</p>
-                                                <button class="btn btn-secondary">Editar</button>
-                                                <button class="btn btn-danger">Eliminar</button>
+                                            // Al hacer clic en el botón "Editar"
+                                            editarBtn2.click(function() {
+                                                // Habilitar la edición del cuadro de texto
+                                                textoEditable2.attr('contenteditable', 'true');
+                                                textoEditable2.focus();
+
+                                                // Ocultar el botón "Editar" y mostrar el botón "Guardar"
+                                                editarBtn2.hide();
+                                                guardarBtn2.show();
+                                            });
+
+                                            // Al hacer clic en el botón "Guardar"
+                                            guardarBtn2.click(function() {
+                                                // Deshabilitar la edición del cuadro de texto
+                                                textoEditable2.attr('contenteditable', 'false');
+
+                                                // Ocultar el botón "Guardar" y mostrar el botón "Editar"
+                                                guardarBtn2.hide();
+                                                editarBtn2.show();
+                                            });
+                                        });
+                                    </script>
+
+                                    <div class="card-body center-h center-h">
+                                        <div class="col-12 col-xl-auto mb-3">
+                                            <div class="d-flex justify-content-left">
+                                                <div class="d-flex justify-content-between">
+                                                    <div class="row">
+                                                        <a href="TablaAdministradores.html">
+                                                            <button class="btn btn-light alert-danger" type="button" style="margin-right: 20px;">Cancelar</button>
+                                                        </a>
+                                                        <a href="TablaAdministradores.html">
+                                                            <button class="btn btn-primary" type="button">Enviar</button>
+                                                        </a>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -510,92 +465,8 @@
                     </div>
                     <br>
                     <br>
-                    <div class="row">
-                        <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-primary shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                <h6>The Legend of Zelda</h6>
-                                            </div>
-                                            <img src="../img/Legend_of_Zelda.jpg" class="img-fluid" alt="Imagen">
-                                            <div class="mt-3">
-                                                <p class="mt-2">Precio: S/. 80</p>
-                                                <button class="btn btn-secondary">Editar</button>
-                                                <button class="btn btn-danger">Eliminar</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-success shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                <h6>The Legend of Zelda</h6>
-                                            </div>
-                                            <img src="../img/Legend_of_Zelda.jpg" class="img-fluid" alt="Imagen">
-                                            <div class="mt-3">
-                                                <p class="mt-2">Precio: S/. 80</p>
-                                                <button class="btn btn-secondary">Editar</button>
-                                                <button class="btn btn-danger">Eliminar</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-info shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                <h6>The Legend of Zelda</h6>
-                                            </div>
-                                            <img src="../img/Legend_of_Zelda.jpg" class="img-fluid" alt="Imagen">
-                                            <div class="mt-3">
-                                                <p class="mt-2">Precio: S/. 80</p>
-                                                <button class="btn btn-secondary">Editar</button>
-                                                <button class="btn btn-danger">Eliminar</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Pending Requests Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-warning shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                <h6>The Legend of Zelda</h6>
-                                            </div>
-                                            <img src="../img/Legend_of_Zelda.jpg" class="img-fluid" alt="Imagen">
-                                            <div class="mt-3">
-                                                <p class="mt-2">Precio: S/. 80</p>
-                                                <button class="btn btn-secondary">Editar</button>
-                                                <button class="btn btn-danger">Eliminar</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    </div>
+                </div>
+                <br>
             </div>
             <!-- End of Main Content -->
 

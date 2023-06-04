@@ -9,11 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Por Genero de Juego</title>
-
-    <title>Gráfico de Barras con Bootstrap 4</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>SB Admin 2 - Dashboard1</title>
 
     <!-- Custom fonts for this template-->
     <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -35,86 +31,54 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="paginaprincialmanager.html">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">JAPYLD <sup>TM</sup></div>
+                <div class="sidebar-brand-text mx-3"><h7>Japyld</h7><sup>tm</sup></div>
             </a>
 
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
-            <!-- Nav Item - Pages Collapse Menu -->
+
+            <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-home"></i>
-                    <span>Panel Principal</span></a>
-                </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Detalles de JAPYLD:</h6>
-                        <a class="collapse-item" href="paginaprincialmanager.html">Resumen</a>
-                        <a class="collapse-item" href="paginaprincialmanager.html">Productos</a>
-                        <a class="collapse-item" href="paginaprincialmanager.html">Metas Semanales</a>
-                        <a class="collapse-item" href="paginaprincialmanager.html">Estadísticas</a>
+                <a class="nav-link" href="index.html">
+                    <div class="d-flex flex-column align-items-center">
+                        <h5 class="mb-0">Página Principal</h5>
+                        <i class="fas fa-fw fa-home"></i>
                     </div>
-                </div>
+                </a>
             </li>
 
-            <!-- Divider -->
             <hr class="sidebar-divider">
 
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                MÓDULOS
-            </div>
-
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-                    aria-expanded="true" aria-controls="collapsePages">
-                    <i class="fas fa-gamepad"></i>
-                    <span>JUEGOS</span>
-                </a>
-                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Estadísticas:</h6>
-                        <a class="collapse-item" href="PorGeneroJuego.html">Por género de Juego</a>
-                        <a class="collapse-item" href="PorConsolaJuego.html">Por consola de Juego</a>
-                        <h6 class="collapse-header">TOP 5:</h6>
-                        <a class="collapse-item" href="Top5masvendidos.html">Más vendidos</a>
-                        <a class="collapse-item" href="Top5menosvendidos.html">Menos vendidos</a>
-                        <div class="collapse-divider"></div>
-                        <h6 class="collapse-header">Más opciones:</h6>
-                        <a class="collapse-item" href="EditarJuegos.html">Editar Juegos</a>
+            <li class="nav-item active">
+                <a class="nav-link" href="index.html">
+                    <div class="d-flex flex-column align-items-center">
+                        <h5 class="mb-0">Tus Juegos</h5>
+                        <i class="fas fa-fw fa-gamepad"></i>
                     </div>
-                </div>
+                </a>
             </li>
 
-            <!-- Nav Item - Charts -->
-            <li class="nav-item">
-                <a class="nav-link" href="TablaAdministradores.html">
-                    <i class="fas fa-user-shield"></i>
-                    <span>ADMINISTRADOR</span></a>
+            <hr class="sidebar-divider">
+
+            <li class="nav-item active">
+                <a class="nav-link" href="index.html">
+                    <div class="d-flex flex-column align-items-center">
+                        <h5 class="mb-0">Venta de Juegos</h5>
+                        <i class="fas fa-fw fa-shopping-cart"></i>
+                    </div>
+                </a>
             </li>
 
-            <!-- Nav Item - Tables -->
-            <li class="nav-item">
-                <a class="nav-link" href="TablaUsuarios.html">
-                    <i class="fas fa-user"></i>
-                    <span>USUARIO</span></a>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider d-none d-md-block">
-            <br>
+            <hr class="sidebar-divider">
 
             <!-- Sidebar Toggler (Sidebar) -->
             <div class="text-center d-none d-md-inline">
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
             </div>
-
         </ul>
         <!-- End of Sidebar -->
 
@@ -329,159 +293,218 @@
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
-                <div class="container-xl px-4 mt-4">
-                    <!-- Account page navigation-->
-                    <br>
+                <div class="container-fluid">
 
-                    <div class="row">
-                        <div class="col-xl-6">
-                            <!-- Profile picture card-->
-                            <div class="card mb-4 mb-xl-0">
+                    <!-- Page Heading -->
 
-                                <div class="card-header font-weight-bold text-primary">TABLA POR GENERO DE VIDEOJUEGOS</div>
-                                <div class="card-body text">
+                    <div class="container-fluid">
+                        <div class="card shadow mb-5">
+                            <div class="card-body">
+                                <div class="col-12 col-xl-auto mb-3">
+                                    <div class="d-flex justify-content-lg-center">
+                                        <button class="btn btn-info" type="button">Nuevo Juego (+)</button>
+                                    </div>
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                        <thead>
+                                        <tr>
+                                            <th class="text-center">LISTA DE JUEGOS</th>
+                                            <th class="text-center">ESTADOS</th>
+                                            <th class="text-center">ACCIONES</th>
+                                        </tr>
+                                        </thead>
 
-                                    <section class="intro">
-                                        <div class="gradient-custom-1 h-100">
-                                            <div class="mask d-flex align-items-center h-100">
-                                                <div class="container">
-                                                    <div class="row justify-content-center">
-                                                        <div class="col-12">
-                                                            <div class="table-responsive bg-white">
-                                                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                                                    <thead>
-                                                                        <tr>
-                                                                            <th class="text-center">GÉNERO</th>
-                                                                            <th class="text-center">N° USUARIOS</th>
-
-                                                                        </tr>
-                                                                    </thead>
-
-                                                                    <tbody>
-                                                                        <tr>
-                                                                            <td class="text-center">Acción</td>
-                                                                            <td class="text-center">250</td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td class="text-center">Aventura</td>
-                                                                            <td class="text-center">300</td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td class="text-center">Carrera</td>
-                                                                            <td class="text-center">140</td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td class="text-center">Deportes</td>
-                                                                            <td class="text-center">520</td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td class="text-center">Estrategia</td>
-                                                                            <td class="text-center">147</td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td class="text-center">Multijugador</td>
-                                                                            <td class="text-center">740</td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td class="text-center">Otros</td>
-                                                                            <td class="text-center">300</td>
-                                                                        </tr>
-                                                                    </tbody>
-                                                                </table>
-                                                            </div>
+                                        <tbody>
+                                        <tr>
+                                            <td>
+                                                <div class="d-flex align-items-center">
+                                                    <label> <img src="../img/zorro.jpg" width="160" height="160" alt="Image" class="img-fluid"></label>
+                                                    <div class="d-flex align-items-center">
+                                                        <ul>
+                                                            <br>
+                                                            <h3 class="m-0 font-weight-bold text-primary">JUEGO</h3>
+                                                            <br>
+                                                            <br>
+                                                            <h5 class="m-0 font-weight-bold text-info">
+                                                                <div class="d-flex justify-content-lg-end">
+                                                                    <button class="btn btn-primary" type="button">GENERO</button>
+                                                                </div>
+                                                            </h5>
+                                                            <br>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </td><!-- .navbar -->
+                                            <td>
+                                                <br>
+                                                <br>
+                                                <div class="card-body center-h center-h">
+                                                    <div class="col-12 col-xl-auto mb-3">
+                                                        <div class="d-flex justify-content-center">
+                                                            <button class="btn btn-success" type="button">ACEPTADO</button>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </div>
-                                    </section>
-                                </div>
-                            </div>
-                            <br>
-                            <br>
-                        </div>
-                        <div class="col-xl-6">
-                            <!-- Account details card-->
-                            <div class="card mb-5">
-                                <div class="card-header">
-                                    <b class="mr-5">RESUMEN</b>
-                                </div>
-                                <br>
-                                <div class="card-body">
-                                    <p class="p-3 bg-gray-200"> 1. La mayoría de usuarios prefieren ...</p>
-                                    <p class="p-3 bg-gray-300"> 2. Algunos usuarios prefieren...</p>
-                                    <p class="p-3 bg-gray-400"> 3. Otros usuarios prefieren...</p>
-                                    <p class="p-3 bg-gray-500"> 4. Pocos usuarios prefieren</p>
+                                            </td>
+                                            <td>
+                                                <body>
+                                                <br>
+                                                <br>
+                                                <br>
+                                                <div class="col-12 col-xl-auto mb-3">
+                                                    <div class="d-flex justify-content-lg-center">
+                                                        <button class="btn btn-outline-info" type="button">ELIMINAR DE LA LISTA</button>
+                                                    </div>
+                                                </div>
+                                                </body>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="d-flex align-items-center">
+                                                    <label> <img src="../img/zorro.jpg" width="160" height="160" alt="Image" class="img-fluid"></label>
+                                                    <div class="d-flex align-items-center">
+                                                        <ul>
+                                                            <br>
+                                                            <h3 class="m-0 font-weight-bold text-primary">JUEGO</h3>
+                                                            <br>
+                                                            <br>
+                                                            <h5 class="m-0 font-weight-bold text-info">
+                                                                <div class="d-flex justify-content-lg-end">
+                                                                    <button class="btn btn-primary" type="button">GENERO</button>
+                                                                </div>
+                                                            </h5>
+                                                            <br>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </td><!-- .navbar -->
+                                            <td>
+                                                <br>
+                                                <br>
+                                                <div class="card-body center-h center-h">
+                                                    <div class="col-12 col-xl-auto mb-3">
+                                                        <div class="d-flex justify-content-center">
+                                                            <button class="btn btn-warning" type="button">NO ACEPTADO</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <body>
+                                                <br>
+                                                <div class="d-flex justify-content-lg-center">
+                                                    <button class="btn btn-outline-info" type="button">CAMBIAR OFERTA</button>
+                                                </div>
+                                                <br>
+                                                <br>
+                                                <div class="d-flex justify-content-lg-center">
+                                                    <button class="btn btn-outline-info" type="button">RETIRAR OFERTA</button>
+                                                </div>
+                                                </body>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="d-flex align-items-center">
+                                                    <label> <img src="../img/zorro.jpg" width="160" height="160" alt="Image" class="img-fluid"></label>
+                                                    <div class="d-flex align-items-center">
+                                                        <ul>
+                                                            <br>
+                                                            <h3 class="m-0 font-weight-bold text-primary">JUEGO</h3>
+                                                            <br>
+                                                            <br>
+                                                            <h5 class="m-0 font-weight-bold text-info">
+                                                                <div class="d-flex justify-content-lg-end">
+                                                                    <button class="btn btn-primary" type="button">GENERO</button>
+                                                                </div>
+                                                            </h5>
+                                                            <br>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </td><!-- .navbar -->
+                                            <td>
+                                                <br>
+                                                <br>
+                                                <div class="card-body center-h center-h">
+                                                    <div class="col-12 col-xl-auto mb-3">
+                                                        <div class="d-flex justify-content-center">
+                                                            <button class="btn btn-danger" type="button">RECHAZADO</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <body>
+                                                <br>
+                                                <div class="d-flex justify-content-lg-center">
+                                                    <button class="btn btn-outline-info" type="button">VER RAZONES</button>
+                                                </div>
+                                                <br>
+                                                <br>
+                                                <div class="d-flex justify-content-lg-center">
+                                                    <button class="btn btn-outline-info" type="button">ELIMINAR DE LA LISTA</button>
+                                                </div>
+                                                </body>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="d-flex align-items-center">
+                                                    <label> <img src="../img/zorro.jpg" width="160" height="160" alt="Image" class="img-fluid"></label>
+                                                    <div class="d-flex align-items-center">
+                                                        <ul>
+                                                            <br>
+                                                            <h3 class="m-0 font-weight-bold text-primary">JUEGO</h3>
+                                                            <br>
+                                                            <br>
+                                                            <h5 class="m-0 font-weight-bold text-info">
+                                                                <div class="d-flex justify-content-lg-end">
+                                                                    <button class="btn btn-primary" type="button">GENERO</button>
+                                                                </div>
+                                                            </h5>
+                                                            <br>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </td><!-- .navbar -->
+                                            <td>
+                                                <br>
+                                                <br>
+                                                <div class="card-body center-h center-h">
+                                                    <div class="col-12 col-xl-auto mb-3">
+                                                        <div class="d-flex justify-content-center">
+                                                            <button class="btn btn-secondary" type="button">RETIRADO</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <body>
+                                                <br>
+                                                <br>
+                                                <br>
+                                                <div class="col-12 col-xl-auto mb-3">
+                                                    <div class="d-flex justify-content-lg-center">
+                                                        <button class="btn btn-outline-info" type="button">ELIMINAR DE LA LISTA</button>
+                                                    </div>
+                                                </div>
+                                                </body>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                    <div class="row justify-content-center">
-                        <div class="col-xl-6">
-                            <!-- Profile picture card-->
-                            <div class="card mb-4 mb-xl-0">
-                                <div class="card-header m-0 font-weight-bold text-primary">GRÁFICO DE GÉNERO DE VIDEOJUEGOS</div>
-                                <br>
-                                <div class="container">
-                                    <canvas id="barChart4"></canvas>
-                                </div>
-
-                                <script>
-                                    var ctx = document.getElementById('barChart4').getContext('2d');
-                                    var barChart4 = new Chart(ctx, {
-                                        type: 'bar',
-                                        data: {
-                                            labels: ['Acción', 'Aventura', 'Carrera', 'Deportes', 'Estrategia', 'Multijugador', 'Otros'],
-                                            datasets: [{
-                                                labels: ' ',
-                                                data: [250, 300, 140, 520, 147,740,300],
-                                                backgroundColor: [
-                                                    'rgba(76, 175, 80, 0.5)', // Verde
-                                                    'rgba(33, 150, 243, 0.5)', // Azul
-                                                    'rgba(255, 193, 7, 0.5)', // Amarillo
-                                                    'rgba(156, 39, 176, 0.5)', // Morado
-                                                    'rgba(244, 67, 54, 0.5)' // Rojo
-                                                ],
-                                                borderColor: [
-                                                    'rgba(76, 175, 80, 1)', // Verde
-                                                    'rgba(33, 150, 243, 1)', // Azul
-                                                    'rgba(255, 193, 7, 1)', // Amarillo
-                                                    'rgba(156, 39, 176, 1)', // Morado
-                                                    'rgba(244, 67, 54, 1)' // Rojo
-                                                ],
-                                                borderWidth: 1
-                                            }]
-                                        },
-                                        options: {
-                                            scales: {
-                                                y: {
-                                                    beginAtZero: true
-                                                }
-                                            },
-                                            plugins: {
-                                                legend: {
-                                                    display: false // Oculta la leyenda
-                                                }
-                                            }
-                                        }
-                                    });
-                                </script>
-
-                                <br>
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <br>
-                    <br>
                 </div>
-
-
             </div>
+                    <!-- Content Row -->
+                <!-- /.container-fluid -->
             <!-- End of Main Content -->
-
             <!-- Footer -->
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
@@ -491,7 +514,6 @@
                 </div>
             </footer>
             <!-- End of Footer -->
-
         </div>
         <!-- End of Content Wrapper -->
 
@@ -517,7 +539,7 @@
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
+                    <a class="btn btn-primary" href="ZAdministrador/login.html">Logout</a>
                 </div>
             </div>
         </div>
