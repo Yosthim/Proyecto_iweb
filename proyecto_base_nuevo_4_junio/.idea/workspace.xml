@@ -4,20 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bd59d424-3379-4c10-a768-00acb9580b50" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../HTMLS_Japyld/ZUsuario/crearjuego.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../HTMLS_Japyld/404.html" beforeDir="false" afterPath="$PROJECT_DIR$/../HTMLS_Japyld/404.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../HTMLS_Japyld/blank.html" beforeDir="false" afterPath="$PROJECT_DIR$/../HTMLS_Japyld/blank1.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../HTMLS_Japyld/buttons.html" beforeDir="false" afterPath="$PROJECT_DIR$/../HTMLS_Japyld/buttons.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../HTMLS_Japyld/cards.html" beforeDir="false" afterPath="$PROJECT_DIR$/../HTMLS_Japyld/cards.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../HTMLS_Japyld/tables.html" beforeDir="false" afterPath="$PROJECT_DIR$/../HTMLS_Japyld/tables.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../HTMLS_Japyld/utilities-animation.html" beforeDir="false" afterPath="$PROJECT_DIR$/../HTMLS_Japyld/utilities-animation.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../HTMLS_Japyld/utilities-border.html" beforeDir="false" afterPath="$PROJECT_DIR$/../HTMLS_Japyld/utilities-border.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../HTMLS_Japyld/utilities-color.html" beforeDir="false" afterPath="$PROJECT_DIR$/../HTMLS_Japyld/utilities-color.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../HTMLS_Japyld/utilities-other.html" beforeDir="false" afterPath="$PROJECT_DIR$/../HTMLS_Japyld/utilities-other.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../archivoBaseJapyld/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../archivoBaseJapyld/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/index.jsp" afterDir="false" />
-    </list>
+    <list default="true" id="bd59d424-3379-4c10-a768-00acb9580b50" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -44,7 +31,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/PABLO/Desktop/PUCP/PUCP-2023-1/ING_WEB/Repositorio_Proyecto_Japyld/Proyecto_iweb/proyecto_base_nuevo_4_junio",
+    "last_opened_file_path": "C:/Users/PABLO/Desktop/PUCP/PUCP-2023-1/ING_WEB/Repositorio_Proyecto_Japyld/Proyecto_iweb/HTMLS_Japyld",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -94,6 +81,7 @@
       <workItem from="1685737953233" duration="2527000" />
       <workItem from="1685902577635" duration="83000" />
       <workItem from="1685921968951" duration="52000" />
+      <workItem from="1685922923168" duration="10000" />
     </task>
     <servers />
   </component>
