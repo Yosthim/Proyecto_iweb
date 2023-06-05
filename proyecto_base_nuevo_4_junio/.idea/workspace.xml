@@ -4,7 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bd59d424-3379-4c10-a768-00acb9580b50" name="Changes" comment="" />
+    <list default="true" id="bd59d424-3379-4c10-a768-00acb9580b50" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../HTMLS_JAPYLD_4_JUNIO/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../HTMLS_JAPYLD_4_JUNIO/ZUsuario/comprajuego.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../HTMLS_JAPYLD_4_JUNIO/img/Legend_of_Zelda.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../HTMLS_JAPYLD_4_JUNIO/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../HTMLS_JAPYLD_4_JUNIO/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../archivoBaseJapyld/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../archivoBaseJapyld/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -26,22 +33,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/PABLO/Desktop/PUCP/PUCP-2023-1/ING_WEB/Repositorio_Proyecto_Japyld/Proyecto_iweb/HTMLS_Japyld",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/PABLO/Desktop/PUCP/PUCP-2023-1/ING_WEB/Repositorio_Proyecto_Japyld/Proyecto_iweb/HTMLS_JAPYLD_4_JUNIO&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\PABLO\Desktop\PUCP\PUCP-2023-1\ING_WEB\proyecto_base_japyld\src\main\java\com\example\proyecto_base_japyld\Admin" />
@@ -82,6 +89,8 @@
       <workItem from="1685902577635" duration="83000" />
       <workItem from="1685921968951" duration="52000" />
       <workItem from="1685922923168" duration="10000" />
+      <workItem from="1685925246446" duration="635000" />
+      <workItem from="1685936853883" duration="310000" />
     </task>
     <servers />
   </component>

@@ -1,11 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="476cfefb-2747-4570-b0bd-f16f2e66a203" name="Changes" comment="" />
+    <list default="true" id="476cfefb-2747-4570-b0bd-f16f2e66a203" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ZUsuario/comprajuego.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/img/Legend_of_Zelda.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/img/mapa.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../archivoBaseJapyld/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../archivoBaseJapyld/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../proyecto_base_nuevo_4_junio/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../proyecto_base_nuevo_4_junio/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -20,11 +34,20 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/PABLO/Desktop/PUCP/PUCP-2023-1/ING_WEB/HTMLS_JAPYLD_4_JUNIO",
+    "last_opened_file_path": "C:/Users/PABLO/Desktop/PUCP/PUCP-2023-1/ING_WEB/Repositorio_Proyecto_Japyld/Proyecto_iweb/HTMLS_JAPYLD_4_JUNIO/img",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\PABLO\Desktop\PUCP\PUCP-2023-1\ING_WEB\Repositorio_Proyecto_Japyld\Proyecto_iweb\HTMLS_JAPYLD_4_JUNIO\img" />
+    </key>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -34,6 +57,8 @@
       <option name="presentableId" value="Default" />
       <updated>1685923576204</updated>
       <workItem from="1685923577297" duration="67000" />
+      <workItem from="1685926095122" duration="837000" />
+      <workItem from="1685937167446" duration="3107000" />
     </task>
     <servers />
   </component>
