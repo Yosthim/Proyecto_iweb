@@ -1,4 +1,4 @@
-package com.example.proyecto_base_japyld.Admin.controllers;
+package com.example.proyecto_base_japyld;
 
 import java.io.*;
 import jakarta.servlet.http.*;

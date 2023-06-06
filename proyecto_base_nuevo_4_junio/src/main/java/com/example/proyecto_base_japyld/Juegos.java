@@ -1,4 +1,4 @@
-package com.example.proyecto_base_japyld.models.beans;
+package com.example.proyecto_base_japyld;
 
 public class Juegos {
     private int idJuegos;
