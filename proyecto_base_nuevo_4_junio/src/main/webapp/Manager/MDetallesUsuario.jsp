@@ -1,4 +1,4 @@
-<%@ page import="com.example.proyecto_base_japyld.Usuario.Models.Beans.MDetallesUsuario" %>
+<%@ page import="com.example.proyecto_base_japyld.Manager.Models.Beans.MDetallesUsuario" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <jsp:useBean id="e" scope="request" type="MDetallesUsuario"/>

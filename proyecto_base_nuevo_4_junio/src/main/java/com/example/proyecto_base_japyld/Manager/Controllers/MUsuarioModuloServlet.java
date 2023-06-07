@@ -1,6 +1,6 @@
-package com.example.proyecto_base_japyld.Usuario.Controllers;
+package com.example.proyecto_base_japyld.Manager.Controllers;
 
-import com.example.proyecto_base_japyld.Usuario.Models.Daos.MUsuarioModuloDao;
+import com.example.proyecto_base_japyld.Manager.Models.Daos.MUsuarioModuloDao;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;

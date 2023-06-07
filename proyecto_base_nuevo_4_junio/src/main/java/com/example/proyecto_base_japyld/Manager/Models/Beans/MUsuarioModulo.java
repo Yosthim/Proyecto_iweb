@@ -1,4 +1,4 @@
-package com.example.proyecto_base_japyld.Usuario.Models.Beans;
+package com.example.proyecto_base_japyld.Manager.Models.Beans;
 
 import java.sql.Date;
 

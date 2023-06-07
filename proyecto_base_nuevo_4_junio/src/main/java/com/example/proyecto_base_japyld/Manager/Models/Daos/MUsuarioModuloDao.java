@@ -1,6 +1,6 @@
-package com.example.proyecto_base_japyld.Usuario.Models.Daos;
+package com.example.proyecto_base_japyld.Manager.Models.Daos;
 
-import com.example.proyecto_base_japyld.Usuario.Models.Beans.MUsuarioModulo;
+import com.example.proyecto_base_japyld.Manager.Models.Beans.MUsuarioModulo;
 
 import java.sql.*;
 import java.util.ArrayList;
