@@ -1,15 +1,25 @@
 <%--
   Created by IntelliJ IDEA.
   User: jossr
-  Date: 4/06/2023
-  Time: 23:10
+  Date: 5/06/2023
+  Time: 16:50
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<!DOCTYPE html>
 <html lang="en">
 
 <head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Rechazar oferta</title>
+
+  <title>Gráfico de Barras con Bootstrap 4</title>
+
   <style>
     /* Estilos personalizados */
     .custom-textbox {
@@ -28,15 +38,6 @@
     }
   </style>
 
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
-
-  <title>Página Principal Manager</title>
-
-  <title>Gráfico de Barras con Bootstrap 4</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -301,7 +302,7 @@
             <!-- Dropdown - User Information -->
             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                  aria-labelledby="userDropdown">
-              <a class="dropdown-item" href="#">
+              <a class="dropdown-item" href="perfilAdmi.html">
                 <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                 Profile
               </a>
@@ -327,92 +328,91 @@
       <!-- End of Topbar -->
 
       <!-- Begin Page Content -->
-      <div id="layoutSidenav_content">
-        <main>
-          <!-- Main page content-->
-          <div class="container-xl px-4 mt-4">
-            <div class="col-12 col-xl-auto mb-3">
-              <a class="btn btn-sm btn-light text-primary" href="adminEditVideojuegos.html">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left me-1"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
-                Volver
-              </a>
-            </div>
+      <div class="container-fluid">
 
-            <div class="row justify-content-center">
-              <div class="col-xl-6">
-                <!-- Profile picture card-->
-                <div class="card mb-4 mb-xl-0">
-                  <div class="card-header m-0 font-weight-bold text-primary">ELIMINAR JUEGO</div>
-                  <br>
-                  <div class="card-body text-center">
-                    <!-- Profile picture image-->
-                    <button class="btn btn-info" type="button">THE LAST OF US</button>
-                    <br>
-                    <br>
-                    <img class="card-img-top" src="https://dummyimage.com/450x450/dee2e6/6c757d.jpg" alt="...">
+        <!-- Page Heading -->
+        <h1 class="h3 mb-2 text-gray-800">Rechazar oferta</h1>
+        <h1 class="h3 mb-2 text-gray-800"></h1>
+        <!-- Content Row -->
+        <div class="row">
+          <div class="col-xl-4 col-lg-4">
+            <!-- Donut Chart -->
+            <div class="card shadow mb-4 border-left-primary">
+              <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">The Legend of Zelda </h6>
+              </div>
+              <div class="card-body text-center">
+                <img src="../img/Legend_of_Zelda.jpg" alt="Imagen" class="img-fluid">
+
+                <div class="mt-3">
+                  <h5 class="mb-0">Rating:</h5>
+                  <div class="rating">
+                    <span class="star">&#9733;</span>
+                    <span class="star">&#9733;</span>
+                    <span class="star">&#9733;</span>
+                    <span class="star">&#9733;</span>
+                    <span class="star">&#9733;</span>
                   </div>
-
-                  <div class="container">
-                    <h6 class="text-primary" style="color:#31a290;">PRECIO</h6>
-                    <div class="d-flex">
-                      <div id="texto-editable3" contenteditable="false" class="flex-grow-1 pr-3 custom-textbox">S/ 170</div>
-                      <div>
-                        <button id="editar-btn3" class="btn btn-primary"><i class="fas fa-edit"></i></button>
-                        <button id="guardar-btn3" class="btn btn-success" style="display: none;"><i class="fas fa-save"></i></button>
-                      </div>
-                    </div>
-                  </div>
-
-                  <script3 src="https://code.jquery.com/jquery-3.6.0.min.js"></script3>
-                  <script>
-                    $(document).ready(function() {
-                      // Obtener el cuadro de texto editable y los botones
-                      var textoEditable3 = $('#texto-editable');
-                      var editarBtn3 = $('#editar-btn');
-                      var guardarBtn3 = $('#guardar-btn');
-
-                      // Al hacer clic en el botón "Editar"
-                      editarBtn3.click(function() {
-                        // Habilitar la edición del cuadro de texto
-                        textoEditable3.attr('contenteditable', 'true');
-                        textoEditable3.focus();
-
-                        // Ocultar el botón "Editar" y mostrar el botón "Guardar"
-                        editarBtn3.hide();
-                        guardarBtn3.show();
-                      });
-
-                      // Al hacer clic en el botón "Guardar"
-                      guardarBtn3.click(function() {
-                        // Deshabilitar la edición del cuadro de texto
-                        textoEditable3.attr('contenteditable', 'false');
-
-                        // Ocultar el botón "Guardar" y mostrar el botón "Editar"
-                        guardarBtn3.hide();
-                        editarBtn3.show();
-                      });
-                    });
-                  </script>
-                  <br>
-                  <br>
-                  <div class="col-12 col-xl-auto mb-3">
-                    <div class="d-flex justify-content-center">
-                      <button class="btn btn-outline-danger" type="button">Confirmar eliminación</button>
-                    </div>
-                  </div>
-                  <br>
-
+                  <h5>Género: Aventura</h5>
                 </div>
               </div>
             </div>
           </div>
-        </main>
+          <div class="col-xl-8 col-lg-8">
+            <!-- Area Chart -->
+            <div class="card shadow mb-4">
+              <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Información del Juego  </h6>
+              </div>
+              <div class="card-body">
+
+                <p class="text-justify">Se trata del primer juego original de la popular saga Zelda para la consola de última generación de Nintendo. El título promete un estilo visual completamente nuevo con el que desmarcarse de todo lo visto hasta el momento. </p>
+                <div class="d-flex align-items-center mb-3">
+                  <h6 class="mr-3">Consola:</h6>
+                  <div class="row">
+                    <div class="col-sm-1">
+                      <img src="../img/kisspng-playstation-2-logo-playstation-logo-5b2a2f6c44a1e2.0330864515294913082811.png" class="img-fluid" alt="PlayStation">
+                    </div>
+                    <div class="col-sm-1">
+                      <img src="../img/kisspng-black-xbox-360-xbox-one-logo-xbox-5abe7f19c6db83.0322681315224338178145.png" class="img-fluid" alt="XBOX">
+                    </div>
+                    <div class="col-sm-1">
+                      <img src="../img/nintendo_logo.png" class="img-fluid" alt="Nintendo">
+                    </div>
+                  </div>
+                </div>
+                <hr>
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                  <span>Stock: 5</span>
+                  <div class="d-flex">
+                    <button class="btn">Precio: S/. 120</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <BR>
+            <div>
+              <span>Comentario:</span>
+            </div>
+            <div>
+              <textarea class="form-control" rows="4"></textarea>
+            </div>
+            <BR>
+            <BR>
+            <div class="d-flex justify-content-end">
+
+              <a href="" class="btn btn-danger">RECHAZAR</a>
+            </div>
+            <BR>
+            <BR>
+          </div>
+        </div>
+
       </div>
     </div>
     <!-- End of Main Content -->
 
     <!-- Footer -->
-    <br>
     <footer class="sticky-footer bg-white">
       <div class="container my-auto">
         <div class="copyright text-center my-auto">
@@ -453,21 +453,23 @@
   </div>
 </div>
 
-<!-- Earnings (Monthly) Card Example -->
-
-<!-- Pending Requests Card Example -->
-
-<!-- Earnings (Monthly) Card Example -->
-
-<!-- Earnings (Monthly) Card Example -->
-
-
-<!-- Pending Requests Card Example -->
-
-
 <!-- Bootstrap core JavaScript-->
 <script src="../vendor/jquery/jquery.min.js"></script>
 <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 <!-- Core plugin JavaScript-->
 <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
+
+<!-- Custom scripts for all pages-->
+<script src="../js/sb-admin-2.min.js"></script>
+
+<!-- Page level plugins -->
+<script src="../vendor/chart.js/Chart.min.js"></script>
+
+<!-- Page level custom scripts -->
+<script src="../js/demo/chart-area-demo.js"></script>
+<script src="../js/demo/chart-pie-demo.js"></script>
+
+</body>
+
+</html>
