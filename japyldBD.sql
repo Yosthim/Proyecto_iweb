@@ -88,7 +88,7 @@ CREATE TABLE IF NOT EXISTS `Japyld`.`Juegos` (
   `idJuegos` INT NOT NULL AUTO_INCREMENT,
   `nombreJuegos` VARCHAR(45) NOT NULL,
   `stock` INT NOT NULL,
-  `precio` DECIMAL(5,5) NOT NULL,
+  `precio` DECIMAL(6,2) NOT NULL,
   `estadoJuego` VARCHAR(45) NOT NULL,
   `descripcion` TEXT NOT NULL,
   `id_imagen` INT NOT NULL,
@@ -186,7 +186,7 @@ CREATE TABLE IF NOT EXISTS `Japyld`.`VentaJuegosGeneral` (
   `estadoVenta` VARCHAR(45) NOT NULL,
   `razonRechazo` TEXT NULL,
   `fechaPublicacion` DATE NOT NULL,
-  `precio_usuario` DECIMAL(5,5) NOT NULL,
+  `precio_usuario` DECIMAL(6,2) NOT NULL,
   `disponibilidad` VARCHAR(45) NOT NULL,
   `precio_admin` DECIMAL NULL,
   `id_usuario` INT NOT NULL,
@@ -220,8 +220,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `Japyld`.`ObjetivosManager` (
   `id_objetivo` INT NOT NULL AUTO_INCREMENT,
-  `ventasPorMesJuego` DECIMAL(6,5) NULL,
-  `gastosPorMesJuego` DECIMAL(6,5) NULL,
+  `ventasPorMesJuego` DECIMAL(6,2) NULL,
+  `gastosPorMesJuego` DECIMAL(6,2) NULL,
   `usariosPorMes` INT NULL,
   `id_manager` INT NOT NULL,
   `fecha` DATE NOT NULL,
