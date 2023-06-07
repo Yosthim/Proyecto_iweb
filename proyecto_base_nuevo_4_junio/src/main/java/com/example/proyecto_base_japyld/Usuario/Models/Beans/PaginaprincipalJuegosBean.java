@@ -1,7 +1,7 @@
 package com.example.proyecto_base_japyld.Usuario.Models.Beans;
 
 public class PaginaprincipalJuegosBean {
-
+    private int idJuegos;
     private String nombreJuegos;
 
     private int precio;
@@ -30,5 +30,13 @@ public class PaginaprincipalJuegosBean {
 
     public void setDireccion_imagen(String direccion_imagen) {
         this.direccion_imagen = direccion_imagen;
+    }
+
+    public int getIdJuegos() {
+        return idJuegos;
+    }
+
+    public void setIdJuegos(int idJuegos) {
+        this.idJuegos = idJuegos;
     }
 }

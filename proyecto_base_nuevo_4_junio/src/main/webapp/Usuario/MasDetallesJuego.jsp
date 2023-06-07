@@ -1,7 +1,8 @@
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="com.example.proyecto_base_japyld.Usuario.Models.Beans.PaginaprincipalJuegosBean" %>
+<%@ page import="com.example.proyecto_base_japyld.Usuario.Models.Beans.MasDetallesBean" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<% ArrayList<PaginaprincipalJuegosBean> listaJuegos = (ArrayList<PaginaprincipalJuegosBean>) request.getAttribute("listaJuegos"); %>
+
+<% ArrayList<MasDetallesBean> listaMasDetallesJuego = (ArrayList<MasDetallesBean>) request.getAttribute("listaMasDetallesJuego"); %>
 
 <html>
 <head>
@@ -12,8 +13,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Dashboard1</title>
-
+    <title>SB Admin 2 - Charts</title>
 
     <!-- Custom fonts for this template-->
     <link href="recursos/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -33,9 +33,8 @@
 
     <!-- Sidebar -->
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-
         <!-- Sidebar - Brand -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
             <div class="sidebar-brand-icon rotate-n-15">
                 <i class="fas fa-laugh-wink"></i>
             </div>
@@ -208,7 +207,7 @@
                             </h6>
                             <a class="dropdown-item d-flex align-items-center" href="#">
                                 <div class="dropdown-list-image mr-3">
-                                    <img class="rounded-circle" src=""
+                                    <img class="rounded-circle" src="../img/undraw_profile_1.svg"
                                          alt="...">
                                     <div class="status-indicator bg-success"></div>
                                 </div>
@@ -220,7 +219,7 @@
                             </a>
                             <a class="dropdown-item d-flex align-items-center" href="#">
                                 <div class="dropdown-list-image mr-3">
-                                    <img class="rounded-circle" src=""
+                                    <img class="rounded-circle" src="../img/undraw_profile_2.svg"
                                          alt="...">
                                     <div class="status-indicator"></div>
                                 </div>
@@ -232,7 +231,7 @@
                             </a>
                             <a class="dropdown-item d-flex align-items-center" href="#">
                                 <div class="dropdown-list-image mr-3">
-                                    <img class="rounded-circle" src=""
+                                    <img class="rounded-circle" src="../img/undraw_profile_3.svg"
                                          alt="...">
                                     <div class="status-indicator bg-warning"></div>
                                 </div>
@@ -264,9 +263,9 @@
                     <li class="nav-item dropdown no-arrow">
                         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="mr-2 d-none d-lg-inline text-gray-600 small">Tu Perfil</span>
+                            <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
                             <img class="img-profile rounded-circle"
-                                 src="recursos/img/profile-1.png">
+                                 src="../img/undraw_profile.svg">
                         </a>
                         <!-- Dropdown - User Information -->
                         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -295,80 +294,76 @@
 
             </nav>
             <!-- End of Topbar -->
-
+            <% for (MasDetallesBean juego :listaMasDetallesJuego){%>
             <!-- Begin Page Content -->
             <div class="container-fluid">
 
                 <!-- Page Heading -->
-                <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                    <h1 class="h3 mb-0 text-gray-700">Juegos Disponibles</h1>
-                    <div class="dropdown d-inline-block">
-                        <button class="btn btn-sm btn-primary shadow-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fas fa-search fa-sm text-white-50"></i> Seleccionar Categoría
-                        </button>
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton" style="width: 100%">
-                            <a class="dropdown-item" href="<%=request.getContextPath()%>/Pagina-principal-categoria?idcategoria=ACC">Acción</a>
-                            <a class="dropdown-item" href="<%=request.getContextPath()%>/Pagina-principal-categoria?idcategoria=TER">Terror</a>
-                            <a class="dropdown-item" href="<%=request.getContextPath()%>/Pagina-principal-categoria?idcategoria=AVN">Aventura</a>
-                            <a class="dropdown-item" href="<%=request.getContextPath()%>/Pagina-principal-categoria?idcategoria=EST">Estrategia</a>
-                            <a class="dropdown-item" href="<%=request.getContextPath()%>/Pagina-principal-categoria?idcategoria=DEP">Deportivo</a>
-                            <a class="dropdown-item" href="<%=request.getContextPath()%>/Pagina-principal-categoria?idcategoria=SIM">Simulación</a>
-                            <a class="dropdown-item" href="<%=request.getContextPath()%>/Pagina-principal-categoria?idcategoria=MUS">Musical</a>
-                            <a class="dropdown-item" href="<%=request.getContextPath()%>/Pagina-principal-categoria?idcategoria=ARC">Arcade</a>
-                            <a class="dropdown-item" href="<%=request.getContextPath()%>/Pagina-principal-categoria?idcategoria=CLA">Clasico</a>
-                            <a class="dropdown-item" href="<%=request.getContextPath()%>/Pagina-principal-categoria?idcategoria=INF">Infantil</a>
-                            <a class="dropdown-item" href="<%=request.getContextPath()%>/Pagina-principal-categoria?idcategoria=GES">Gestión</a>
-                        </div>
-                    </div>
-                </div>
-
+                <h1 class="h3 mb-2 text-gray-800">Más detalles</h1>
                 <!-- Content Row -->
                 <div class="row">
-
-                    <!-- Earnings (Monthly) Card Example -->
-                    <% for (PaginaprincipalJuegosBean juegos : listaJuegos) {%>
-                    <div class="col-xl-3 col-md-6 mb-4">
-                        <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="col-xl-4 col-lg-4">
+                        <!-- Donut Chart -->
+                        <div class="card shadow mb-4 border-left-primary">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary"><%=juego.getNombreJuegos()%></h6>
+                            </div>
+                            <div class="card-body text-center">
+                                <img src="<%=juego.getDireccion_imagen()%>" alt="Imagen" class="img-fluid">
+                                <div class="mt-3">
+                                    <h5 class="mb-0">Rating:</h5>
+                                    <div class="rating">
+                                        <span class="star">&#9733;</span>
+                                        <span class="star">&#9733;</span>
+                                        <span class="star">&#9733;</span>
+                                        <span class="star">&#9733;</span>
+                                        <span class="star">&#9733;</span>
+                                    </div>
+                                    <h5>Categoría: <%=juego.getCategoria()%> </h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-8 col-lg-8">
+                        <!-- Area Chart -->
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary">Información del Juego</h6>
+                            </div>
                             <div class="card-body">
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                            <h6><%=juegos.getNombreJuegos()%></h6>
+
+                                <p class="text-justify"><%=juego.getDescripcion()%></p>
+                                <div class="d-flex align-items-center mb-3">
+                                    <h6 class="mr-3">Consola:</h6>
+                                    <div class="row">
+                                        <div class="col-sm-2">
+                                            <img src="recursos/img/kisspng-playstation-2-logo-playstation-logo-5b2a2f6c44a1e2.0330864515294913082811.png" class="img-fluid" alt="PlayStation">
                                         </div>
-                                        <img src="<%=juegos.getDireccion_imagen()%>" class="img-fluid" alt="Imagen">
-                                        <div class="mt-3">
-                                            <p class="mt-2">Precio: S/. <%=juegos.getPrecio()%></p>
-                                            <a class="btn btn-success" href="<%=request.getContextPath()%>/MasDetallesJuego?idjuego=<%=juegos.getNombreJuegos()%>">Más Detalles</a>
+                                        <div class="col-sm-2">
+                                            <img src="recursos/img/kisspng-black-xbox-360-xbox-one-logo-xbox-5abe7f19c6db83.0322681315224338178145.png" class="img-fluid" alt="XBOX">
                                         </div>
+                                        <div class="col-sm-2">
+                                            <img src="recursos/img/nintendo_logo.png" class="img-fluid" alt="Nintendo">
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <span>Stock: <%=juego.getStock()%></span>
+                                    <div class="d-flex">
+                                        <button class="btn">Precio: S/. <%=juego.getPrecio()%></button>
+                                        <a class="btn btn-success ml-2" href="<%=request.getContextPath()%>/PaginaCompra?idjuego=<%=juego.getIdJuegos()%>">Comprar</a>
+
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <% } %>
-
-                    <!-- Pending Requests Card Example -->
-                </div>
-
-                <!-- Content Row -->
-
-                <div class="row">
-                </div>
-
-                <!-- Content Row -->
-                <div class="row">
-
-                    <!-- Content Column -->
-                    <div class="col-lg-6 mb-4">
-                    </div>
-
-                    <div class="col-lg-6 mb-4">
-                    </div>
                 </div>
 
             </div>
             <!-- /.container-fluid -->
-
+            <% } %>
         </div>
         <!-- End of Main Content -->
 
@@ -376,7 +371,7 @@
         <footer class="sticky-footer bg-white">
             <div class="container my-auto">
                 <div class="copyright text-center my-auto">
-                    <span>Copyright &copy; Your Website 2021</span>
+                    <span>Copyright &copy; Your Website 2020</span>
                 </div>
             </div>
         </footer>
@@ -429,9 +424,7 @@
 <!-- Page level custom scripts -->
 <script src="recursos/js/demo/chart-area-demo.js"></script>
 <script src="recursos/js/demo/chart-pie-demo.js"></script>
-<script src ="recursos/vendor/fontawesome-free/css/all.min.css"></script>
-<script src ="recursos/css/sb-admin-2.min.css"></script>
+<script src="recursos/js/demo/chart-bar-demo.js"></script>
 
 </body>
-
 </html>
