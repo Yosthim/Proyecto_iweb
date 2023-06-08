@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Perfil</title>
+    <title>SB Admin 2 - Blank</title>
 
     <!-- Custom fonts for this template-->
     <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -361,74 +361,73 @@
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between p-a">
-                        <h1 class="h3 mb-4 text-gray-800">Perfil</h1>
+                        <h1 class="h3 mb-4 text-gray-800">Edicion de imagen de Perfil</h1>
                     </div>
-                    <!-- Información del perfil -->
-                    <div class="row">
-                        <!-- Imagen de Perfil y boton de edición-->
-                        <div class="col-lg-4">
-                            <div class="card border-left-primary shadow h-100 py-2">
-                                <div class="card-body">
-                                    <img src="../img/undraw_profile.svg" class="rounded-circle img-fluid"/>
-                                    <hr/>
+                    <!-- Elección de imagen de perfil-->
+                    <div class="card shadow m-4">
+                        <div class="card-header py-3">
+                            <div class="d-flex justify-content-center">
+                                <h5 class="mb-0 font-weight-bold text-primary">
+                                    Elige tu imagen de Perfil
+                                </h5>
+                            </div> 
+                        </div>
+                        <div class="card-body">
+                            <form>
+                                <div class="form-group row p-3">
+                                    <div class="col-lg-3 p-4 mb-3 mb-sm-0">
+                                        <img src="../img/undraw_profile.svg" class="rounded-circle img-fluid mb-2"/>
+                                        <div class="d-flex justify-content-center mb-5">
+                                            <input class="form-check-input mb-3" type="radio" name="algo" value="" aria-label="..."/>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 p-4 mb-3 mb-sm-0">
+                                        <img src="../img/undraw_profile.svg" class="rounded-circle img-fluid mb-2"/>
+                                        <div class="d-flex justify-content-center mb-5">
+                                            <input class="form-check-input" type="radio" name="algo" value="" aria-label="..."/>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 p-4 mb-3 mb-sm-0">
+                                        <img src="../img/undraw_profile.svg" class="rounded-circle img-fluid mb-2"/>
+                                        <div class="d-flex justify-content-center mb-5">
+                                            <input class="form-check-input" type="radio" name="algo" value="" aria-label="..."/>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 p-4 mb-3 mb-sm-0">
+                                        <img src="../img/undraw_profile.svg" class="rounded-circle img-fluid mb-2"/>
+                                        <div class="d-flex justify-content-center mb-5">
+                                            <input class="form-check-input" type="radio" name="algo" value="" aria-label="..."/>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 p-4 mb-3 mb-sm-0">
+                                        <img src="../img/undraw_profile.svg" class="rounded-circle img-fluid mb-2"/>
+                                        <div class="d-flex justify-content-center mb-5">
+                                            <input class="form-check-input" type="radio" name="algo" value="" aria-label="..."/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr class="mb-3"/>
+                                <div class="form-group row p-2 justify-content-center">
                                     <div class="d-flex justify-content-center">
-                                        <a class="btn btn-info" href="#">
-                                            Editar foto <i class="fas fa-edit"></i>
-                                        </a>
+                                        <h5 class="font-weight-bold text-primary justify-content-center">
+                                            Ó sube tu imagen de Perfil:
+                                        </h5>
                                     </div>
+                                    <div class="custom-file justify-content-center">
+                                        <input type="file" class="custom-file-input" id="customFile">
+                                        <label class="custom-file-label" for="customFile">Choose file</label>
+                                      </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-8">
-                            <div class="card border-left-primary shadow h-100 py-2">
-                                <div class="card-header py-3">
-                                    <h5 class="mb-0 font-weight-bold text-primary">
-                                        Información del usuario
-                                    </h5>    
+                                <hr class="mb-3"/>
+                                <div class="row p-2 justify-content-center">
+                                    <a class="btn btn-danger mr-2" href="#">
+                                        Cancelar
+                                    </a>
+                                    <button type="submit" class="btn btn-success ml-2">Guardar cambios</button>
                                 </div>
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-sm-3">
-                                            <p class="mb-0 text-gray-900">Nombres</p>
-                                        </div>
-                                        <div class="col-sm-9">
-                                            <p class="text-muted mb-0 justify-content-center">Yosthim Francisco</p>
-                                        </div>
-                                    </div>
-                                    <hr/>
-                                    <div class="row">
-                                        <div class="col-sm-3">
-                                            <p class="mb-0 text-gray-900">Apellidos</p>
-                                        </div>
-                                        <div class="col-sm-9">
-                                            <p class="text-muted mb-0 justify-content-center">Enciso Aparco</p>
-                                        </div>
-                                    </div>
-                                    <hr/>
-                                    <div class="row">
-                                        <div class="col-sm-3">
-                                            <p class="mb-0 text-gray-900">Fecha de nacimiento</p>
-                                        </div>
-                                        <div class="col-sm-9">
-                                            <p class="text-muted mb-0 justify-content-center">27-09-2002</p>
-                                        </div>
-                                    </div>
-                                    <hr/>
-                                    <div class="row">
-                                        <div class="col-sm-3">
-                                            <p class="mb-0 text-gray-900">Email</p>
-                                        </div>
-                                        <div class="col-sm-9">
-                                            <p class="text-muted mb-0 justify-content-center">a20201497@pucp.edu.pe</p>
-                                        </div>
-                                    </div>
-                                    <hr class="mb-5"/>
-                                    <a href="#" class="btn btn-danger">Cerrar sesión</a>
-                                </div>
-                            </div>
+                            </form>
                         </div>
                     </div>
-
                 </div>
                 <!-- /.container-fluid -->
 
