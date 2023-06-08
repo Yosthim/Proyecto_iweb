@@ -1,5 +1,5 @@
-<%@ page import="com.example.proyecto_base_japyld.Models.Beans.Objetivos" %>
-<%@ page import="java.util.ArrayList" %><%--
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="com.example.proyecto_base_japyld.Admin.Models.beans.Objetivos" %><%--
   Created by IntelliJ IDEA.
   User: jossr
   Date: 7/06/2023
