@@ -1,4 +1,4 @@
-package com.example.proyecto_base_japyld.models.beans;
+package com.example.proyecto_base_japyld.Admin.Models.beans;
 
 public class Categoria {
     public String getIdCategorias() {

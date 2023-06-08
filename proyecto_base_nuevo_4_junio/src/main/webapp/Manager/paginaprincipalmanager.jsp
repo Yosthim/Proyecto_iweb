@@ -1,4 +1,4 @@
-<%@ page import="com.example.proyecto_base_japyld.models.beans.Objetivos" %>
+<%@ page import="com.example.proyecto_base_japyld.Models.Beans.Objetivos" %>
 <%@ page import="java.util.ArrayList" %><%--
   Created by IntelliJ IDEA.
   User: jossr

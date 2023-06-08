@@ -1,4 +1,4 @@
-package com.example.proyecto_base_japyld.models.beans;
+package com.example.proyecto_base_japyld.Admin.Models.beans;
 
 import java.util.Date;
 
