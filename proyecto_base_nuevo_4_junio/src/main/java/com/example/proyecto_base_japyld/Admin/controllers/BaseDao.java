@@ -13,7 +13,7 @@ public abstract class BaseDao {
             e.printStackTrace();
         }
 
-        String url = "jdbc:mysql://localhost:3306/japylda";
+        String url = "jdbc:mysql://localhost:3306/japyld";
 
         return DriverManager.getConnection(url, "root","root");
     }

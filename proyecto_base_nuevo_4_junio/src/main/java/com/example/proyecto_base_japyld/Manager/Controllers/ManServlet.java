@@ -14,7 +14,7 @@ public class ManServlet extends HttpServlet {
 
         ManagerDao managerDao = new ManagerDao();
         request.setAttribute("objetivos",managerDao.Objetivos());
-        request.getRequestDispatcher("manager/paginaprincipalmanager.jsp").forward(request,response);
+        request.getRequestDispatcher("Manager/paginaprincipalmanager.jsp").forward(request,response);
 
     }
 
