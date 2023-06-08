@@ -1,4 +1,4 @@
-<%@ page import="com.example.proyecto_base_japyld.Admin.Models.beans.Juegos" %>
+<%@ page import="com.example.proyecto_base_japyld.models.beans.Juegos" %>
 <%@ page import="java.util.ArrayList" %><%--
   Created by IntelliJ IDEA.
   User: jossr
@@ -16,7 +16,7 @@
 %>
 
 <%
-  ArrayList<Juegos> lista2  =(ArrayList<Juegos>) request.getAttribute("lista2");
+  ArrayList<Juegos> juegos  =(ArrayList<Juegos>) request.getAttribute("juegos");
 %>
 
 <html lang="en">
@@ -104,7 +104,7 @@
     </li>
     <!-- Nav Item - Charts -->
     <li class="nav-item">
-      <a class="nav-link" href="OfertasAdmi.html">
+      <a class="nav-link" href="<%=request.getContextPath()%>/AdminServlet?action=listaPaginaOfertas">
         <i class="far fa-money-bill-alt"></i>
         <span>Ofertas</span></a>
     </li>
@@ -457,17 +457,17 @@
                                 <th scope="col">COSTO</th>
                                 <th scope="col">CATEGORIA</th>
                                 <th scope="col">STOCK</th>
-                                <th scope="col">    </th>
+                                <th scope="col">EDITAR</th>
                               </tr>
                               </thead>
                               <tbody>
-                              <% for (Juegos j :lista) { %>
+                              <% for (Juegos j :juegos) { %>
                               <tr>
-                                <td><%=j.getNombreJuegos()%>></td>
-                                <td>S/ 50</td>
-                                <td>Sandbox abierto</td>
-                                <td class="text-center">10</td>
-                                <td>
+                                <td class="text-center"><%=j.getNombreJuegos()%></td>
+                                <td class="text-center"><%=j.getPrecio()%></td>
+                                <td class="text-center"><%=j.getCategoria().getNombre()%></td>
+                                <td class="text-center"><%=j.getStock()%></td>
+                                <td class="text-center">
                                   <a class="btn btn-primary" href="adminEditVideojuegos.html">
                                     Editar
                                   </a>
