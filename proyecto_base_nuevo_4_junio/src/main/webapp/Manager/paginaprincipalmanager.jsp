@@ -46,7 +46,7 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
         <!-- Sidebar - Brand -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="paginaprincialmanager.html">
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<%=request.getContextPath()%>/ManServlet">
             <div class="sidebar-brand-icon rotate-n-15">
                 <i class="fas fa-laugh-wink"></i>
             </div>
@@ -91,28 +91,28 @@
             <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Estadísticas:</h6>
-                    <a class="collapse-item" href="PorGeneroJuego.html">Por género de Juego</a>
-                    <a class="collapse-item" href="PorConsolaJuego.html">Por consola de Juego</a>
+                    <a class="collapse-item" href="<%=request.getContextPath()%>/PorCategoriaJuegoServlet">Por categoría de Juego</a>
+                    <a class="collapse-item" href="<%=request.getContextPath()%>/PorConsolaJuegoServlet">Por consola de Juego</a>
                     <h6 class="collapse-header">TOP 5:</h6>
-                    <a class="collapse-item" href="Top5masvendidos.html">Más vendidos</a>
-                    <a class="collapse-item" href="Top5menosvendidos.html">Menos vendidos</a>
+                    <a class="collapse-item" href="<%=request.getContextPath()%>/Top5MasVendidosServlet">Más vendidos</a>
+                    <a class="collapse-item" href="<%=request.getContextPath()%>/Top5MenosVendidosServlet">Menos vendidos</a>
                     <div class="collapse-divider"></div>
                     <h6 class="collapse-header">Más opciones:</h6>
-                    <a class="collapse-item" href="EditarJuegos.html">Editar Juegos</a>
+                    <a class="collapse-item" href="<%=request.getContextPath()%>/EditarJuegosServlet?a=l">Editar Juegos</a>
                 </div>
             </div>
         </li>
 
         <!-- Nav Item - Charts -->
         <li class="nav-item">
-            <a class="nav-link" href="TablaAdministradores.html">
+            <a class="nav-link" href="<%=request.getContextPath()%>/MDetallesUsuarioServlet">
                 <i class="fas fa-user-shield"></i>
                 <span>ADMINISTRADOR</span></a>
         </li>
 
         <!-- Nav Item - Tables -->
         <li class="nav-item">
-            <a class="nav-link" href="TablaUsuarios.html">
+            <a class="nav-link" href="<%=request.getContextPath()%>/MDetallesUsuarioServlet">
                 <i class="fas fa-user"></i>
                 <span>USUARIO</span></a>
         </li>
@@ -307,7 +307,7 @@
                     <li class="nav-item dropdown no-arrow">
                         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="mr-2 d-none d-lg-inline text-gray-600 small">Tu Perfil</span>
+                            <span class="mr-2 d-none d-lg-inline text-gray-600 small">MANAGER</span>
                             <img class="img-profile rounded-circle"
                                  src="recursos/img/undraw_profile.svg">
                         </a>
