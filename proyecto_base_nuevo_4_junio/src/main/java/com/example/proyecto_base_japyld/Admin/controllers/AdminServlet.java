@@ -17,21 +17,15 @@ public class AdminServlet extends HttpServlet {
         String action = request.getParameter("action") == null ? "lista" :request.getParameter("action");
         switch (action){
             case "lista":
-                request.setAttribute("ultimasCompras",adminDao.primeraTabla());
-                request.setAttribute("ventas",adminDao.segundaTabla());
+                request.setAttribute("lista",adminDao.primeraTabla());
+                request.setAttribute("lista1",adminDao.segundaTabla());
                 request.getRequestDispatcher("admi/adminPaginaInicio.jsp").forward(request,response);
                 break;
             case "listasPaginaVideojuegos":
                 request.setAttribute("lista",adminDao.terceraTabla());
                 request.setAttribute("lista1",adminDao.cuartaTabla());
-                request.setAttribute("juegos",adminDao.quintaTabla());
+                request.setAttribute("lista2",adminDao.quintaTabla());
                 request.getRequestDispatcher("admi/adminVideojuegos.jsp").forward(request,response);
-                break;
-            case "listaPaginaOfertas":
-                request.setAttribute("ventas",adminDao.sextaTabla());
-                request.setAttribute("nuevosJuegos",adminDao.setimaTabla());
-                request.setAttribute("nuevosOfertas", adminDao.octavaTabla());
-                request.getRequestDispatcher("admi/OfertasAdmi.jsp").forward(request,response);
                 break;
         }
 

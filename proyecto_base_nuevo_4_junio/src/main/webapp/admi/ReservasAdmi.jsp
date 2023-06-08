@@ -1,4 +1,6 @@
-<%--
+<%@ page import="com.example.proyecto_base_japyld.Admin.Models.Daos.JuegosReservadosDaos" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="com.example.proyecto_base_japyld.Admin.Models.beans.JuegosReservadosDias" %><%--
   Created by IntelliJ IDEA.
   User: jossr
   Date: 5/06/2023
@@ -6,6 +8,10 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%ArrayList<JuegosReservadosDias> lista30dias  = (ArrayList<JuegosReservadosDias>) request.getAttribute("lista30dias");%>
+<%ArrayList<JuegosReservadosDias> lista20dias  = (ArrayList<JuegosReservadosDias>) request.getAttribute("lista20dias");%>
+<%ArrayList<JuegosReservadosDias> lista10dias  = (ArrayList<JuegosReservadosDias>) request.getAttribute("lista10dias");%>
+
 <html lang="en">
 
 <head>
@@ -42,13 +48,13 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
   <!-- Custom fonts for this template-->
-  <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="recursos/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link
           href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
           rel="stylesheet">
 
   <!-- Custom styles for this template-->
-  <link href="../css/sb-admin-2.min.css" rel="stylesheet">
+  <link href="recursos/css/sb-admin-2.min.css" rel="stylesheet">
 
 </head>
 
@@ -239,7 +245,7 @@
               </h6>
               <a class="dropdown-item d-flex align-items-center" href="#">
                 <div class="dropdown-list-image mr-3">
-                  <img class="rounded-circle" src="../img/undraw_profile_1.svg"
+                  <img class="rounded-circle" src="recursos/img/undraw_profile_1.svg"
                        alt="...">
                   <div class="status-indicator bg-success"></div>
                 </div>
@@ -251,7 +257,7 @@
               </a>
               <a class="dropdown-item d-flex align-items-center" href="#">
                 <div class="dropdown-list-image mr-3">
-                  <img class="rounded-circle" src="../img/undraw_profile_2.svg"
+                  <img class="rounded-circle" src="recursos/img/undraw_profile_2.svg"
                        alt="...">
                   <div class="status-indicator"></div>
                 </div>
@@ -263,7 +269,7 @@
               </a>
               <a class="dropdown-item d-flex align-items-center" href="#">
                 <div class="dropdown-list-image mr-3">
-                  <img class="rounded-circle" src="../img/undraw_profile_3.svg"
+                  <img class="rounded-circle" src="recursos/img/undraw_profile_3.svg"
                        alt="...">
                   <div class="status-indicator bg-warning"></div>
                 </div>
@@ -297,7 +303,7 @@
                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <span class="mr-2 d-none d-lg-inline text-gray-600 small">Tu Perfil</span>
               <img class="img-profile rounded-circle"
-                   src="../img/undraw_profile.svg">
+                   src="recursos/img/undraw_profile.svg">
             </a>
             <!-- Dropdown - User Information -->
             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -357,32 +363,17 @@
                                 </thead>
 
                                 <tbody class = "text-danger">
+                                <%
+                                  for(JuegosReservadosDias jr : lista30dias){
+                                %>
                                 <tr>
-                                  <td class="text-center">PlayStation 4</td>
-                                  <td class="text-center">Ana</td>
-                                  <td class="text-center">35</td>
+                                  <th scope="row" style="color: #666666;"><%= jr.getNombreJuegos()%></th>
+                                  <td><%=jr.getNombre()%></td>
+                                  <td><%=jr.getFechaCompraJuego()%></td>
                                 </tr>
-                                <tr>
-                                  <td class="text-center">PlayStation 5</td>
-                                  <td class="text-center">Maria</td>
-                                  <td class="text-center">35</td>
-                                </tr>
-                                <tr>
-                                  <td class="text-center">Xbox</td>
-                                  <td class="text-center">Juan</td>
-                                  <td class="text-center">35</td>
-                                </tr>
-                                <tr>
-                                  <td class="text-center">Nintendo Switch</td>
-                                  <td class="text-center">Esteban</td>
-                                  <td class="text-center">35</td>
-                                </tr>
-                                <tr>
-                                  <td class="text-center">Teclado/PC</td>
-                                  <td class="text-center">Luis</td>
-                                  <td class="text-center">35</td>
-                                </tr>
-
+                                <%
+                                  }
+                                %>
                                 </tbody>
                               </table>
                             </div>
@@ -422,32 +413,17 @@
                                 </thead>
 
                                 <tbody class="text-warning" >
+                                <%
+                                  for(JuegosReservadosDias jr2 : lista20dias){
+                                %>
                                 <tr>
-                                  <td class="text-center">PlayStation 4</td>
-                                  <td class="text-center">Ana</td>
-                                  <td class="text-center">15</td>
+                                  <th scope="row" style="color: #666666;"><%= jr2.getNombreJuegos()%></th>
+                                  <td><%=jr2.getNombre()%></td>
+                                  <td><%=jr2.getFechaCompraJuego()%></td>
                                 </tr>
-                                <tr>
-                                  <td class="text-center">PlayStation 5</td>
-                                  <td class="text-center">Maria</td>
-                                  <td class="text-center">15</td>
-                                </tr>
-                                <tr>
-                                  <td class="text-center">Xbox</td>
-                                  <td class="text-center">Juan</td>
-                                  <td class="text-center">15</td>
-                                </tr>
-                                <tr>
-                                  <td class="text-center">Nintendo Switch</td>
-                                  <td class="text-center">Esteban</td>
-                                  <td class="text-center">15</td>
-                                </tr>
-                                <tr>
-                                  <td class="text-center">Teclado/PC</td>
-                                  <td class="text-center">Luis</td>
-                                  <td class="text-center">15</td>
-                                </tr>
-
+                                <%
+                                  }
+                                %>
                                 </tbody>
                               </table>
                             </div>
@@ -488,32 +464,17 @@
                               </thead>
 
                               <tbody>
+                              <%
+                                for(JuegosReservadosDias jr2 : lista10dias){
+                              %>
                               <tr>
-                                <td class="text-center">PlayStation 4</td>
-                                <td class="text-center">Ana</td>
-                                <td class="text-center">5</td>
+                                <th scope="row" style="color: #666666;"><%= jr2.getNombreJuegos()%></th>
+                                <td><%=jr2.getNombre()%></td>
+                                <td><%=jr2.getFechaCompraJuego()%></td>
                               </tr>
-                              <tr>
-                                <td class="text-center">PlayStation 5</td>
-                                <td class="text-center">Maria</td>
-                                <td class="text-center">5</td>
-                              </tr>
-                              <tr>
-                                <td class="text-center">Xbox</td>
-                                <td class="text-center">Juan</td>
-                                <td class="text-center">5</td>
-                              </tr>
-                              <tr>
-                                <td class="text-center">Nintendo Switch</td>
-                                <td class="text-center">Esteban</td>
-                                <td class="text-center">5</td>
-                              </tr>
-                              <tr>
-                                <td class="text-center">Teclado/PC</td>
-                                <td class="text-center">Luis</td>
-                                <td class="text-center">5</td>
-                              </tr>
-
+                              <%
+                                }
+                              %>
                               </tbody>
                             </table>
                           </div>
@@ -576,21 +537,21 @@
 </div>
 
 <!-- Bootstrap core JavaScript-->
-<script src="../vendor/jquery/jquery.min.js"></script>
-<script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="recursos/vendor/jquery/jquery.min.js"></script>
+<script src="recursos/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 <!-- Core plugin JavaScript-->
-<script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
+<script src="recursos/vendor/jquery-easing/jquery.easing.min.js"></script>
 
 <!-- Custom scripts for all pages-->
-<script src="../js/sb-admin-2.min.js"></script>
+<script src="recursos/js/sb-admin-2.min.js"></script>
 
 <!-- Page level plugins -->
-<script src="../vendor/chart.js/Chart.min.js"></script>
+<script src="recursos/vendor/chart.js/Chart.min.js"></script>
 
 <!-- Page level custom scripts -->
-<script src="../js/demo/chart-area-demo.js"></script>
-<script src="../js/demo/chart-pie-demo.js"></script>
+<script src="recursos/js/demo/chart-area-demo.js"></script>
+<script src="recursos/js/demo/chart-pie-demo.js"></script>
 
 </body>
 
