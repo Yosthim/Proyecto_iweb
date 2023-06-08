@@ -1,4 +1,4 @@
-package com.example.proyecto_base_japyld.Admin.Models.beans;
+package com.example.proyecto_base_japyld.models.beans;
 
 import java.math.BigDecimal;
 import java.util.Date;

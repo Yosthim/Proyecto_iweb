@@ -1,8 +1,6 @@
 package com.example.proyecto_base_japyld.Manager.Controllers;
 
-import com.example.proyecto_base_japyld.Juegos;
 import com.example.proyecto_base_japyld.Manager.Models.Daos.JuegosDao;
-import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;

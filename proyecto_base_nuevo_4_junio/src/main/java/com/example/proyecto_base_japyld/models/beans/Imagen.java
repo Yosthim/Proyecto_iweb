@@ -1,4 +1,4 @@
-package com.example.proyecto_base_japyld.Admin.Models.beans;
+package com.example.proyecto_base_japyld.models.beans;
 
 public class Imagen {
     public int getIdImagenes() {

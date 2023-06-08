@@ -1,7 +1,6 @@
 package com.example.proyecto_base_japyld.Manager.Models.Daos;
 
 import com.example.proyecto_base_japyld.Manager.Models.Beans.Juegos;
-import com.example.proyecto_base_japyld.Usuario.Models.Beans.PaginaprincipalJuegosBean;
 
 import java.sql.*;
 import java.util.ArrayList;

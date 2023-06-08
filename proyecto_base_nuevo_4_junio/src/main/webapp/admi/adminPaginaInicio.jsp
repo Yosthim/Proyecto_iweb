@@ -88,7 +88,7 @@
 
     <!-- Nav Item - Tables -->
     <li class="nav-item">
-      <a class="nav-link" href="ReservasAdmi.html">
+      <a class="nav-link" href="<%=request.getContextPath()%>/JuegosReservadosServlet">
         <i class="fas fa-box-open"></i>
         <span>Reservas</span></a>
     </li>

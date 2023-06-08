@@ -1,15 +1,18 @@
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="com.example.proyecto_base_japyld.Admin.Models.beans.Objetivos" %><%--
-  Created by IntelliJ IDEA.
-  User: jossr
-  Date: 7/06/2023
-  Time: 21:00
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="com.example.proyecto_base_japyld.Manager.Models.Beans.LoMasVendidoBean" %>
+<%@ page import="com.example.proyecto_base_japyld.models.beans.Objetivos" %>
 <%
     ArrayList<Objetivos> objetivos = (ArrayList<Objetivos>) request.getAttribute("objetivos");
 %>
+<%
+    ArrayList<LoMasVendidoBean> listaMasVendidos = (ArrayList<LoMasVendidoBean>) request.getAttribute("listaMasVendidos");
+%>
+<%
+    ArrayList<LoMasVendidoBean> listaMenosVendidos = (ArrayList<LoMasVendidoBean>) request.getAttribute("listaMenosVendidos");
+%>
+
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <html lang="en">
 
 <head>
@@ -633,17 +636,18 @@
                 <br>
                 <div class="row">
                     <!-- Earnings (Monthly) Card Example -->
+                    <% for  (LoMasVendidoBean vendido : listaMasVendidos) {%>
                     <div class="col-xl-3 col-md-6 mb-4">
                         <div class="card border-left-primary shadow h-100 py-2">
                             <div class="card-body">
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
                                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                            <h6>📉 The Legend of Zelda</h6>
+                                            <h6>📈<%=vendido.getNombreJuego()%> </h6>
                                         </div>
-                                        <img src="recursos/img/Legend_of_Zelda.jpg" class="img-fluid" alt="Imagen">
+                                        <img src="<%=vendido.getDireccion_archivo()%>" class="img-fluid" alt="Imagen">
                                         <div class="mt-3">
-                                            <p class="mt-2">Precio: S/. 80</p>
+                                            <p class="mt-2">Precio: S/. <%=vendido.getPrecio()%></p>
                                             <button class="btn btn-success">Más Detalles</button>
                                         </div>
                                     </div>
@@ -651,66 +655,7 @@
                             </div>
                         </div>
                     </div>
-
-                    <!-- Earnings (Monthly) Card Example -->
-                    <div class="col-xl-3 col-md-6 mb-4">
-                        <div class="card border-left-success shadow h-100 py-2">
-                            <div class="card-body">
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                            <h6>📉 The Legend of Zelda</h6>
-                                        </div>
-                                        <img src="recursos/img/Legend_of_Zelda.jpg" class="img-fluid" alt="Imagen">
-                                        <div class="mt-3">
-                                            <p class="mt-2">Precio: S/. 80</p>
-                                            <button class="btn btn-success">Más Detalles</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Earnings (Monthly) Card Example -->
-                    <div class="col-xl-3 col-md-6 mb-4">
-                        <div class="card border-left-info shadow h-100 py-2">
-                            <div class="card-body">
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                            <h6>📉 The Legend of Zelda</h6>
-                                        </div>
-                                        <img src="recursos/img/Legend_of_Zelda.jpg" class="img-fluid" alt="Imagen">
-                                        <div class="mt-3">
-                                            <p class="mt-2">Precio: S/. 80</p>
-                                            <button class="btn btn-success">Más Detalles</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Pending Requests Card Example -->
-                    <div class="col-xl-3 col-md-6 mb-4">
-                        <div class="card border-left-warning shadow h-100 py-2">
-                            <div class="card-body">
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                            <h6>📉 The Legend of Zelda</h6>
-                                        </div>
-                                        <img src="recursos/img/Legend_of_Zelda.jpg" class="img-fluid" alt="Imagen">
-                                        <div class="mt-3">
-                                            <p class="mt-2">Precio: S/. 80</p>
-                                            <button class="btn btn-success">Más Detalles</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <% } %>
                 </div>
                 <br>
                 <br>
@@ -718,17 +663,19 @@
                 <br>
                 <div class="row">
                     <!-- Earnings (Monthly) Card Example -->
+                    <% for  (LoMasVendidoBean vendido1 : listaMenosVendidos) {%>
+
                     <div class="col-xl-3 col-md-6 mb-4">
                         <div class="card border-left-primary shadow h-100 py-2">
                             <div class="card-body">
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
                                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                            <h6>📈 The Legend of Zelda</h6>
+                                            <h6>📉<%=vendido1.getNombreJuego()%></h6>
                                         </div>
-                                        <img src="recursos/img/Legend_of_Zelda.jpg" class="img-fluid" alt="Imagen">
+                                        <img src="<%=vendido1.getDireccion_archivo()%>" class="img-fluid" alt="Imagen">
                                         <div class="mt-3">
-                                            <p class="mt-2">Precio: S/. 80</p>
+                                            <p class="mt-2">Precio: S/. <%=vendido1.getPrecio()%></p>
                                             <button class="btn btn-success">Más Detalles</button>
                                         </div>
                                     </div>
@@ -736,66 +683,9 @@
                             </div>
                         </div>
                     </div>
-
+                    <% } %>
                     <!-- Earnings (Monthly) Card Example -->
-                    <div class="col-xl-3 col-md-6 mb-4">
-                        <div class="card border-left-success shadow h-100 py-2">
-                            <div class="card-body">
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                            <h6>📈 The Legend of Zelda</h6>
-                                        </div>
-                                        <img src="recursos/img/Legend_of_Zelda.jpg" class="img-fluid" alt="Imagen">
-                                        <div class="mt-3">
-                                            <p class="mt-2">Precio: S/. 80</p>
-                                            <button class="btn btn-success">Más Detalles</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
-                    <!-- Earnings (Monthly) Card Example -->
-                    <div class="col-xl-3 col-md-6 mb-4">
-                        <div class="card border-left-info shadow h-100 py-2">
-                            <div class="card-body">
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                            <h6>📈 The Legend of Zelda</h6>
-                                        </div>
-                                        <img src="recursos/img/Legend_of_Zelda.jpg" class="img-fluid" alt="Imagen">
-                                        <div class="mt-3">
-                                            <p class="mt-2">Precio: S/. 80</p>
-                                            <button class="btn btn-success">Más Detalles</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Pending Requests Card Example -->
-                    <div class="col-xl-3 col-md-6 mb-4">
-                        <div class="card border-left-warning shadow h-100 py-2">
-                            <div class="card-body">
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                            <h6>📈 The Legend of Zelda</h6>
-                                        </div>
-                                        <img src="recursos/img/Legend_of_Zelda.jpg" class="img-fluid" alt="Imagen">
-                                        <div class="mt-3">
-                                            <p class="mt-2">Precio: S/. 80</p>
-                                            <button class="btn btn-success">Más Detalles</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
 
             </div>

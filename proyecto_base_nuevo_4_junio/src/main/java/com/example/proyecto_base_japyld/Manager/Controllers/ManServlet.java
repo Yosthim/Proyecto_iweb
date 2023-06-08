@@ -1,9 +1,13 @@
 package com.example.proyecto_base_japyld.Manager.Controllers;
 
+import com.example.proyecto_base_japyld.Manager.Models.Daos.LoMasVendidoDao;
+import com.example.proyecto_base_japyld.Manager.Models.Daos.LoMenosVendidoDao;
 import com.example.proyecto_base_japyld.Manager.Models.Daos.ManagerDao;
-import jakarta.servlet.*;
-import jakarta.servlet.http.*;
-import jakarta.servlet.annotation.*;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
@@ -14,6 +18,10 @@ public class ManServlet extends HttpServlet {
 
         ManagerDao managerDao = new ManagerDao();
         request.setAttribute("objetivos",managerDao.Objetivos());
+        LoMasVendidoDao loMasVendidoDao = new LoMasVendidoDao();
+        request.setAttribute("listaMasVendidos",loMasVendidoDao.listarJuegosMasVendidos());
+        LoMenosVendidoDao loMenosVendidoDao = new LoMenosVendidoDao();
+        request.setAttribute("listaMenosVendidos",loMenosVendidoDao.listarJuegosMenosVendidos());
         request.getRequestDispatcher("Manager/paginaprincipalmanager.jsp").forward(request,response);
 
     }

@@ -1,6 +1,5 @@
 package com.example.proyecto_base_japyld.Manager.Models.Daos;
 
-import com.example.proyecto_base_japyld.Manager.Models.Beans.PorCategoriaJuego;
 import com.example.proyecto_base_japyld.Manager.Models.Beans.PorConsolaJuego;
 
 import java.sql.*;
