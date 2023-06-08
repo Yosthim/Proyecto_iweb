@@ -62,7 +62,7 @@
   <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="adminPaginaInicio.html">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<%=request.getContextPath()%>/AdminServlet?action=lista">
       <div class="sidebar-brand-icon rotate-n-15">
         <i class="fas fa-laugh-wink"></i>
       </div>
@@ -71,8 +71,6 @@
 
     <!-- Divider -->
 
-
-    <!-- Divider -->
     <!-- Divider -->
     <hr class="sidebar-divider">
 
@@ -83,12 +81,12 @@
 
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
-      <a class="nav-link" href="adminPaginaInicio.html">
+      <a class="nav-link" href="<%=request.getContextPath()%>/AdminServlet?action=lista">
         <i class="fas fa-home"></i>
         <span>Inicio</span></a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="adminVideojuegos.html">
+      <a class="nav-link" href="<%=request.getContextPath()%>/AdminServlet?action=listasPaginaVideojuegos">
         <i class="fas fa-gamepad"></i>
         <span>Videojuegos</span>
       </a>
@@ -96,14 +94,14 @@
     </li>
     <!-- Nav Item - Charts -->
     <li class="nav-item">
-      <a class="nav-link" href="OfertasAdmi.html">
+      <a class="nav-link" href="<%=request.getContextPath()%>/AdminServlet?action=listaPaginaOfertas">
         <i class="far fa-money-bill-alt"></i>
         <span>Ofertas</span></a>
     </li>
 
     <!-- Nav Item - Tables -->
     <li class="nav-item">
-      <a class="nav-link" href="ReservasAdmi.html">
+      <a class="nav-link" href="<%=request.getContextPath()%>/JuegosReservadosServlet">
         <i class="fas fa-box-open"></i>
         <span>Reservas</span></a>
     </li>
