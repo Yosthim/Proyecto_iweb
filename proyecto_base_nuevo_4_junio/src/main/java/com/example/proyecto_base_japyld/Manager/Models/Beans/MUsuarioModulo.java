@@ -3,6 +3,7 @@ package com.example.proyecto_base_japyld.Manager.Models.Beans;
 import java.sql.Date;
 
 public class MUsuarioModulo {
+    private int id;
     private String nombre;
     private String apellido;
     private String correo;
@@ -47,5 +48,13 @@ public class MUsuarioModulo {
 
     public void setFechaRegistro(Date fechaRegistro) {
         this.fechaRegistro = fechaRegistro;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

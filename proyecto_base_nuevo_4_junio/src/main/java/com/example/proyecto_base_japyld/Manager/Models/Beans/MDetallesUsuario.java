@@ -4,6 +4,9 @@ import java.math.BigDecimal;
 import java.sql.Date;
 
 public class MDetallesUsuario {
+
+    private int id;
+
     private String nombre;
     private String apellido;
     private String correo;
@@ -113,5 +116,13 @@ public class MDetallesUsuario {
 
     public void setPrecio(BigDecimal precio) {
         this.precio = precio;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
