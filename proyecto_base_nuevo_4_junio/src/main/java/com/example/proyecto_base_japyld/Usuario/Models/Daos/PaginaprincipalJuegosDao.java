@@ -16,8 +16,10 @@ public class PaginaprincipalJuegosDao {
             e.printStackTrace();
         }
 
-        String sql = "select nombreJuegos, precio from\n" +
-                "juegos;";
+        String sql = "select idJuegos,nombreJuegos,precio,direccion_archivo \n" +
+                "from juegos j \n" +
+                "inner join imagenes i on j.id_imagen = i.idImagenes\n" +
+                "where j.estadoJuego = \"Activo\";";
         String url = "jdbc:mysql://localhost:3306/japyld";
         try (Connection connection = DriverManager.getConnection(url, "root", "root");
              Statement stmt = connection.createStatement();
@@ -25,8 +27,10 @@ public class PaginaprincipalJuegosDao {
 
             while(resultSet.next()){
                 PaginaprincipalJuegosBean juegosPrincipal = new PaginaprincipalJuegosBean();
-                juegosPrincipal.setNombreJuegos(resultSet.getString(1));
-                juegosPrincipal.setPrecio(resultSet.getInt(2));
+                juegosPrincipal.setIdJuegos(resultSet.getInt(1));
+                juegosPrincipal.setNombreJuegos(resultSet.getString(2));
+                juegosPrincipal.setPrecio(resultSet.getInt(3));
+                juegosPrincipal.setDireccion_imagen(resultSet.getString(4));
 
                 listaJuegos.add(juegosPrincipal);
             }

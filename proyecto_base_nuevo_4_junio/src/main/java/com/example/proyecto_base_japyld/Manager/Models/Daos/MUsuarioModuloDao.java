@@ -16,11 +16,11 @@ public class MUsuarioModuloDao {
             e.printStackTrace();
         }
 
-        String sql = "SELECT p.nombre, p.apellido, p.correo, count(jcr.id_usuario) as \"numJuegos\",  p.fechaRegistro\n" +
+        String sql = "SELECT p.nombre, p.apellido, p.correo, count(jcr.id_usuario) as \"numJuegos\",  p.fechaRegistro, p.idPersona \n" +
                 "FROM personas p LEFT JOIN juegoscompradosreservados jcr \n" +
-                "ON p.idPersona = jcr.id_usuario\n" +
-                "WHERE p.id_roles = 1\n" +
-                "GROUP BY idPersona;";
+                "                ON p.idPersona = jcr.id_usuario \n" +
+                "                WHERE p.id_roles = \"USR\"\n" +
+                "                GROUP BY idPersona;";
         String url = "jdbc:mysql://localhost:3306/japyld";
 
         try (Connection connection = DriverManager.getConnection(url, "root", "root");
@@ -34,6 +34,7 @@ public class MUsuarioModuloDao {
                 usuariosModulo.setCorreo(resultSet.getString(3));
                 usuariosModulo.setNumJuegos(resultSet.getInt(4));
                 usuariosModulo.setFechaRegistro(resultSet.getDate(5));
+                usuariosModulo.setId(resultSet.getInt(6));
 
                 lista.add(usuariosModulo);
             }

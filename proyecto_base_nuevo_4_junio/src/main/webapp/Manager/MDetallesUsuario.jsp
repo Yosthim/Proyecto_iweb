@@ -1,6 +1,8 @@
 <%@ page import="com.example.proyecto_base_japyld.Manager.Models.Beans.MDetallesUsuario" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
+<%@ page import="java.util.ArrayList" %>
+<%ArrayList<MDetallesUsuario> lista1 = (ArrayList<MDetallesUsuario>) request.getAttribute("listaJuegosVendidos");%>
+<%ArrayList<MDetallesUsuario> lista2 = (ArrayList<MDetallesUsuario>) request.getAttribute("listaJuegosComprados");%>
 <jsp:useBean id="e" scope="request" type="MDetallesUsuario"/>
 
 <!DOCTYPE html>
@@ -59,7 +61,7 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
         <!-- Sidebar - Brand -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="paginaprincialmanager.html">
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<%=request.getContextPath()%>/ManServlet">
             <div class="sidebar-brand-icon rotate-n-15">
                 <i class="fas fa-laugh-wink"></i>
             </div>
@@ -104,28 +106,28 @@
             <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Estadísticas:</h6>
-                    <a class="collapse-item" href="PorGeneroJuego.html">Por género de Juego</a>
-                    <a class="collapse-item" href="PorConsolaJuego.html">Por consola de Juego</a>
+                    <a class="collapse-item" href="<%=request.getContextPath()%>/PorCategoriaJuegoServlet">Por categoría de Juego</a>
+                    <a class="collapse-item" href="<%=request.getContextPath()%>/PorConsolaJuegoServlet">Por consola de Juego</a>
                     <h6 class="collapse-header">TOP 5:</h6>
-                    <a class="collapse-item" href="Top5masvendidos.html">Más vendidos</a>
-                    <a class="collapse-item" href="Top5menosvendidos.html">Menos vendidos</a>
+                    <a class="collapse-item" href="<%=request.getContextPath()%>/Top5MasVendidosServlet">Más vendidos</a>
+                    <a class="collapse-item" href="<%=request.getContextPath()%>/Top5MenosVendidosServlet">Menos vendidos</a>
                     <div class="collapse-divider"></div>
                     <h6 class="collapse-header">Más opciones:</h6>
-                    <a class="collapse-item" href="EditarJuegos.html">Editar Juegos</a>
+                    <a class="collapse-item" href="<%=request.getContextPath()%>/EditarJuegosServlet?a=l">Editar Juegos</a>
                 </div>
             </div>
         </li>
 
         <!-- Nav Item - Charts -->
         <li class="nav-item">
-            <a class="nav-link" href="TablaAdministradores.html">
+            <a class="nav-link" href="<%=request.getContextPath()%>/MDetallesUsuarioServlet">
                 <i class="fas fa-user-shield"></i>
                 <span>ADMINISTRADOR</span></a>
         </li>
 
         <!-- Nav Item - Tables -->
         <li class="nav-item">
-            <a class="nav-link" href="TablaUsuarios.html">
+            <a class="nav-link" href="<%=request.getContextPath()%>/MDetallesUsuarioServlet">
                 <i class="fas fa-user"></i>
                 <span>USUARIO</span></a>
         </li>
@@ -408,7 +410,7 @@
                                 <h6 class="text-primary" style="color:#31a290;">NOMBRE DE PERFIL</h6>
                                 <div class="d-flex">
                                     <div id="texto-editable" contenteditable="false" class="flex-grow-1 pr-3 custom-textbox">
-                                        <h5 name="nm" id="nm"><b> Nombre: </b> <%=e.getNombre() + " " + e.getApellido()%></h5>
+                                        <h5><b> Nombre: </b> <%=e.getNombre() + " " + e.getApellido()%></h5>
                                         <h5><b> Email: </b> <%=e.getCorreo()%></h5>
                                         <h5><b> Fecha de nacimiento: </b><%=e.getFechaDeNacimiento()%></h5>
                                         <h5><b> DNI: </b> <%=e.getDni()%> </h5>
@@ -474,7 +476,7 @@
                         <div class="col-xl-6 col-md-6 mb-4">
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">LISTA DE JUEGOS COMPRADOS</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">LISTA DE JUEGOS VENDIDO</h6>
                                 </div>
                                 <div class="card-body">
                                     <div class="table-responsive">
@@ -482,11 +484,16 @@
                                             <thead>
                                             <tr>
                                                 <th>NOMBRE DEL JUEGO</th>
-                                                <th>DINERO GASTADO</th>
+                                                <th>DINERO GANADO</th>
                                             </tr>
                                             </thead>
                                             <tbody>
-
+                                            <% for (MDetallesUsuario juegosVendidos : lista1) { %>
+                                            <tr>
+                                                <td><%=juegosVendidos.getNombreJuegos() %></td>
+                                                <td><%=juegosVendidos.getPrecio_admin()%></td>
+                                            </tr>
+                                            <% } %>
                                             </tbody>
                                         </table>
                                     </div>
@@ -509,6 +516,13 @@
                                             </tr>
                                             </thead>
                                             <tbody>
+
+                                            <% for (MDetallesUsuario juegosComprados : lista2) { %>
+                                            <tr>
+                                                <td><%=juegosComprados.getNombreJuegos() %></td>
+                                                <td><%=juegosComprados.getPrecio()%></td>
+                                            </tr>
+                                            <% } %>
 
                                             </tbody>
                                         </table>

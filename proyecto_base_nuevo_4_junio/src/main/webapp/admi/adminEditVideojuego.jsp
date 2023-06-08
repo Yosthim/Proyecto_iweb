@@ -6,7 +6,6 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -34,7 +33,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Página Principal Manager</title>
+  <title>Editar Videojuego</title>
 
   <title>Gráfico de Barras con Bootstrap 4</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
@@ -346,17 +345,8 @@
                   <div class="card-header m-0 font-weight-bold text-primary">EDITAR JUEGO</div>
                   <div class="card-body text-center">
                     <!-- Profile picture image-->
-                    <p class="p-5 bg-gray-400">
-                      <br>
-                      <br>
-                      <br>
-                      <br>
-                      <br>
-                      <br>
-                      <br>
 
-                    </p>
-                    <img class="img-account-profile rounded-circle mb-2" src="assets/img/illustrations/profiles/profile-1.png" alt="">
+                    <img class="img-account-profile mb-2" src="../img/Legend_of_Zelda.jpg" alt="">
                     <!-- Profile picture help block-->
                     <div class="small font-italic text-muted mb-4">JPG or PNG no larger than 5 MB</div>
                     <!-- Profile picture upload button-->
@@ -528,11 +518,10 @@
                       <button class="btn btn-primary btn-xl">
                         <i class="fas fa-keyboard fa-3x"></i>
                       </button>
+                      <br>
+                      <br>
+                      <br>
                     </div>
-
-                    <br>
-                    <br>
-                    <br>
 
 
                     <div class="col-12 col-xl-auto mb-3">

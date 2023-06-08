@@ -1,12 +1,11 @@
 <%--
   Created by IntelliJ IDEA.
   User: jossr
-  Date: 4/06/2023
-  Time: 23:12
+  Date: 5/06/2023
+  Time: 16:48
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -17,9 +16,28 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Página Principal </title>
+  <title>Aceptar oferta</title>
 
   <title>Gráfico de Barras con Bootstrap 4</title>
+
+  <style>
+    /* Estilos personalizados */
+    .custom-textbox {
+      border: 2px solid #ffffff;
+      border-radius: 10px;
+      padding: 10px;
+      font-size: 18px;
+      color: #333;
+      background-color: #F1F7F6;
+      outline: none;
+    }
+
+    .custom-textbox:focus {
+      border-color: #29B6A5;
+      box-shadow: 0 0 0 3px rgba(41, 182, 165, 0.2);
+    }
+  </style>
+
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -34,7 +52,7 @@
 
 </head>
 
-<body id="page-top">
+<body id="page-top" >
 
 <!-- Page Wrapper -->
 <div id="wrapper">
@@ -52,6 +70,8 @@
 
     <!-- Divider -->
 
+
+    <!-- Divider -->
     <!-- Divider -->
     <hr class="sidebar-divider">
 
@@ -284,7 +304,7 @@
             <!-- Dropdown - User Information -->
             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                  aria-labelledby="userDropdown">
-              <a class="dropdown-item" href="#">
+              <a class="dropdown-item" href="perfilAdmi.html">
                 <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                 Profile
               </a>
@@ -310,186 +330,85 @@
       <!-- End of Topbar -->
 
       <!-- Begin Page Content -->
-      <div class="container-xl px-4 mt-4">
-        <!-- Account page navigation-->
-        <hr class="mt-0 mb-4">
+      <div class="container-fluid">
+
+        <!-- Page Heading -->
+        <h1 class="h3 mb-2 text-gray-800">Aceptar oferta</h1>
+        <h1 class="h3 mb-2 text-gray-800"></h1>
+        <!-- Content Row -->
         <div class="row">
-          <div class="col-xl-6">
-            <!-- Profile picture card-->
-            <div class="card mb-4 mb-xl-0">
-              <div class="card-header"><b>ÚLTIMAS VENTAS</b></div>
-              <div class="card-body text">
-
-                <section class="intro">
-                  <div class="gradient-custom-1 h-100">
-                    <div class="mask d-flex align-items-center h-100">
-                      <div class="container">
-                        <div class="row justify-content-center">
-                          <div class="col-12">
-                            <div class="table-responsive bg-white">
-                              <table class="table mb-0">
-                                <thead>
-                                <tr>
-                                  <th scope="col">JUEGO</th>
-                                  <th scope="col">USUARIO</th>
-                                  <th scope="col">ESTADO</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                  <th scope="row" style="color: #666666;">Gta</th>
-                                  <td>Joselin</td>
-                                  <td>Vendido</td>
-                                </tr>
-                                <tr>
-                                  <th scope="row" style="color: #666666;">Uncharted</th>
-                                  <td>David</td>
-                                  <td>Vendido</td>
-                                </tr>
-                                <tr>
-                                  <th scope="row" style="color: #666666;">The last of us</th>
-                                  <td>Aracelli</td>
-                                  <td>En espera</td>
-                                </tr>
-                                </tbody>
-                              </table>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </section>
+          <div class="col-xl-4 col-lg-4">
+            <!-- Donut Chart -->
+            <div class="card shadow mb-4 border-left-primary">
+              <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">The Legend of Zelda </h6>
               </div>
-            </div>
-            <br>
-            <br>
-            <div class="card mb-4 mb-xl-0">
-              <div class="card-header"><b>ÚLTIMAS OFERTAS</b></div>
-              <div class="card-body text">
+              <div class="card-body text-center">
+                <img src="../img/Legend_of_Zelda.jpg" alt="Imagen" class="img-fluid">
 
-                <section class="intro">
-                  <div class="gradient-custom-1 h-100">
-                    <div class="mask d-flex align-items-center h-100">
-                      <div class="container">
-                        <div class="row justify-content-center">
-                          <div class="col-12">
-                            <div class="table-responsive bg-white">
-                              <table class="table mb-0">
-                                <thead>
-                                <tr>
-                                  <th scope="col">JUEGO</th>
-                                  <th scope="col">USUARIO</th>
-                                  <th scope="col">PRECIO</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                  <th scope="row" style="color: #666666;">Rayman</th>
-                                  <td>Pablo</td>
-                                  <td>S/. 50</td>
-                                </tr>
-                                <tr>
-                                  <th scope="row" style="color: #666666;">Call of duty</th>
-                                  <td>Luis</td>
-                                  <td>S/. 60</td>
-                                </tr>
-                                <tr>
-                                  <th scope="row" style="color: #666666;">Crash</th>
-                                  <td>Yosthim</td>
-                                  <td>S/. 100</td>
-                                </tr>
-                                <tr>
-                                  <th scope="row" style="color: #666666;">Marvel's Wolverine</th>
-                                  <td>juan_57</td>
-                                  <td>Agregar</td>
-                                </tr>
-                                </tbody>
-                              </table>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                <div class="mt-3">
+                  <h5 class="mb-0">Rating:</h5>
+                  <div class="rating">
+                    <span class="star">&#9733;</span>
+                    <span class="star">&#9733;</span>
+                    <span class="star">&#9733;</span>
+                    <span class="star">&#9733;</span>
+                    <span class="star">&#9733;</span>
                   </div>
-                </section>
+                  <h5>Género: Aventura</h5>
+                </div>
               </div>
             </div>
           </div>
-          <div class="col-xl-6">
-            <!-- Account details card-->
-            <div class="card mb-4">
-              <div class="card-header"><b>ESTADÍSTICAS DE VENTAS DIARIAS</b></div>
-
-              <br>
-
-              <div class="container">
-                <canvas id="barChart"></canvas>
+          <div class="col-xl-8 col-lg-8">
+            <!-- Area Chart -->
+            <div class="card shadow mb-4">
+              <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Información del Juego  </h6>
               </div>
+              <div class="card-body">
 
-              <script>
-                var ctx = document.getElementById('barChart').getContext('2d');
-                var barChart = new Chart(ctx, {
-                  type: 'bar',
-                  data: {
-                    labels: ['Juego 1', 'Juego 2', 'Juego 3', 'Juego 4', 'Juego 4'],
-                    datasets: [{
-                      labels: ' ',
-                      data: [10, 20, 15, 45, 10],
-                      backgroundColor: [
-                        'rgba(76, 175, 80, 0.5)', // Verde
-                        'rgba(33, 150, 243, 0.5)', // Azul
-                        'rgba(255, 193, 7, 0.5)', // Amarillo
-                        'rgba(156, 39, 176, 0.5)', // Morado
-                        'rgba(244, 67, 54, 0.5)' // Rojo
-                      ],
-                      borderColor: [
-                        'rgba(76, 175, 80, 1)', // Verde
-                        'rgba(33, 150, 243, 1)', // Azul
-                        'rgba(255, 193, 7, 1)', // Amarillo
-                        'rgba(156, 39, 176, 1)', // Morado
-                        'rgba(244, 67, 54, 1)' // Rojo
-                      ],
-                      borderWidth: 1
-                    }]
-                  },
-                  options: {
-                    scales: {
-                      y: {
-                        beginAtZero: true
-                      }
-                    },
-                    plugins: {
-                      legend: {
-                        display: false // Oculta la leyenda
-                      }
-                    }
-                  }
-                });
-              </script>
-              <br>
-              <div class="card-body ">
-                <div class="my-2"></div>
-                <div class="d-flex justify-content-center">
-                  <ul href="#" class="btn btn-success btn-icon-split">
-                                                <span class="icon text-white-50">
-                                                    <i class="fas fa-dollar-sign"></i>
-                                                </span>
-                    <span class="text">Ganancia del día</span>
-                  </ul>
+                <p class="text-justify">Se trata del primer juego original de la popular saga Zelda para la consola de última generación de Nintendo. El título promete un estilo visual completamente nuevo con el que desmarcarse de todo lo visto hasta el momento. </p>
+                <div class="d-flex align-items-center mb-3">
+                  <h6 class="mr-3">Consola:</h6>
+                  <div class="row">
+                    <div class="col-sm-1">
+                      <img src="../img/kisspng-playstation-2-logo-playstation-logo-5b2a2f6c44a1e2.0330864515294913082811.png" class="img-fluid" alt="PlayStation">
+                    </div>
+                    <div class="col-sm-1">
+                      <img src="../img/kisspng-black-xbox-360-xbox-one-logo-xbox-5abe7f19c6db83.0322681315224338178145.png" class="img-fluid" alt="XBOX">
+                    </div>
+                    <div class="col-sm-1">
+                      <img src="../img/nintendo_logo.png" class="img-fluid" alt="Nintendo">
+                    </div>
+                  </div>
                 </div>
-                <div class="my-2"></div>
-              </div>
+                <hr>
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                  <div class="d-flex flex-column position-relative">
+                    <span class="original-price">Precio original: S/. 150</span>
+                    <div class="diagonal-line"></div>
+                    <button class="btn">Precio de oferta: S/. 120</button>
+                    <p style="color: #808080; margin-top: 5px;">hasta: 4 de junio de 2023</p>
+                  </div>
+                  <span>Stock: 5</span>
+                </div>
 
+
+
+              </div>
+            </div>
+            <div class="d-flex justify-content-end">
+              <a href="" class="btn btn-primary">Pagar</a>
             </div>
           </div>
         </div>
+
       </div>
     </div>
     <!-- End of Main Content -->
 
     <!-- Footer -->
-    <br>
     <footer class="sticky-footer bg-white">
       <div class="container my-auto">
         <div class="copyright text-center my-auto">
@@ -529,19 +448,6 @@
     </div>
   </div>
 </div>
-
-
-<!-- Earnings (Monthly) Card Example -->
-
-<!-- Pending Requests Card Example -->
-
-<!-- Earnings (Monthly) Card Example -->
-
-<!-- Earnings (Monthly) Card Example -->
-
-
-<!-- Pending Requests Card Example -->
-
 
 <!-- Bootstrap core JavaScript-->
 <script src="../vendor/jquery/jquery.min.js"></script>

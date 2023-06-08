@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="proyecto_base_japyld:war">
+    <output-path>$PROJECT_DIR$/proyecto_base_nuevo_4_junio/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>proyecto_base_japyld</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="proyecto_base_japyld-1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="proyecto_base_japyld:war exploded" />
+    </root>
+  </artifact>
+</component>

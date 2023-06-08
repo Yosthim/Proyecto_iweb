@@ -47,7 +47,7 @@
 
         <!-- Nav Item - Dashboard -->
         <li class="nav-item active">
-            <a class="nav-link" href="index.html">
+            <a class="nav-link" href="<%=request.getContextPath()%>/Pagina-principal">
                 <div class="d-flex flex-column align-items-center">
                     <h5 class="mb-0">Página Principal</h5>
                     <i class="fas fa-fw fa-home"></i>
@@ -307,17 +307,17 @@
                             <i class="fas fa-search fa-sm text-white-50"></i> Seleccionar Categoría
                         </button>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton" style="width: 100%">
-                            <a class="dropdown-item" href="#">Acción</a>
-                            <a class="dropdown-item" href="#">Terror</a>
-                            <a class="dropdown-item" href="#">Aventura</a>
-                            <a class="dropdown-item" href="#">Estrategia</a>
-                            <a class="dropdown-item" href="#">Deportivo</a>
-                            <a class="dropdown-item" href="#">Simulación</a>
-                            <a class="dropdown-item" href="#">Musical</a>
-                            <a class="dropdown-item" href="#">Arcade</a>
-                            <a class="dropdown-item" href="#">Clasico</a>
-                            <a class="dropdown-item" href="#">Infantil</a>
-                            <a class="dropdown-item" href="#">Gestión</a>
+                            <a class="dropdown-item" href="<%=request.getContextPath()%>/Pagina-principal-categoria?idcategoria=ACC">Acción</a>
+                            <a class="dropdown-item" href="<%=request.getContextPath()%>/Pagina-principal-categoria?idcategoria=TER">Terror</a>
+                            <a class="dropdown-item" href="<%=request.getContextPath()%>/Pagina-principal-categoria?idcategoria=AVN">Aventura</a>
+                            <a class="dropdown-item" href="<%=request.getContextPath()%>/Pagina-principal-categoria?idcategoria=EST">Estrategia</a>
+                            <a class="dropdown-item" href="<%=request.getContextPath()%>/Pagina-principal-categoria?idcategoria=DEP">Deportivo</a>
+                            <a class="dropdown-item" href="<%=request.getContextPath()%>/Pagina-principal-categoria?idcategoria=SIM">Simulación</a>
+                            <a class="dropdown-item" href="<%=request.getContextPath()%>/Pagina-principal-categoria?idcategoria=MUS">Musical</a>
+                            <a class="dropdown-item" href="<%=request.getContextPath()%>/Pagina-principal-categoria?idcategoria=ARC">Arcade</a>
+                            <a class="dropdown-item" href="<%=request.getContextPath()%>/Pagina-principal-categoria?idcategoria=CLA">Clasico</a>
+                            <a class="dropdown-item" href="<%=request.getContextPath()%>/Pagina-principal-categoria?idcategoria=INF">Infantil</a>
+                            <a class="dropdown-item" href="<%=request.getContextPath()%>/Pagina-principal-categoria?idcategoria=GES">Gestión</a>
                         </div>
                     </div>
                 </div>
@@ -335,10 +335,10 @@
                                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                             <h6><%=juegos.getNombreJuegos()%></h6>
                                         </div>
-                                        <img src="recursos/img/Legend_of_Zelda.jpg" class="img-fluid" alt="Imagen">
+                                        <img src="<%=juegos.getDireccion_imagen()%>" class="img-fluid" alt="Imagen">
                                         <div class="mt-3">
                                             <p class="mt-2">Precio: S/. <%=juegos.getPrecio()%></p>
-                                            <button class="btn btn-success">Más Detalles</button>
+                                            <a class="btn btn-success" href="<%=request.getContextPath()%>/MasDetallesJuego?idjuego=<%=juegos.getNombreJuegos()%>">Más Detalles</a>
                                         </div>
                                     </div>
                                 </div>
