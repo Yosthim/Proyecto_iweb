@@ -362,7 +362,7 @@
                         <label> <img src="assets/img/profile-1.png" alt="" style="width: 45px; height: 45px;"></label>
                         <div class="d-flex align-items-center">
                           <ul>
-                            <a href="<%=request.getContextPath()%>/MDetallesUsuarioServlet?nm=<%=um.getNombre()%>" style="color:rgb(115,115,115);"><%=um.getNombre() + " " + um.getApellido()%></a>
+                            <a href="<%=request.getContextPath()%>/MDetallesUsuarioServlet?nm=<%=String.valueOf(um.getId())%>" style="color:rgb(115,115,115);"><%=um.getNombre() + " " + um.getApellido()%></a>
                           </ul>
                         </div>
                       </div>

@@ -1,6 +1,8 @@
 <%@ page import="com.example.proyecto_base_japyld.Manager.Models.Beans.MDetallesUsuario" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
+<%@ page import="java.util.ArrayList" %>
+<%ArrayList<MDetallesUsuario> lista1 = (ArrayList<MDetallesUsuario>) request.getAttribute("listaJuegosVendidos");%>
+<%ArrayList<MDetallesUsuario> lista2 = (ArrayList<MDetallesUsuario>) request.getAttribute("listaJuegosComprados");%>
 <jsp:useBean id="e" scope="request" type="MDetallesUsuario"/>
 
 <!DOCTYPE html>
@@ -408,7 +410,7 @@
                                 <h6 class="text-primary" style="color:#31a290;">NOMBRE DE PERFIL</h6>
                                 <div class="d-flex">
                                     <div id="texto-editable" contenteditable="false" class="flex-grow-1 pr-3 custom-textbox">
-                                        <h5 name="nm" id="nm"><b> Nombre: </b> <%=e.getNombre() + " " + e.getApellido()%></h5>
+                                        <h5><b> Nombre: </b> <%=e.getNombre() + " " + e.getApellido()%></h5>
                                         <h5><b> Email: </b> <%=e.getCorreo()%></h5>
                                         <h5><b> Fecha de nacimiento: </b><%=e.getFechaDeNacimiento()%></h5>
                                         <h5><b> DNI: </b> <%=e.getDni()%> </h5>
@@ -474,7 +476,7 @@
                         <div class="col-xl-6 col-md-6 mb-4">
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">LISTA DE JUEGOS COMPRADOS</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">LISTA DE JUEGOS VENDIDO</h6>
                                 </div>
                                 <div class="card-body">
                                     <div class="table-responsive">
@@ -482,11 +484,16 @@
                                             <thead>
                                             <tr>
                                                 <th>NOMBRE DEL JUEGO</th>
-                                                <th>DINERO GASTADO</th>
+                                                <th>DINERO GANADO</th>
                                             </tr>
                                             </thead>
                                             <tbody>
-
+                                            <% for (MDetallesUsuario juegosVendidos : lista1) { %>
+                                            <tr>
+                                                <td><%=juegosVendidos.getNombreJuegos() %></td>
+                                                <td><%=juegosVendidos.getPrecio_admin()%></td>
+                                            </tr>
+                                            <% } %>
                                             </tbody>
                                         </table>
                                     </div>
@@ -509,6 +516,13 @@
                                             </tr>
                                             </thead>
                                             <tbody>
+
+                                            <% for (MDetallesUsuario juegosComprados : lista2) { %>
+                                            <tr>
+                                                <td><%=juegosComprados.getNombreJuegos() %></td>
+                                                <td><%=juegosComprados.getPrecio()%></td>
+                                            </tr>
+                                            <% } %>
 
                                             </tbody>
                                         </table>

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class MDetallesUsuarioDao {
 
-    public MDetallesUsuario detallesUsuario(String n){
+    public MDetallesUsuario detallesUsuario(int n){
 
         MDetallesUsuario perfilUsuario= null;
 
@@ -17,29 +17,30 @@ public class MDetallesUsuarioDao {
             e.printStackTrace();
         }
 
-        String sql = "SELECT nombre, apellido, correo, fechaDeNacimiento, dni, genero, categoriaJuegoPreferida, fechaRegistro, estado FROM personas\n" +
-                "WHERE id_roles = 1 and nombre = ?;";
+        String sql = "SELECT idPersona, nombre, apellido, correo, fechaDeNacimiento, dni, genero, categoriaJuegoPreferida, fechaRegistro, estado FROM personas\n" +
+                "                WHERE id_roles = \"USR\" and idPersona=?;";
 
         String url = "jdbc:mysql://localhost:3306/japyld";
 
         try (Connection connection = DriverManager.getConnection(url, "root", "root");
              PreparedStatement smt = connection.prepareStatement(sql)) {
 
-            smt.setString(1, n);
+            smt.setInt(1, n);
 
             try (ResultSet resultSet = smt.executeQuery()) {
                 while (resultSet.next()) {
                     perfilUsuario = new MDetallesUsuario();
 
-                    perfilUsuario.setNombre(resultSet.getString(1)); // Establece el valor del nombre ingresado en el método
-                    perfilUsuario.setApellido(resultSet.getString(2));
-                    perfilUsuario.setCorreo(resultSet.getString(3));
-                    perfilUsuario.setFechaDeNacimiento(resultSet.getDate(4));
-                    perfilUsuario.setDni(resultSet.getInt(5));
-                    perfilUsuario.setGenero(resultSet.getString(6));
-                    perfilUsuario.setCategoriaJuegoPreferida(resultSet.getString(7));
-                    perfilUsuario.setFechaRegistro(resultSet.getDate(8));
-                    perfilUsuario.setEstado(resultSet.getString(9));
+                    perfilUsuario.setId(resultSet.getInt(1));
+                    perfilUsuario.setNombre(resultSet.getString(2)); // Establece el valor del nombre ingresado en el método
+                    perfilUsuario.setApellido(resultSet.getString(3));
+                    perfilUsuario.setCorreo(resultSet.getString(4));
+                    perfilUsuario.setFechaDeNacimiento(resultSet.getDate(5));
+                    perfilUsuario.setDni(resultSet.getInt(6));
+                    perfilUsuario.setGenero(resultSet.getString(7));
+                    perfilUsuario.setCategoriaJuegoPreferida(resultSet.getString(8));
+                    perfilUsuario.setFechaRegistro(resultSet.getDate(9));
+                    perfilUsuario.setEstado(resultSet.getString(10));
 
                 }
             }
@@ -51,9 +52,10 @@ public class MDetallesUsuarioDao {
     }
 
 
-    public ArrayList<MDetallesUsuario> listarJuegosVendidos(){
+    public ArrayList<MDetallesUsuario> listarJuegosVendidos(int jv){
 
         ArrayList <MDetallesUsuario> listaJuegosVendidos = new ArrayList<>();
+
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -61,35 +63,42 @@ public class MDetallesUsuarioDao {
             e.printStackTrace();
         }
 
-        String sql = "SELECT  j.nombreJuegos, vjg.precio_admin\n" +
-                "FROM personas p, ventajuegosgeneral vjg, juegos j\n" +
-                "where p.idPersona = 1  and p.idPersona = vjg.id_usuario and vjg.estadoVenta = 'Aceptado' and vjg.id_juego = j.idJuegos;";
+        String sql = "SELECT p.idPersona,j.nombreJuegos, vjg.precio_usuario FROM ventajuegosgeneral vjg \n" +
+                "left join personas p on vjg.id_usuario = p.idPersona\n" +
+                "left join juegos_por_consolas jpc on vjg.id_consola = jpc.id_consola\n" +
+                "left join juegos j on jpc.id_juego = j.idJuegos\n" +
+                "where vjg.estadoVenta = \"Aceptado\" and p.idPersona=?;";
 
         String url = "jdbc:mysql://localhost:3306/japyld";
 
         try (Connection connection = DriverManager.getConnection(url, "root", "root");
-             Statement smt = connection.createStatement();
-             ResultSet resultSet = smt.executeQuery(sql)) {
+             PreparedStatement smt = connection.prepareStatement(sql)) {
 
-            while(resultSet.next()){
-                MDetallesUsuario perfilUsuarioVentas = new MDetallesUsuario();
+            smt.setInt(1, jv);
 
-                perfilUsuarioVentas.setNombreJuegos(resultSet.getString(1));
-                perfilUsuarioVentas.setPrecio_admin(resultSet.getBigDecimal(2));
+            try (ResultSet resultSet = smt.executeQuery()) {
+                while (resultSet.next()) {
+                    MDetallesUsuario juegoVendidos = new MDetallesUsuario();
 
-                listaJuegosVendidos.add(perfilUsuarioVentas);
+                    juegoVendidos.setId(resultSet.getInt(1));
+                    juegoVendidos.setNombreJuegos(resultSet.getString(2)); // Establece el valor del nombre ingresado en el método
+                    juegoVendidos.setPrecio_admin(resultSet.getBigDecimal(3));
+
+                    listaJuegosVendidos.add(juegoVendidos);
+                }
             }
-        }catch (SQLException e){
+        }
+        catch (SQLException e){
             throw new RuntimeException(e);
         }
-
         return listaJuegosVendidos;
     }
 
 
-    public ArrayList<MDetallesUsuario> listarJuegosComprados(){
+    public ArrayList<MDetallesUsuario> listarJuegosComprados(int jc){
 
         ArrayList <MDetallesUsuario> listaJuegosComprados = new ArrayList<>();
+
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -97,28 +106,34 @@ public class MDetallesUsuarioDao {
             e.printStackTrace();
         }
 
-        String sql = "SELECT  j.nombreJuegos, j.precio\n" +
-                "FROM personas p, juegoscompradosreservados jcr, juegos j\n" +
-                "where p.idPersona = 1  and p.idPersona = jcr.id_usuario and jcr.estadoCompraJuego = 'Aceptado' and jcr.id_juego = j.idJuegos;";
+        String sql = "SELECT p.idPersona,j.nombreJuegos, j.precio FROM juegoscompradosreservados jcr \n" +
+                "left join personas p on jcr.id_usuario = p.idPersona\n" +
+                "left join juegos_por_consolas jpc on jcr.id_consola = jpc.id_consola\n" +
+                "left join juegos j on jpc.id_juego = j.idJuegos\n" +
+                "where jcr.estadoCompraJuego = \"Comprado\" and p.idPersona=?;";
 
         String url = "jdbc:mysql://localhost:3306/japyld";
 
         try (Connection connection = DriverManager.getConnection(url, "root", "root");
-             Statement smt = connection.createStatement();
-             ResultSet resultSet = smt.executeQuery(sql)) {
+             PreparedStatement smt = connection.prepareStatement(sql)) {
 
-            while(resultSet.next()){
-                MDetallesUsuario perfilUsuarioCompras = new MDetallesUsuario();
+            smt.setInt(1, jc);
 
-                perfilUsuarioCompras.setNombreJuegos(resultSet.getString(1));
-                perfilUsuarioCompras.setPrecio(resultSet.getBigDecimal(2));
+            try (ResultSet resultSet = smt.executeQuery()) {
+                while (resultSet.next()) {
+                    MDetallesUsuario juegoComprados = new MDetallesUsuario();
 
-                listaJuegosComprados.add(perfilUsuarioCompras);
+                    juegoComprados.setId(resultSet.getInt(1));
+                    juegoComprados.setNombreJuegos(resultSet.getString(2)); // Establece el valor del nombre ingresado en el método
+                    juegoComprados.setPrecio(resultSet.getBigDecimal(3));
+
+                    listaJuegosComprados.add(juegoComprados);
+                }
             }
-        }catch (SQLException e){
+        }
+        catch (SQLException e){
             throw new RuntimeException(e);
         }
-
         return listaJuegosComprados;
     }
 }
