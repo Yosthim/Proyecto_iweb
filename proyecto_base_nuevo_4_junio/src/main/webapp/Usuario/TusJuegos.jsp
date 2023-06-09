@@ -1,4 +1,5 @@
-<%--
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="com.example.proyecto_base_japyld.Usuario.Models.Beans.JuegoComRes" %><%--
   Created by IntelliJ IDEA.
   User: Labtel
   Date: 8/06/2023
@@ -6,6 +7,9 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    ArrayList<JuegoComRes> listaJuegos = (ArrayList<JuegoComRes>) request.getAttribute("listaJuegos");
+%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -405,21 +409,31 @@
                             </div>
                         </div>
                         <div class="row mt-4 mb-3">
-                            <div class="col-xl-3 mb-2">
-                                <div class="card border-left-success shadow h-100 py-2">
-                                    <div class="card-header">
-                                        <h5 class="mb-0 font-weight-bold text-success">
-                                            Comprado
-                                        </h5>
-                                    </div>
-                                    <div class="card-body justify-content-center">
-                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                            <h6>The Legend of Zelda</h6>
+                            <% for (JuegoComRes juego: listaJuegos) { %>
+                                <%
+                                    String info;
+                                    if (juego.getEstado().equals("reservado")) {
+                                        info = "warning";
+                                    } else {
+                                        info = "success";
+                                    }
+                                %>
+                                <div class="col-xl-3 mb-2">
+                                    <div class="card border-left-<%=info%> shadow h-100 py-2">
+                                        <div class="card-header">
+                                            <h5 class="mb-0 font-weight-bold text-<%=info%>">
+                                                <%=juego.getEstado()%>
+                                            </h5>
                                         </div>
-                                        <img src="../img/Legend_of_Zelda.jpg" class="img-fluid" alt="Imagen">
+                                        <div class="card-body justify-content-center">
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                <h6><%=juego.getNombre()%></h6>
+                                            </div>
+                                            <img src="<%=juego.getDireccionImagen()%>>" class="img-fluid" alt="Imagen">
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            <% } %>
                             <div class="col-xl-3 mb-2">
                                 <div class="card border-left-warning shadow h-100 py-2">
                                     <div class="card-header">
