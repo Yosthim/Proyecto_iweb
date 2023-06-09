@@ -468,7 +468,7 @@
                                 <td class="text-center"><%=j.getCategoria().getNombre()%></td>
                                 <td class="text-center"><%=j.getStock()%></td>
                                 <td class="text-center">
-                                  <a class="btn btn-primary" href="adminEditVideojuegos.html">
+                                  <a class="btn btn-primary" href="<%=request.getContextPath()%>/EditarJuegos?idjuego=<%=j.getIdJuegos()%>">
                                     Editar
                                   </a>
                                 </td>

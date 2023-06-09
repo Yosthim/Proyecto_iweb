@@ -1,5 +1,5 @@
 package com.example.proyecto_base_japyld.Admin.Models.Daos;
-import com.example.proyecto_base_japyld.Admin.Models.beans.JuegosReservadosDias;
+import com.example.proyecto_base_japyld.Admin.Models.JuegosReservadosDias;
 
 import java.sql.*;
 import java.util.ArrayList;

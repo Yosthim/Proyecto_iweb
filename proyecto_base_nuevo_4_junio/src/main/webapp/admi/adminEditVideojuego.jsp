@@ -1,11 +1,9 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: jossr
-  Date: 4/06/2023
-  Time: 23:11
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="com.example.proyecto_base_japyld.Admin.Models.Beans.JuegosEBean" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+<% ArrayList<JuegosEBean> listaJuegoEditar  =(ArrayList<JuegosEBean>) request.getAttribute("listaJuegoEditar");%>
 <html lang="en">
 
 <head>
@@ -40,13 +38,13 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
   <!-- Custom fonts for this template-->
-  <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="recursos/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link
           href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
           rel="stylesheet">
 
   <!-- Custom styles for this template-->
-  <link href="../css/sb-admin-2.min.css" rel="stylesheet">
+  <link href="recursos/css/sb-admin-2.min.css" rel="stylesheet">
 
 </head>
 
@@ -339,6 +337,7 @@
 
 
             <div class="row">
+              <% for (JuegosEBean juego : listaJuegoEditar) {%>
               <div class="col-xl-4">
                 <!-- Profile picture card-->
                 <div class="card mb-4 mb-xl-0">
@@ -346,7 +345,7 @@
                   <div class="card-body text-center">
                     <!-- Profile picture image-->
 
-                    <img class="img-account-profile mb-2" src="../img/Legend_of_Zelda.jpg" alt="">
+                    <img class="img-account-profile mb-2" src="<%=juego.getDireccion_imagen()%>" alt="">
                     <!-- Profile picture help block-->
                     <div class="small font-italic text-muted mb-4">JPG or PNG no larger than 5 MB</div>
                     <!-- Profile picture upload button-->
@@ -358,7 +357,7 @@
                     <br>
                     <h6 class="text-primary" style="color:#31a290;">PRECIO</h6>
                     <div class="d-flex">
-                      <div id="texto-editable3" contenteditable="false" class="flex-grow-1 pr-3 custom-textbox">S/ 170</div>
+                      <div id="texto-editable3" contenteditable="false" class="flex-grow-1 pr-3 custom-textbox">S/ <%=juego.getPrecio()%></div>
                       <div>
                         <button id="editar-btn3" class="btn btn-primary"><i class="fas fa-edit"></i></button>
                         <button id="guardar-btn3" class="btn btn-success" style="display: none;"><i class="fas fa-save"></i></button>
@@ -408,7 +407,7 @@
                     <br>
                     <h6 class="text-primary" style="color:#31a290;">NOMBRE DEL JUEGO</h6>
                     <div class="d-flex">
-                      <div id="texto-editable" contenteditable="false" class="flex-grow-1 pr-3 custom-textbox"><b>THE LAST OF US</b></div>
+                      <div id="texto-editable" contenteditable="false" class="flex-grow-1 pr-3 custom-textbox"><b><%=juego.getJuegoNombre()%></b></div>
                       <div>
                         <button id="editar-btn" class="btn btn-primary"><i class="fas fa-edit"></i></button>
                         <button id="guardar-btn" class="btn btn-success" style="display: none;"><i class="fas fa-save"></i></button>
@@ -451,7 +450,7 @@
                     <br>
                     <h6 class="text-primary" style="color:#31a290;">DESCRIPCIÓN DEL JUEGO</h6>
                     <div class="d-flex">
-                      <div id="texto-editable2" contenteditable="false" class="flex-grow-1 pr-3 custom-textbox">The Last of Us es un videojuego de terror, acción y aventura. La trama describe las vivencias de Joel y Ellie, un par de supervivientes de una pandemia en Estados Unidos que provoca la mutación de los seres humanos en criaturas caníbales.</div>
+                      <div id="texto-editable2" contenteditable="false" class="flex-grow-1 pr-3 custom-textbox"><%=juego.getDescripcion()%></div>
                       <div>
                         <button id="editar-btn2" class="btn btn-primary"><i class="fas fa-edit"></i></button>
                         <button id="guardar-btn2" class="btn btn-success" style="display: none;"><i class="fas fa-save"></i></button>
@@ -498,11 +497,7 @@
                     <h6 class="text-primary" style="color:#31a290;">CATEGORÍA DE JUEGO</h6>
                     <br>
                     <div class="text-center">
-                      <button class="btn btn-info" type="button">ACCIÓN</button>
-                      <button class="btn btn-info" type="button">ARCADE</button>
-                      <button class="btn btn-info" type="button">ESTRATEGIA</button>
-                      <button class="btn btn-info" type="button">TERROR</button>
-                      <button class="btn btn-info" type="button">CARRERA</button>
+                      <button class="btn btn-info" type="button"><%=juego.getCategoria()%></button>
                     </div>
 
                     <br>
@@ -536,6 +531,7 @@
                   </div>
                 </div>
               </div>
+              <%}%>
             </div>
           </div>
         </main>
@@ -598,21 +594,21 @@
 
 
 <!-- Bootstrap core JavaScript-->
-<script src="../vendor/jquery/jquery.min.js"></script>
-<script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="recursos/vendor/jquery/jquery.min.js"></script>
+<script src="recursos/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 <!-- Core plugin JavaScript-->
-<script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
+<script src="recursos/vendor/jquery-easing/jquery.easing.min.js"></script>
 
 <!-- Custom scripts for all pages-->
-<script src="../js/sb-admin-2.min.js"></script>
+<script src="recursos/js/sb-admin-2.min.js"></script>
 
 <!-- Page level plugins -->
-<script src="../vendor/chart.js/Chart.min.js"></script>
+<script src="recursos/vendor/chart.js/Chart.min.js"></script>
 
 <!-- Page level custom scripts -->
-<script src="../js/demo/chart-area-demo.js"></script>
-<script src="../js/demo/chart-pie-demo.js"></script>
+<script src="recursos/js/demo/chart-area-demo.js"></script>
+<script src="recursos/js/demo/chart-pie-demo.js"></script>
 
 </body>
 

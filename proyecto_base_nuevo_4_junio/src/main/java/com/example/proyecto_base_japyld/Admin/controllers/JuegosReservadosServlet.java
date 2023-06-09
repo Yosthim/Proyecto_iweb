@@ -1,7 +1,7 @@
 package com.example.proyecto_base_japyld.Admin.controllers;
 
 import com.example.proyecto_base_japyld.Admin.Models.Daos.JuegosReservadosDaos;
-import com.example.proyecto_base_japyld.Admin.Models.beans.JuegosReservadosDias;
+import com.example.proyecto_base_japyld.Admin.Models.JuegosReservadosDias;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
@@ -13,6 +13,8 @@ import java.util.ArrayList;
 public class JuegosReservadosServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        JuegosReservadosDias J30 =new JuegosReservadosDias();
         JuegosReservadosDaos juegosReservadosDaos = new JuegosReservadosDaos();
         request.setAttribute("lista30dias", juegosReservadosDaos.tabla30Dias());
         request.setAttribute("lista20dias", juegosReservadosDaos.tabla20Dias());

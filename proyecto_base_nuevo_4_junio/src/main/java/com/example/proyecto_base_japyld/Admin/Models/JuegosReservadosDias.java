@@ -1,7 +1,8 @@
-package com.example.proyecto_base_japyld.Admin.Models.beans;
-
+package com.example.proyecto_base_japyld.Admin.Models;
 
 public class JuegosReservadosDias {
+
+
     private String nombreJuegos;
     private String nombre;
     private int fechaCompraJuego;
