@@ -1,5 +1,5 @@
 package com.example.proyecto_base_japyld.Admin.Models.Daos;
-
+import com.example.proyecto_base_japyld.Admin.Models.Beans.Juegos;
 import com.example.proyecto_base_japyld.Admin.controllers.BaseDao;
 import com.example.proyecto_base_japyld.models.beans.*;
 
@@ -68,6 +68,7 @@ public class AdminDao extends BaseDao {
 
                 VentaJuegosGeneral venta = new VentaJuegosGeneral();
                 venta.setIdVenta(resultSet.getInt(1));
+                venta.setEstadoVenta(resultSet.getString(2));
                 venta.setPrecioUsuario(resultSet.getBigDecimal(5));
 
                 Personas usuario = new Personas();
@@ -159,7 +160,7 @@ public class AdminDao extends BaseDao {
                 Juegos juego =new Juegos();
                 juego.setIdJuegos(resultSet.getInt(1));
                 juego.setNombreJuegos((resultSet.getString(2)));
-                juego.setPrecio(resultSet.getBigDecimal(4));
+                juego.setPrecio(resultSet.getDouble(4));
                 juego.setStock(resultSet.getInt(3));
 
                 Categoria categoria = new Categoria();

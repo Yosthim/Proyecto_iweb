@@ -1,8 +1,8 @@
 package com.example.proyecto_base_japyld.Manager.Models.Daos;
 
+import com.example.proyecto_base_japyld.Admin.Models.beans.Objetivos;
+import com.example.proyecto_base_japyld.Admin.Models.beans.Personas;
 import com.example.proyecto_base_japyld.Admin.controllers.BaseDao;
-import com.example.proyecto_base_japyld.models.beans.Objetivos;
-import com.example.proyecto_base_japyld.models.beans.Personas;
 
 import java.sql.Connection;
 import java.sql.ResultSet;

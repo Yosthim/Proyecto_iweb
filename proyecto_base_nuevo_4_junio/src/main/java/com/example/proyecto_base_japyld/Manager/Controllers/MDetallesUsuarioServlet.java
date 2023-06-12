@@ -15,11 +15,11 @@ public class MDetallesUsuarioServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         MDetallesUsuarioDao perfilUsuarioDao = new MDetallesUsuarioDao();
 
-        String nombre = request.getParameter("nm");
+        String id = request.getParameter("nm");
 
-        request.setAttribute("e", perfilUsuarioDao.detallesUsuario(nombre));
-        request.setAttribute("listaJuegosVendidos", perfilUsuarioDao.listarJuegosVendidos());
-        request.setAttribute("listaJuegosComprados", perfilUsuarioDao.listarJuegosComprados());
+        request.setAttribute("e", perfilUsuarioDao.detallesUsuario(Integer.parseInt(id)));
+        request.setAttribute("listaJuegosVendidos", perfilUsuarioDao.listarJuegosVendidos(Integer.parseInt(id)));
+        request.setAttribute("listaJuegosComprados", perfilUsuarioDao.listarJuegosComprados( Integer.parseInt(id)));
 
         request.getRequestDispatcher("Manager/MDetallesUsuario.jsp").forward(request, response);
     }

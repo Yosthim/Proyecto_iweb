@@ -1,4 +1,6 @@
-<%--
+<%@ page import="com.example.proyecto_base_japyld.Admin.Models.Daos.JuegosReservadosDaos" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="com.example.proyecto_base_japyld.Admin.Models.beans.JuegosReservadosDias" %><%--
   Created by IntelliJ IDEA.
   User: jossr
   Date: 5/06/2023
@@ -6,6 +8,10 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%ArrayList<JuegosReservadosDias> lista30dias  = (ArrayList<JuegosReservadosDias>) request.getAttribute("lista30dias");%>
+<%ArrayList<JuegosReservadosDias> lista20dias  = (ArrayList<JuegosReservadosDias>) request.getAttribute("lista20dias");%>
+<%ArrayList<JuegosReservadosDias> lista10dias  = (ArrayList<JuegosReservadosDias>) request.getAttribute("lista10dias");%>
+
 <html lang="en">
 
 <head>
@@ -61,7 +67,7 @@
   <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<%=request.getContextPath()%>/AdminServlet?action=lista">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="adminPaginaInicio.html">
       <div class="sidebar-brand-icon rotate-n-15">
         <i class="fas fa-laugh-wink"></i>
       </div>
@@ -80,7 +86,7 @@
 
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
-      <a class="nav-link" href="<%=request.getContextPath()%>/AdminServlet?action=lista">
+      <a class="nav-link" href="<%=request.getContextPath()%>/AdminServlet">
         <i class="fas fa-home"></i>
         <span>Inicio</span></a>
     </li>
@@ -357,32 +363,17 @@
                                 </thead>
 
                                 <tbody class = "text-danger">
+                                <%
+                                  for(JuegosReservadosDias jr : lista30dias){
+                                %>
                                 <tr>
-                                  <td class="text-center">PlayStation 4</td>
-                                  <td class="text-center">Ana</td>
-                                  <td class="text-center">35</td>
+                                  <th scope="row" style="color: #666666;"><%= jr.getNombreJuegos()%></th>
+                                  <td><%=jr.getNombre()%></td>
+                                  <td><%=jr.getFechaCompraJuego()%></td>
                                 </tr>
-                                <tr>
-                                  <td class="text-center">PlayStation 5</td>
-                                  <td class="text-center">Maria</td>
-                                  <td class="text-center">35</td>
-                                </tr>
-                                <tr>
-                                  <td class="text-center">Xbox</td>
-                                  <td class="text-center">Juan</td>
-                                  <td class="text-center">35</td>
-                                </tr>
-                                <tr>
-                                  <td class="text-center">Nintendo Switch</td>
-                                  <td class="text-center">Esteban</td>
-                                  <td class="text-center">35</td>
-                                </tr>
-                                <tr>
-                                  <td class="text-center">Teclado/PC</td>
-                                  <td class="text-center">Luis</td>
-                                  <td class="text-center">35</td>
-                                </tr>
-
+                                <%
+                                  }
+                                %>
                                 </tbody>
                               </table>
                             </div>
@@ -422,32 +413,17 @@
                                 </thead>
 
                                 <tbody class="text-warning" >
+                                <%
+                                  for(JuegosReservadosDias jr2 : lista20dias){
+                                %>
                                 <tr>
-                                  <td class="text-center">PlayStation 4</td>
-                                  <td class="text-center">Ana</td>
-                                  <td class="text-center">15</td>
+                                  <th scope="row" style="color: #666666;"><%= jr2.getNombreJuegos()%></th>
+                                  <td><%=jr2.getNombre()%></td>
+                                  <td><%=jr2.getFechaCompraJuego()%></td>
                                 </tr>
-                                <tr>
-                                  <td class="text-center">PlayStation 5</td>
-                                  <td class="text-center">Maria</td>
-                                  <td class="text-center">15</td>
-                                </tr>
-                                <tr>
-                                  <td class="text-center">Xbox</td>
-                                  <td class="text-center">Juan</td>
-                                  <td class="text-center">15</td>
-                                </tr>
-                                <tr>
-                                  <td class="text-center">Nintendo Switch</td>
-                                  <td class="text-center">Esteban</td>
-                                  <td class="text-center">15</td>
-                                </tr>
-                                <tr>
-                                  <td class="text-center">Teclado/PC</td>
-                                  <td class="text-center">Luis</td>
-                                  <td class="text-center">15</td>
-                                </tr>
-
+                                <%
+                                  }
+                                %>
                                 </tbody>
                               </table>
                             </div>
@@ -488,32 +464,17 @@
                               </thead>
 
                               <tbody>
+                              <%
+                                for(JuegosReservadosDias jr2 : lista10dias){
+                              %>
                               <tr>
-                                <td class="text-center">PlayStation 4</td>
-                                <td class="text-center">Ana</td>
-                                <td class="text-center">5</td>
+                                <th scope="row" style="color: #666666;"><%= jr2.getNombreJuegos()%></th>
+                                <td><%=jr2.getNombre()%></td>
+                                <td><%=jr2.getFechaCompraJuego()%></td>
                               </tr>
-                              <tr>
-                                <td class="text-center">PlayStation 5</td>
-                                <td class="text-center">Maria</td>
-                                <td class="text-center">5</td>
-                              </tr>
-                              <tr>
-                                <td class="text-center">Xbox</td>
-                                <td class="text-center">Juan</td>
-                                <td class="text-center">5</td>
-                              </tr>
-                              <tr>
-                                <td class="text-center">Nintendo Switch</td>
-                                <td class="text-center">Esteban</td>
-                                <td class="text-center">5</td>
-                              </tr>
-                              <tr>
-                                <td class="text-center">Teclado/PC</td>
-                                <td class="text-center">Luis</td>
-                                <td class="text-center">5</td>
-                              </tr>
-
+                              <%
+                                }
+                              %>
                               </tbody>
                             </table>
                           </div>

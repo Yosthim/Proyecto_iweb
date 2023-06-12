@@ -1,5 +1,5 @@
 package com.example.proyecto_base_japyld.models.beans;
-
+import com.example.proyecto_base_japyld.Admin.Models.Beans.Juegos;
 import java.util.Date;
 
 public class JuegosCompradosReservados {

@@ -1,4 +1,4 @@
-<%@ page import="com.example.proyecto_base_japyld.models.beans.Juegos" %>
+<%@ page import="com.example.proyecto_base_japyld.Admin.Models.Beans.Juegos" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.example.proyecto_base_japyld.models.beans.JuegosCompradosReservados" %>
 <%@ page import="com.example.proyecto_base_japyld.models.beans.VentaJuegosGeneral" %><%--
@@ -345,12 +345,12 @@
                                 </thead>
                                 <tbody>
                                 <%
-                                  for(JuegosCompradosReservados j :ultimasCompras){
+                                  for(VentaJuegosGeneral j : ventas){
                                 %>
                                 <tr>
                                   <th scope="row" style="color: #666666;"><%=j.getJuego().getNombreJuegos()%></th>
                                   <td><%=j.getUsuario().getNombre()%></td>
-                                  <td><%=j.getEstadoCompraJuego()%></td>
+                                  <td><%=j.getEstadoVenta()%></td>
                                 </tr>
                                 <%
                                   }
