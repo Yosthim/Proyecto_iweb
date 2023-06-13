@@ -10,13 +10,13 @@ public class Categoria {
     }
 
     public String getNombre() {
-        return nombre;
+        return nombreCategoria;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setNombre(String nombreCategoria) {
+        this.nombreCategoria = nombreCategoria;
     }
 
     private String idCategorias;
-    private String nombre;
+    private String nombreCategoria;
 }

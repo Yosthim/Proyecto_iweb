@@ -36,14 +36,6 @@ public class Objetivos {
         this.usuarioPorMes = usuarioPorMes;
     }
 
-    public int getIdManager() {
-        return idManager;
-    }
-
-    public void setIdManager(int idManager) {
-        this.idManager = idManager;
-    }
-
     public Date getFecha() {
         return fecha;
     }
@@ -56,6 +48,14 @@ public class Objetivos {
     private BigDecimal ventasPorMesJuego;
     private BigDecimal gastosPorMesJuego;
     private int usuarioPorMes;
-    private int idManager;
+    private Personas personaManager;
     private Date fecha;
+
+    public Personas getPersonaManager() {
+        return personaManager;
+    }
+
+    public void setPersonaManager(Personas personaManager) {
+        this.personaManager = personaManager;
+    }
 }

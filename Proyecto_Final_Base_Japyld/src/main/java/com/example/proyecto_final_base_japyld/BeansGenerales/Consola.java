@@ -10,13 +10,13 @@ public class Consola {
     }
 
     public String getNombre() {
-        return nombre;
+        return nombreConsola;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setNombre(String nombreConsola) {
+        this.nombreConsola = nombreConsola;
     }
 
     private String idConsola;
-    private String nombre;
+    private String nombreConsola;
 }

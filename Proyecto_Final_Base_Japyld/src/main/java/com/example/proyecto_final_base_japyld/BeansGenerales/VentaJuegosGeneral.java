@@ -1,6 +1,6 @@
 package com.example.proyecto_final_base_japyld.BeansGenerales;
 
-import com.example.proyecto_base_japyld.Admin.Models.Beans.Juegos;
+import com.example.proyecto_final_base_japyld.BeansGenerales.Juegos;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -108,4 +108,42 @@ public class VentaJuegosGeneral {
     private Personas administrador;
     private Juegos juego;
     private Consola consola;
+
+    private String descripcionNueva;
+    private String nombreNuevo;
+    private Byte[] imagenNueva;
+
+    private int cantidad;
+
+    public String getDescripcionNueva() {
+        return descripcionNueva;
+    }
+
+    public void setDescripcionNueva(String descripcionNueva) {
+        this.descripcionNueva = descripcionNueva;
+    }
+
+    public String getNombreNuevo() {
+        return nombreNuevo;
+    }
+
+    public void setNombreNuevo(String nombreNuevo) {
+        this.nombreNuevo = nombreNuevo;
+    }
+
+    public Byte[] getImagenNueva() {
+        return imagenNueva;
+    }
+
+    public void setImagenNueva(Byte[] imagenNueva) {
+        this.imagenNueva = imagenNueva;
+    }
+
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
+    }
 }

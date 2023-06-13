@@ -1,6 +1,6 @@
 package com.example.proyecto_final_base_japyld.BeansGenerales;
 
-import com.example.proyecto_base_japyld.Admin.Models.Beans.Juegos;
+import com.example.proyecto_final_base_japyld.BeansGenerales.Juegos;
 
 import java.util.Date;
 
@@ -78,4 +78,14 @@ public class JuegosCompradosReservados {
     private Personas administrador;
     private Juegos juego;
     private Consola consola;
+
+    private int precio_compra;
+
+    public int getPrecio_compra() {
+        return precio_compra;
+    }
+
+    public void setPrecio_compra(int precio_compra) {
+        this.precio_compra = precio_compra;
+    }
 }
