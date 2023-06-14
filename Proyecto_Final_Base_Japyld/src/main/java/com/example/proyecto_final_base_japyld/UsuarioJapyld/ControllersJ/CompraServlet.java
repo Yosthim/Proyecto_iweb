@@ -1,8 +1,7 @@
-package com.example.proyecto_base_japyld.Usuario.Controllers;
+package com.example.proyecto_final_base_japyld.UsuarioJapyld.ControllersJ;
 
+import com.example.proyecto_final_base_japyld.UsuarioJapyld.ModelsJ.DaosJ.CompraDao;
 
-import com.example.proyecto_base_japyld.Usuario.Models.Daos.CompraDao;
-import com.example.proyecto_base_japyld.Usuario.Models.Daos.MasDetallesDao;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -20,7 +19,7 @@ public class CompraServlet extends HttpServlet {
         int idjuego = Integer.parseInt(request.getParameter("idjuego"));
 
         request.setAttribute("listaDetallesCompra", comprajuego.listarDetallesCompra(idjuego));
-        RequestDispatcher view = request.getRequestDispatcher("Usuario/PaginaCompra.jsp");
+        RequestDispatcher view = request.getRequestDispatcher("UsuarioJapyld/PaginaCompra.jsp");
         view.forward(request,response);
     }
 

@@ -1,6 +1,7 @@
-package com.example.proyecto_base_japyld.Usuario.Controllers;
+package com.example.proyecto_final_base_japyld.UsuarioJapyld.ControllersJ;
 
-import com.example.proyecto_base_japyld.Usuario.Models.Daos.MasDetallesDao;
+import com.example.proyecto_final_base_japyld.UsuarioJapyld.ModelsJ.DaosJ.MasDetallesDao;
+
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -18,7 +19,7 @@ public class MasDetallesServlet extends HttpServlet {
         String idjuego = request.getParameter("idjuego");
 
         request.setAttribute("listaMasDetallesJuego", masdetallesdao.listarMasDetallesJuego(idjuego));
-        RequestDispatcher view = request.getRequestDispatcher("Usuario/MasDetallesJuego.jsp");
+        RequestDispatcher view = request.getRequestDispatcher("UsuarioJapyld/MasDetallesJuego.jsp");
         view.forward(request,response);
     }
 
