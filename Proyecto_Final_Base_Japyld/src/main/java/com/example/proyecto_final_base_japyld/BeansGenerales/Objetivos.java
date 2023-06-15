@@ -12,19 +12,19 @@ public class Objetivos {
         this.idObjetivos = idObjetivos;
     }
 
-    public BigDecimal getVentasPorMesJuego() {
+    public int getVentasPorMesJuego() {
         return ventasPorMesJuego;
     }
 
-    public void setVentasPorMesJuego(BigDecimal ventasPorMesJuego) {
+    public void setVentasPorMesJuego(int ventasPorMesJuego) {
         this.ventasPorMesJuego = ventasPorMesJuego;
     }
 
-    public BigDecimal getGastosPorMesJuego() {
+    public int getGastosPorMesJuego() {
         return gastosPorMesJuego;
     }
 
-    public void setGastosPorMesJuego(BigDecimal gastosPorMesJuego) {
+    public void setGastosPorMesJuego(int gastosPorMesJuego) {
         this.gastosPorMesJuego = gastosPorMesJuego;
     }
 
@@ -45,8 +45,8 @@ public class Objetivos {
     }
 
     private int idObjetivos;
-    private BigDecimal ventasPorMesJuego;
-    private BigDecimal gastosPorMesJuego;
+    private int ventasPorMesJuego;
+    private int gastosPorMesJuego;
     private int usuarioPorMes;
     private Personas personaManager;
     private Date fecha;
