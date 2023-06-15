@@ -11,14 +11,14 @@ public class Roles {
         this.rol = rol;
     }
 
-    private int idRoles;
+    private String idRoles;
     private String rol;
 
-    public int getIdRoles() {
+    public String getIdRoles() {
         return idRoles;
     }
 
-    public void setIdRoles(int idRoles) {
+    public void setIdRoles(String idRoles) {
         this.idRoles = idRoles;
     }
 }

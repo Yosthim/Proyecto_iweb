@@ -16,10 +16,10 @@ public class PaginaPrincipalDao {
             e.printStackTrace();
         }
 
-        String sql = "select idJuegos,nombreJuegos,precio,direccion_archivo \n" +
-                "from juegos j \n" +
-                "inner join imagenes i on j.id_imagen = i.idImagenes\n" +
-                "where j.estadoJuego = \"Activo\";";
+        String sql = "select idJuegos,nombreJuegos,precio,direccion_archivo\n" +
+                "                from juegos j\n" +
+                "                inner join imagenes i on j.id_imagen = i.idImagenes\n" +
+                "                where j.estadoJuego = \"Activo\" or j.estadoJuego = \"Oferta\";";
         String url = "jdbc:mysql://localhost:3306/japyld";
         try (Connection connection = DriverManager.getConnection(url, "root", "root");
              Statement stmt = connection.createStatement();

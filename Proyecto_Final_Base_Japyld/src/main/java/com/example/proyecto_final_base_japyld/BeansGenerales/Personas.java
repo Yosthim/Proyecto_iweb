@@ -22,12 +22,12 @@ public class Personas {
         this.correo = correo;
     }
 
-    public String getContraseña() {
-        return contraseña;
+    public String getContrasenia() {
+        return contrasenia;
     }
 
-    public void setContraseña(String contraseña) {
-        this.contraseña = contraseña;
+    public void setContrasenia(String contrasenia) {
+        this.contrasenia = contrasenia;
     }
 
     public String getNombre() {
@@ -110,7 +110,7 @@ public class Personas {
         this.imagen = imagen;
     }
 
-    private String contraseña;
+    private String contrasenia;
     private String nombre;
     private String apellido;
     private Date fechaDeNacimiento;
@@ -121,4 +121,14 @@ public class Personas {
     private  String estado;
     private Roles rol;
     private Imagen imagen;
+
+    private String hashcontrasenia;
+
+    public String getHashcontrasenia() {
+        return hashcontrasenia;
+    }
+
+    public void setHashcontrasenia(String hashcontrasenia) {
+        this.hashcontrasenia = hashcontrasenia;
+    }
 }
