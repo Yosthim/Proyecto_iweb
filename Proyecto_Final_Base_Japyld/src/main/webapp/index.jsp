@@ -65,7 +65,7 @@
                                         <div class = "col-sm-auto">
                                             <a href = "<%=request.getContextPath()%>/PaginaPrincipal" class="btn btn-outline-info">Usuario</a>
                                             <a href = "<%=request.getContextPath()%>/AdminServlet" class="btn btn-outline-info">Admin</a>
-                                            <a href = "<%=request.getContextPath()%>/ManServlet" class="btn btn-outline-info">Manager</a>
+                                            <a href = "<%=request.getContextPath()%>/ManagerServlet" class="btn btn-outline-info">Manager</a>
                                         </div>
                                     </div>
 
