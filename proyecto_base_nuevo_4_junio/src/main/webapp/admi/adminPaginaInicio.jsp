@@ -1,5 +1,7 @@
-<%@ page import="com.example.proyecto_base_japyld.Admin.Models.beans.Juegos" %>
-<%@ page import="java.util.ArrayList" %><%--
+<%@ page import="com.example.proyecto_base_japyld.Admin.Models.Beans.Juegos" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="com.example.proyecto_base_japyld.models.beans.JuegosCompradosReservados" %>
+<%@ page import="com.example.proyecto_base_japyld.models.beans.VentaJuegosGeneral" %><%--
   Created by IntelliJ IDEA.
   User: jossr
   Date: 4/06/2023
@@ -8,10 +10,10 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-  ArrayList<Juegos> lista  =(ArrayList<Juegos>) request.getAttribute("lista");
+  ArrayList<JuegosCompradosReservados> ultimasCompras = (ArrayList<JuegosCompradosReservados>) request.getAttribute("ultimasCompras");
 %>
 <%
-  ArrayList<Juegos> lista1  =(ArrayList<Juegos>) request.getAttribute("lista1");
+  ArrayList<VentaJuegosGeneral> ventas = (ArrayList<VentaJuegosGeneral>) request.getAttribute("ventas");
 %>
 <html lang="en">
 
@@ -81,7 +83,7 @@
     </li>
     <!-- Nav Item - Charts -->
     <li class="nav-item">
-      <a class="nav-link" href="OfertasAdmi.html">
+      <a class="nav-link" href="<%=request.getContextPath()%>/AdminServlet?action=listaPaginaOfertas">
         <i class="far fa-money-bill-alt"></i>
         <span>Ofertas</span></a>
     </li>
@@ -343,12 +345,12 @@
                                 </thead>
                                 <tbody>
                                 <%
-                                  for(Juegos j : lista){
+                                  for(VentaJuegosGeneral j : ventas){
                                 %>
                                 <tr>
-                                  <th scope="row" style="color: #666666;"><%=j.getIdJuegos()%></th>
-                                  <td>Joselin</td>
-                                  <td>Vendido</td>
+                                  <th scope="row" style="color: #666666;"><%=j.getJuego().getNombreJuegos()%></th>
+                                  <td><%=j.getUsuario().getNombre()%></td>
+                                  <td><%=j.getEstadoVenta()%></td>
                                 </tr>
                                 <%
                                   }
@@ -387,12 +389,12 @@
                                 </thead>
                                 <tbody>
                                 <%
-                                  for(Juegos j : lista1){
+                                  for(VentaJuegosGeneral v : ventas){
                                 %>
                                 <tr>
-                                  <th scope="row" style="color: #666666;"><%=j.getNombreJuegos()%></th>
-                                  <td>Joselin</td>
-                                  <td>Vendido</td>
+                                  <th scope="row" style="color: #666666;"><%=v.getJuego().getNombreJuegos()%></th>
+                                  <td><%=v.getUsuario().getNombre()%></td>
+                                  <td><%=v.getPrecioUsuario()%></td>
                                 </tr>
                                 <%
                                   }

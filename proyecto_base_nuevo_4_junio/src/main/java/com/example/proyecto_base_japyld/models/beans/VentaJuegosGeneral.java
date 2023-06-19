@@ -1,5 +1,7 @@
 package com.example.proyecto_base_japyld.models.beans;
 
+import com.example.proyecto_base_japyld.Admin.Models.Beans.Juegos;
+
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -8,6 +10,8 @@ public class VentaJuegosGeneral {
     private Date fechaPublicacion;
     private String estadoVenta;
     private String razonRechazo;
+
+
 
     public int getIdVenta() {
         return idVenta;

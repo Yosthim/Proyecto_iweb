@@ -1,4 +1,6 @@
-package com.example.proyecto_base_japyld.Admin.Models.beans;
+package com.example.proyecto_base_japyld.Admin.Models.Beans;
+
+import com.example.proyecto_base_japyld.models.beans.Categoria;
 
 public class Juegos {
     private int idJuegos;
@@ -9,6 +11,8 @@ public class Juegos {
     private String descripcion;
     private int id_imagen;
     private int id_categoria;
+
+    private Categoria categoria;
 
     public int getIdJuegos() {
         return idJuegos;
@@ -75,4 +79,11 @@ public class Juegos {
     }
 
 
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
+    }
 }

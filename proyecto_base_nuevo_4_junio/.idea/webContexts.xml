@@ -4,8 +4,12 @@
     <option name="state">
       <map>
         <entry key="file://$PROJECT_DIR$/src/main/webapp/Manager/MDetallesUsuario.jsp" value="file://$PROJECT_DIR$/src/main/webapp/Manager" />
+<<<<<<< HEAD
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/admi/adminEditVideojuego.jsp" value="file://$PROJECT_DIR$/src/main/webapp/admi" />
+=======
         <entry key="file://$PROJECT_DIR$/src/main/webapp/Manager/Top5MasVendidos.jsp" value="file://$PROJECT_DIR$/src/main/webapp/Manager" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/Manager/paginaprincipalmanager.jsp" value="file://$PROJECT_DIR$/src/main/webapp/Manager" />
+>>>>>>> b8525f563ef3bb162a57ca2eaa990ad64e1aa0b5
       </map>
     </option>
   </component>
