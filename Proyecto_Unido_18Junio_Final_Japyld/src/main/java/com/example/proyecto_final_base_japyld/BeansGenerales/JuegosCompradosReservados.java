@@ -10,6 +10,10 @@ public class JuegosCompradosReservados {
     private String estadoCompraJuego;
     private int rating;
     private  Personas usuario;
+    private Personas administrador;
+    private Juegos juego;
+    private Consola consola;
+    private int precio_compra;
 
     public int getIdJuegosCompradosReservados() {
         return idJuegosCompradosReservados;
@@ -74,12 +78,6 @@ public class JuegosCompradosReservados {
     public void setConsola(Consola consola) {
         this.consola = consola;
     }
-
-    private Personas administrador;
-    private Juegos juego;
-    private Consola consola;
-
-    private int precio_compra;
 
     public int getPrecio_compra() {
         return precio_compra;
