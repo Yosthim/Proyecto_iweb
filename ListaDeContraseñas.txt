@@ -1,0 +1,20 @@
+Correos                 Contraseñas
+joselin@pucp.edu.pe     Ingweb1!                admin
+
+julio@pucp.edu.pe     	Ingweb2!		usr
+
+david@pucp.edu.pe    	Ingweb3!		admin
+
+aracely@pucp.edu.pe    	Ingweb4! 		usr
+	
+luis@pucp.edu.pe  	Ingweb5!		admin
+	
+pablo@pucp.edu.pe    	Ingweb6!		usr
+
+cesar@pucp.edu.pe	Ingweb7!		usr
+
+manuel@pucp.edu.pe	Ingweb8! 		usr
+
+gumer@pucp.edu.pe	Ingweb9!		usr
+
+yoshtim@pucp.edu.pe	Ingweb10!		manager

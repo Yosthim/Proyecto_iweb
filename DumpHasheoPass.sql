@@ -2,7 +2,7 @@ CREATE DATABASE  IF NOT EXISTS `japyld` /*!40100 DEFAULT CHARACTER SET utf8mb3 *
 USE `japyld`;
 -- MySQL dump 10.13  Distrib 8.0.33, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: japyld
+-- Host: localhost    Database: japyld
 -- ------------------------------------------------------
 -- Server version	8.0.33
 
@@ -298,7 +298,7 @@ DROP TABLE IF EXISTS `personas`;
 CREATE TABLE `personas` (
   `idPersona` int NOT NULL AUTO_INCREMENT,
   `correo` varchar(100) NOT NULL,
-  `contrasenia` varchar(45) NOT NULL,
+  `contrasenia` varchar(250) NOT NULL,
   `nombre` varchar(45) NOT NULL,
   `apellido` varchar(45) NOT NULL,
   `fechaDeNacimiento` date NOT NULL,
@@ -323,7 +323,7 @@ CREATE TABLE `personas` (
 
 LOCK TABLES `personas` WRITE;
 /*!40000 ALTER TABLE `personas` DISABLE KEYS */;
-INSERT INTO `personas` VALUES (1,'joselin@pucp.edu.pe','Ingweb1!','Joselin','Raymundo','2001-10-15',75634321,'Femenino','Terror','2023-06-05','Activo','ADM',21),(2,'julio@pucp.edu.pe','Ingweb2!','Julio','Aliaga','2002-06-03',77832984,'Masculino','Acción','2023-06-05','Activo','USR',22),(3,'david@pucp.edu.pe','Ingweb3!','David','Llanos','2002-05-23',45632778,'Masculino','Deportivo','2023-06-05','Activo','ADM',23),(4,'aracely@pucp.edu.pe','Ingweb4!','Aracely','La Rosa','2002-04-21',74533212,'Femenino','Aventura','2023-06-05','Activo','USR',24),(5,'luis@pucp.edu.pe','Ingweb5!','Luis','Quispe','2002-11-10',45689332,'Masculino','Aventura','2023-06-05','Activo','ADM',25),(6,'pablo@pucp.edu.pe','Ingweb6!','Pablo','Flores','2002-11-17',75688415,'Masculino','Aventura','2023-06-05','Activo','USR',26),(7,'cesar@pucp.edu.pe','Ingweb7!','Cesar','Santivañez','1970-10-13',32133456,'Masculino','Acción','2023-06-05','Activo','USR',27),(8,'manuel@pucp.edu.pe','Ingweb8!','Manuel','Yarlequé','1970-04-02',10956323,'Masculino','Terror','2023-06-05','Activo','USR',28),(9,'gumer@pucp.edu.pe','Ingweb9!','Gumer','Bartra','1963-03-30',75632989,'Masculino','Clasico','2023-06-05','Activo','USR',29),(10,'yoshtim@pucp.edu.pe','Ingweb10!','Yoshtim','Enciso','2002-12-15',56478313,'Masculino','Deportivo','2023-06-05','Activo','MNG',30);
+INSERT INTO `personas` VALUES (1,'joselin@pucp.edu.pe','12e22f23962137d28a3ad5a3e3a75e9fa423390bba6f82099fdbe0417dfe5da6','Joselin','Raymundo','2001-10-15',75634321,'Femenino','Terror','2023-06-05','Activo','ADM',21),(2,'julio@pucp.edu.pe','0eb1faeedd06bfa0707be855a9ee83e25cf012cf66e5b611c9030fc059970061','Julio','Aliaga','2002-06-03',77832984,'Masculino','Acción','2023-06-05','Activo','USR',22),(3,'david@pucp.edu.pe','820dfa5686867361023816c5a0deecb8f5975de321c3066a10ff4a356ca96059','David','Llanos','2002-05-23',45632778,'Masculino','Deportivo','2023-06-05','Activo','ADM',23),(4,'aracely@pucp.edu.pe','02e5f0b3062f5b22883ab0b9e6b85055f1188006f1676f347ab087d05d3faccf','Aracely','La Rosa','2002-04-21',74533212,'Femenino','Aventura','2023-06-05','Activo','USR',24),(5,'luis@pucp.edu.pe','417dd8fc436c8d46da4d1f8a0b1cfb4dc157903f1be994b44af3b98750aebef9','Luis','Quispe','2002-11-10',45689332,'Masculino','Aventura','2023-06-05','Activo','ADM',25),(6,'pablo@pucp.edu.pe','8e4fd3bce54a1a817c2c4b3aa8c8dfe50a4dcbb711b24be6f82a922ca1f28033','Pablo','Flores','2002-11-17',75688415,'Masculino','Aventura','2023-06-05','Activo','USR',26),(7,'cesar@pucp.edu.pe','058595a16998b053e93a62228f9339d05ac490a29466102c6fd9077ab531a9d5','Cesar','Santivañez','1970-10-13',32133456,'Masculino','Acción','2023-06-05','Activo','USR',27),(8,'manuel@pucp.edu.pe','d7d0e8b1bc42ee54d3dad4133ad4dd8cdddc9ce678b566df21caf1de98e78158','Manuel','Yarlequé','1970-04-02',10956323,'Masculino','Terror','2023-06-05','Activo','USR',28),(9,'gumer@pucp.edu.pe','659a56123de3e9b3335ecbc6616e33332e254e27ae11295f65c8cba269d54cdb','Gumer','Bartra','1963-03-30',75632989,'Masculino','Clasico','2023-06-05','Activo','USR',29),(10,'yoshtim@pucp.edu.pe','45ed822f6ce9ebbed92987c98333b739cb850c20f47ac67f6478e4cc8b530270','Yoshtim','Enciso','2002-12-15',56478313,'Masculino','Deportivo','2023-06-05','Activo','MNG',30);
 /*!40000 ALTER TABLE `personas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -396,6 +396,10 @@ INSERT INTO `ventajuegosgeneral` VALUES (1,'Aceptado',NULL,'2023-06-01',150.00,'
 UNLOCK TABLES;
 
 --
+-- Dumping events for database 'japyld'
+--
+
+--
 -- Dumping routines for database 'japyld'
 --
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -408,4 +412,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-06-15  1:28:28
+-- Dump completed on 2023-06-20 18:20:45
