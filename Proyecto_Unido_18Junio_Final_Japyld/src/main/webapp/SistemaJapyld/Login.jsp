@@ -56,19 +56,11 @@
                                     <div class="form-group">
                                     </div>
                                     <button class ="btn btn-lg btn-primary btn-block" type="submit">Iniciar Sesión</button>
-
                                     <hr>
-                                    <a href="../ZUsuario/index.html" class="btn btn-primary btn-control btn-block">
+                                    <a href="<%=request.getContextPath()%>/RegisterServlet" class="btn btn-primary btn-control btn-block">
                                         Crear una cuenta nueva
                                     </a>
                                     <hr>
-                                    <div class="form-group row justify-content-center">
-                                        <div class = "col-sm-auto">
-                                            <a href = "<%=request.getContextPath()%>/PaginaPrincipal" class="btn btn-outline-info">Usuario</a>
-                                            <a href = "<%=request.getContextPath()%>/AdminServlet" class="btn btn-outline-info">Admin</a>
-                                            <a href = "<%=request.getContextPath()%>/ManagerServlet" class="btn btn-outline-info">Manager</a>
-                                        </div>
-                                    </div>
                                 </form>
                                 <hr>
                                 <div class="text-center">
