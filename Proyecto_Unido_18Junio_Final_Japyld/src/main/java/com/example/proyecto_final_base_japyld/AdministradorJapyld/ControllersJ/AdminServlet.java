@@ -42,8 +42,8 @@ public class AdminServlet extends HttpServlet {
                 break;
             case "listaPaginaOfertas":
                 request.setAttribute("ventas",adminDao.sextaTabla());
-                request.setAttribute("nuevosJuegos",adminDao.setimaTabla());
-                request.setAttribute("nuevosOfertas", adminDao.octavaTabla());
+                request.setAttribute("nuevosJuegos",adminDao.octavaTabla());
+                request.setAttribute("nuevosOfertas", adminDao.setimaTabla());
                 request.getRequestDispatcher("AdministradorJapyld/OfertasAdmi.jsp").forward(request,response);
                 break;
             case "editar":

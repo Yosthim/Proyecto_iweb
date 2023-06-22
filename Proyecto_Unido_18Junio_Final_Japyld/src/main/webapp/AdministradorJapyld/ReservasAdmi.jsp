@@ -1,4 +1,5 @@
-<%--
+<%@ page import="com.example.proyecto_final_base_japyld.AdministradorJapyld.ModelsJ.DtoJ.JuegosReservadosDias" %>
+<%@ page import="java.util.ArrayList" %><%--
   Created by IntelliJ IDEA.
   User: jossr
   Date: 5/06/2023
@@ -7,6 +8,15 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:useBean id="personaSession" type="com.example.proyecto_final_base_japyld.BeansGenerales.Personas" scope="session" class="com.example.proyecto_final_base_japyld.BeansGenerales.Personas"/>
+<%
+  ArrayList<JuegosReservadosDias> lista30dias = (ArrayList<JuegosReservadosDias>) request.getAttribute("lista30dias");
+%>
+<%
+  ArrayList<JuegosReservadosDias> lista20dias = (ArrayList<JuegosReservadosDias>) request.getAttribute("lista20dias");
+%>
+<%
+  ArrayList<JuegosReservadosDias> lista10dias = (ArrayList<JuegosReservadosDias>) request.getAttribute("lista10dias");
+%>
 <html lang="en">
 
 <head>
@@ -350,32 +360,17 @@
                                 </thead>
 
                                 <tbody class = "text-danger">
+                                <%
+                                  for(JuegosReservadosDias j :lista30dias){
+                                %>
                                 <tr>
-                                  <td class="text-center">PlayStation 4</td>
-                                  <td class="text-center">Ana</td>
-                                  <td class="text-center">35</td>
+                                  <th class="text-center"><%=j.getNombre()%></th>
+                                  <td class="text-center"><%=j.getUsuario()%></td>
+                                  <td class="text-center"><%=j.getDias()%></td>
                                 </tr>
-                                <tr>
-                                  <td class="text-center">PlayStation 5</td>
-                                  <td class="text-center">Maria</td>
-                                  <td class="text-center">35</td>
-                                </tr>
-                                <tr>
-                                  <td class="text-center">Xbox</td>
-                                  <td class="text-center">Juan</td>
-                                  <td class="text-center">35</td>
-                                </tr>
-                                <tr>
-                                  <td class="text-center">Nintendo Switch</td>
-                                  <td class="text-center">Esteban</td>
-                                  <td class="text-center">35</td>
-                                </tr>
-                                <tr>
-                                  <td class="text-center">Teclado/PC</td>
-                                  <td class="text-center">Luis</td>
-                                  <td class="text-center">35</td>
-                                </tr>
-
+                                <%
+                                  }
+                                %>
                                 </tbody>
                               </table>
                             </div>
@@ -394,7 +389,7 @@
             <!-- Profile picture card-->
             <div class="card mb-4 mb-xl-0">
 
-              <div class="card-header font-weight-bold text-primary">RESERVAS CON MAS DE 10 DIAS </div>
+              <div class="card-header font-weight-bold text-primary">RESERVAS CON DE 10 A 20 DIAS </div>
               <div class="card-body text">
 
                 <section class="intro">
@@ -415,32 +410,17 @@
                                 </thead>
 
                                 <tbody class="text-warning" >
+                                <%
+                                  for(JuegosReservadosDias j :lista20dias){
+                                %>
                                 <tr>
-                                  <td class="text-center">PlayStation 4</td>
-                                  <td class="text-center">Ana</td>
-                                  <td class="text-center">15</td>
+                                  <th class="text-center"><%=j.getNombre()%></th>
+                                  <td class="text-center"><%=j.getUsuario()%></td>
+                                  <td class="text-center"><%=j.getDias()%></td>
                                 </tr>
-                                <tr>
-                                  <td class="text-center">PlayStation 5</td>
-                                  <td class="text-center">Maria</td>
-                                  <td class="text-center">15</td>
-                                </tr>
-                                <tr>
-                                  <td class="text-center">Xbox</td>
-                                  <td class="text-center">Juan</td>
-                                  <td class="text-center">15</td>
-                                </tr>
-                                <tr>
-                                  <td class="text-center">Nintendo Switch</td>
-                                  <td class="text-center">Esteban</td>
-                                  <td class="text-center">15</td>
-                                </tr>
-                                <tr>
-                                  <td class="text-center">Teclado/PC</td>
-                                  <td class="text-center">Luis</td>
-                                  <td class="text-center">15</td>
-                                </tr>
-
+                                <%
+                                  }
+                                %>
                                 </tbody>
                               </table>
                             </div>
@@ -481,32 +461,17 @@
                               </thead>
 
                               <tbody>
+                              <%
+                                for(JuegosReservadosDias j :lista10dias){
+                              %>
                               <tr>
-                                <td class="text-center">PlayStation 4</td>
-                                <td class="text-center">Ana</td>
-                                <td class="text-center">5</td>
+                                <th class="text-center"><%=j.getNombre()%></th>
+                                <td class="text-center"><%=j.getUsuario()%></td>
+                                <td class="text-center"><%=j.getDias()%></td>
                               </tr>
-                              <tr>
-                                <td class="text-center">PlayStation 5</td>
-                                <td class="text-center">Maria</td>
-                                <td class="text-center">5</td>
-                              </tr>
-                              <tr>
-                                <td class="text-center">Xbox</td>
-                                <td class="text-center">Juan</td>
-                                <td class="text-center">5</td>
-                              </tr>
-                              <tr>
-                                <td class="text-center">Nintendo Switch</td>
-                                <td class="text-center">Esteban</td>
-                                <td class="text-center">5</td>
-                              </tr>
-                              <tr>
-                                <td class="text-center">Teclado/PC</td>
-                                <td class="text-center">Luis</td>
-                                <td class="text-center">5</td>
-                              </tr>
-
+                              <%
+                                }
+                              %>
                               </tbody>
                             </table>
                           </div>

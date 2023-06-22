@@ -357,19 +357,19 @@
               </div>
               <br>
               <div class="card-body">
-                <p class="p-3 bg-gray-200"> Pablo</p>
-                <p class="p-3 bg-gray-300"> 10/02/2000</p>
-                <p class="p-3 bg-gray-400"> a20205842pucp.edu.pe</p>
+                <p class="p-3 bg-gray-200"><%=personaSession.getNombre()%></p>
+                <p class="p-3 bg-gray-300"><%=personaSession.getFechaDeNacimiento()%></p>
+                <p class="p-3 bg-gray-400"><%=personaSession.getCorreo()%></p>
               </div>
             </div>
             <br>
             <div class="col-12 col-xl-auto mb-3">
-              <div class="d-flex justify-content-center">
-                <a href="ZLogin/login.html">
-                  <button class="btn btn-danger" type="button"> Cerrar  sesión</button>
 
-                </a>
+              <div class="text-center d-flex justify-content-center">
+                <a onclick="return confirm('Seleccione Aceptar si desea salir de su cuenta')" class="btn btn-primary -align-center"
+                   href="<%=request.getContextPath()%>/LoginServlet?action=logout">Cerar Sesión</a>
               </div>
+
             </div>
           </div>
 

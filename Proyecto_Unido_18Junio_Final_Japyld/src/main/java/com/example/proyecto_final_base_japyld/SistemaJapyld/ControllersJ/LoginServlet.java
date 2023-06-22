@@ -15,7 +15,6 @@ import java.io.IOException;
 
 @WebServlet(name = "LoginServlet", value = {"","/LoginServlet"})
 public class LoginServlet extends HttpServlet {
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -50,9 +49,7 @@ public class LoginServlet extends HttpServlet {
         if(persona != null){
             HttpSession session = request.getSession();
             session.setAttribute("personaSession",persona);
-
             session.setMaxInactiveInterval(5*60);
-
             String rol = persona.getRol().getIdRoles();
 
             if (rol.equals("USR")){

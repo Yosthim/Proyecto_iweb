@@ -5,7 +5,7 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class JuegosReservadosDaos {
-    public ArrayList<JuegosReservadosDias> tabla30Dias(){
+    public ArrayList<JuegosReservadosDias> tabla30Dias(int id){
 
         ArrayList<JuegosReservadosDias> JR30D= new ArrayList<>();
 
@@ -15,28 +15,26 @@ public class JuegosReservadosDaos {
             e.printStackTrace();
         }
 
-        String sql = "Select  juegos.nombreJuegos, personas.nombre, TIMESTAMPDIFF(DAY, fechaCompraJuego, '2023-06-01') as 'dias'\n" +
-                ", juegoscompradosreservados.id_juego, juegos.idJuegos \n" +
-                ", juegoscompradosreservados.id_usuario, estadoCompraJuego, personas.idPersona\n" +
-                "from juegoscompradosreservados \n" +
-                "inner join juegos \n" +
-                "on juegoscompradosreservados.id_juego = juegos.idJuegos\n" +
-                "inner join  personas\n" +
-                "on juegoscompradosreservados.id_usuario = personas.idPersona\n" +
-                "where TIMESTAMPDIFF(DAY, fechaCompraJuego, '2023-06-01') >30 and estadoCompraJuego like 'Reservado'\n";
+        String sql = "Select j.nombreJuegos, p.nombre, timestampdiff(day,r.fechaCompraJuego, current_date()) as 'dias'\n" +
+                "from juegoscompradosreservados r \n" +
+                "left join juegos j on  r.id_juego =j.idJuegos\n" +
+                "left join personas p on r.id_usuario =p.idPersona\n" +
+                "where timestampdiff(day,r.fechaCompraJuego, current_date())>=30  and estadoCompraJuego like \"Reservado\" and r.id_administrador=?;";
         String url = "jdbc:mysql://localhost:3306/japyld";
 
         try(Connection connection = DriverManager.getConnection(url,"root","root");
-            Statement stmt = connection.createStatement();
-            ResultSet resultSet = stmt.executeQuery(sql)){
+            PreparedStatement preparedStatement = connection.prepareStatement(sql)){
 
-            while (resultSet.next()){
-                JuegosReservadosDias J30 =new JuegosReservadosDias();
+            preparedStatement.setInt(1,id);
 
-                J30.setNombreJuegos(resultSet.getString(1));
-                J30.setNombre(resultSet.getString(2));
-                J30.setFechaCompraJuego(resultSet.getInt(3));
-                JR30D.add(J30);
+            try(ResultSet resultSet = preparedStatement.executeQuery()){
+                if(resultSet.next()){
+                    JuegosReservadosDias J10 = new JuegosReservadosDias();
+                    J10.setNombre(resultSet.getString(1));
+                    J10.setUsuario(resultSet.getString(2));
+                    J10.setDias(resultSet.getInt(3));
+                    JR30D.add(J10);
+                }
             }
 
         }catch (SQLException e){
@@ -45,7 +43,7 @@ public class JuegosReservadosDaos {
 
         return JR30D;
     }
-    public ArrayList<JuegosReservadosDias> tabla20Dias(){
+    public ArrayList<JuegosReservadosDias> tabla20Dias(int id){
 
         ArrayList<JuegosReservadosDias> JR20D = new ArrayList<>();
 
@@ -54,30 +52,27 @@ public class JuegosReservadosDaos {
         }catch (ClassNotFoundException e){
             e.printStackTrace();
         }
-        String sql1 = "Select  juegos.nombreJuegos, personas.nombre, TIMESTAMPDIFF(DAY, fechaCompraJuego, '2023-06-01') as 'dias'\n" +
-                ", juegoscompradosreservados.id_juego, juegos.idJuegos \n" +
-                ", juegoscompradosreservados.id_usuario, estadoCompraJuego, personas.idPersona\n" +
-                "from juegoscompradosreservados \n" +
-                "inner join juegos \n" +
-                "on juegoscompradosreservados.id_juego = juegos.idJuegos\n" +
-                "inner join  personas\n" +
-                "on juegoscompradosreservados.id_usuario = personas.idPersona\n" +
-                "where TIMESTAMPDIFF(DAY, fechaCompraJuego, '2023-06-01') >20 and TIMESTAMPDIFF(DAY, fechaCompraJuego, '2023-06-01') <30 \n" +
-                "and estadoCompraJuego like 'Reservado'\n";
+        String sql1 = "Select j.nombreJuegos, p.nombre, timestampdiff(day,r.fechaCompraJuego, current_date()) as 'dias'\n" +
+                "from juegoscompradosreservados r \n" +
+                "left join juegos j on  r.id_juego =j.idJuegos\n" +
+                "left join personas p on r.id_usuario =p.idPersona\n" +
+                "where timestampdiff(day,r.fechaCompraJuego, current_date())>10 and  timestampdiff(day,r.fechaCompraJuego, current_date())<=20 and r.estadoCompraJuego like \"Reservado\" and r.id_administrador=?;";
         String url = "jdbc:mysql://localhost:3306/japyld";
 
 
         try(Connection connection = DriverManager.getConnection(url,"root","root");
-            Statement stmt = connection.createStatement();
-            ResultSet resultSet = stmt.executeQuery(sql1)){
+            PreparedStatement preparedStatement = connection.prepareStatement(sql1)){
 
-            while (resultSet.next()){
-                JuegosReservadosDias J20 =new JuegosReservadosDias();
+            preparedStatement.setInt(1,id);
 
-                J20.setNombreJuegos(resultSet.getString(1));
-                J20.setNombre(resultSet.getString(2));
-                J20.setFechaCompraJuego(resultSet.getInt(3));
-                JR20D.add(J20);
+            try(ResultSet resultSet = preparedStatement.executeQuery()){
+                if(resultSet.next()){
+                    JuegosReservadosDias J10 = new JuegosReservadosDias();
+                    J10.setNombre(resultSet.getString(1));
+                    J10.setUsuario(resultSet.getString(2));
+                    J10.setDias(resultSet.getInt(3));
+                    JR20D.add(J10);
+                }
             }
 
         }catch (SQLException e){
@@ -86,7 +81,7 @@ public class JuegosReservadosDaos {
         return JR20D;
     }
 
-    public ArrayList<JuegosReservadosDias> tabla10Dias(){
+    public ArrayList<JuegosReservadosDias> tabla10Dias(int id){
 
         ArrayList<JuegosReservadosDias> JR10D = new ArrayList<>();
 
@@ -95,30 +90,27 @@ public class JuegosReservadosDaos {
         }catch (ClassNotFoundException e){
             e.printStackTrace();
         }
-        String sql1 = "Select  juegos.nombreJuegos, personas.nombre, TIMESTAMPDIFF(DAY, fechaCompraJuego, '2023-06-01') as 'dias'\n" +
-                ", juegoscompradosreservados.id_juego, juegos.idJuegos \n" +
-                ", juegoscompradosreservados.id_usuario, estadoCompraJuego, personas.idPersona\n" +
-                "from juegoscompradosreservados \n" +
-                "inner join juegos \n" +
-                "on juegoscompradosreservados.id_juego = juegos.idJuegos\n" +
-                "inner join  personas\n" +
-                "on juegoscompradosreservados.id_usuario = personas.idPersona\n" +
-                "where TIMESTAMPDIFF(DAY, fechaCompraJuego, '2023-06-01') >0 and TIMESTAMPDIFF(DAY, fechaCompraJuego, '2023-06-01') <20 \n" +
-                "and estadoCompraJuego like 'Reservado'";
+        String sql1 ="Select j.nombreJuegos, p.nombre, timestampdiff(day,r.fechaCompraJuego, current_date()) as 'dias'\n" +
+                "                from juegoscompradosreservados r \n" +
+                "                left join juegos j on  r.id_juego =j.idJuegos\n" +
+                "                left join personas p on r.id_usuario =p.idPersona\n" +
+                "                where timestampdiff(day,r.fechaCompraJuego, current_date())<=10  and estadoCompraJuego like 'Reservado' and r.id_administrador=?;";
         String url = "jdbc:mysql://localhost:3306/japyld";
 
 
         try(Connection connection = DriverManager.getConnection(url,"root","root");
-            Statement stmt = connection.createStatement();
-            ResultSet resultSet = stmt.executeQuery(sql1)){
+            PreparedStatement preparedStatement = connection.prepareStatement(sql1)){
 
-            while (resultSet.next()){
-                JuegosReservadosDias J10 =new JuegosReservadosDias();
+            preparedStatement.setInt(1,id);
 
-                J10.setNombreJuegos(resultSet.getString(1));
-                J10.setNombre(resultSet.getString(2));
-                J10.setFechaCompraJuego(resultSet.getInt(3));
-                JR10D.add(J10);
+            try(ResultSet resultSet = preparedStatement.executeQuery()){
+                if(resultSet.next()){
+                    JuegosReservadosDias J10 = new JuegosReservadosDias();
+                    J10.setNombre(resultSet.getString(1));
+                    J10.setUsuario(resultSet.getString(2));
+                    J10.setDias(resultSet.getInt(3));
+                    JR10D.add(J10);
+                }
             }
 
         }catch (SQLException e){

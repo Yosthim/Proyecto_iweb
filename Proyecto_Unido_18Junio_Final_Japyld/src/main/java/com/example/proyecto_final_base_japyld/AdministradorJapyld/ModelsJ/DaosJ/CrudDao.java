@@ -12,7 +12,7 @@ import java.sql.SQLException;
 
 public class CrudDao extends BaseDao {
 
-    // LISTADO DE JUEGOS
+    // OBTENER JUEGO
 
     public Juegos ObtenerJuego( int id){
 

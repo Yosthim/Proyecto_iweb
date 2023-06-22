@@ -206,9 +206,9 @@ public class AdminDao extends BaseDao {
         String sql = "SELECT * FROM ventajuegosgeneral c\n" +
                 "left join personas p on c.id_usuario = p.idPersona\n" +
                 "left join juegos j on c.id_juego = j.idJuegos\n" +
-                "WHERE c.estadoVenta = 'Aceptado'\n" +
+                "WHERE c.estadoVenta = 'Aceptado' and disponibilidad = 'Habilitado' \n" +
                 "ORDER BY c.fechaPublicacion DESC\n" +
-                "LIMIT 5";
+                "LIMIT 5;";
         try(Connection connection = this.getConnection();
             Statement stmt = connection.createStatement();
             ResultSet resultSet = stmt.executeQuery(sql)){
@@ -244,11 +244,10 @@ public class AdminDao extends BaseDao {
         ArrayList<VentaJuegosGeneral> nuevosJuegos = new ArrayList<>();
 
         String sql = "SELECT * FROM ventajuegosgeneral c\n" +
-                "left join personas p on c.id_usuario = p.idPersona\n" +
-                "left join juegos j on c.id_juego = j.idJuegos\n" +
-                "WHERE c.estadoVenta = 'Aceptadp' and disponibilidad = 'Deshabilitado' \n" +
-                "ORDER BY c.fechaPublicacion DESC\n" +
-                "LIMIT 5;";
+                "                left join personas p on c.id_usuario = p.idPersona\n" +
+                                "left join juegos j on c.id_juego = j.idJuegos\n" +
+                "                WHERE c.estadoVenta = 'Espera'  \n" +
+                "                ORDER BY c.fechaPublicacion DESC;";
         try(Connection connection = this.getConnection();
             Statement stmt = connection.createStatement();
             ResultSet resultSet = stmt.executeQuery(sql)){
@@ -257,6 +256,7 @@ public class AdminDao extends BaseDao {
 
                 VentaJuegosGeneral venta = new VentaJuegosGeneral();
                 venta.setIdVenta(resultSet.getInt(1));
+                venta.setPrecioUsuario(resultSet.getBigDecimal(5));
 
                 Juegos juego = new Juegos();
                 juego.setIdJuegos((resultSet.getInt("j.idJuegos")));
@@ -284,10 +284,11 @@ public class AdminDao extends BaseDao {
 
 
         String sql = "SELECT * FROM ventajuegosgeneral c\n" +
-                "left join personas p on c.id_usuario = p.idPersona\n" +
-                "left join juegos j on c.id_juego = j.idJuegos\n" +
-                "WHERE c.estadoVenta = 'Aceptado' \n" +
-                "ORDER BY c.fechaPublicacion DESC;";
+                "                left join personas p on c.id_usuario = p.idPersona\n" +
+                "                   left join juegos j on c.id_juego = j.idJuegos\n" +
+                "                WHERE c.estadoVenta = 'Aceptado' and disponibilidad = 'Deshabilitado' \n" +
+                "                ORDER BY c.fechaPublicacion DESC\n" +
+                "                LIMIT 5;";
 
         try(Connection connection = this.getConnection();
             Statement stmt = connection.createStatement();
@@ -297,6 +298,9 @@ public class AdminDao extends BaseDao {
 
                 VentaJuegosGeneral venta = new VentaJuegosGeneral();
                 venta.setIdVenta(resultSet.getInt(1));
+                venta.setNombreNuevo(resultSet.getString(13));
+                venta.setDescripcionNueva(resultSet.getString(12));
+
                 venta.setPrecioUsuario(resultSet.getBigDecimal(5));
 
                 Juegos juego = new Juegos();
@@ -325,10 +329,8 @@ public class AdminDao extends BaseDao {
 
         ArrayList<Juegos> juegos= new ArrayList<>();
 
-        String sql = "SELECT * FROM juegos j\n" +
-                "left join categorias c on j.id_categoria = c.idCategorias\n" +
-                "left join imagenes i on j.id_imagen = i.idImagenes\n" +
-                "WHERE  j.nombreJuegos = 'Resident Evil 4';";
+        String sql = "SELECT * FROM ventajuegosgeneral\n" +
+                "Where disponibilidad like 'Deshabilitado' and estadoVenta like 'Aceptado';";
         try(Connection connection = this.getConnection();
             Statement stmt = connection.createStatement();
             ResultSet resultSet = stmt.executeQuery(sql)){

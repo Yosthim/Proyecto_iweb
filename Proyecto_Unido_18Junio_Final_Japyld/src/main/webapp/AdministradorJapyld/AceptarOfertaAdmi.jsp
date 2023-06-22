@@ -1,14 +1,17 @@
-<%--
+
+<%@ page import="com.example.proyecto_final_base_japyld.BeansGenerales.VentaJuegosGeneral" %><%--
   Created by IntelliJ IDEA.
   User: jossr
-  Date: 4/06/2023
-  Time: 23:09
+  Date: 5/06/2023
+  Time: 16:49
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<!DOCTYPE html>
+<jsp:useBean id="personaSession" type="com.example.proyecto_final_base_japyld.BeansGenerales.Personas" scope="session" class="com.example.proyecto_final_base_japyld.BeansGenerales.Personas"/>
 <html lang="en">
-
+<%
+  VentaJuegosGeneral ventaJuegosGeneral = (VentaJuegosGeneral) request.getAttribute("ventaJuegosGeneral");
+%>
 <head>
 
   <meta charset="utf-8">
@@ -17,7 +20,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Aceptar oferta</title>
+  <title>Nueva oferta</title>
 
   <title>Gráfico de Barras con Bootstrap 4</title>
 
@@ -53,7 +56,7 @@
 
 </head>
 
-<body id="page-top" >
+<body id="page-top">
 
 <!-- Page Wrapper -->
 <div id="wrapper">
@@ -296,7 +299,7 @@
           <li class="nav-item dropdown no-arrow">
             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <span class="mr-2 d-none d-lg-inline text-gray-600 small">Tu Perfil</span>
+              <span class="mr-2 d-none d-lg-inline text-gray-600 small"><%=personaSession.getNombre()%></span>
               <img class="img-profile rounded-circle"
                    src="recursos/img/undraw_profile.svg">
             </a>
@@ -324,18 +327,17 @@
       <div class="container-fluid">
 
         <!-- Page Heading -->
-        <h1 class="h3 mb-2 text-gray-800">Aceptar oferta</h1>
-        <h1 class="h3 mb-2 text-gray-800"></h1>
+        <h1 class="h3 mb-2 text-gray-800">Más detalles</h1>
         <!-- Content Row -->
         <div class="row">
           <div class="col-xl-4 col-lg-4">
             <!-- Donut Chart -->
             <div class="card shadow mb-4 border-left-primary">
               <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">The Legend of Zelda </h6>
+                <h6 class="m-0 font-weight-bold text-primary"><%=ventaJuegosGeneral.getJuego().getNombreJuegos()%> </h6>
               </div>
               <div class="card-body text-center">
-                <img src="recursos/img/Legend_of_Zelda.jpg" alt="Imagen" class="img-fluid">
+                <img src="<%=ventaJuegosGeneral.getJuego().getImagen().getDireccionArchivo()%>" alt="Imagen" class="img-fluid">
 
                 <div class="mt-3">
                   <h5 class="mb-0">Rating:</h5>
@@ -346,7 +348,7 @@
                     <span class="star">&#9733;</span>
                     <span class="star">&#9733;</span>
                   </div>
-                  <h5>Género: Aventura</h5>
+                  <h5>Género: <%=ventaJuegosGeneral.getJuego().getCategoria().getNombre()%></h5>
                 </div>
               </div>
             </div>
@@ -355,11 +357,12 @@
             <!-- Area Chart -->
             <div class="card shadow mb-4">
               <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Información del Juego  </h6>
+                <h6 class="m-0 font-weight-bold text-primary">Información del Juego </h6>
               </div>
               <div class="card-body">
 
-                <p class="text-justify">Se trata del primer juego original de la popular saga Zelda para la consola de última generación de Nintendo. El título promete un estilo visual completamente nuevo con el que desmarcarse de todo lo visto hasta el momento. </p>
+                <p class="text-justify"><%=ventaJuegosGeneral.getJuego().getDescripcion()%> </p>
+
                 <div class="d-flex align-items-center mb-3">
                   <h6 class="mr-3">Consola:</h6>
                   <div class="row">
@@ -376,37 +379,43 @@
                 </div>
                 <hr>
                 <div class="d-flex justify-content-between align-items-center mb-3">
-                  <span>Stock: 5</span>
+                  <span>Stock: 1</span>
                   <div class="d-flex">
-                    <button class="btn">Precio: S/. 120</button>
+                    <button class="btn">Precio: S/. <%=ventaJuegosGeneral.getPrecioUsuario()%></button>
                   </div>
                 </div>
               </div>
             </div>
-            <BR>
-            <BR>
-            <div class="d-flex justify-content-end">
-              <a href="" class="btn btn-primary">COMPRAR</a>
-            </div>
+
           </div>
         </div>
-
       </div>
+      <BR>
+      <BR>
+
+      <div class="center">
+        <a onclick="return confirm('Estas seguro de comprar')" class="btn btn-primary"
+             href="<%=request.getContextPath()%>/OfertasServlet?action=guardar&id=<%=ventaJuegosGeneral.getIdVenta()%>">Comprar</a>
+      </div>
+
     </div>
-    <!-- End of Main Content -->
-
-    <!-- Footer -->
-    <footer class="sticky-footer bg-white">
-      <div class="container my-auto">
-        <div class="copyright text-center my-auto">
-          <span>Japyld</span>
-        </div>
-      </div>
-    </footer>
-    <!-- End of Footer -->
-
   </div>
-  <!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Main Content -->
+
+<!-- Footer -->
+<footer class="sticky-footer bg-white">
+  <div class="container my-auto">
+    <div class="copyright text-center my-auto">
+      <span>Japyld</span>
+    </div>
+  </div>
+</footer>
+<!-- End of Footer -->
+
+</div>
+<!-- End of Content Wrapper -->
 
 </div>
 <!-- End of Page Wrapper -->

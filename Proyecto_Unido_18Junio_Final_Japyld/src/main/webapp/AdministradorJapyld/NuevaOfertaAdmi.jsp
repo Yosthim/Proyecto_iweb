@@ -1,5 +1,6 @@
 
-<%@ page import="com.example.proyecto_final_base_japyld.BeansGenerales.Juegos" %><%--
+<%@ page import="com.example.proyecto_final_base_japyld.BeansGenerales.Juegos" %>
+<%@ page import="com.example.proyecto_final_base_japyld.BeansGenerales.VentaJuegosGeneral" %><%--
   Created by IntelliJ IDEA.
   User: jossr
   Date: 5/06/2023
@@ -10,7 +11,7 @@
 <jsp:useBean id="personaSession" type="com.example.proyecto_final_base_japyld.BeansGenerales.Personas" scope="session" class="com.example.proyecto_final_base_japyld.BeansGenerales.Personas"/>
 <html lang="en">
 <%
-  Juegos juegos = (Juegos) request.getAttribute("juegos");
+  VentaJuegosGeneral ventaJuegosGeneral = (VentaJuegosGeneral) request.getAttribute("ventaJuegosGeneral");
 %>
 <head>
 
@@ -334,10 +335,10 @@
             <!-- Donut Chart -->
             <div class="card shadow mb-4 border-left-primary">
               <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">The Legend of Zelda </h6>
+                <h6 class="m-0 font-weight-bold text-primary"><%=ventaJuegosGeneral.getJuego().getNombreJuegos()%> </h6>
               </div>
               <div class="card-body text-center">
-                <img src="recursos/img/Legend_of_Zelda.jpg" alt="Imagen" class="img-fluid">
+                <img src="<%=ventaJuegosGeneral.getJuego().getImagen().getDireccionArchivo()%>" alt="Imagen" class="img-fluid">
 
                 <div class="mt-3">
                   <h5 class="mb-0">Rating:</h5>
@@ -348,7 +349,7 @@
                     <span class="star">&#9733;</span>
                     <span class="star">&#9733;</span>
                   </div>
-                  <h5>Género: Aventura</h5>
+                  <h5>Género: <%=ventaJuegosGeneral.getJuego().getCategoria().getNombre()%></h5>
                 </div>
               </div>
             </div>
@@ -361,7 +362,7 @@
               </div>
               <div class="card-body">
 
-                <p class="text-justify">Se trata del primer juego original de la popular saga Zelda para la consola de última generación de Nintendo. El título promete un estilo visual completamente nuevo con el que desmarcarse de todo lo visto hasta el momento. </p>
+                <p class="text-justify"><%=ventaJuegosGeneral.getJuego().getDescripcion()%> </p>
 
                 <div class="d-flex align-items-center mb-3">
                   <h6 class="mr-3">Consola:</h6>
@@ -379,9 +380,9 @@
                 </div>
                 <hr>
                 <div class="d-flex justify-content-between align-items-center mb-3">
-                  <span>Stock: 5</span>
+                  <span>Stock: 1</span>
                   <div class="d-flex">
-                    <button class="btn">Precio: S/. 120</button>
+                    <button class="btn">Precio: S/. <%=ventaJuegosGeneral.getPrecioUsuario()%></button>
                   </div>
                 </div>
               </div>
@@ -395,13 +396,13 @@
 
       <div class="row justify-content-center">
         <div class="col-auto">
-          <a href="AceptarOfertaAdmi.html" class="btn btn-success mr-5">ACEPTAR</a>
+          <a href="<%=request.getContextPath()%>/OfertasServlet?action=aceptar&id=<%=ventaJuegosGeneral.getIdVenta()%>" class="btn btn-success mr-5">ACEPTAR</a>
         </div>
         <div class="col-auto">
-          <a href="RechazarOferta.html" class="btn btn-success mr-5 ml-5">RECHAZAR</a>
+          <a href="<%=request.getContextPath()%>/OfertasServlet?action=rechazar&id=<%=ventaJuegosGeneral.getIdVenta()%>" class="btn btn-success mr-5 ml-5 btn-danger">RECHAZAR</a>
         </div>
         <div class="col-auto">
-          <a href="ContraofertaAdmi.html" class="btn btn-success ml-5">NUEVA OFERTA</a>
+          <a href="<%=request.getContextPath()%>/OfertasServlet?action=contraoferta&id=<%=ventaJuegosGeneral.getIdVenta()%>" class="btn btn-primary ml-5 ">NUEVA OFERTA</a>
         </div>
         <BR>
         <BR>
