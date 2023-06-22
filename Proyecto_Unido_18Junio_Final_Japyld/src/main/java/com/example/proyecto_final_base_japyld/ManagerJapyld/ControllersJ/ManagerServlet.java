@@ -52,6 +52,9 @@ public class ManagerServlet extends HttpServlet {
 
                 break;
 
+            case "perfilManager":
+                request.getRequestDispatcher("ManagerJapyld/perfilManager.jsp").forward(request,response);
+
         }
     }
 

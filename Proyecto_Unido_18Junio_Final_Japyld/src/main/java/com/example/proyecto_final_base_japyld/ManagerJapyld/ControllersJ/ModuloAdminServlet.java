@@ -27,7 +27,8 @@ public class ModuloAdminServlet extends HttpServlet {
 
         switch (action) {
             case "lista":
-                request.setAttribute("listar", adminModuloDao.listarAdmin());
+                request.setAttribute("listarAdminActivos", adminModuloDao.listarAdmin());
+                request.setAttribute("listarAdminInactivo", adminModuloDao.listarAdminInactivos());
 
                 requestDispatcher = request.getRequestDispatcher("ManagerJapyld/ModuloAdmin.jsp");
                 requestDispatcher.forward(request,response);

@@ -142,4 +142,7 @@ public class ManagerDao extends BaseDao {
             throw new RuntimeException(e);
         }
     }
+
+
+
 }
