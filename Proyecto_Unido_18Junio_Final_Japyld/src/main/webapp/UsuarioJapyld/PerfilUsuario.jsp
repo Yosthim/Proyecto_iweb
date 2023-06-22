@@ -1,18 +1,13 @@
 <%--
   Created by IntelliJ IDEA.
   User: PABLO
-  Date: 7/06/2023
-  Time: 15:54
+  Date: 21/06/2023
+  Time: 14:29
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="com.example.proyecto_final_base_japyld.UsuarioJapyld.ModelsJ.DtoJ.MasDetallesDto" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<% ArrayList<MasDetallesDto> listaDetallesCompra = (ArrayList<MasDetallesDto>) request.getAttribute("listaDetallesCompra"); %>
 <jsp:useBean id="personaSession" type="com.example.proyecto_final_base_japyld.BeansGenerales.Personas" scope="session" class="com.example.proyecto_final_base_japyld.BeansGenerales.Personas"/>
-
 <html>
-
 <head>
 
     <meta charset="utf-8">
@@ -21,7 +16,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Charts</title>
+    <title>Perfil</title>
 
     <!-- Custom fonts for this template-->
     <link href="recursos/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -42,6 +37,7 @@
     <!-- Sidebar -->
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
+        <!-- Sidebar - Brand -->
         <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<%=request.getContextPath()%>/PaginaPrincipal">
             <div class="sidebar-brand-icon rotate-n-15">
                 <i class="fas fa-laugh-wink"></i>
@@ -61,12 +57,12 @@
 
         <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item">
-            <a class="nav-link" href="<%=request.getContextPath()%>/Pagina-principal">
+            <a class="nav-link" href="<%=request.getContextPath()%>/PaginaPrincipal">
                 <i class="fas fa-home"></i>
                 <span>Página Principal</span></a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="">
+            <a class="nav-link" href="<%=request.getContextPath()%>/TusJuegos?idusuario=<%=personaSession.getIdPersona()%>">
                 <i class="fas fa-gamepad"></i>
                 <span>Juegos Comprados y Reservados</span>
             </a>
@@ -74,10 +70,13 @@
         </li>
         <!-- Nav Item - Charts -->
         <li class="nav-item">
-            <a class="nav-link" href="">
+            <a class="nav-link" href="<%=request.getContextPath()%>/VentaJuegos?idusuario=<%=personaSession.getIdPersona()%>">
                 <i class="far fa-money-bill-alt"></i>
                 <span>Venta de juegos</span></a>
         </li>
+
+        <!-- Nav Item - Tables -->
+
 
         <hr class="sidebar-divider">
 
@@ -210,7 +209,7 @@
                             </h6>
                             <a class="dropdown-item d-flex align-items-center" href="#">
                                 <div class="dropdown-list-image mr-3">
-                                    <img class="rounded-circle" src="../img/undraw_profile_1.svg"
+                                    <img class="rounded-circle" src=""
                                          alt="...">
                                     <div class="status-indicator bg-success"></div>
                                 </div>
@@ -222,7 +221,7 @@
                             </a>
                             <a class="dropdown-item d-flex align-items-center" href="#">
                                 <div class="dropdown-list-image mr-3">
-                                    <img class="rounded-circle" src="../img/undraw_profile_2.svg"
+                                    <img class="rounded-circle" src=""
                                          alt="...">
                                     <div class="status-indicator"></div>
                                 </div>
@@ -234,7 +233,7 @@
                             </a>
                             <a class="dropdown-item d-flex align-items-center" href="#">
                                 <div class="dropdown-list-image mr-3">
-                                    <img class="rounded-circle" src="../img/undraw_profile_3.svg"
+                                    <img class="rounded-circle" src=""
                                          alt="...">
                                     <div class="status-indicator bg-warning"></div>
                                 </div>
@@ -266,27 +265,20 @@
                     <li class="nav-item dropdown no-arrow">
                         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="mr-2 d-none d-lg-inline text-gray-600 small"><%=personaSession.getNombre()%></span>
+                            <span class="mr-2 d-none d-lg-inline text-gray-600 small">Bienvenid@ <%=personaSession.getNombre()%></span>
                             <img class="img-profile rounded-circle"
-                                 src="../img/undraw_profile.svg">
+                                 src="recursos/img/profile-1.png">
                         </a>
                         <!-- Dropdown - User Information -->
                         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                              aria-labelledby="userDropdown">
-                            <a class="dropdown-item" href="#">
+                            <a class="dropdown-item" href="<%=request.getContextPath()%>/PerfilUsuarioServlet">
                                 <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                 Profile
                             </a>
-                            <a class="dropdown-item" href="#">
-                                <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Settings
-                            </a>
-                            <a class="dropdown-item" href="#">
-                                <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Activity Log
-                            </a>
+
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                            <a class="dropdown-item" href="<%=request.getContextPath()%>/LoginServlet?action=logout" data-toggle="modal" data-target="#logoutModal">
                                 <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                 Logout
                             </a>
@@ -295,99 +287,103 @@
 
                 </ul>
 
+                <!-- Sidebar Toggle (Topbar) -->
+
+
             </nav>
             <!-- End of Topbar -->
 
             <!-- Begin Page Content -->
             <div class="container-fluid">
 
-
                 <!-- Page Heading -->
-                <% for (MasDetallesDto juegocompra : listaDetallesCompra){ %>
-                <h1 class="h3 mb-2 text-gray-800">Página de Compra</h1>
-                <!-- Content Row -->
-                <div class="row">
-                    <div class="col-xl-4 col-lg-4">
-                        <!-- Donut Chart -->
-                        <div class="card shadow mb-4 border-left-primary">
-                            <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary"><%=juegocompra.getNombreJuegos()%></h6>
-                            </div>
-                            <div class="card-body text-center">
-                                <img src="<%=juegocompra.getDireccion_imagen()%>" alt="Imagen" class="img-fluid">
-                                <div class="mt-3">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card shadow mb-4 border-left-primary">
-                            <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary">Datos de pago:</h6>
-                            </div>
-                            <div class="card-body text-center">
-                                <div class="form-group">
-                                    <label for="inputCardNumber" class="font-weight-bold h4">Introduzca su número de Tarjeta</label>
-                                    <input type="text" class="form-control bg-gradient-light" id="inputCardNumber" placeholder="Ingrese el número de tarjeta">
-                                </div>
-                                <div class="form-group">
-                                    <label for="inputCVV" class="font-weight-bold h4">CVV</label>
-                                    <input type="text" class="form-control bg-gradient-light" id="inputCVV" placeholder="Ingrese el CVV">
-                                </div>
-                                <a class="btn btn-success btn-block" href="pagina_juegos_reservados_japyld_new.html">Comprar</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-8 col-lg-8">
-                        <!-- Primer cuadro -->
-                        <div class="card shadow mb-4">
-                            <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary">Resumen del Juego</h6>
-                            </div>
-                            <div class="card-body">
-                                <div class="d-flex flex-column">
-                                    <div class="btn-group">
-                                        <button class="btn btn-info mb-2">Género: <%=juegocompra.getCategoria()%> </button>
-                                    </div>
-                                    <div class="btn-group">
-                                        <button class="btn btn-info mb-2">Consola: Playstation</button>
-                                    </div>
-                                    <div class="btn-group">
-                                        <button class="btn btn-info mb-2">Precio: S/.<%=juegocompra.getPrecio()%></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <% } %>
-                        <!-- Segundo cuadro -->
-                        <div class="card shadow mb-4">
-                            <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary">Dirección de entrega</h6>
-
-                            </div>
-                            <div class="card-body">
-                                <div class="d-flex flex-column">
-                                    <input type="text" class="form-control" id="inputAddress" placeholder="Ingresa tu dirección">
-                                    <hr>
-                                    <img src="recursos/img/mapa.png" alt="Imagen" class="img-fluid">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
+                <div class="d-sm-flex align-items-center justify-content-between p-a">
+                    <h1 class="h3 mb-4 text-gray-800">Perfil</h1>
                 </div>
+                <!-- Información del perfil -->
+                <div class="row">
+                    <!-- Imagen de Perfil y boton de edición-->
+                    <div class="col-lg-4">
+                        <div class="card border-left-primary shadow h-100 py-2">
+                            <div class="card-body">
+                                <img src="<%=personaSession.getImagen().getDireccionArchivo()%>" class="img-fluid"/>
+                                <hr/>
+                                <div class="d-flex justify-content-center">
+                                    <a class="btn btn-info" href="#">
+                                        Editar foto <i class="fas fa-edit"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-8">
+                        <div class="card border-left-primary shadow h-100 py-2">
+                            <div class="card-header py-2">
+                                <h5 class="mb-0 font-weight-bold text-primary">
+                                    Información del usuario
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <p class="mb-0 text-gray-900">Nombres</p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <p class="text-muted mb-0 justify-content-center"><%=personaSession.getNombre()%></p>
+                                    </div>
+                                </div>
+                                <hr/>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <p class="mb-0 text-gray-900">Apellidos</p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <p class="text-muted mb-0 justify-content-center"><%=personaSession.getApellido()%></p>
+                                    </div>
+                                </div>
+                                <hr/>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <p class="mb-0 text-gray-900">Fecha de nacimiento</p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <p class="text-muted mb-0 justify-content-center"><%=personaSession.getFechaDeNacimiento()%></p>
+                                    </div>
+                                </div>
+                                <hr/>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <p class="mb-0 text-gray-900">Email</p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <p class="text-muted mb-0 justify-content-center"><%=personaSession.getCorreo()%></p>
+                                    </div>
+                                </div>
+                                <hr class="mb-5"/>
+                                <a href="<%=request.getContextPath()%>/LoginServlet?action=logout" class="btn btn-danger">Cerrar sesión</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
+            <!-- /.container-fluid -->
 
         </div>
-        <!-- /.container-fluid -->
+        <!-- End of Main Content -->
+
+        <!-- Footer -->
+        <footer class="sticky-footer bg-white">
+            <div class="container my-auto">
+                <div class="copyright text-center my-auto">
+                    <span>Copyright &copy; Your Website 2020</span>
+                </div>
+            </div>
+        </footer>
+        <!-- End of Footer -->
 
     </div>
-    <!-- End of Main Content -->
-
-    <!-- Footer -->
-
-    <!-- End of Footer -->
-
-</div>
-<!-- End of Content Wrapper -->
+    <!-- End of Content Wrapper -->
 
 </div>
 <!-- End of Page Wrapper -->
@@ -411,7 +407,7 @@
             <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                <a class="btn btn-primary" href="ZAdministrador/login.html">Logout</a>
+                <a class="btn btn-primary" href="login.html">Logout</a>
             </div>
         </div>
     </div>
@@ -426,14 +422,6 @@
 
 <!-- Custom scripts for all pages-->
 <script src="recursos/js/sb-admin-2.min.js"></script>
-
-<!-- Page level plugins -->
-<script src="recursos/vendor/chart.js/Chart.min.js"></script>
-
-<!-- Page level custom scripts -->
-<script src="recursos/js/demo/chart-area-demo.js"></script>
-<script src="recursos/js/demo/chart-pie-demo.js"></script>
-<script src="recursos/js/demo/chart-bar-demo.js"></script>
 
 </body>
 

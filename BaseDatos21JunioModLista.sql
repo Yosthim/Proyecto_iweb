@@ -314,7 +314,7 @@ CREATE TABLE `personas` (
   KEY `fk_Persona_Imagenes1_idx` (`id_perfil`),
   CONSTRAINT `fk_Persona_Imagenes1` FOREIGN KEY (`id_perfil`) REFERENCES `imagenes` (`idImagenes`),
   CONSTRAINT `fk_Persona_roles1` FOREIGN KEY (`id_roles`) REFERENCES `roles` (`idroles`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -323,7 +323,7 @@ CREATE TABLE `personas` (
 
 LOCK TABLES `personas` WRITE;
 /*!40000 ALTER TABLE `personas` DISABLE KEYS */;
-INSERT INTO `personas` VALUES (1,'joselin@pucp.edu.pe','12e22f23962137d28a3ad5a3e3a75e9fa423390bba6f82099fdbe0417dfe5da6','Joselin','Raymundo','2001-10-15',75634321,'Femenino','Terror','2023-06-05','Activo','ADM',21),(2,'julio@pucp.edu.pe','0eb1faeedd06bfa0707be855a9ee83e25cf012cf66e5b611c9030fc059970061','Julio','Aliaga','2002-06-03',77832984,'Masculino','Acción','2023-06-05','Activo','USR',22),(3,'david@pucp.edu.pe','820dfa5686867361023816c5a0deecb8f5975de321c3066a10ff4a356ca96059','David','Llanos','2002-05-23',45632778,'Masculino','Deportivo','2023-06-05','Activo','ADM',23),(4,'aracely@pucp.edu.pe','02e5f0b3062f5b22883ab0b9e6b85055f1188006f1676f347ab087d05d3faccf','Aracely','La Rosa','2002-04-21',74533212,'Femenino','Aventura','2023-06-05','Activo','USR',24),(5,'luis@pucp.edu.pe','417dd8fc436c8d46da4d1f8a0b1cfb4dc157903f1be994b44af3b98750aebef9','Luis','Quispe','2002-11-10',45689332,'Masculino','Aventura','2023-06-05','Activo','ADM',25),(6,'pablo@pucp.edu.pe','8e4fd3bce54a1a817c2c4b3aa8c8dfe50a4dcbb711b24be6f82a922ca1f28033','Pablo','Flores','2002-11-17',75688415,'Masculino','Aventura','2023-06-05','Activo','USR',26),(7,'cesar@pucp.edu.pe','058595a16998b053e93a62228f9339d05ac490a29466102c6fd9077ab531a9d5','Cesar','Santivañez','1970-10-13',32133456,'Masculino','Acción','2023-06-05','Activo','USR',27),(8,'manuel@pucp.edu.pe','d7d0e8b1bc42ee54d3dad4133ad4dd8cdddc9ce678b566df21caf1de98e78158','Manuel','Yarlequé','1970-04-02',10956323,'Masculino','Terror','2023-06-05','Activo','USR',28),(9,'gumer@pucp.edu.pe','659a56123de3e9b3335ecbc6616e33332e254e27ae11295f65c8cba269d54cdb','Gumer','Bartra','1963-03-30',75632989,'Masculino','Clasico','2023-06-05','Activo','USR',29),(10,'yoshtim@pucp.edu.pe','45ed822f6ce9ebbed92987c98333b739cb850c20f47ac67f6478e4cc8b530270','Yoshtim','Enciso','2002-12-15',56478313,'Masculino','Deportivo','2023-06-05','Activo','MNG',30);
+INSERT INTO `personas` VALUES (1,'joselin@pucp.edu.pe','12e22f23962137d28a3ad5a3e3a75e9fa423390bba6f82099fdbe0417dfe5da6','Joselin','Raymundo','2001-10-15',75634321,'Femenino','Terror','2023-06-05','Activo','ADM',2),(2,'julio@pucp.edu.pe','0eb1faeedd06bfa0707be855a9ee83e25cf012cf66e5b611c9030fc059970061','Julio','Aliaga','2002-06-03',77832984,'Masculino','Acción','2023-06-05','Activo','USR',3),(3,'david@pucp.edu.pe','820dfa5686867361023816c5a0deecb8f5975de321c3066a10ff4a356ca96059','David','Llanos','2002-05-23',45632778,'Masculino','Deportivo','2023-06-05','Activo','ADM',4),(4,'aracely@pucp.edu.pe','02e5f0b3062f5b22883ab0b9e6b85055f1188006f1676f347ab087d05d3faccf','Aracely','La Rosa','2002-04-21',74533212,'Femenino','Aventura','2023-06-05','Activo','USR',8),(5,'luis@pucp.edu.pe','417dd8fc436c8d46da4d1f8a0b1cfb4dc157903f1be994b44af3b98750aebef9','Luis','Quispe','2002-11-10',45689332,'Masculino','Aventura','2023-06-05','Activo','ADM',6),(6,'pablo@pucp.edu.pe','8e4fd3bce54a1a817c2c4b3aa8c8dfe50a4dcbb711b24be6f82a922ca1f28033','Pablo','Flores','2002-11-17',75688415,'Masculino','Aventura','2023-06-05','Activo','USR',7),(7,'cesar@pucp.edu.pe','058595a16998b053e93a62228f9339d05ac490a29466102c6fd9077ab531a9d5','Cesar','Santivañez','1970-10-13',32133456,'Masculino','Acción','2023-06-05','Activo','USR',1),(8,'manuel@pucp.edu.pe','d7d0e8b1bc42ee54d3dad4133ad4dd8cdddc9ce678b566df21caf1de98e78158','Manuel','Yarlequé','1970-04-02',10956323,'Masculino','Terror','2023-06-05','Activo','USR',2),(9,'gumer@pucp.edu.pe','659a56123de3e9b3335ecbc6616e33332e254e27ae11295f65c8cba269d54cdb','Gumer','Bartra','1963-03-30',75632989,'Masculino','Clasico','2023-06-05','Activo','USR',5),(10,'yoshtim@pucp.edu.pe','45ed822f6ce9ebbed92987c98333b739cb850c20f47ac67f6478e4cc8b530270','Yoshtim','Enciso','2002-12-15',56478313,'Masculino','Deportivo','2023-06-05','Activo','MNG',3),(11,'cafg1570@gmail.com','954909e120074efe2ea487247b5695b8e6822eb17582128798c4c73af418ccd0','Carlos','Flores','1970-10-15',10212103,'masculino','accion','2023-06-21','Activo','USR',1),(12,'rrevi_7@hotmail.com','fb7a5be2db202e70f581c5bf03bb0ec10e8c5c82b45a437b78233508e434ffad','Rocío ','Revilla','1967-04-02',9327162,'Femenino','Musical','2023-06-21','Activo','USR',3);
 /*!40000 ALTER TABLE `personas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -375,13 +375,16 @@ CREATE TABLE `ventajuegosgeneral` (
   `nombre_nuevo` varchar(45) DEFAULT NULL,
   `imagen` blob,
   `cantidad` int NOT NULL,
+  `idCategoria` VARCHAR(45) NULL,
   PRIMARY KEY (`idVenta`),
   KEY `fk_VentaJuegosGeneral_Persona1_idx` (`id_usuario`),
   KEY `fk_VentaJuegosGeneral_Persona2_idx` (`id_administrador`),
   KEY `fk_VentaJuegosGeneral_Juegos_has_Consolas1_idx` (`id_juego`,`id_consola`),
   CONSTRAINT `fk_VentaJuegosGeneral_Juegos_has_Consolas1` FOREIGN KEY (`id_juego`, `id_consola`) REFERENCES `juegos_por_consolas` (`id_juego`, `id_consola`),
   CONSTRAINT `fk_VentaJuegosGeneral_Persona1` FOREIGN KEY (`id_usuario`) REFERENCES `personas` (`idPersona`),
-  CONSTRAINT `fk_VentaJuegosGeneral_Persona2` FOREIGN KEY (`id_administrador`) REFERENCES `personas` (`idPersona`)
+  CONSTRAINT `fk_VentaJuegosGeneral_Persona2` FOREIGN KEY (`id_administrador`) REFERENCES `personas` (`idPersona`),
+  CONSTRAINT `fk_ventajuegosgeneral_categorias1` FOREIGN KEY (`idCategoria`) REFERENCES `japyld`.`categorias` (`idCategorias`)
+    
 ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -391,7 +394,7 @@ CREATE TABLE `ventajuegosgeneral` (
 
 LOCK TABLES `ventajuegosgeneral` WRITE;
 /*!40000 ALTER TABLE `ventajuegosgeneral` DISABLE KEYS */;
-INSERT INTO `ventajuegosgeneral` VALUES (1,'Aceptado',NULL,'2023-06-01',150.00,'Habilitado',150,2,1,4,'PS5',NULL,NULL,NULL,1),(2,'No Aceptado',NULL,'2023-05-29',130.00,'Habilitado',110,2,3,2,'PS4',NULL,NULL,NULL,1),(3,'Rechazado','Dudosa procedencia.','2023-06-11',100.00,'Deshabilitado',NULL,2,5,6,'WIU',NULL,NULL,NULL,1),(4,'Retirado',NULL,'2023-05-28',105.00,'Habilitado',NULL,2,1,2,'PS5',NULL,NULL,NULL,1),(5,'Aceptado',NULL,'2023-06-09',100.00,'Habilitado',NULL,4,1,1,'XB3',NULL,NULL,NULL,1),(6,'No Aceptado',NULL,'2023-06-07',120.00,'Habilitado',90,4,3,9,'XB3',NULL,NULL,NULL,1),(7,'Aceptado',NULL,'2023-06-08',30.00,'Habilitado',NULL,6,3,11,'SWI',NULL,NULL,NULL,1),(8,'Aceptado',NULL,'2023-06-12',90.00,'Habilitado',NULL,6,5,12,'PS4',NULL,NULL,NULL,1),(9,'Aceptado',NULL,'2023-05-25',80.00,'Habilitado',NULL,7,5,10,'XBO',NULL,NULL,NULL,1),(10,'Retirado',NULL,'2023-06-05',35.00,'Habilitado',NULL,8,3,11,'SWI',NULL,NULL,NULL,1),(11,'Retirado',NULL,'2023-05-21',80.00,'Habilitado',NULL,8,1,12,'PS4',NULL,NULL,NULL,1),(12,'Aceptado',NULL,'2023-06-04',150.00,'Habilitado',NULL,9,5,3,'XBO',NULL,NULL,NULL,1),(13,'Aceptado',NULL,'2023-05-20',200.00,'Deshabilitado',NULL,7,3,2,'PS5',NULL,NULL,NULL,1);
+INSERT INTO `ventajuegosgeneral` VALUES (1,'Aceptado',NULL,'2023-06-01',150.00,'Habilitado',150,2,1,4,'PS5',NULL,NULL,NULL,1,NULL),(2,'No Aceptado',NULL,'2023-05-29',130.00,'Habilitado',110,2,3,2,'PS4',NULL,NULL,NULL,1,NULL),(3,'Rechazado','Dudosa procedencia.','2023-06-11',100.00,'Deshabilitado',NULL,2,5,6,'WIU',NULL,NULL,NULL,1,NULL),(4,'Retirado',NULL,'2023-05-28',105.00,'Habilitado',NULL,2,1,2,'PS5',NULL,NULL,NULL,1,NULL),(5,'Aceptado',NULL,'2023-06-09',100.00,'Habilitado',NULL,4,1,1,'XB3',NULL,NULL,NULL,1,NULL),(6,'No Aceptado',NULL,'2023-06-07',120.00,'Habilitado',90,4,3,9,'XB3',NULL,NULL,NULL,1,NULL),(7,'Aceptado',NULL,'2023-06-08',30.00,'Habilitado',NULL,6,3,11,'SWI',NULL,NULL,NULL,1,NULL),(8,'Aceptado',NULL,'2023-06-12',90.00,'Habilitado',NULL,6,5,12,'PS4',NULL,NULL,NULL,1,NULL),(9,'Aceptado',NULL,'2023-05-25',80.00,'Habilitado',NULL,7,5,10,'XBO',NULL,NULL,NULL,1,NULL),(10,'Retirado',NULL,'2023-06-05',35.00,'Habilitado',NULL,8,3,11,'SWI',NULL,NULL,NULL,1,NULL),(11,'Retirado',NULL,'2023-05-21',80.00,'Habilitado',NULL,8,1,12,'PS4',NULL,NULL,NULL,1,NULL),(12,'Aceptado',NULL,'2023-06-04',150.00,'Habilitado',NULL,9,5,3,'XBO',NULL,NULL,NULL,1,NULL),(13,'Aceptado',NULL,'2023-05-20',200.00,'Deshabilitado',NULL,7,3,2,'PS5',NULL,NULL,NULL,1,NULL);
 /*!40000 ALTER TABLE `ventajuegosgeneral` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -411,5 +414,3 @@ UNLOCK TABLES;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2023-06-20 18:20:45
