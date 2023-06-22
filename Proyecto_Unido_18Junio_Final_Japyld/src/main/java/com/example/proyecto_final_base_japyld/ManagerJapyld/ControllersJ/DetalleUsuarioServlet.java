@@ -34,6 +34,13 @@ public class DetalleUsuarioServlet extends HttpServlet {
                 perfilUsuarioDao.editarUser(Integer.parseInt(id));
                 response.sendRedirect(request.getContextPath() + "/ModuloUsuarioServlet");
                 break;
+
+            case "noban":
+                String idStr = request.getParameter("idUser");
+                int id2 = Integer.parseInt(idStr);
+                perfilUsuarioDao.desbanearUser(id2);
+                response.sendRedirect(request.getContextPath() + "/ModuloUsuarioServlet");
+                break;
         }
     }
 

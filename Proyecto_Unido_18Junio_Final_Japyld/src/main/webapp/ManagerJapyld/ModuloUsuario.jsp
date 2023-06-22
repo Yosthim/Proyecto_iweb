@@ -2,7 +2,8 @@
 <%@ page import="com.example.proyecto_final_base_japyld.ManagerJapyld.ModelsJ.DtoJ.ModuloUsuario" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:useBean id="personaSession" type="com.example.proyecto_final_base_japyld.BeansGenerales.Personas" scope="session" class="com.example.proyecto_final_base_japyld.BeansGenerales.Personas"/>
-<% ArrayList<ModuloUsuario> lista = (ArrayList<ModuloUsuario>) request.getAttribute("lista"); %>
+<% ArrayList<ModuloUsuario> listaUsersActivos = (ArrayList<ModuloUsuario>) request.getAttribute("listaUserActivo"); %>
+<% ArrayList<ModuloUsuario> listaUsersBaneados = (ArrayList<ModuloUsuario>) request.getAttribute("listaUserBaneado"); %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -192,7 +193,7 @@
                                     </thead>
 
                                     <tbody>
-                                    <% for (ModuloUsuario um : lista) { %>
+                                    <% for (ModuloUsuario um : listaUsersActivos) { %>
                                     <tr>
                                         <td>
                                             <div class="d-flex align-items-center">
@@ -209,6 +210,57 @@
                                         <td class="text-center"><%=um.getFechaRegistro()%></td>
                                     </tr>
                                     <% } %>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+                </div>
+                <br>
+                <div class="col-xl-12">
+                    <!-- Profile picture card-->
+                    <div class="card mb-4 mb-xl-0">
+
+                        <div class="card-header font-weight-bold text-primary">USUARIOS BANEADOS</div>
+                        <div class="card-body text">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center">Usuarios</th>
+                                            <th class="text-center">Correo Electronico</th>
+                                            <th class="text-center">Numero De Juegos</th>
+                                            <th class="text-center">Fecha De Registro</th>
+                                            <th class="text-center"> </th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        <% for (ModuloUsuario ubaneado : listaUsersBaneados) { %>
+                                        <tr>
+                                            <td>
+                                                <div class="d-flex align-items-center">
+                                                    <label> <img src="<%=ubaneado.getDireccionImagen()%>" alt="" style="width: 45px; height: 45px;"></label>
+                                                    <div class="d-flex align-items-center">
+                                                        <ul>
+                                                            <a href="<%=request.getContextPath()%>/DetalleUsuarioServlet?nm=<%=String.valueOf(ubaneado.getId())%>" style="color:rgb(115,115,115);"><%=ubaneado.getNombre() + " " + ubaneado.getApellido()%></a>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="text-center"><%=ubaneado.getCorreo()%></td>
+                                            <td class="text-center"><%=ubaneado.getNumJuegos()%></td>
+                                            <td class="text-center"><%=ubaneado.getFechaRegistro()%></td>
+                                            <td class="text-center">
+                                                <div class="center">
+                                                    <a class="btn btn-warning" href="<%=request.getContextPath()%>/DetalleUsuarioServlet?action=noban&idUser=<%=ubaneado.getId()%>">Desbanear</a>
+                                                </div>
+                                            </td>
+
+                                        </tr>
+                                        <% } %>
                                     </tbody>
                                 </table>
                             </div>

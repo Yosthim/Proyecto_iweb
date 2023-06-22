@@ -166,4 +166,27 @@ public class DetalleUsuarioDao {
             throw new RuntimeException(e);
         }
     }
+
+    public void desbanearUser(int id) {
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e){
+            e.printStackTrace();
+        }
+
+        String sql = "update personas set estado = \"Activo\" where idPersona = ?";
+        String url = "jdbc:mysql://localhost:3306/japyld";
+
+        try(Connection connection = DriverManager.getConnection(url, "root", "root");
+            PreparedStatement smt = connection.prepareStatement(sql))
+        {
+
+            smt.setInt(1,id);
+            smt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

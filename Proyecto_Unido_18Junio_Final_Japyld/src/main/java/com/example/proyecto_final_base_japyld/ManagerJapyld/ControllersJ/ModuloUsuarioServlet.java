@@ -21,7 +21,8 @@ public class ModuloUsuarioServlet extends HttpServlet {
 
         ModuloUsuarioDao usuariosModuloDao = new ModuloUsuarioDao();
 
-        request.setAttribute("lista", usuariosModuloDao.listarUsuarios());
+        request.setAttribute("listaUserActivo", usuariosModuloDao.listarUsuarios());
+        request.setAttribute("listaUserBaneado", usuariosModuloDao.listarUsuariosBaneados());
 
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("ManagerJapyld/ModuloUsuario.jsp");
         requestDispatcher.forward(request,response);
