@@ -192,7 +192,7 @@
                                     <br>
                                     <div class="col-12 col-xl-auto mb-3">
                                         <div class="d-flex justify-content-center">
-                                            <a href="RegistroAdministrador.html">
+                                            <a href="<%=request.getContextPath()%>/ManagerServlet?a=perfilManager">
                                                 <button class="btn btn-primary" type="button"> Editar foto de perfil</button>
                                             </a>
                                         </div>
@@ -221,7 +221,7 @@
                                 <br>
                                 <div class="col-12 col-xl-auto mb-3">
                                     <div class="d-flex justify-content-center">
-                                        <a href="ZLogin/login.html">
+                                        <a href="<%=request.getContextPath()%>/LoginServlet?action=logout">
                                             <button class="btn btn-danger" type="button"> Cerrar  sesión</button>
 
                                         </a>
@@ -269,8 +269,8 @@
                     </div>
                     <div class="modal-body">Seleccione "Confirmar" si desea salir de su cuenta.</div>
                     <div class="modal-footer">
-                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                        <a class="btn btn-primary" href="login.html">Logout</a>
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                        <a class="btn btn-primary" href="<%=request.getContextPath()%>/LoginServlet?action=logout">Salir</a>
                     </div>
                 </div>
             </div>

@@ -1,6 +1,9 @@
 <%@ page import="com.example.proyecto_final_base_japyld.BeansGenerales.Objetivos" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="com.example.proyecto_final_base_japyld.ManagerJapyld.ModelsJ.DtoJ.JuegosManager" %><%--
+<%@ page import="com.example.proyecto_final_base_japyld.ManagerJapyld.ModelsJ.DtoJ.JuegosManager" %>
+<%@ page import="java.time.LocalDate" %>
+<%@ page import="java.time.format.DateTimeFormatter" %>
+<%--
   Created by IntelliJ IDEA.
   User: milene
   Date: 14/06/2023
@@ -219,6 +222,12 @@
                       <br>
                       Cantidad de nuevos usuarios por mes estimada es <div class="mb-3">
                       <input type="text" class="form-control" name="usuarios" id="usuarios">
+                      <%
+                        LocalDate fechaActual = LocalDate.now();
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                        String fechaActualStr = fechaActual.format(formatter);
+                      %>
+                      <input type="hidden" class="form-control" name="fecha" value="<%= fechaActualStr %>">
                     </div>
                     </div>
                   </div>

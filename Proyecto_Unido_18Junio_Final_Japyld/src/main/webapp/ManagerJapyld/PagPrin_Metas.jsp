@@ -13,11 +13,9 @@
   ArrayList<Objetivos> objetivos = (ArrayList<Objetivos>) request.getAttribute("objetivos");
 %>
 <%
-  ArrayList<JuegosManager> listaMasVendidos = (ArrayList<JuegosManager>) request.getAttribute("listaMasVendidos");
+  ArrayList<Objetivos> objetivosPasados = (ArrayList<Objetivos>) request.getAttribute("objetivosPasados");
 %>
-<%
-  ArrayList<JuegosManager> listaMenosVendidos = (ArrayList<JuegosManager>) request.getAttribute("listaMenosVendidos");
-%>
+
 <html lang="en">
 
   <head>
@@ -246,6 +244,44 @@
             <%
               }
             %>
+          </div>
+
+
+          <br>
+
+          <div class="col-xl-12">
+            <!-- Profile picture card-->
+            <div class="card mb-4 mb-xl-0">
+
+              <div class="card-header font-weight-bold text-primary">RECORD DE METAS</div>
+              <div class="card-body text">
+                <div class="table-responsive">
+                  <table class="table table-bordered" id="dataTable2" width="100%" cellspacing="0">
+                    <thead>
+                      <tr>
+                        <th class="text-center">Ventas de Juegos por mes</th>
+                        <th class="text-center">Gastos de Juegos por mes</th>
+                        <th class="text-center">Usuarios registrados por mes</th>
+                        <th class="text-center">Fecha</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <% for (Objetivos ob1 : objetivosPasados) { %>
+                      <tr>
+                        <td class="text-center"><%=ob1.getVentasPorMesJuego() %></td>
+                        <td class="text-center"><%=ob1.getGastosPorMesJuego() %></td>
+                        <td class="text-center"><%=ob1.getUsuarioPorMes() %></td>
+                        <td class="text-center"><%=ob1.getFecha() %></td>
+                      </tr>
+                      <% } %>
+                    </tbody>
+                  </table>
+                </div>
+                <br>
+              </div>
+            </div>
+            <br>
+            <br>
           </div>
 
 

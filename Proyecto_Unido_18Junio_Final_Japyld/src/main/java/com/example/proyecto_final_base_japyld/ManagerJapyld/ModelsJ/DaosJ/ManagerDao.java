@@ -95,10 +95,9 @@ public class ManagerDao extends BaseDao {
 
         ArrayList<Objetivos> objetivos= new ArrayList<>();
 
-        String sql = "SELECT * FROM objetivosmanager o\n" +
-                "left join personas p on o.id_manager = p.idPersona\n" +
-                "WHERE o.id_manager = (SELECT idPersona FROM japyld.personas\n" +
-                "\tWHERE id_roles ='MNG');";
+        String sql = "SELECT * FROM objetivosmanager\n" +
+                "ORDER BY fecha desc\n" +
+                "LIMIT 1;";
 
         try(Connection connection = this.getConnection();
             Statement stmt = connection.createStatement();
@@ -113,9 +112,6 @@ public class ManagerDao extends BaseDao {
                 objetivos1.setGastosPorMesJuego(resultSet.getInt(3));
                 objetivos1.setUsuarioPorMes(resultSet.getInt(4));
 
-                Personas manager = new Personas();
-                manager.setIdPersona(resultSet.getInt("p.idPersona"));
-
                 objetivos.add(objetivos1);
 
             }
@@ -128,20 +124,53 @@ public class ManagerDao extends BaseDao {
     }
 
     public void actualizarObjetivos(Objetivos objetivos) {
-
-        String sql = "UPDATE objetivosmanager SET ventasPorMesJuego = ?,gastosPorMesJuego = ?,usariosPorMes = ? WHERE id_objetivo = 1;";
+        String sql = "INSERT INTO objetivosmanager (ventasPorMesJuego,gastosPorMesJuego,usariosPorMes,id_manager,fecha) VALUES (?,?,?,10,?);";
         try (Connection connection = this.getConnection();
              PreparedStatement pstmt = connection.prepareStatement(sql)) {
 
             pstmt.setInt(1, objetivos.getVentasPorMesJuego());
             pstmt.setInt(2, objetivos.getGastosPorMesJuego());
             pstmt.setInt(3, objetivos.getUsuarioPorMes());
+            java.util.Date fechaUtil = objetivos.getFecha();
+            java.sql.Date fechaSql = new java.sql.Date(fechaUtil.getTime());
+            pstmt.setDate(4, fechaSql);
+
             pstmt.executeUpdate();
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
+
+    public ArrayList<Objetivos> listarObjetivosPasados(){
+
+        ArrayList <Objetivos> recordObjetivos = new ArrayList<>();
+
+        String sql = "SELECT * FROM objetivosmanager\n" +
+                "WHERE id_objetivo NOT IN (\n" +
+                "    SELECT MAX(id_objetivo)\n" +
+                "    FROM objetivosmanager)\n" +
+                "ORDER BY fecha DESC;";
+
+        try (Connection connection = this.getConnection();
+             Statement smt = connection.createStatement();
+             ResultSet resultSet = smt.executeQuery(sql)) {
+
+            while(resultSet.next()){
+                Objetivos objetivos = new Objetivos();
+                objetivos.setIdObjetivos(resultSet.getInt(1));
+                objetivos.setVentasPorMesJuego(resultSet.getInt(2));
+                objetivos.setGastosPorMesJuego(resultSet.getInt(3));
+                objetivos.setUsuarioPorMes(resultSet.getInt(4));
+                objetivos.setFecha(resultSet.getDate(6));
+                recordObjetivos.add(objetivos);
+            }
+        }catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+        return recordObjetivos;
+    }
+
 
 
 
