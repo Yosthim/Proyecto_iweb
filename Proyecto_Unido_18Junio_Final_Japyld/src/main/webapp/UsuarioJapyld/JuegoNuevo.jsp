@@ -1,4 +1,5 @@
 <%@ page import="com.example.proyecto_final_base_japyld.BeansGenerales.Categoria" %>
+<%@ page import="com.example.proyecto_final_base_japyld.BeansGenerales.Consola" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:useBean id="categorias" type="java.util.ArrayList<com.example.proyecto_final_base_japyld.BeansGenerales.Categoria>" scope="request"/>
 <jsp:useBean id="consolas" type="java.util.ArrayList<com.example.proyecto_final_base_japyld.BeansGenerales.Consola>" scope="request"/>
@@ -305,7 +306,7 @@
                             </h4>
                         </div>
                         <div class="card-body justify-content-center">
-                            <form method="POST" action="<%=request.getContextPath()%>/TusVentas">
+                            <form method="POST" action="<%=request.getContextPath()%>/TusVentas?act=new">
                                 <div class="form-group">
                                     <label class="text-gray-900" for="nombreJuego">Ingrese el nombre del Juego:</label>
                                     <input type="text" class="form-control" id="nombreJuego" name="nombreJuego" placeholder="Nombre del Juego">
@@ -314,16 +315,57 @@
                                     <label class="text-gray-900" for="descripcion">Ingrese la Descripción del Juego:</label>
                                     <textarea class="form-control" id="descripcion" name="descripcion" rows="5"></textarea>
                                 </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-4">
+                                        <label class="text-gray-900" for="categorias">Seleccione la Categoría:</label>
+                                        <select class="form-control" id="categorias" name="idCategoria">
+                                            <option selected>Categorias</option>
+                                            <% for(Categoria categoria: categorias) { %>
+                                                <option value="<%=categoria.getIdCategorias()%>">
+                                                    <%=categoria.getNombre()%>
+                                                </option>
+                                            <% } %>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label class="text-gray-900" for="consolas">Seleccione la consola:</label>
+                                        <select class="form-control" id="consolas" name="idConsola">
+                                            <option selected>Consolas</option>
+                                            <% for(Consola consola: consolas) { %>
+                                                <option value="<%=consola.getIdConsola()%>">
+                                                    <%=consola.getNombre()%>
+                                                </option>
+                                            <% } %>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <label class="text-gray-900" for="precioInput">Precio:</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">S/</span>
+                                            </div>
+                                            <input class="form-control" type="number" id="precioInput" name="precio" placeholder="0.00"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <label class="text-gray-900" for="cantidad">Cantidad:</label>
+                                        <input type="number" class="form-control" id="cantidad" name="stock" placeholder="0"/>
+                                    </div>
+                                </div>
                                 <div class="form-group">
-                                    <label class="text-gray-900" for="categorias">Seleccione una Categoría</label>
-                                    <select class="form-control" id="categorias" name="idCategoria">
-                                        <option selected>Categorias</option>
-                                        <% for(Categoria categoria: categorias) { %>
-                                            <option value="<%=categoria.getIdCategorias()%>">
-                                                <%=categoria.getNombre()%>
-                                            </option>
-                                        <% } %>
-                                    </select>
+                                    <label class="text-gray-900" for="imageFile">Suba la imagen del Juego</label>
+                                    <div class="text-center mt-2 mb-3">
+                                        <img src="https://dummyimage.com/150x150/dee2e6/6c757d.jpg" class="img-thumbnail"
+                                             id="imagePreview" height="150px" width="150px" alt="Imagen del juego"/>
+                                    </div>
+                                    <div class="mb-3">
+                                        <input class="form-control-file" type="file" id="imageFile"
+                                               accept="image/png, image/jpeg" onchange="readURL(this);"/>
+                                    </div>
+                                </div>
+                                <div class="d-flex justify-content-center">
+                                    <a class="btn btn-danger mx-2" href="<%=request.getContextPath()%>/TusVentas">Cancelar</a>
+                                    <button class="btn btn-success mx-2" type="submit">Publicar</button>
                                 </div>
                             </form>
                         </div>
@@ -397,6 +439,32 @@
 <script src="recursos/js/demo/chart-pie-demo.js"></script>
 <script src ="recursos/vendor/fontawesome-free/css/all.min.css"></script>
 <script src ="recursos/css/sb-admin-2.min.css"></script>
+
+<!-- Script para ver un preview de la imagen -->
+<script>
+    function readURL(input) {
+        if(input.files[0].size > 2097152){
+            alert("El archivo es muy grande");
+            input.value = "";
+            $('#imagePreview')
+                .attr('src', "https://dummyimage.com/200x200/dee2e6/6c757d.jpg")
+                .width(100)
+                .height(100);
+        }
+        else if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#imagePreview')
+                    .attr('src', e.target.result)
+                    .width(200)
+                    .height(200);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
 
 </body>
 

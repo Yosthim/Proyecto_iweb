@@ -41,6 +41,7 @@ public class VentaJuegosServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String action = request.getParameter("act");
 
     }
 }
