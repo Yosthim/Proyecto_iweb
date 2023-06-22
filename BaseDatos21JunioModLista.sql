@@ -375,13 +375,16 @@ CREATE TABLE `ventajuegosgeneral` (
   `nombre_nuevo` varchar(45) DEFAULT NULL,
   `imagen` blob,
   `cantidad` int NOT NULL,
+  `idCategoria` VARCHAR(45) NULL,
   PRIMARY KEY (`idVenta`),
   KEY `fk_VentaJuegosGeneral_Persona1_idx` (`id_usuario`),
   KEY `fk_VentaJuegosGeneral_Persona2_idx` (`id_administrador`),
   KEY `fk_VentaJuegosGeneral_Juegos_has_Consolas1_idx` (`id_juego`,`id_consola`),
   CONSTRAINT `fk_VentaJuegosGeneral_Juegos_has_Consolas1` FOREIGN KEY (`id_juego`, `id_consola`) REFERENCES `juegos_por_consolas` (`id_juego`, `id_consola`),
   CONSTRAINT `fk_VentaJuegosGeneral_Persona1` FOREIGN KEY (`id_usuario`) REFERENCES `personas` (`idPersona`),
-  CONSTRAINT `fk_VentaJuegosGeneral_Persona2` FOREIGN KEY (`id_administrador`) REFERENCES `personas` (`idPersona`)
+  CONSTRAINT `fk_VentaJuegosGeneral_Persona2` FOREIGN KEY (`id_administrador`) REFERENCES `personas` (`idPersona`),
+  CONSTRAINT `fk_ventajuegosgeneral_categorias1` FOREIGN KEY (`idCategoria`) REFERENCES `japyld`.`categorias` (`idCategorias`)
+    
 ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -391,7 +394,7 @@ CREATE TABLE `ventajuegosgeneral` (
 
 LOCK TABLES `ventajuegosgeneral` WRITE;
 /*!40000 ALTER TABLE `ventajuegosgeneral` DISABLE KEYS */;
-INSERT INTO `ventajuegosgeneral` VALUES (1,'Aceptado',NULL,'2023-06-01',150.00,'Habilitado',150,2,1,4,'PS5',NULL,NULL,NULL,1),(2,'No Aceptado',NULL,'2023-05-29',130.00,'Habilitado',110,2,3,2,'PS4',NULL,NULL,NULL,1),(3,'Rechazado','Dudosa procedencia.','2023-06-11',100.00,'Deshabilitado',NULL,2,5,6,'WIU',NULL,NULL,NULL,1),(4,'Retirado',NULL,'2023-05-28',105.00,'Habilitado',NULL,2,1,2,'PS5',NULL,NULL,NULL,1),(5,'Aceptado',NULL,'2023-06-09',100.00,'Habilitado',NULL,4,1,1,'XB3',NULL,NULL,NULL,1),(6,'No Aceptado',NULL,'2023-06-07',120.00,'Habilitado',90,4,3,9,'XB3',NULL,NULL,NULL,1),(7,'Aceptado',NULL,'2023-06-08',30.00,'Habilitado',NULL,6,3,11,'SWI',NULL,NULL,NULL,1),(8,'Aceptado',NULL,'2023-06-12',90.00,'Habilitado',NULL,6,5,12,'PS4',NULL,NULL,NULL,1),(9,'Aceptado',NULL,'2023-05-25',80.00,'Habilitado',NULL,7,5,10,'XBO',NULL,NULL,NULL,1),(10,'Retirado',NULL,'2023-06-05',35.00,'Habilitado',NULL,8,3,11,'SWI',NULL,NULL,NULL,1),(11,'Retirado',NULL,'2023-05-21',80.00,'Habilitado',NULL,8,1,12,'PS4',NULL,NULL,NULL,1),(12,'Aceptado',NULL,'2023-06-04',150.00,'Habilitado',NULL,9,5,3,'XBO',NULL,NULL,NULL,1),(13,'Aceptado',NULL,'2023-05-20',200.00,'Deshabilitado',NULL,7,3,2,'PS5',NULL,NULL,NULL,1);
+INSERT INTO `ventajuegosgeneral` VALUES (1,'Aceptado',NULL,'2023-06-01',150.00,'Habilitado',150,2,1,4,'PS5',NULL,NULL,NULL,1,NULL),(2,'No Aceptado',NULL,'2023-05-29',130.00,'Habilitado',110,2,3,2,'PS4',NULL,NULL,NULL,1,NULL),(3,'Rechazado','Dudosa procedencia.','2023-06-11',100.00,'Deshabilitado',NULL,2,5,6,'WIU',NULL,NULL,NULL,1,NULL),(4,'Retirado',NULL,'2023-05-28',105.00,'Habilitado',NULL,2,1,2,'PS5',NULL,NULL,NULL,1,NULL),(5,'Aceptado',NULL,'2023-06-09',100.00,'Habilitado',NULL,4,1,1,'XB3',NULL,NULL,NULL,1,NULL),(6,'No Aceptado',NULL,'2023-06-07',120.00,'Habilitado',90,4,3,9,'XB3',NULL,NULL,NULL,1,NULL),(7,'Aceptado',NULL,'2023-06-08',30.00,'Habilitado',NULL,6,3,11,'SWI',NULL,NULL,NULL,1,NULL),(8,'Aceptado',NULL,'2023-06-12',90.00,'Habilitado',NULL,6,5,12,'PS4',NULL,NULL,NULL,1,NULL),(9,'Aceptado',NULL,'2023-05-25',80.00,'Habilitado',NULL,7,5,10,'XBO',NULL,NULL,NULL,1,NULL),(10,'Retirado',NULL,'2023-06-05',35.00,'Habilitado',NULL,8,3,11,'SWI',NULL,NULL,NULL,1,NULL),(11,'Retirado',NULL,'2023-05-21',80.00,'Habilitado',NULL,8,1,12,'PS4',NULL,NULL,NULL,1,NULL),(12,'Aceptado',NULL,'2023-06-04',150.00,'Habilitado',NULL,9,5,3,'XBO',NULL,NULL,NULL,1,NULL),(13,'Aceptado',NULL,'2023-05-20',200.00,'Deshabilitado',NULL,7,3,2,'PS5',NULL,NULL,NULL,1,NULL);
 /*!40000 ALTER TABLE `ventajuegosgeneral` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -411,5 +414,3 @@ UNLOCK TABLES;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2023-06-21 20:23:38
