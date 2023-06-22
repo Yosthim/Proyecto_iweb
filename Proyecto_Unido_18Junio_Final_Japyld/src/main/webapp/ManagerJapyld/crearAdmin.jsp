@@ -1,9 +1,5 @@
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="com.example.proyecto_final_base_japyld.ManagerJapyld.ModelsJ.DtoJ.ModuloUsuario" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:useBean id="personaSession" type="com.example.proyecto_final_base_japyld.BeansGenerales.Personas" scope="session" class="com.example.proyecto_final_base_japyld.BeansGenerales.Personas"/>
-<% ArrayList<ModuloUsuario> listaUsersActivos = (ArrayList<ModuloUsuario>) request.getAttribute("listaUserActivo"); %>
-<% ArrayList<ModuloUsuario> listaUsersBaneados = (ArrayList<ModuloUsuario>) request.getAttribute("listaUserBaneado"); %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -16,7 +12,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Por Genero de Juego</title>
+    <title>Crear Administrador</title>
 
     <title>Gráfico de Barras con Bootstrap 4</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
@@ -172,103 +168,49 @@
             <!-- End of Topbar -->
 
             <!-- Begin Page Content -->
-            <div class="container-fluid">
+            <div class="container-xl px-4 mt-4">
                 <!-- Account page navigation-->
                 <br>
-                <div class="col-xl-12">
-                    <!-- Profile picture card-->
-                    <div class="card mb-4 mb-xl-0">
+                <div class="tab-pane py-5 py-xl-10 fade show active" id="wizard1" role="tabpanel" aria-labelledby="wizard1-tab">
+                    <div class="row justify-content-center">
+                        <div class="col-xxl-6 col-xl-8">
+                            <h3 class="text-primary">Registrar Administrador</h3>
+                            <br>
+                            <h5 class="card-title mb-4">Ingrese la siguiente información</h5>
+                            <form method="POST" action="<%=request.getContextPath()%>/ModuloAdminServlet?action=guardar" wtx-context="36BA0B7D-EB23-4009-BD9E-83DA80BAD4DE">
+                                <div class="row gx-3">
+                                    <div class="mb-3 col-md-6" class="form-group">
+                                        <label class="small mb-1" for="nombre">Nombre </label>
+                                        <input class="form-control" id="nombre" type="text" name="nombre" placeholder="Enter Firstname"  wtx-context="434A1E15-D4FD-4427-8AAE-AEFCABA1691D">
+                                    </div>
+                                    <div class="mb-3 col-md-6">
+                                        <label class="small mb-1" for="apellido">Apellido</label>
+                                        <input class="form-control" id="apellido" type="text" name="apellido" placeholder="Enter Lastname"  wtx-context="42795CFB-4E11-4FF6-A475-9275BD7BCAAE">
+                                    </div>
+                                </div>
+                                <div class="mb-3" class="form-group">
+                                    <label class="small mb-1" for="correo">Correo electrónico</label>
+                                    <input class="form-control" id="correo" type="email" name="correo" placeholder="Enter your email address"  wtx-context="9DF972A9-6C9A-45AE-8715-63056FD50C08">
+                                </div>
 
-                        <div class="card-header font-weight-bold text-primary">TABLA DE USUARIOS</div>
-                        <div class="card-body text">
-                            <div class="table-responsive">
-                                <table class="table table-bordered" width="100%" cellspacing="0">
-                                    <thead>
-                                    <tr>
-                                        <th class="text-center">Usuarios</th>
-                                        <th class="text-center">Correo Electronico</th>
-                                        <th class="text-center">Numero De Juegos</th>
-                                        <th class="text-center">Fecha De Registro</th>
-                                    </tr>
-                                    </thead>
+                                <div class="mb-3" class="form-group">
+                                    <label class="small mb-1" for="contrasenia">Contraseña</label>
+                                    <input class="form-control" id="contrasenia" type="text" name="contrasenia" placeholder="Enter Password"  wtx-context="9DF972A9-6C9A-45AE-8715-63056FD50C08">
+                                </div>
 
-                                    <tbody>
-                                    <% for (ModuloUsuario um : listaUsersActivos) { %>
-                                    <tr>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <label> <img src="<%=um.getDireccionImagen()%>" alt="" style="width: 45px; height: 45px;"></label>
-                                                <div class="d-flex align-items-center">
-                                                    <ul>
-                                                        <a href="<%=request.getContextPath()%>/DetalleUsuarioServlet?nm=<%=String.valueOf(um.getId())%>" style="color:rgb(115,115,115);"><%=um.getNombre() + " " + um.getApellido()%></a>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="text-center"><%=um.getCorreo()%></td>
-                                        <td class="text-center"><%=um.getNumJuegos()%></td>
-                                        <td class="text-center"><%=um.getFechaRegistro()%></td>
-                                    </tr>
-                                    <% } %>
-                                    </tbody>
-                                </table>
-                            </div>
+                                <hr class="my-4">
+                                <div class="d-flex justify-content-between">
+                                    <a href="<%=request.getContextPath()%>/ModuloAdminServlet">
+                                        <button class="btn btn-light alert-danger" type="button" >Cancelar</button>
+                                    </a>
+                                    <button class="btn btn-primary" type="submit">Añadir</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
-                    <br>
-                    <br>
                 </div>
                 <br>
-                <div class="col-xl-12">
-                    <!-- Profile picture card-->
-                    <div class="card mb-4 mb-xl-0">
-
-                        <div class="card-header font-weight-bold text-primary">USUARIOS BANEADOS</div>
-                        <div class="card-body text">
-                            <div class="table-responsive">
-                                <table class="table table-bordered" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                            <th class="text-center">Usuarios</th>
-                                            <th class="text-center">Correo Electronico</th>
-                                            <th class="text-center">Numero De Juegos</th>
-                                            <th class="text-center">Fecha De Registro</th>
-                                            <th class="text-center"> </th>
-                                        </tr>
-                                    </thead>
-
-                                    <tbody>
-                                        <% for (ModuloUsuario ubaneado : listaUsersBaneados) { %>
-                                        <tr>
-                                            <td>
-                                                <div class="d-flex align-items-center">
-                                                    <label> <img src="<%=ubaneado.getDireccionImagen()%>" alt="" style="width: 45px; height: 45px;"></label>
-                                                    <div class="d-flex align-items-center">
-                                                        <ul>
-                                                            <a href="<%=request.getContextPath()%>/DetalleUsuarioServlet?nm=<%=String.valueOf(ubaneado.getId())%>" style="color:rgb(115,115,115);"><%=ubaneado.getNombre() + " " + ubaneado.getApellido()%></a>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td class="text-center"><%=ubaneado.getCorreo()%></td>
-                                            <td class="text-center"><%=ubaneado.getNumJuegos()%></td>
-                                            <td class="text-center"><%=ubaneado.getFechaRegistro()%></td>
-                                            <td class="text-center">
-                                                <div class="center">
-                                                    <a class="btn btn-warning" href="<%=request.getContextPath()%>/DetalleUsuarioServlet?action=noban&idUser=<%=ubaneado.getId()%>">Desbanear</a>
-                                                </div>
-                                            </td>
-
-                                        </tr>
-                                        <% } %>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    <br>
-                    <br>
-                </div>
+                <br>
             </div>
             <br>
         </div>
@@ -296,24 +238,24 @@
 </a>
 
 <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-         aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Cerrar sesión</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Seleccione "Confirmar" si desea salir de su cuenta.</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-                    <a class="btn btn-primary" href="<%=request.getContextPath()%>/LoginServlet?action=logout">Salir</a>
-                </div>
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Cerrar sesión</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">Seleccione "Confirmar" si desea salir de su cuenta.</div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                <a class="btn btn-primary" href="<%=request.getContextPath()%>/LoginServlet?action=logout">Salir</a>
             </div>
         </div>
     </div>
+</div>
 
 <!-- Bootstrap core JavaScript-->
 <script src="recursos/vendor/jquery/jquery.min.js"></script>

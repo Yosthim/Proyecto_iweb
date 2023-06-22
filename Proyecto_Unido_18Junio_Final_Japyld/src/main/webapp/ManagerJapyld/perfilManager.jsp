@@ -1,13 +1,11 @@
-<%@ page import="com.example.proyecto_final_base_japyld.ManagerJapyld.ModelsJ.DtoJ.JuegosManager" %>
-<%@ page import="java.util.ArrayList" %><%--
+<%--
   Created by IntelliJ IDEA.
   User: milene
-  Date: 14/06/2023
-  Time: 19:58
+  Date: 22/06/2023
+  Time: 15:18
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<% ArrayList<JuegosManager> listarTodosJuegos = (ArrayList<JuegosManager>) request.getAttribute("listarTodosJuegos"); %>
 <jsp:useBean id="personaSession" type="com.example.proyecto_final_base_japyld.BeansGenerales.Personas" scope="session" class="com.example.proyecto_final_base_japyld.BeansGenerales.Personas"/>
 
 <!DOCTYPE html>
@@ -21,7 +19,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>Editar Juegos</title>
+        <title>Por Genero de Juego</title>
 
         <title>Gráfico de Barras con Bootstrap 4</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
@@ -177,47 +175,63 @@
                     <!-- End of Topbar -->
 
                     <!-- Begin Page Content -->
-
-
-                    <div class="container-fluid">
+                    <div class="container-xl px-4 mt-4">
                         <br>
-                        <h1 class="h3 mb-2 text-gray-800 text-center">REVISAR Y ELIMINAR JUEGOS</h1>
-                        <br>
-                        <br>
-
                         <div class="row">
+                            <div class="col-xl-4">
+                                <!-- Profile picture card-->
+                                <div class="card mb-4 mb-xl-0">
+                                    <div class="card-body text-center">
+                                        <!-- Profile picture image-->
+                                        <img class="img-account-profile rounded-circle mb-2" src="recursos/img/profile-1.png" alt="">
+                                    </div>
 
-                            <!-- Earnings (Monthly) Card Example -->
-                            <% for (JuegosManager juegosTodos : listarTodosJuegos) {%>
-                            <div class="col-xl-3 col-md-6 mb-4">
-                                <div class="card border-left-info shadow h-100 py-2">
-                                    <div class="card-body">
-                                        <div class="row no-gutters align-items-center">
-                                            <div class="col mr-2">
-                                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                    <h5>
-                                                        <% juegosTodos.getIdJuegos();%>
-                                                        <b><%=juegosTodos.getNombreJuegos()%></b>
-                                                    </h5>
-                                                </div>
-                                                <img src="<%=juegosTodos.getDireccion_imagen()%>" class="img-fluid" alt="Imagen">
-                                                <div class="mt-3">
-                                                    <p class="mt-2">Precio: S/. <%=juegosTodos.getPrecio()%></p>
-                                                    <div class="center">
-                                                        <a onclick="return confirm('Estas seguro de borrar :( ?')" class="btn btn-danger"
-                                                           href="<%=request.getContextPath()%>/EditarJuegosServlet?a=b&idjuego=<%=juegosTodos.getIdJuegos()%>">Borrar</a>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                    <script3 src="https://code.jquery.com/jquery-3.6.0.min.js"></script3>
+
+                                    <BR>
+                                    <br>
+                                    <div class="col-12 col-xl-auto mb-3">
+                                        <div class="d-flex justify-content-center">
+                                            <a href="<%=request.getContextPath()%>/ManagerServlet?a=perfilManager">
+                                                <button class="btn btn-primary" type="button"> Editar foto de perfil</button>
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <% } %>
+                            <div class="col-xl-8">
+                                <!-- Account details card-->
+                                <div class="card mb-5">
+                                    <div class="card-header">
+                                        <b class="mr-5">DATOS</b>
+                                    </div>
+                                    <br>
+                                    <div class="card-body">
+                                        <label class="small mb-1" >Nombre y Apellido </label>
+                                        <p class="p-3 bg-gray-200"><%=personaSession.getNombre() + " " + personaSession.getApellido()%></p>
+                                        <label class="small mb-1" >Fecha de Nacimiento </label>
+                                        <p class="p-3 bg-gray-300"><%=personaSession.getFechaDeNacimiento()%></p>
+                                        <label class="small mb-1" >DNI </label>
+                                        <p class="p-3 bg-gray-400"><%=personaSession.getDni()%></p>
+                                        <label class="small mb-1" >Correo electrónico </label>
+                                        <p class="p-3 bg-gray-400"><%=personaSession.getCorreo()%></p>
 
-                            <!-- Pending Requests Card Example -->
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="col-12 col-xl-auto mb-3">
+                                    <div class="d-flex justify-content-center">
+                                        <a href="<%=request.getContextPath()%>/LoginServlet?action=logout">
+                                            <button class="btn btn-danger" type="button"> Cerrar  sesión</button>
+
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
+                    <br>
                 </div>
                 <!-- End of Main Content -->
 
@@ -282,3 +296,4 @@
     </body>
 
 </html>
+

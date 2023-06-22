@@ -11,6 +11,7 @@ public class DetalleAdmin {
     private String correo;
     private Date fechaDeNacimiento;
     private int dni;
+    private String contrasenia;
     private String genero;
     private String categoriaJuegoPreferida;
     private Date fechaRegistro;
@@ -123,5 +124,13 @@ public class DetalleAdmin {
 
     public void setPrecioCompra(BigDecimal precioCompra) {
         this.precioCompra = precioCompra;
+    }
+
+    public String getContrasenia() {
+        return contrasenia;
+    }
+
+    public void setContrasenia(String contrasenia) {
+        this.contrasenia = contrasenia;
     }
 }

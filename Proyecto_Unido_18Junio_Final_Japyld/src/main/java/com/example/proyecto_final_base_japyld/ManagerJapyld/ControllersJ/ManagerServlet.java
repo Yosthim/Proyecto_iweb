@@ -11,8 +11,13 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.Date;
 
 @WebServlet(name = "ManServlet", value = "/ManagerServlet")
 public class ManagerServlet extends HttpServlet {
@@ -39,6 +44,7 @@ public class ManagerServlet extends HttpServlet {
 
             case "metas":
                 request.setAttribute("objetivos", managerDao.Objetivos());
+                request.setAttribute("objetivosPasados", managerDao.listarObjetivosPasados());
                 request.getRequestDispatcher("ManagerJapyld/PagPrin_Metas.jsp").forward(request, response);
                 break;
 
@@ -51,6 +57,9 @@ public class ManagerServlet extends HttpServlet {
                 request.getRequestDispatcher("ManagerJapyld/PagPrin_ActualizarMetas.jsp").forward(request, response);
 
                 break;
+
+            case "perfilManager":
+                request.getRequestDispatcher("ManagerJapyld/perfilManager.jsp").forward(request,response);
 
         }
     }
@@ -67,6 +76,9 @@ public class ManagerServlet extends HttpServlet {
                 String objVentasStr = request.getParameter("ventas");
                 String objComprasStr = request.getParameter("compras");
                 String objUsuariosStr = request.getParameter("usuarios");
+                String objFechaStr = request.getParameter("fecha");
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
 
                 if(objVentasStr.isEmpty() || objComprasStr.isEmpty() || objUsuariosStr.isEmpty() || !esNumero(objVentasStr) || !esNumero(objComprasStr) || !esNumero(objUsuariosStr)) {
                     response.sendRedirect(request.getContextPath() + "/ManagerServlet?a=actualizarObjetivos");
@@ -85,13 +97,19 @@ public class ManagerServlet extends HttpServlet {
                     return;
                 }
 
-                objetivos.setVentasPorMesJuego(objVentas);
-                objetivos.setGastosPorMesJuego(objCompras);
-                objetivos.setUsuarioPorMes(objUsuarios);
+                try {
+                    Date objFecha = dateFormat.parse(objFechaStr);
+                    objetivos.setVentasPorMesJuego(objVentas);
+                    objetivos.setGastosPorMesJuego(objCompras);
+                    objetivos.setUsuarioPorMes(objUsuarios);
+                    objetivos.setFecha(objFecha);
+                    managerDao.actualizarObjetivos(objetivos);
 
-                managerDao.actualizarObjetivos(objetivos);
+                    response.sendRedirect(request.getContextPath() + "/ManagerServlet?a=metas");
+                } catch (ParseException e) {
+                    throw new RuntimeException(e);
+                }
 
-                response.sendRedirect(request.getContextPath() + "/ManagerServlet?a=metas");
                 break;
         }
 

@@ -16,6 +16,7 @@ public class DetalleUsuario {
     private String categoriaJuegoPreferida;
     private Date fechaRegistro;
     private String estado;
+    private String fotoPerfil;
 
     private String nombreJuegos;
     private BigDecimal precio_admin;
@@ -126,4 +127,11 @@ public class DetalleUsuario {
         this.id = id;
     }
 
+    public String getFotoPerfil() {
+        return fotoPerfil;
+    }
+
+    public void setFotoPerfil(String fotoPerfil) {
+        this.fotoPerfil = fotoPerfil;
+    }
 }
