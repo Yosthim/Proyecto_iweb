@@ -2,7 +2,7 @@ CREATE DATABASE  IF NOT EXISTS `japyld` /*!40100 DEFAULT CHARACTER SET utf8mb3 *
 USE `japyld`;
 -- MySQL dump 10.13  Distrib 8.0.33, for Win64 (x86_64)
 --
--- Host: localhost    Database: japyld
+-- Host: 127.0.0.1    Database: japyld
 -- ------------------------------------------------------
 -- Server version	8.0.33
 
@@ -275,7 +275,7 @@ CREATE TABLE `objetivosmanager` (
   PRIMARY KEY (`id_objetivo`),
   KEY `fk_ObjetivosManager_Persona1_idx` (`id_manager`),
   CONSTRAINT `fk_ObjetivosManager_Persona1` FOREIGN KEY (`id_manager`) REFERENCES `personas` (`idPersona`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -284,7 +284,7 @@ CREATE TABLE `objetivosmanager` (
 
 LOCK TABLES `objetivosmanager` WRITE;
 /*!40000 ALTER TABLE `objetivosmanager` DISABLE KEYS */;
-INSERT INTO `objetivosmanager` VALUES (1,300.00,150.00,16,10,'2023-07-01');
+INSERT INTO `objetivosmanager` VALUES (1,300.00,150.00,16,10,'2023-01-25'),(13,350.00,180.00,18,10,'2023-02-25'),(14,340.00,192.00,20,10,'2023-03-25'),(15,300.00,150.00,22,10,'2023-04-25'),(16,360.00,160.00,25,10,'2023-05-25'),(23,800.00,450.00,25,10,'2023-06-22');
 /*!40000 ALTER TABLE `objetivosmanager` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -375,16 +375,16 @@ CREATE TABLE `ventajuegosgeneral` (
   `nombre_nuevo` varchar(45) DEFAULT NULL,
   `imagen` blob,
   `cantidad` int NOT NULL,
-  `idCategoria` VARCHAR(45) NULL,
+  `idCategoria` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`idVenta`),
   KEY `fk_VentaJuegosGeneral_Persona1_idx` (`id_usuario`),
   KEY `fk_VentaJuegosGeneral_Persona2_idx` (`id_administrador`),
   KEY `fk_VentaJuegosGeneral_Juegos_has_Consolas1_idx` (`id_juego`,`id_consola`),
+  KEY `fk_ventajuegosgeneral_categorias1` (`idCategoria`),
+  CONSTRAINT `fk_ventajuegosgeneral_categorias1` FOREIGN KEY (`idCategoria`) REFERENCES `categorias` (`idCategorias`),
   CONSTRAINT `fk_VentaJuegosGeneral_Juegos_has_Consolas1` FOREIGN KEY (`id_juego`, `id_consola`) REFERENCES `juegos_por_consolas` (`id_juego`, `id_consola`),
   CONSTRAINT `fk_VentaJuegosGeneral_Persona1` FOREIGN KEY (`id_usuario`) REFERENCES `personas` (`idPersona`),
-  CONSTRAINT `fk_VentaJuegosGeneral_Persona2` FOREIGN KEY (`id_administrador`) REFERENCES `personas` (`idPersona`),
-  CONSTRAINT `fk_ventajuegosgeneral_categorias1` FOREIGN KEY (`idCategoria`) REFERENCES `japyld`.`categorias` (`idCategorias`)
-    
+  CONSTRAINT `fk_VentaJuegosGeneral_Persona2` FOREIGN KEY (`id_administrador`) REFERENCES `personas` (`idPersona`)
 ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -414,3 +414,5 @@ UNLOCK TABLES;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2023-06-22 17:13:56
