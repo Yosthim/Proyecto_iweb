@@ -63,25 +63,25 @@
                                 <div class="col-sm-6 mb-3 mb-sm-0">
                                     <select class="form-control" name="Genero" onchange="mostrarOpcionSeleccionada(this)">
                                         <option value="">Género</option>
-                                        <option value="masculino">Masculino</option>
-                                        <option value="femenino">Femenino</option>
-                                        <option value="otro">Otro</option>
+                                        <option value="Masculino">Masculino</option>
+                                        <option value="Femenino">Femenino</option>
+                                        <option value="Otro">Otro</option>
                                     </select>
                                 </div>
                                 <div class="col-sm-6">
                                     <select class="form-control" name="Categoria" onchange="mostrarOpcionSeleccionada(this)">
                                         <option value ="">Categorías</option>
-                                        <option value="accion">Acción</option>
-                                        <option value="terror">Terror</option>
-                                        <option value="aventura">Aventura</option>
+                                        <option value="Accion">Acción</option>
+                                        <option value="Terror">Terror</option>
+                                        <option value="Aventura">Aventura</option>
                                         <option value="Estrategia">Estrategia</option>
-                                        <option value="deportivo">Deportivo</option>
-                                        <option value="simulacion">Simulación</option>
-                                        <option value="musical">Musical</option>
-                                        <option value="arcade">Arcade</option>
-                                        <option value="clasico">Clasico</option>
-                                        <option value="infantil">Infantil</option>
-                                        <option value="gestion">Gestion</option>
+                                        <option value="Deportivo">Deportivo</option>
+                                        <option value="Simulacion">Simulación</option>
+                                        <option value="Musical">Musical</option>
+                                        <option value="Arcade">Arcade</option>
+                                        <option value="Clasico">Clasico</option>
+                                        <option value="Infantil">Infantil</option>
+                                        <option value="Gestion">Gestion</option>
                                     </select>
                                 </div>
                             </div>
@@ -90,8 +90,8 @@
                                        placeholder="Correo Electrónico">
                             </div>
                             <div class="form-group">
-                                <input type="date" class="form-control" name="Fecha_nacimiento"
-                                       placeholder="Fecha de nacimiento">
+                                <input type="text" class="form-control" name="Fecha_nacimiento"
+                                       placeholder="Fecha de nacimiento yyyy-mm-dd">
                             </div>
                             <div class="form-group row">
                                 <div class="col-sm-6 mb-3 mb-sm-0">
