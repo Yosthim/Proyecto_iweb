@@ -16,9 +16,8 @@ public class DetalleAdminDao {
             e.printStackTrace();
         }
 
-        String sql = "SELECT idPersona, nombre, apellido, correo, fechaDeNacimiento, dni, genero, categoriaJuegoPreferida, fechaRegistro, estado FROM personas\n" +
-                "                WHERE id_roles = \"ADM" +
-                "\" and idPersona=?;";
+        String sql = "SELECT idPersona, nombre, apellido, correo, fechaDeNacimiento, dni, genero, categoriaJuegoPreferida, fechaRegistro, estado, contrasenia FROM personas\n" +
+                "                                WHERE id_roles = \"ADM\" and idPersona = ?;";
 
         String url = "jdbc:mysql://localhost:3306/japyld";
 
@@ -41,6 +40,7 @@ public class DetalleAdminDao {
                     perfilAdmin.setCategoriaJuegoPreferida(resultSet.getString(8));
                     perfilAdmin.setFechaRegistro(resultSet.getDate(9));
                     perfilAdmin.setEstado(resultSet.getString(10));
+                    perfilAdmin.setContrasenia(resultSet.getString(11));
                 }
             }
         }
@@ -92,4 +92,28 @@ public class DetalleAdminDao {
         }
         return listaJuegosAceptados;
     }
+
+    public void editarAdmin(int id) {
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e){
+            e.printStackTrace();
+        }
+
+        String sql = "update personas set estado = \"Despedido\" where idPersona = ?";
+        String url = "jdbc:mysql://localhost:3306/japyld";
+
+        try(Connection connection = DriverManager.getConnection(url, "root", "root");
+            PreparedStatement smt = connection.prepareStatement(sql))
+        {
+
+            smt.setInt(1,id);
+            smt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }

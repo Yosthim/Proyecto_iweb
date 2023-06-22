@@ -1,7 +1,7 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.example.proyecto_final_base_japyld.ManagerJapyld.ModelsJ.DtoJ.ModuloAdmin" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<% ArrayList<ModuloAdmin> lista = (ArrayList<ModuloAdmin>) request.getAttribute("lista"); %>
+<% ArrayList<ModuloAdmin> lista = (ArrayList<ModuloAdmin>) request.getAttribute("listar"); %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -245,7 +245,7 @@
               </h6>
               <a class="dropdown-item d-flex align-items-center" href="#">
                 <div class="dropdown-list-image mr-3">
-                  <img class="rounded-circle" src="../img/undraw_profile_1.svg"
+                  <img class="rounded-circle" src="recursos/img/undraw_profile_1.svg"
                        alt="...">
                   <div class="status-indicator bg-success"></div>
                 </div>
@@ -257,7 +257,7 @@
               </a>
               <a class="dropdown-item d-flex align-items-center" href="#">
                 <div class="dropdown-list-image mr-3">
-                  <img class="rounded-circle" src="../img/undraw_profile_2.svg"
+                  <img class="rounded-circle" src="recursos/img/undraw_profile_2.svg"
                        alt="...">
                   <div class="status-indicator"></div>
                 </div>
@@ -269,7 +269,7 @@
               </a>
               <a class="dropdown-item d-flex align-items-center" href="#">
                 <div class="dropdown-list-image mr-3">
-                  <img class="rounded-circle" src="../img/undraw_profile_3.svg"
+                  <img class="rounded-circle" src="recursos/img/undraw_profile_3.svg"
                        alt="...">
                   <div class="status-indicator bg-warning"></div>
                 </div>
@@ -368,7 +368,7 @@
                   <tr>
                     <td>
                       <div class="d-flex align-items-center">
-                        <label> <img src="assets/img/profile-1.png" alt="" style="width: 45px; height: 45px;"></label>
+                        <label> <img src="recursos/img/profile-1.png" alt="" style="width: 45px; height: 45px;"></label>
                         <div class="d-flex align-items-center">
                           <ul>
                             <a href="<%=request.getContextPath()%>/DetalleAdminServlet?n=<%=String.valueOf(um.getId())%>" style="color:rgb(115,115,115);"><%=um.getNombre() + " " + um.getApellido()%></a>
@@ -387,7 +387,7 @@
               <br>
               <div class="col-12 col-xl-auto mb-3">
                 <div class="d-flex justify-content-center">
-                  <a href="RegistroAdministrador.html">
+                  <a href="<%= request.getContextPath()%>/ModuloAdminServlet?action=crear">
                     <button class="btn btn-primary" type="button">Agregar Administrador (+)</button>
                   </a>
                 </div>

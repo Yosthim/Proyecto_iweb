@@ -17,8 +17,9 @@ public class DetalleUsuarioDao {
             e.printStackTrace();
         }
 
-        String sql = "SELECT idPersona, nombre, apellido, correo, fechaDeNacimiento, dni, genero, categoriaJuegoPreferida, fechaRegistro, estado FROM personas\n" +
-                "                WHERE id_roles = \"USR\" and idPersona=?;";
+        String sql = "SELECT p.idPersona, p.nombre, p.apellido, p.correo, p.fechaDeNacimiento, p.dni, p.genero, p.categoriaJuegoPreferida, p.fechaRegistro, p.estado, i.direccion_archivo FROM personas p \n" +
+                "LEFT JOIN imagenes i ON p.id_perfil=i.idImagenes\n" +
+                "WHERE id_roles =\"USR\" and idPersona=?";
 
         String url = "jdbc:mysql://localhost:3306/japyld";
 
@@ -41,7 +42,7 @@ public class DetalleUsuarioDao {
                     perfilUsuario.setCategoriaJuegoPreferida(resultSet.getString(8));
                     perfilUsuario.setFechaRegistro(resultSet.getDate(9));
                     perfilUsuario.setEstado(resultSet.getString(10));
-
+                    perfilUsuario.setFotoPerfil(resultSet.getString(11));
                 }
             }
         }
@@ -64,10 +65,10 @@ public class DetalleUsuarioDao {
         }
 
         String sql = "SELECT p.idPersona,j.nombreJuegos, vjg.precio_usuario FROM ventajuegosgeneral vjg \n" +
-                "left join personas p on vjg.id_usuario = p.idPersona\n" +
-                "left join juegos_por_consolas jpc on vjg.id_consola = jpc.id_consola\n" +
-                "left join juegos j on jpc.id_juego = j.idJuegos\n" +
-                "where vjg.estadoVenta = \"Aceptado\" and p.idPersona=?;";
+                "                                left join personas p on vjg.id_usuario = p.idPersona\n" +
+                "                                left join juegos_por_consolas jpc on vjg.id_juego = jpc.id_juego and vjg.id_consola = jpc.id_consola\n" +
+                "                                left join juegos j on jpc.id_juego = j.idJuegos\n" +
+                "                                where vjg.estadoVenta = \"Aceptado\" and p.idPersona=?;";
 
         String url = "jdbc:mysql://localhost:3306/japyld";
 
@@ -106,11 +107,17 @@ public class DetalleUsuarioDao {
             e.printStackTrace();
         }
 
-        String sql = "SELECT p.idPersona,j.nombreJuegos, j.precio FROM juegoscompradosreservados jcr \n" +
-                "left join personas p on jcr.id_usuario = p.idPersona\n" +
-                "left join juegos_por_consolas jpc on jcr.id_consola = jpc.id_consola\n" +
-                "left join juegos j on jpc.id_juego = j.idJuegos\n" +
-                "where jcr.estadoCompraJuego = \"Comprado\" and p.idPersona=?;";
+        String sql = "SELECT p.idPersona, j.nombreJuegos,\n" +
+                "    CASE\n" +
+                "        WHEN d.precio_nuevo IS NOT NULL THEN d.precio_nuevo\n" +
+                "        ELSE j.precio\n" +
+                "    END AS precio\n" +
+                "FROM juegoscompradosreservados jcr\n" +
+                "LEFT JOIN personas p ON jcr.id_usuario = p.idPersona\n" +
+                "LEFT JOIN juegos_por_consolas jpc ON jcr.id_consola = jpc.id_consola AND jcr.id_juego = jpc.id_juego\n" +
+                "LEFT JOIN juegos j ON jpc.id_juego = j.idJuegos\n" +
+                "LEFT JOIN descuentos d ON j.idJuegos = d.id_juego\n" +
+                "WHERE p.idPersona = ?;";
 
         String url = "jdbc:mysql://localhost:3306/japyld";
 
@@ -135,5 +142,28 @@ public class DetalleUsuarioDao {
             throw new RuntimeException(e);
         }
         return listaJuegosComprados;
+    }
+
+    public void editarUser(int id) {
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e){
+            e.printStackTrace();
+        }
+
+        String sql = "update personas set estado = \"Baneado\" where idPersona = ?";
+        String url = "jdbc:mysql://localhost:3306/japyld";
+
+        try(Connection connection = DriverManager.getConnection(url, "root", "root");
+            PreparedStatement smt = connection.prepareStatement(sql))
+        {
+
+            smt.setInt(1,id);
+            smt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

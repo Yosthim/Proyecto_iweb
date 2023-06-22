@@ -362,7 +362,7 @@
                         <div class="card mb-4 mb-xl-0">
                             <div class="card-body text-center">
                                 <!-- Profile picture image-->
-                                <img class="img-account-profile rounded-circle mb-2" src="../img/profile-1.png" alt="">
+                                <img class="img-account-profile rounded-circle mb-2" src="recursos/img/profile-1.png" alt="">
                             </div>
 
                             <script3 src="https://code.jquery.com/jquery-3.6.0.min.js"></script3>
@@ -485,7 +485,7 @@
                             <div class="card-body center-h center-h">
                                 <div class="col-12 col-xl-auto mb-3">
                                     <div class="d-flex justify-content-end">
-                                        <button class="btn btn-outline-danger" type="button">DESPEDIR</button>
+                                        <a href="<%= request.getContextPath()%>/DetalleAdminServlet?action=editar&n=<%=a.getId()%>" class="btn btn-danger">Despedir</a>
                                     </div>
                                 </div>
                             </div>

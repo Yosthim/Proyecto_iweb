@@ -1,17 +1,7 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: PABLO
-  Date: 7/06/2023
-  Time: 15:54
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="com.example.proyecto_final_base_japyld.UsuarioJapyld.ModelsJ.DtoJ.MasDetallesDto" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<% ArrayList<MasDetallesDto> listaDetallesCompra = (ArrayList<MasDetallesDto>) request.getAttribute("listaDetallesCompra"); %>
-<jsp:useBean id="personaSession" type="com.example.proyecto_final_base_japyld.BeansGenerales.Personas" scope="session" class="com.example.proyecto_final_base_japyld.BeansGenerales.Personas"/>
 
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
 
@@ -21,7 +11,11 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Charts</title>
+    <title>Por Genero de Juego</title>
+
+    <title>Gráfico de Barras con Bootstrap 4</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <!-- Custom fonts for this template-->
     <link href="recursos/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -42,7 +36,8 @@
     <!-- Sidebar -->
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<%=request.getContextPath()%>/PaginaPrincipal">
+        <!-- Sidebar - Brand -->
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="paginaprincialmanager.html">
             <div class="sidebar-brand-icon rotate-n-15">
                 <i class="fas fa-laugh-wink"></i>
             </div>
@@ -50,6 +45,24 @@
         </a>
 
         <!-- Divider -->
+        <hr class="sidebar-divider my-0">
+        <!-- Nav Item - Pages Collapse Menu -->
+        <li class="nav-item active">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+               aria-expanded="true" aria-controls="collapseTwo">
+                <i class="fas fa-home"></i>
+                <span>Panel Principal</span></a>
+            </a>
+            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Detalles de JAPYLD:</h6>
+                    <a class="collapse-item" href="paginaprincialmanager.html">Resumen</a>
+                    <a class="collapse-item" href="paginaprincialmanager.html">Productos</a>
+                    <a class="collapse-item" href="paginaprincialmanager.html">Metas Semanales</a>
+                    <a class="collapse-item" href="paginaprincialmanager.html">Estadísticas</a>
+                </div>
+            </div>
+        </li>
 
         <!-- Divider -->
         <hr class="sidebar-divider">
@@ -61,30 +74,49 @@
 
         <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item">
-            <a class="nav-link" href="<%=request.getContextPath()%>/Pagina-principal">
-                <i class="fas fa-home"></i>
-                <span>Página Principal</span></a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
+               aria-expanded="true" aria-controls="collapsePages">
                 <i class="fas fa-gamepad"></i>
-                <span>Juegos Comprados y Reservados</span>
+                <span>JUEGOS</span>
             </a>
-
+            <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Estadísticas:</h6>
+                    <a class="collapse-item" href="PorGeneroJuego.html">Por género de Juego</a>
+                    <a class="collapse-item" href="PorConsolaJuego.html">Por consola de Juego</a>
+                    <h6 class="collapse-header">TOP 5:</h6>
+                    <a class="collapse-item" href="Top5masvendidos.html">Más vendidos</a>
+                    <a class="collapse-item" href="Top5menosvendidos.html">Menos vendidos</a>
+                    <div class="collapse-divider"></div>
+                    <h6 class="collapse-header">Más opciones:</h6>
+                    <a class="collapse-item" href="EditarJuegos.html">Editar Juegos</a>
+                </div>
+            </div>
         </li>
+
         <!-- Nav Item - Charts -->
         <li class="nav-item">
-            <a class="nav-link" href="">
-                <i class="far fa-money-bill-alt"></i>
-                <span>Venta de juegos</span></a>
+            <a class="nav-link" href="TablaAdministradores.html">
+                <i class="fas fa-user-shield"></i>
+                <span>ADMINISTRADOR</span></a>
         </li>
 
-        <hr class="sidebar-divider">
+        <!-- Nav Item - Tables -->
+        <li class="nav-item">
+            <a class="nav-link" href="TablaUsuarios.html">
+                <i class="fas fa-user"></i>
+                <span>USUARIO</span></a>
+        </li>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider d-none d-md-block">
+        <br>
 
         <!-- Sidebar Toggler (Sidebar) -->
         <div class="text-center d-none d-md-inline">
             <button class="rounded-circle border-0" id="sidebarToggle"></button>
         </div>
+
     </ul>
     <!-- End of Sidebar -->
 
@@ -210,7 +242,7 @@
                             </h6>
                             <a class="dropdown-item d-flex align-items-center" href="#">
                                 <div class="dropdown-list-image mr-3">
-                                    <img class="rounded-circle" src="../img/undraw_profile_1.svg"
+                                    <img class="rounded-circle" src="recursos/img/undraw_profile_1.svg"
                                          alt="...">
                                     <div class="status-indicator bg-success"></div>
                                 </div>
@@ -222,7 +254,7 @@
                             </a>
                             <a class="dropdown-item d-flex align-items-center" href="#">
                                 <div class="dropdown-list-image mr-3">
-                                    <img class="rounded-circle" src="../img/undraw_profile_2.svg"
+                                    <img class="rounded-circle" src="recursos/img/undraw_profile_2.svg"
                                          alt="...">
                                     <div class="status-indicator"></div>
                                 </div>
@@ -234,7 +266,7 @@
                             </a>
                             <a class="dropdown-item d-flex align-items-center" href="#">
                                 <div class="dropdown-list-image mr-3">
-                                    <img class="rounded-circle" src="../img/undraw_profile_3.svg"
+                                    <img class="rounded-circle" src="recursos/img/undraw_profile_3.svg"
                                          alt="...">
                                     <div class="status-indicator bg-warning"></div>
                                 </div>
@@ -266,9 +298,9 @@
                     <li class="nav-item dropdown no-arrow">
                         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="mr-2 d-none d-lg-inline text-gray-600 small"><%=personaSession.getNombre()%></span>
+                            <span class="mr-2 d-none d-lg-inline text-gray-600 small">Tu Perfil</span>
                             <img class="img-profile rounded-circle"
-                                 src="../img/undraw_profile.svg">
+                                 src="recursos/img/undraw_profile.svg">
                         </a>
                         <!-- Dropdown - User Information -->
                         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -299,95 +331,66 @@
             <!-- End of Topbar -->
 
             <!-- Begin Page Content -->
-            <div class="container-fluid">
+            <div class="container-xl px-4 mt-4">
+                <!-- Account page navigation-->
+                <br>
+                <div class="tab-pane py-5 py-xl-10 fade show active" id="wizard1" role="tabpanel" aria-labelledby="wizard1-tab">
+                    <div class="row justify-content-center">
+                        <div class="col-xxl-6 col-xl-8">
+                            <h3 class="text-primary">Registrar Administrador</h3>
+                            <br>
+                            <h5 class="card-title mb-4">Enter Information</h5>
+                            <form method="POST" action="<%=request.getContextPath()%>/ModuloAdminServlet?action=guardar" wtx-context="36BA0B7D-EB23-4009-BD9E-83DA80BAD4DE">
+                                <div class="row gx-3">
+                                    <div class="mb-3 col-md-6" class="form-group">
+                                        <label class="small mb-1" for="nombre">First Name</label>
+                                        <input class="form-control" id="nombre" type="text" name="nombre" placeholder="Enter Firstname"  wtx-context="434A1E15-D4FD-4427-8AAE-AEFCABA1691D">
+                                    </div>
+                                    <div class="mb-3 col-md-6">
+                                        <label class="small mb-1" for="apellido">Last Name</label>
+                                        <input class="form-control" id="apellido" type="text" name="apellido" placeholder="Enter Lastname"  wtx-context="42795CFB-4E11-4FF6-A475-9275BD7BCAAE">
+                                    </div>
+                                </div>
+                                <div class="mb-3" class="form-group">
+                                    <label class="small mb-1" for="correo">Email address</label>
+                                    <input class="form-control" id="correo" type="email" name="correo" placeholder="Enter your email address"  wtx-context="9DF972A9-6C9A-45AE-8715-63056FD50C08">
+                                </div>
 
+                                <div class="mb-3" class="form-group">
+                                    <label class="small mb-1" for="contrasenia">Password</label>
+                                    <input class="form-control" id="contrasenia" type="text" name="contrasenia" placeholder="Enter Password"  wtx-context="9DF972A9-6C9A-45AE-8715-63056FD50C08">
+                                </div>
 
-                <!-- Page Heading -->
-                <% for (MasDetallesDto juegocompra : listaDetallesCompra){ %>
-                <h1 class="h3 mb-2 text-gray-800">Página de Compra</h1>
-                <!-- Content Row -->
-                <div class="row">
-                    <div class="col-xl-4 col-lg-4">
-                        <!-- Donut Chart -->
-                        <div class="card shadow mb-4 border-left-primary">
-                            <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary"><%=juegocompra.getNombreJuegos()%></h6>
-                            </div>
-                            <div class="card-body text-center">
-                                <img src="<%=juegocompra.getDireccion_imagen()%>" alt="Imagen" class="img-fluid">
-                                <div class="mt-3">
+                                <hr class="my-4">
+                                <div class="d-flex justify-content-between">
+                                    <a href="<%=request.getContextPath()%>/ModuloAdminServlet">
+                                        <button class="btn btn-light alert-danger" type="button" >Cancelar</button>
+                                    </a>
+                                    <button class="btn btn-primary" type="submit">Añadir</button>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="card shadow mb-4 border-left-primary">
-                            <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary">Datos de pago:</h6>
-                            </div>
-                            <div class="card-body text-center">
-                                <div class="form-group">
-                                    <label for="inputCardNumber" class="font-weight-bold h4">Introduzca su número de Tarjeta</label>
-                                    <input type="text" class="form-control bg-gradient-light" id="inputCardNumber" placeholder="Ingrese el número de tarjeta">
-                                </div>
-                                <div class="form-group">
-                                    <label for="inputCVV" class="font-weight-bold h4">CVV</label>
-                                    <input type="text" class="form-control bg-gradient-light" id="inputCVV" placeholder="Ingrese el CVV">
-                                </div>
-                                <a class="btn btn-success btn-block" href="pagina_juegos_reservados_japyld_new.html">Comprar</a>
-                            </div>
+                            </form>
                         </div>
                     </div>
-                    <div class="col-xl-8 col-lg-8">
-                        <!-- Primer cuadro -->
-                        <div class="card shadow mb-4">
-                            <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary">Resumen del Juego</h6>
-                            </div>
-                            <div class="card-body">
-                                <div class="d-flex flex-column">
-                                    <div class="btn-group">
-                                        <button class="btn btn-info mb-2">Género: <%=juegocompra.getCategoria()%> </button>
-                                    </div>
-                                    <div class="btn-group">
-                                        <button class="btn btn-info mb-2">Consola: Playstation</button>
-                                    </div>
-                                    <div class="btn-group">
-                                        <button class="btn btn-info mb-2">Precio: S/.<%=juegocompra.getPrecio()%></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <% } %>
-                        <!-- Segundo cuadro -->
-                        <div class="card shadow mb-4">
-                            <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary">Dirección de entrega</h6>
+                </div>
+                <br>
+                <br>
+            </div>
+            <br>
+        </div>
+        <!-- End of Main Content -->
 
-                            </div>
-                            <div class="card-body">
-                                <div class="d-flex flex-column">
-                                    <input type="text" class="form-control" id="inputAddress" placeholder="Ingresa tu dirección">
-                                    <hr>
-                                    <img src="recursos/img/mapa.png" alt="Imagen" class="img-fluid">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
+        <!-- Footer -->
+        <footer class="sticky-footer bg-white">
+            <div class="container my-auto">
+                <div class="copyright text-center my-auto">
+                    <span>Copyright &copy; Your Website 2021</span>
                 </div>
             </div>
-
-        </div>
-        <!-- /.container-fluid -->
+        </footer>
+        <!-- End of Footer -->
 
     </div>
-    <!-- End of Main Content -->
-
-    <!-- Footer -->
-
-    <!-- End of Footer -->
-
-</div>
-<!-- End of Content Wrapper -->
+    <!-- End of Content Wrapper -->
 
 </div>
 <!-- End of Page Wrapper -->
@@ -411,7 +414,7 @@
             <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                <a class="btn btn-primary" href="ZAdministrador/login.html">Logout</a>
+                <a class="btn btn-primary" href="login.html">Logout</a>
             </div>
         </div>
     </div>
@@ -433,7 +436,6 @@
 <!-- Page level custom scripts -->
 <script src="recursos/js/demo/chart-area-demo.js"></script>
 <script src="recursos/js/demo/chart-pie-demo.js"></script>
-<script src="recursos/js/demo/chart-bar-demo.js"></script>
 
 </body>
 

@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 
 public class PersonaDao extends BaseDao {
 
@@ -57,23 +58,22 @@ public class PersonaDao extends BaseDao {
 
         Roles rol = new Roles();
         rol.setIdRoles(rs.getString(12));
-        rol.setRol(rs.getString(16));
+        rol.setRol(rs.getString(15));
         persona.setRol(rol);
 
         Imagen imagen = new Imagen();
         imagen.setIdImagenes(rs.getInt(13));
-        imagen.setTipo(rs.getString(19));
-        imagen.setDireccionArchivo(rs.getString(20));
+        imagen.setTipo(rs.getString(18));
+        imagen.setDireccionArchivo(rs.getString(19));
         persona.setImagen(imagen);
 
-        persona.setHashcontrasenia(rs.getString(14));
     }
 
     public Personas validarUsuarioPassword(String username, String password){
 
         Personas persona = null;
 
-        String sql = "Select * from personas where correo = ? and hashcontrasenia = SHA2(?,256)";
+        String sql = "Select * from personas where correo = ? and contrasenia = SHA2(?,256)";
         try (Connection conn = this.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql);) {
                 pstmt.setString(1,username);
@@ -93,4 +93,50 @@ public class PersonaDao extends BaseDao {
 
         return persona;
     }
+
+    public void guardarUsuario(Personas persona) {
+
+
+
+        String sql = "INSERT INTO personas(correo,contrasenia,nombre,apellido,fechaDeNacimiento,dni,genero,categoriaJuegoPreferida,fechaRegistro,estado,id_roles,id_perfil) VALUES (?,SHA2(?,256),?,?,?,?,?,?,?,?,?,?);";
+
+        try (Connection conn = this.getConnection();
+
+             PreparedStatement pstmt = conn.prepareStatement(sql)){
+             pstmt.setString(1,persona.getCorreo());
+             pstmt.setString(2,persona.getContrasenia());
+             pstmt.setString(3,persona.getNombre());
+             pstmt.setString(4,persona.getApellido());
+
+             long FechaNacimiento  = persona.getFechaDeNacimiento().getTime();
+             java.sql.Date sqlDateFechaNacimiento = new java.sql.Date(FechaNacimiento);
+
+             pstmt.setDate(5,sqlDateFechaNacimiento);
+             pstmt.setInt(6,persona.getDni());
+             pstmt.setString(7,persona.getGenero());
+             pstmt.setString(8,persona.getCategoriaJuegoPreferida());
+
+             long FechaRegistro = persona.getFechaRegistro().getTime();
+             java.sql.Date sqlDateFechaRegistro = new java.sql.Date(FechaRegistro);
+
+             pstmt.setDate(9,sqlDateFechaRegistro);
+             pstmt.setString(10,persona.getEstado());
+
+             Roles rol = persona.getRol();
+             String idRol  = rol.getIdRoles();
+
+             pstmt.setString(11,idRol);
+
+             Imagen imagenes = persona.getImagen();
+             int idImagenes = imagenes.getIdImagenes();
+
+             pstmt.setInt(12,idImagenes);
+
+             pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }

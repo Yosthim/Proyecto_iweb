@@ -13,14 +13,26 @@ import java.io.IOException;
 public class DetalleAdminServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        DetalleAdminDao perfilAdminDao = new DetalleAdminDao();
 
+        String action = request.getParameter("action") == null ? "lista" : request.getParameter("action");
         String id = request.getParameter("n");
 
-        request.setAttribute("a", perfilAdminDao.detallesAdmin(Integer.parseInt(id)));
-        request.setAttribute("listaJuegosPropuestos", perfilAdminDao.listarJuegosPropuestos(Integer.parseInt(id)));
+        DetalleAdminDao perfilAdminDao = new DetalleAdminDao();
 
-        request.getRequestDispatcher("ManagerJapyld/DetalleAdmin.jsp").forward(request, response);
+        switch (action) {
+            case "lista":
+
+                request.setAttribute("a", perfilAdminDao.detallesAdmin(Integer.parseInt(id)));
+                request.setAttribute("listaJuegosPropuestos", perfilAdminDao.listarJuegosPropuestos(Integer.parseInt(id)));
+
+                request.getRequestDispatcher("ManagerJapyld/DetalleAdmin.jsp").forward(request, response);
+                break;
+            case "editar":
+
+                perfilAdminDao.editarAdmin(Integer.parseInt(id));
+                response.sendRedirect(request.getContextPath() + "/ModuloAdminServlet");
+                break;
+        }
     }
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws

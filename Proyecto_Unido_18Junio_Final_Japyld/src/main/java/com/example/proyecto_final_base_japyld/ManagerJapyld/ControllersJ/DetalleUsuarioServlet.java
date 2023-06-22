@@ -15,15 +15,26 @@ public class DetalleUsuarioServlet extends HttpServlet {
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String action = request.getParameter("action") == null ? "lista" : request.getParameter("action");
         DetalleUsuarioDao perfilUsuarioDao = new DetalleUsuarioDao();
 
         String id = request.getParameter("nm");
 
-        request.setAttribute("e", perfilUsuarioDao.detallesUsuario(Integer.parseInt(id)));
-        request.setAttribute("listaJuegosVendidos", perfilUsuarioDao.listarJuegosVendidos(Integer.parseInt(id)));
-        request.setAttribute("listaJuegosComprados", perfilUsuarioDao.listarJuegosComprados( Integer.parseInt(id)));
+        switch (action) {
+            case "lista":
 
-        request.getRequestDispatcher("ManagerJapyld/DetalleUsuario.jsp").forward(request, response);
+                request.setAttribute("e", perfilUsuarioDao.detallesUsuario(Integer.parseInt(id)));
+                request.setAttribute("listaJuegosVendidos", perfilUsuarioDao.listarJuegosVendidos(Integer.parseInt(id)));
+                request.setAttribute("listaJuegosComprados", perfilUsuarioDao.listarJuegosComprados( Integer.parseInt(id)));
+
+                request.getRequestDispatcher("ManagerJapyld/DetalleUsuario.jsp").forward(request, response);
+                break;
+            case "editar":
+
+                perfilUsuarioDao.editarUser(Integer.parseInt(id));
+                response.sendRedirect(request.getContextPath() + "/ModuloUsuarioServlet");
+                break;
+        }
     }
 
     @Override

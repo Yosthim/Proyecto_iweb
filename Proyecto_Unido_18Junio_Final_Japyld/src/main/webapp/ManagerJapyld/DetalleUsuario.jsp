@@ -365,7 +365,7 @@
                         <div class="card mb-4 mb-xl-0">
                             <div class="card-body text-center">
                                 <!-- Profile picture image-->
-                                <img class="img-account-profile rounded-circle mb-2" src="../img/profile-1.png" alt="">
+                                <img class="img-account-profile rounded-circle mb-2" src="<%=e.getFotoPerfil()%>" alt="">
                             </div>
 
                             <script3 src="https://code.jquery.com/jquery-3.6.0.min.js"></script3>
@@ -456,7 +456,7 @@
                             <div class="card-body center-h center-h">
                                 <div class="col-12 col-xl-auto mb-3">
                                     <div class="d-flex justify-content-end">
-                                        <button class="btn btn-outline-danger" type="button">BAN</button>
+                                        <a href="<%= request.getContextPath()%>/DetalleUsuarioServlet?action=editar&nm=<%=e.getId()%>" class="btn btn-danger">Ban</a>
                                     </div>
                                 </div>
 

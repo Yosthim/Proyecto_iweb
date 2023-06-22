@@ -359,7 +359,7 @@
                                     <tr>
                                         <td>
                                             <div class="d-flex align-items-center">
-                                                <label> <img src="assets/img/profile-1.png" alt="" style="width: 45px; height: 45px;"></label>
+                                                <label> <img src="<%=um.getDireccionImagen()%>" alt="" style="width: 45px; height: 45px;"></label>
                                                 <div class="d-flex align-items-center">
                                                     <ul>
                                                         <a href="<%=request.getContextPath()%>/DetalleUsuarioServlet?nm=<%=String.valueOf(um.getId())%>" style="color:rgb(115,115,115);"><%=um.getNombre() + " " + um.getApellido()%></a>
@@ -367,7 +367,7 @@
                                                 </div>
                                             </div>
                                         </td>
-                                        <td class="text-center"><%=um.getCorreo() %></td>
+                                        <td class="text-center"><%=um.getCorreo()%></td>
                                         <td class="text-center"><%=um.getNumJuegos()%></td>
                                         <td class="text-center"><%=um.getFechaRegistro()%></td>
                                     </tr>
