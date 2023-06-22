@@ -1,7 +1,7 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.example.proyecto_final_base_japyld.ManagerJapyld.ModelsJ.DtoJ.ModuloAdmin" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<% ArrayList<ModuloAdmin> lista = (ArrayList<ModuloAdmin>) request.getAttribute("lista"); %>
+<% ArrayList<ModuloAdmin> lista = (ArrayList<ModuloAdmin>) request.getAttribute("listar"); %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -387,7 +387,7 @@
               <br>
               <div class="col-12 col-xl-auto mb-3">
                 <div class="d-flex justify-content-center">
-                  <a href="RegistroAdministrador.html">
+                  <a href="<%= request.getContextPath()%>/ModuloAdminServlet?action=crear">
                     <button class="btn btn-primary" type="button">Agregar Administrador (+)</button>
                   </a>
                 </div>

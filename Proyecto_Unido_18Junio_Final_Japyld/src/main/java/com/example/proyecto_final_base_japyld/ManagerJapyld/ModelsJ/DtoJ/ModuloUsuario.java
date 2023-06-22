@@ -10,6 +10,7 @@ public class ModuloUsuario {
     private String correo;
     private int numJuegos;
     private Date fechaRegistro;
+    private String direccionImagen;
 
     public String getNombre() {
         return nombre;
@@ -59,6 +60,11 @@ public class ModuloUsuario {
         this.id = id;
     }
 
+    public String getDireccionImagen() {
+        return direccionImagen;
+    }
 
-
+    public void setDireccionImagen(String direccionImagen) {
+        this.direccionImagen = direccionImagen;
+    }
 }
