@@ -27,5 +27,17 @@ public class PaginaPrincipalJuegosServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        PaginaPrincipalDao buscarjuegosdao = new PaginaPrincipalDao();
+
+        String textoBuscar = request.getParameter("textoBuscar");
+        if (textoBuscar == null) {
+            response.sendRedirect("EmployeeServlet");
+        } else {
+            request.setAttribute("textoBusqueda", textoBuscar);
+            request.setAttribute("listaJuegos", buscarjuegosdao.buscarJuegoPorNombre(textoBuscar));
+            RequestDispatcher view = request.getRequestDispatcher("UsuarioJapyld/PaginaPrincipal.jsp");
+            view.forward(request, response);
+        }
+
     }
 }

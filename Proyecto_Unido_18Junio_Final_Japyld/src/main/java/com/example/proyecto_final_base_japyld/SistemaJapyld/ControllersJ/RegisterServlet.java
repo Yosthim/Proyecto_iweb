@@ -37,10 +37,63 @@ public class RegisterServlet extends HttpServlet {
 
         PersonaDao crearUsuarioDao = new PersonaDao();
 
-        Personas persona = parsePersona(request);
-        crearUsuarioDao.guardarUsuario(persona);
-        response.sendRedirect(request.getContextPath()+ "/LoginServlet");
+        //1era validacion
+        int mensaje = 0;
+        int validacion1 = 0;
+        if (request.getParameter("Nombre").matches("^\\d.*") || request.getParameter("Nombre") == null) {
+            if (!request.getParameter("Apellido").matches("^\\d.*")) {
+                validacion1=1 ;
+            } else {
+                mensaje = 1;
+            }
+        } else {
 
+        }
+
+        //2da validacion
+        int validacion2 = 0;
+        if (request.getParameter("Dni").length() == 8 || request.getParameter("Dni") == null) {
+            validacion2 = 1;
+        } else {
+            mensaje = 2;
+        }
+
+        //3ra validacion
+        int validacion3 = 0;
+        if (request.getParameter("Email").matches(".*@pucp\\.edu\\.pe$") || request.getParameter("Email") == null) {
+            validacion3 = 1;
+        } else {
+
+             mensaje=3;
+        }
+
+
+        //4ta validacion
+        int validacion4 = 0;
+
+        if (request.getParameter("Contraseña").matches(".*[A-Z].*") && request.getParameter("Contraseña").matches(".*\\d.*") && request.getParameter("Contraseña").matches(".*[^a-zA-Z0-9].*")) {
+            validacion4 = 1;
+        }
+        else {
+
+            mensaje=4;
+        }
+
+        //5ta validacion
+        int validacion5 = 0;
+        if (request.getParameter("Fecha_nacimiento").matches("\\d{4}-\\d{2}-\\d{2}")) {
+            validacion5 = 1;
+        } else {
+             mensaje=5;
+        }
+
+        if((validacion1==1) && (validacion2==1) && (validacion3==1) && (validacion4==1) && (validacion5==1)){
+            Personas persona = parsePersona(request);
+            crearUsuarioDao.guardarUsuario(persona);
+            response.sendRedirect(request.getContextPath()+ "/LoginServlet");
+        }else{
+            response.sendRedirect(request.getContextPath()+ "/RegisterServlet?error");
+        }
 
     }
 

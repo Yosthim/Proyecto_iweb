@@ -104,10 +104,12 @@
                                 </div>
                             </div>
                             <div class="centered">
-                                <input type="submit" value="Registra tu Cuenta">
+                                <button class ="btn btn-lg btn-success btn-block" type="submit">Registra tu Cuenta</button>
                             </div>
                         </form>
-                        <hr>
+                        <% if (request.getParameter("error") != null) { %>
+                        <div class = "text-danger justify-content-center"><span>Error al registrarse. Intentelo Nuevamente.</span></div>
+                        <% } %>
                         <div class="text-center">
                             <a class="small" href="<%=request.getContextPath()%>/LoginServlet">Ya tienes cuenta? Inicia sesión</a>
                         </div>

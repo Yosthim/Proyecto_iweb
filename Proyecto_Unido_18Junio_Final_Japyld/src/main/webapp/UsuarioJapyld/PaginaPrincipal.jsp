@@ -3,7 +3,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <% ArrayList<PaginaPrincipalDto> listaJuegos = (ArrayList<PaginaPrincipalDto>) request.getAttribute("listaJuegos"); %>
 <jsp:useBean id="personaSession" type="com.example.proyecto_final_base_japyld.BeansGenerales.Personas" scope="session" class="com.example.proyecto_final_base_japyld.BeansGenerales.Personas"/>
-
+<jsp:useBean id="textoBusqueda" scope="request" type="java.lang.String" class="java.lang.String"/>
 
 
 <html>
@@ -102,15 +102,17 @@
         </button>
 
         <!-- Topbar Search -->
-        <form
-                class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+        <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" method="POST" action="<%=request.getContextPath()%>/PaginaPrincipal">
           <div class="input-group">
-            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
-                   aria-label="Search" aria-describedby="basic-addon2">
+            <input type="text" class="form-control bg-light border-0 small" placeholder="Busca el juego que desees en nuestro catálogo"
+                   aria-label="Search" aria-describedby="basic-addon2" name = "textoBuscar" value = "<%=textoBusqueda%>"/>
             <div class="input-group-append">
-              <button class="btn btn-primary" type="button">
+              <button class="btn btn-primary" type="submit">
                 <i class="fas fa-search fa-sm"></i>
               </button>
+              <a class="btn btn-danger" href="<%=request.getContextPath()%>/PaginaPrincipal">
+                <i class="fas fa-window-close fa-sm"></i>
+              </a>
             </div>
           </div>
         </form>
