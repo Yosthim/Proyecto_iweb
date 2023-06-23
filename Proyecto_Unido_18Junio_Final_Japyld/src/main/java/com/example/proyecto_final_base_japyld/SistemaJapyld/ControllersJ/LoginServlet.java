@@ -49,7 +49,7 @@ public class LoginServlet extends HttpServlet {
         if(persona != null){
             HttpSession session = request.getSession();
             session.setAttribute("personaSession",persona);
-            session.setMaxInactiveInterval(5*60);
+            session.setMaxInactiveInterval(30*60);
             String rol = persona.getRol().getIdRoles();
 
             if (rol.equals("USR")){

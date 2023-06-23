@@ -20,10 +20,11 @@ public class AdminDao extends BaseDao {
             ArrayList<JuegosCompradosReservados> ultimasCompras= new ArrayList<>();
 
         String sql = "SELECT * FROM juegoscompradosreservados c\n" +
-                "left join personas p on c.id_usuario = p.idPersona\n" +
-                "left join juegos j on c.id_juego = j.idJuegos\n" +
-                "ORDER BY c.fechaCompraJuego DESC\n" +
-                "LIMIT 5;";
+                "                LEFT JOIN personas p ON c.id_usuario = p.idPersona\n" +
+                "                LEFT JOIN juegos j ON c.id_juego = j.idJuegos\n" +
+                "                WHERE c.estadoCompraJuego LIKE 'Comprado'\n" +
+                "                ORDER BY c.fechaCompraJuego DESC\n" +
+                "                LIMIT 5;";
 
         try(Connection connection = this.getConnection();
             Statement stmt = connection.createStatement();

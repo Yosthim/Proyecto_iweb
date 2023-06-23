@@ -360,17 +360,12 @@
                                 </thead>
 
                                 <tbody class = "text-danger">
-                                <%
-                                  for(JuegosReservadosDias j :lista30dias){
-                                %>
+
                                 <tr>
-                                  <th class="text-center"><%=j.getNombre()%></th>
-                                  <td class="text-center"><%=j.getUsuario()%></td>
-                                  <td class="text-center"><%=j.getDias()%></td>
+                                  <th class="text-center">Mirror Forge.</th>
+                                  <td class="text-center">Pablo</td>
+                                  <td class="text-center">31</td>
                                 </tr>
-                                <%
-                                  }
-                                %>
                                 </tbody>
                               </table>
                             </div>
