@@ -18,10 +18,13 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.format.ResolverStyle;
 import java.util.Date;
 import java.util.Random;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 @WebServlet(name = "RegisterServlet", value = "/RegisterServlet")
 public class RegisterServlet extends HttpServlet {
@@ -36,11 +39,113 @@ public class RegisterServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         PersonaDao crearUsuarioDao = new PersonaDao();
+        //Inicio de las Validaciones
 
-        Personas persona = parsePersona(request);
-        crearUsuarioDao.guardarUsuario(persona);
+        //Validacion de Nombre
+        String nombre = request.getParameter("Nombre");
+        int validacion1 = 0;
+        if (nombre.matches("[a-zA-Z].*")) {
+            validacion1 = 1;
+        }
 
-        response.sendRedirect(request.getContextPath()+ "/LoginServlet");
+
+        //Validacion de Apellido
+        String apellido = request.getParameter("Apellido");
+        int validacion2 = 0;
+        if (apellido.matches("[a-zA-Z].*")){
+            validacion2 = 1;
+        }
+
+        //Validacion de Genero
+        String genero = request.getParameter("Genero");
+        int validacion3 = 0;
+        if (!genero.equals("")){
+            validacion3 = 1;
+        }
+
+
+
+        //Validacion de Categoria
+        String categoria = request.getParameter("Categoria");
+        int validacion4 = 0;
+        if (!categoria.equals("")){
+            validacion4 = 1;
+        }
+
+
+        //Validacion de Correo
+        String email = request.getParameter("Email");
+        int validacion5 = 0;
+        if (email.endsWith("@pucp.edu.pe")) {
+            validacion5 = 1;
+        }
+
+        //Validacion de Fecha de Nacimiento
+        String fechaNacimiento = request.getParameter("Fecha_nacimiento");
+        int validacion6 = 0;
+        if (fechaNacimiento.matches("^(19[0-9]{2}|20[0-9]{2})-(0[1-9]|1[0-2])-([0-2][1-9]|3[0-1])$")) {
+            validacion6 = 1;
+        }
+
+
+        //Validacion de Dni
+        String Dni = request.getParameter("Dni");
+        int validacion7 = 0;
+        if (Dni.matches("\\d{8}")) {
+          validacion7 = 1;
+        }
+
+
+        //Validacion de la Contraseña
+        String Contrasenia = request.getParameter("Contraseña");
+        int validacion8 = 0;
+
+        if (Contrasenia.matches("^(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%^&*()])[A-Za-z\\d!@#$%^&*()]{8,}$")) {
+            validacion8 = 1;
+        }
+
+
+        //Ahora si comprobamos las validaciones
+        if((validacion1==1) && (validacion2==1) && (validacion3==1) && (validacion4==1) && (validacion5==1) && (validacion6==1) && (validacion7 ==1) && (validacion8==1)) {
+            Personas persona = parsePersona(request);
+            crearUsuarioDao.guardarUsuario(persona);
+            response.sendRedirect(request.getContextPath()+ "/LoginServlet");
+        }else{
+            if (validacion1 != 1){
+                response.sendRedirect(request.getContextPath()+"/RegisterServlet?error1");
+            }else{
+                if (validacion2 != 1){
+                    response.sendRedirect(request.getContextPath()+"/RegisterServlet?error2");
+                }else{
+                    if(validacion3 != 1){
+                        response.sendRedirect(request.getContextPath()+"/RegisterServlet?error3");
+                    }else{
+                        if (validacion4 != 1){
+                            response.sendRedirect(request.getContextPath()+"/RegisterServlet?error4");
+                        }else{
+                            if(validacion5 != 1){
+                                response.sendRedirect(request.getContextPath()+"/RegisterServlet?error5");
+                            }else{
+                                if(validacion6 != 1){
+                                    response.sendRedirect(request.getContextPath()+"/RegisterServlet?error6");
+                                }
+                                else{
+                                    if(validacion7 != 1){
+                                        response.sendRedirect(request.getContextPath()+"/RegisterServlet?error7");
+                                    }
+                                    else{
+                                        if(validacion8 != 1){
+                                            response.sendRedirect(request.getContextPath()+"/RegisterServlet?error8");
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+        }
 
     }
 

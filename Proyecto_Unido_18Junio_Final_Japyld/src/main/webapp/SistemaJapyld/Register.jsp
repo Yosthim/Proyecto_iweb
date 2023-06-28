@@ -62,7 +62,7 @@
                             <div class="form-group row">
                                 <div class="col-sm-6 mb-3 mb-sm-0">
                                     <select class="form-control" name="Genero" onchange="mostrarOpcionSeleccionada(this)">
-                                        <option value="">Género</option>
+                                        <option value="">Selecciona tu género</option>
                                         <option value="Masculino">Masculino</option>
                                         <option value="Femenino">Femenino</option>
                                         <option value="Otro">Otro</option>
@@ -70,7 +70,7 @@
                                 </div>
                                 <div class="col-sm-6">
                                     <select class="form-control" name="Categoria" onchange="mostrarOpcionSeleccionada(this)">
-                                        <option value ="">Categorías</option>
+                                        <option value ="">Categoría favorita</option>
                                         <option value="Accion">Acción</option>
                                         <option value="Terror">Terror</option>
                                         <option value="Aventura">Aventura</option>
@@ -107,8 +107,29 @@
                                 <button class ="btn btn-lg btn-success btn-block" type="submit">Registra tu Cuenta</button>
                             </div>
                         </form>
-                        <% if (request.getParameter("error") != null) { %>
-                        <div class = "text-danger justify-content-center"><span>Error al registrarse. Intentelo Nuevamente.</span></div>
+                        <% if (request.getParameter("error1") != null) { %>
+                        <div class = "text-danger justify-content-center"><span>Error en tu nombre. Intentelo Nuevamente.</span></div>
+                        <% } %>
+                        <% if (request.getParameter("error2") != null) { %>
+                        <div class = "text-danger justify-content-center"><span>Error en tu apellido. Intentelo Nuevamente.</span></div>
+                        <% } %>
+                        <% if (request.getParameter("error3") != null) { %>
+                        <div class = "text-danger justify-content-center"><span>Error en la elección de género.</span></div>
+                        <% } %>
+                        <% if (request.getParameter("error4") != null) { %>
+                        <div class = "text-danger justify-content-center"><span>Error en la elección de categoría favorita</span></div>
+                        <% } %>
+                        <% if (request.getParameter("error5") != null) { %>
+                        <div class = "text-danger justify-content-center"><span>Error en tu correo, debe terminar con @pucp.edu.pe. Intentelo Nuevamente.</span></div>
+                        <% } %>
+                        <% if (request.getParameter("error6") != null) { %>
+                        <div class = "text-danger justify-content-center"><span>Error en tu fecha de nacimiento. Intentelo Nuevamente.</span></div>
+                        <% } %>
+                        <% if (request.getParameter("error7") != null) { %>
+                        <div class = "text-danger justify-content-center"><span>Error en tu Dni. Deben ser 8 digitos. Intentelo Nuevamente.</span></div>
+                        <% } %>
+                        <% if (request.getParameter("error8") != null) { %>
+                        <div class = "text-danger justify-content-center"><span>Error en tu contraseña. Debe contener al menos una mayúscula, un número y un carácter especial(!%# etc.). Intentelo Nuevamente.</span></div>
                         <% } %>
                         <div class="text-center">
                             <a class="small" href="<%=request.getContextPath()%>/LoginServlet">Ya tienes cuenta? Inicia sesión</a>
