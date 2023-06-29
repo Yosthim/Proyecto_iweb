@@ -1,7 +1,6 @@
 package com.example.proyecto_final_base_japyld.BeansGenerales;
 
-import com.example.proyecto_final_base_japyld.BeansGenerales.Juegos;
-
+import java.io.InputStream;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -10,8 +9,26 @@ public class VentaJuegosGeneral {
     private Date fechaPublicacion;
     private String estadoVenta;
     private String razonRechazo;
+    private BigDecimal precioUsuario;
+    private String disponibilidad;
+    private BigDecimal precioAdmi;
+    private  Personas usuario;
+    private Personas administrador;
+    private Juegos juego;
+    private Consola consola;
+    private String descripcionNueva;
+    private String nombreNuevo;
+    private InputStream imagenNueva;
+    private int cantidad;
+    private Categoria categoria;
 
+    public Categoria getCategoria() {
+        return categoria;
+    }
 
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
+    }
 
     public int getIdVenta() {
         return idVenta;
@@ -101,20 +118,6 @@ public class VentaJuegosGeneral {
         this.consola = consola;
     }
 
-    private BigDecimal precioUsuario;
-    private String disponibilidad;
-    private BigDecimal precioAdmi;
-    private  Personas usuario;
-    private Personas administrador;
-    private Juegos juego;
-    private Consola consola;
-
-    private String descripcionNueva;
-    private String nombreNuevo;
-    private Byte[] imagenNueva;
-
-    private int cantidad;
-
     public String getDescripcionNueva() {
         return descripcionNueva;
     }
@@ -131,11 +134,11 @@ public class VentaJuegosGeneral {
         this.nombreNuevo = nombreNuevo;
     }
 
-    public Byte[] getImagenNueva() {
+    public InputStream getImagenNueva() {
         return imagenNueva;
     }
 
-    public void setImagenNueva(Byte[] imagenNueva) {
+    public void setImagenNueva(InputStream imagenNueva) {
         this.imagenNueva = imagenNueva;
     }
 

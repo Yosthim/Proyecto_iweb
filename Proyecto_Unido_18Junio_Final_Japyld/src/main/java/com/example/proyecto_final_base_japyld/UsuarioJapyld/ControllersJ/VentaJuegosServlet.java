@@ -1,5 +1,6 @@
 package com.example.proyecto_final_base_japyld.UsuarioJapyld.ControllersJ;
 
+import com.example.proyecto_final_base_japyld.BeansGenerales.Categoria;
 import com.example.proyecto_final_base_japyld.BeansGenerales.Consola;
 import com.example.proyecto_final_base_japyld.BeansGenerales.Personas;
 import com.example.proyecto_final_base_japyld.BeansGenerales.VentaJuegosGeneral;
@@ -7,12 +8,9 @@ import com.example.proyecto_final_base_japyld.UsuarioJapyld.ModelsJ.DaosJ.VentaJ
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.Part;
-
+import jakarta.servlet.http.*;
 import java.io.IOException;
+import java.io.InputStream;
 import java.math.BigDecimal;
 
 @WebServlet(name = "VentaJuegosServlet", value = "/TusVentas")
@@ -50,17 +48,31 @@ public class VentaJuegosServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
+
+        VentaJuegosDao ventaJuegosDao = new VentaJuegosDao();
         String action = request.getParameter("act");
 
         VentaJuegosGeneral ofertaJuego = setOferta(request);
 
+        Part imageGamePart = request.getPart("imagenJuego");
+        InputStream imageGameContent = imageGamePart.getInputStream();
+
+        ofertaJuego.setImagenNueva(imageGameContent);
+
+        ventaJuegosDao.registrarOferta(ofertaJuego, "nuevo");
+
+        response.sendRedirect(request.getContextPath() + "/TusVentas");
     }
 
     public VentaJuegosGeneral setOferta(HttpServletRequest request) {
         VentaJuegosGeneral ofertaJuego = new VentaJuegosGeneral();
         Personas admin = new Personas();
+        Personas usuario = (Personas) request.getSession().getAttribute("personaSession");
         admin.setIdPersona(1);
         ofertaJuego.setAdministrador(admin);
+        ofertaJuego.setUsuario(usuario);
 
         ofertaJuego.setNombreNuevo(request.getParameter("nombreJuego").trim());
         ofertaJuego.setDescripcionNueva(request.getParameter("descripcion").trim());
@@ -68,6 +80,10 @@ public class VentaJuegosServlet extends HttpServlet {
         Consola consola = new Consola();
         consola.setIdConsola(request.getParameter("idConsola"));
         ofertaJuego.setConsola(consola);
+
+        Categoria categoria = new Categoria();
+        categoria.setIdCategorias(request.getParameter("idCategoria"));
+        ofertaJuego.setCategoria(categoria);
 
         ofertaJuego.setPrecioUsuario(new BigDecimal(request.getParameter("precio")));
         ofertaJuego.setCantidad(Integer.parseInt(request.getParameter("stock")));

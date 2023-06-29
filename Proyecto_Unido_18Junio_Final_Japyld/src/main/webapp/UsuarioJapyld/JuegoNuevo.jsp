@@ -306,14 +306,14 @@
                             </h4>
                         </div>
                         <div class="card-body justify-content-center">
-                            <form method="POST" action="<%=request.getContextPath()%>/TusVentas?act=new">
+                            <form method="POST" action="<%=request.getContextPath()%>/TusVentas?act=new" enctype="multipart/form-data">
                                 <div class="form-group">
-                                    <label class="text-gray-900" for="nombreJuego">Ingrese el nombre del Juego:</label>
-                                    <input type="text" class="form-control" id="nombreJuego" name="nombreJuego" placeholder="Nombre del Juego">
+                                    <label class="text-gray-900" for="nombre">Ingrese el nombre del Juego:</label>
+                                    <input type="text" class="form-control" id="nombre" name="nombreJuego" placeholder="Nombre del Juego">
                                 </div>
                                 <div class="form-group">
-                                    <label class="text-gray-900" for="descripcion">Ingrese la Descripción del Juego:</label>
-                                    <textarea class="form-control" id="descripcion" name="descripcion" rows="5"></textarea>
+                                    <label class="text-gray-900" for="desc">Ingrese la Descripción del Juego:</label>
+                                    <textarea class="form-control" id="desc" name="descripcion" rows="5"></textarea>
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-4">
@@ -359,7 +359,7 @@
                                              id="imagePreview" height="150px" width="150px" alt="Imagen del juego"/>
                                     </div>
                                     <div class="mb-3">
-                                        <input class="form-control-file" type="file" id="imageFile"
+                                        <input class="form-control-file" type="file" id="imageFile" name="imagenJuego"
                                                accept="image/png, image/jpeg" onchange="readURL(this);"/>
                                     </div>
                                 </div>
