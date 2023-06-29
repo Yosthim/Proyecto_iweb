@@ -12,6 +12,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
+import java.util.Objects;
 
 @WebServlet(name = "LoginServlet", value = {"","/LoginServlet"})
 public class LoginServlet extends HttpServlet {
@@ -43,28 +44,40 @@ public class LoginServlet extends HttpServlet {
 
         String username = request.getParameter("inputEmail");
         String password = request.getParameter("inputPassword");
-
         Personas persona= personadao.validarUsuarioPassword(username,password);
 
-        if(persona != null){
-            HttpSession session = request.getSession();
-            session.setAttribute("personaSession",persona);
-            session.setMaxInactiveInterval(30*60);
+        if(persona!=null) {
+            String estado = persona.getEstado();
             String rol = persona.getRol().getIdRoles();
+            if(!estado.equals("Baneado") && !estado.equals("Despedido")){
+                HttpSession session = request.getSession();
+                session.setAttribute("personaSession",persona);
+                session.setMaxInactiveInterval(30*60);
 
-            if (rol.equals("USR")){
-                response.sendRedirect(request.getContextPath()+"/PaginaPrincipal");
-            }
-            if (rol.equals("ADM")){
-                response.sendRedirect(request.getContextPath()+"/AdminServlet");
-            }
-            if (rol.equals("MNG")){
-                response.sendRedirect(request.getContextPath()+"/ManagerServlet");
+                if (rol.equals("USR")){
+                    response.sendRedirect(request.getContextPath()+"/PaginaPrincipal");
+                }
+                if (rol.equals("ADM")){
+                    response.sendRedirect(request.getContextPath()+"/AdminServlet");
+                }
+                if (rol.equals("MNG")){
+                    response.sendRedirect(request.getContextPath()+"/ManagerServlet");
+                }
+            }else{
+                if(rol.equals("USR")){
+                    response.sendRedirect(request.getContextPath() + "/LoginServlet?errorUSR");
+                }
+                if(rol.equals("ADM")){
+                    response.sendRedirect(request.getContextPath() + "/LoginServlet?errorADM");
+                }
+
             }
         }else{
             response.sendRedirect(request.getContextPath() + "/LoginServlet?error");
         }
-
     }
 }
+
+
+
 

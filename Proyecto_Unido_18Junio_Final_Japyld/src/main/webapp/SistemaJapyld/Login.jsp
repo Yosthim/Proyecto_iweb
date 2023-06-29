@@ -51,7 +51,13 @@
                                                placeholder="Contraseña" autofocus="">
                                     </div>
                                     <% if (request.getParameter("error") != null) { %>
-                                    <div class = "text-danger">Error en usuario o contraseña</div>
+                                    <div class = "text-danger">Error en usuario o contraseña.</div>
+                                    <% } %>
+                                    <% if (request.getParameter("errorUSR") != null) { %>
+                                    <div class = "text-danger">Lo siento usuario. Has sido baneado.</div>
+                                    <% } %>
+                                    <% if (request.getParameter("errorADM") != null) { %>
+                                    <div class = "text-danger">Lo siento Administrador. Fuiste despedido.</div>
                                     <% } %>
                                     <div class="form-group">
                                     </div>
