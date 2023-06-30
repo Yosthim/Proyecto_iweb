@@ -15,7 +15,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>SB Admin 2 - Dashboard1</title>
+  <title>Página Principal</title>
 
 
   <!-- Custom fonts for this template-->
@@ -26,6 +26,14 @@
 
   <!-- Custom styles for this template-->
   <link href="recursos/css/sb-admin-2.min.css" rel="stylesheet">
+
+  <style>
+    .img_juego {
+      width: 275px;
+      height: 280px;
+    }
+  </style>
+
 
 </head>
 
@@ -92,7 +100,7 @@
                     <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                       <h6><%=juegos.getNombreJuegos()%></h6>
                     </div>
-                    <img src="<%=juegos.getDireccion_imagen()%>" class="img-fluid" alt="Imagen">
+                    <img src="<%=juegos.getDireccion_imagen()%>" class="img-fluid img_juego" alt="Imagen">
                     <div class="mt-3">
                       <p class="mt-2">Precio: S/. <%=juegos.getPrecio()%></p>
                       <a class="btn btn-success" href="<%=request.getContextPath()%>/MasDetallesJuego?idjuego=<%=juegos.getNombreJuegos()%>">Más Detalles</a>
