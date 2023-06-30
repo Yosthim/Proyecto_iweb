@@ -1,7 +1,10 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.example.proyecto_final_base_japyld.UsuarioJapyld.ModelsJ.DtoJ.PaginaPrincipalDto" %>
+<%@ page import="com.example.proyecto_final_base_japyld.AdministradorJapyld.ModelsJ.DaosJ.CategoriaDao" %>
+<%@ page import="com.example.proyecto_final_base_japyld.BeansGenerales.Categoria" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <% ArrayList<PaginaPrincipalDto> listaJuegos = (ArrayList<PaginaPrincipalDto>) request.getAttribute("listaJuegos"); %>
+<% ArrayList<Categoria> categorias = (ArrayList<Categoria>) request.getAttribute("categorias"); %>
 <jsp:useBean id="personaSession" type="com.example.proyecto_final_base_japyld.BeansGenerales.Personas" scope="session" class="com.example.proyecto_final_base_japyld.BeansGenerales.Personas"/>
 <jsp:useBean id="textoBusqueda" scope="request" type="java.lang.String" class="java.lang.String"/>
 
@@ -72,17 +75,9 @@
             </button>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton" style="width: 100%">
               <a class="dropdown-item" href="<%=request.getContextPath()%>/Pagina-principal-oferta">Ofertas</a>
-              <a class="dropdown-item" href="<%=request.getContextPath()%>/Pagina-principal-categoria?idcategoria=ACC">Acción</a>
-              <a class="dropdown-item" href="<%=request.getContextPath()%>/Pagina-principal-categoria?idcategoria=TER">Terror</a>
-              <a class="dropdown-item" href="<%=request.getContextPath()%>/Pagina-principal-categoria?idcategoria=AVN">Aventura</a>
-              <a class="dropdown-item" href="<%=request.getContextPath()%>/Pagina-principal-categoria?idcategoria=EST">Estrategia</a>
-              <a class="dropdown-item" href="<%=request.getContextPath()%>/Pagina-principal-categoria?idcategoria=DEP">Deportivo</a>
-              <a class="dropdown-item" href="<%=request.getContextPath()%>/Pagina-principal-categoria?idcategoria=SIM">Simulación</a>
-              <a class="dropdown-item" href="<%=request.getContextPath()%>/Pagina-principal-categoria?idcategoria=MUS">Musical</a>
-              <a class="dropdown-item" href="<%=request.getContextPath()%>/Pagina-principal-categoria?idcategoria=ARC">Arcade</a>
-              <a class="dropdown-item" href="<%=request.getContextPath()%>/Pagina-principal-categoria?idcategoria=CLA">Clasico</a>
-              <a class="dropdown-item" href="<%=request.getContextPath()%>/Pagina-principal-categoria?idcategoria=INF">Infantil</a>
-              <a class="dropdown-item" href="<%=request.getContextPath()%>/Pagina-principal-categoria?idcategoria=GES">Gestión</a>
+              <%for (Categoria categoria : categorias){%>
+              <a class="dropdown-item" href="<%=request.getContextPath()%>/Pagina-principal-categoria?idcategoria=<%=categoria.getIdCategorias()%>"><%=categoria.getNombre()%></a>
+              <%}%>
             </div>
           </div>
         </div>
@@ -102,7 +97,11 @@
                     </div>
                     <img src="<%=juegos.getDireccion_imagen()%>" class="img-fluid img_juego" alt="Imagen">
                     <div class="mt-3">
+                      <% if(juegos.getPrecio_nuevo() == 0){%>
                       <p class="mt-2">Precio: S/. <%=juegos.getPrecio()%></p>
+                      <%}else{%>
+                      <p class="mt-2">Precio: S/. <%=juegos.getPrecio_nuevo()%></p>
+                      <%}%>
                       <a class="btn btn-success" href="<%=request.getContextPath()%>/MasDetallesJuego?idjuego=<%=juegos.getNombreJuegos()%>">Más Detalles</a>
                     </div>
                   </div>

@@ -1,8 +1,10 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.example.proyecto_final_base_japyld.UsuarioJapyld.ModelsJ.DtoJ.PaginaPrincipalDto" %>
 <%@ page import="com.example.proyecto_final_base_japyld.BeansGenerales.Personas" %>
+<%@ page import="com.example.proyecto_final_base_japyld.BeansGenerales.Categoria" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <% ArrayList<PaginaPrincipalDto> listaJuegosOferta = (ArrayList<PaginaPrincipalDto>) request.getAttribute("listaJuegosOferta"); %>
+<% ArrayList<Categoria> categorias = (ArrayList<Categoria>) request.getAttribute("categorias"); %>
 <jsp:useBean id="personaSession" type="com.example.proyecto_final_base_japyld.BeansGenerales.Personas" scope="session" class="com.example.proyecto_final_base_japyld.BeansGenerales.Personas"/>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -26,6 +28,14 @@
 
     <!-- Custom styles for this template-->
     <link href="recursos/css/sb-admin-2.min.css" rel="stylesheet">
+
+
+    <style>
+        .img_juego {
+            width: 275px;
+            height: 280px;
+        }
+    </style>
 
 </head>
 
@@ -64,17 +74,10 @@
                         </button>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton" style="width: 100%">
                             <a class="dropdown-item" href="<%=request.getContextPath()%>/Pagina-principal-oferta">Ofertas</a>
-                            <a class="dropdown-item" href="<%=request.getContextPath()%>/Pagina-principal-categoria?idcategoria=ACC">Acción</a>
-                            <a class="dropdown-item" href="<%=request.getContextPath()%>/Pagina-principal-categoria?idcategoria=TER">Terror</a>
-                            <a class="dropdown-item" href="<%=request.getContextPath()%>/Pagina-principal-categoria?idcategoria=AVN">Aventura</a>
-                            <a class="dropdown-item" href="<%=request.getContextPath()%>/Pagina-principal-categoria?idcategoria=EST">Estrategia</a>
-                            <a class="dropdown-item" href="<%=request.getContextPath()%>/Pagina-principal-categoria?idcategoria=DEP">Deportivo</a>
-                            <a class="dropdown-item" href="<%=request.getContextPath()%>/Pagina-principal-categoria?idcategoria=SIM">Simulación</a>
-                            <a class="dropdown-item" href="<%=request.getContextPath()%>/Pagina-principal-categoria?idcategoria=MUS">Musical</a>
-                            <a class="dropdown-item" href="<%=request.getContextPath()%>/Pagina-principal-categoria?idcategoria=ARC">Arcade</a>
-                            <a class="dropdown-item" href="<%=request.getContextPath()%>/Pagina-principal-categoria?idcategoria=CLA">Clasico</a>
-                            <a class="dropdown-item" href="<%=request.getContextPath()%>/Pagina-principal-categoria?idcategoria=INF">Infantil</a>
-                            <a class="dropdown-item" href="<%=request.getContextPath()%>/Pagina-principal-categoria?idcategoria=GES">Gestión</a>
+                            <%for (Categoria categoria : categorias){%>
+                            <a class="dropdown-item" href="<%=request.getContextPath()%>/Pagina-principal-categoria?idcategoria=<%=categoria.getIdCategorias()%>"><%=categoria.getNombre()%></a>
+                            <%}%>
+                            <a class="dropdown-item text-danger" href="<%=request.getContextPath()%>/PaginaPrincipal">Regresar</a>
                         </div>
                     </div>
                 </div>
@@ -92,7 +95,7 @@
                                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                             <h6><%=juegos.getNombreJuegos()%></h6>
                                         </div>
-                                        <img src="<%=juegos.getDireccion_imagen()%>" class="img-fluid" alt="Imagen">
+                                        <img src="<%=juegos.getDireccion_imagen()%>" class="img-fluid img_juego" alt="Imagen">
                                         <div class="mt-3">
                                             <p class="mt-2">Precio: S/. <%=juegos.getPrecio()%></p>
                                             <a class="btn btn-success" href="<%=request.getContextPath()%>/MasDetallesJuego?idjuego=<%=juegos.getNombreJuegos()%>">Más Detalles</a>

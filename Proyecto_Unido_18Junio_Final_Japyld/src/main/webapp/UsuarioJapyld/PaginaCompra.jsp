@@ -25,6 +25,13 @@
     <!-- Custom styles for this template-->
     <link href="recursos/css/sb-admin-2.min.css" rel="stylesheet">
 
+    <style>
+        .img_juego_grande {
+            width: 230px;
+            height: 340px;
+        }
+    </style>
+
 </head>
 
 <body id="page-top">
@@ -66,7 +73,7 @@
                                 <h6 class="m-0 font-weight-bold text-primary"><%=juegocompra.getNombreJuegos()%></h6>
                             </div>
                             <div class="card-body text-center">
-                                <img src="<%=juegocompra.getDireccion_imagen()%>" alt="Imagen" class="img-fluid">
+                                <img src="<%=juegocompra.getDireccion_imagen()%>" class="img-fluid img_juego_grande" alt="Imagen">
                                 <div class="mt-3">
                                 </div>
                             </div>

@@ -17,10 +17,11 @@ public class PaginaPrincipalDao extends BaseDao {
             e.printStackTrace();
         }
 
-        String sql = "select idJuegos,nombreJuegos,precio,direccion_archivo\n" +
-                "                from juegos j\n" +
-                "                inner join imagenes i on j.id_imagen = i.idImagenes\n" +
-                "                where j.estadoJuego = \"Activo\" or j.estadoJuego = \"Oferta\";";
+        String sql = "SELECT idJuegos, nombreJuegos, precio,direccion_archivo, COALESCE(d.precio_nuevo, 0) AS precio_nuevo\n" +
+                "FROM juegos j\n" +
+                "LEFT JOIN descuentos d ON j.idJuegos = d.id_juego\n" +
+                "INNER JOIN imagenes i ON j.id_imagen = i.idImagenes\n" +
+                "WHERE j.estadoJuego = \"Activo\" OR j.estadoJuego = \"Oferta\";";
         String url = "jdbc:mysql://localhost:3306/japyld";
         try (Connection connection = DriverManager.getConnection(url, "root", "root");
              Statement stmt = connection.createStatement();
@@ -32,6 +33,7 @@ public class PaginaPrincipalDao extends BaseDao {
                 juegosPrincipal.setNombreJuegos(resultSet.getString(2));
                 juegosPrincipal.setPrecio(resultSet.getInt(3));
                 juegosPrincipal.setDireccion_imagen(resultSet.getString(4));
+                juegosPrincipal.setPrecio_nuevo(resultSet.getInt(5));
 
                 listaJuegos.add(juegosPrincipal);
             }

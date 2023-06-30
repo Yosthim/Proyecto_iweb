@@ -8,6 +8,8 @@ public class PaginaPrincipalDto {
 
     private String direccion_imagen;
 
+    private int precio_nuevo;
+
     public String getNombreJuegos() {
         return nombreJuegos;
     }
@@ -38,5 +40,13 @@ public class PaginaPrincipalDto {
 
     public void setIdJuegos(int idJuegos) {
         this.idJuegos = idJuegos;
+    }
+
+    public int getPrecio_nuevo() {
+        return precio_nuevo;
+    }
+
+    public void setPrecio_nuevo(int precio_nuevo) {
+        this.precio_nuevo = precio_nuevo;
     }
 }
