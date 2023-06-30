@@ -47,15 +47,15 @@ public class PaginaPrincipalDao extends BaseDao {
 
         ArrayList<PaginaPrincipalDto> listaJuegos = new ArrayList<>();
 
-        String sql = "SELECT idJuegos,nombreJuegos,precio,direccion_archivo\n" +
+        String sql = "SELECT idJuegos, nombreJuegos, precio, direccion_archivo\n" +
                 "FROM juegos j\n" +
-                "INNER join imagenes i on j.id_imagen = i.idImagenes\n" +
-                "WHERE (j.estadoJuego = \"Activo\" or j.estadoJuego = \"Oferta\") and (j.nombreJuegos = ?);";
+                "INNER JOIN imagenes i ON j.id_imagen = i.idImagenes\n" +
+                "WHERE (j.estadoJuego = 'Activo' OR j.estadoJuego = 'Oferta') AND (j.nombreJuegos LIKE ?);";
 
 
         try (Connection conn = this.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
+            name = '%'+ name +'%';
             pstmt.setString(1, name);
 
             try (ResultSet rs = pstmt.executeQuery()) {
