@@ -7,6 +7,7 @@ import com.example.proyecto_final_base_japyld.BeansGenerales.VentaJuegosGeneral;
 import com.example.proyecto_final_base_japyld.UsuarioJapyld.ModelsJ.DaosJ.VentaJuegosDao;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 import java.io.IOException;
@@ -14,6 +15,7 @@ import java.io.InputStream;
 import java.math.BigDecimal;
 
 @WebServlet(name = "VentaJuegosServlet", value = "/TusVentas")
+@MultipartConfig
 public class VentaJuegosServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
