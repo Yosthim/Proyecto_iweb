@@ -1,7 +1,8 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.example.proyecto_final_base_japyld.UsuarioJapyld.ModelsJ.DtoJ.MasDetallesDto" %>
+<%@ page import="com.example.proyecto_final_base_japyld.BeansGenerales.Comentarios" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
+<% ArrayList<Comentarios> listaComentarios = (ArrayList<Comentarios>) request.getAttribute("listaComentarios"); %>
 <% ArrayList<MasDetallesDto> listaMasDetallesJuego = (ArrayList<MasDetallesDto>) request.getAttribute("listaMasDetallesJuego"); %>
 <jsp:useBean id="personaSession" type="com.example.proyecto_final_base_japyld.BeansGenerales.Personas" scope="session" class="com.example.proyecto_final_base_japyld.BeansGenerales.Personas"/>
 
@@ -124,21 +125,16 @@
                 <h6 class="m-0 font-weight-bold text-primary">Comentarios de Usuarios</h6>
               </div>
               <div class="card-body">
+                <% for (Comentarios comentario : listaComentarios){%>
                 <div class="media mb-4">
                   <img class="mr-3 rounded-circle" src="" alt="Usuario 1">
                   <div class="media-body">
-                    <h6 class="mt-0">Usuario 1</h6>
-                    <p>¡Me encanta este juego! La historia es cautivadora y los gráficos son impresionantes.</p>
+                    <h6 class="mt-0"><%=comentario.getPersonaComentario().getNombre()%></h6>
+                    <p><%=comentario.getComentario()%></p>
                   </div>
                 </div>
                 <hr>
-                <div class="media mb-4">
-                  <img class="mr-3 rounded-circle" src="" alt="Usuario 2">
-                  <div class="media-body">
-                    <h6 class="mt-0">Usuario 2</h6>
-                    <p>El gameplay es muy divertido y el modo multijugador ofrece mucha diversión en grupo.</p>
-                  </div>
-                </div>
+                <% } %>
                 <!-- Agrega más comentarios aquí -->
               </div>
             </div>
