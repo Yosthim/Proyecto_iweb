@@ -1,6 +1,7 @@
 package com.example.proyecto_final_base_japyld.UsuarioJapyld.ControllersJ;
 
 
+import com.example.proyecto_final_base_japyld.AdministradorJapyld.ModelsJ.DaosJ.CategoriaDao;
 import com.example.proyecto_final_base_japyld.UsuarioJapyld.ModelsJ.DaosJ.JuegosOfertaDao;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -18,9 +19,11 @@ public class OfertaServlet extends HttpServlet {
         response.setContentType("text/html");
 
         JuegosOfertaDao juegosDao = new JuegosOfertaDao();
+        CategoriaDao categoriadao = new CategoriaDao();
         request.setAttribute("listaJuegosOferta",juegosDao.listarJuegosOferta());
 
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("UsuarioJapyld/JuegosOferta.jsp");
+        request.setAttribute("categorias",categoriadao.listaCategoria());
         requestDispatcher.forward(request,response);
     }
 

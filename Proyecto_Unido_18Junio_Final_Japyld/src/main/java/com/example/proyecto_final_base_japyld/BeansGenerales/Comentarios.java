@@ -8,7 +8,7 @@ public class Comentarios {
 
     private int ratingComentario;
 
-
+    private String fecha_comentario;
     private Juegos juegoComentario;
 
     private Personas personaComentario;
@@ -51,5 +51,13 @@ public class Comentarios {
 
     public void setPersonaComentario(Personas personaComentario) {
         this.personaComentario = personaComentario;
+    }
+
+    public String getFecha_comentario() {
+        return fecha_comentario;
+    }
+
+    public void setFecha_comentario(String fecha_comentario) {
+        this.fecha_comentario = fecha_comentario;
     }
 }

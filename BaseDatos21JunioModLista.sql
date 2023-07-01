@@ -154,7 +154,7 @@ CREATE TABLE `imagenes` (
 
 LOCK TABLES `imagenes` WRITE;
 /*!40000 ALTER TABLE `imagenes` DISABLE KEYS */;
-INSERT INTO `imagenes` VALUES (1,NULL,'predeterminado','recursos/img/avatar1.png'),(2,NULL,'predeterminado','recursos/img/avatar2.png'),(3,NULL,'predeterminado','recursos/img/avatar3.png'),(4,NULL,'predeterminado','recursos/img/avatar4.png'),(5,NULL,'predeterminado','recursos/img/avatar5.png'),(6,NULL,'predeterminado','recursos/img/avatar6.png'),(7,NULL,'predeterminado','recursos/img/avatar7.png'),(8,NULL,'predeterminado','recursos/img/avatar8.png'),(9,NULL,'juego','recursos/img/Legend_of_Zelda.jpg'),(10,NULL,'juego','recursos/img/ResidentEvil4.jpg'),(11,NULL,'juego','recursos/img/HogwartsLegacy.jpeg'),(12,NULL,'juego','recursos/img/EldenRing.jpg'),(13,NULL,'juego','recursos/img/TheMortuaryAssistant.jpeg'),(14,NULL,'juego','recursos/img/MirrorForge.jpg'),(15,NULL,'juego','recursos/img/FIFA23.jpg'),(16,NULL,'juego','recursos/img/MarioKart8.jpg'),(17,NULL,'juego','recursos/img/Minecraft.jpeg'),(18,NULL,'juego','recursos/img/CitiesSkylines.jpg'),(19,NULL,'juego','recursos/img/Monopoly.jpeg'),(20,NULL,'juego','recursos/img/Uncharted3.jpg'),(21,NULL,'perfil','recursos/img/perfil1.jpg'),(22,NULL,'perfil','recursos/img/perfil2.jpg'),(23,NULL,'perfil','recursos/img/perfil3.jpg'),(24,NULL,'perfil','recursos/img/perfil4.jpg'),(25,NULL,'perfil','recursos/img/perfil5.jpg'),(26,NULL,'perfil','recursos/img/perfil6.jpg'),(27,NULL,'perfil','recursos/img/perfil7.jpg'),(28,NULL,'perfil','recursos/img/perfil8.jpg'),(29,NULL,'perfil','recursos/img/perfil9.jpg'),(30,NULL,'perfil','recursos/img/perfil10.jpg');
+INSERT INTO `imagenes` VALUES (1,NULL,'predeterminado','recursos/img/avatar1.png'),(2,NULL,'predeterminado','recursos/img/avatar2.png'),(3,NULL,'predeterminado','recursos/img/avatar3.png'),(4,NULL,'predeterminado','recursos/img/avatar4.png'),(5,NULL,'predeterminado','recursos/img/avatar5.png'),(6,NULL,'predeterminado','recursos/img/avatar6.png'),(7,NULL,'predeterminado','recursos/img/avatar7.png'),(8,NULL,'predeterminado','recursos/img/avatar8.png'),(9,NULL,'juego','recursos/img/Legend_of_Zelda.jpg'),(10,NULL,'juego','recursos/img/ResidentEvil4.jpg'),(11,NULL,'juego','recursos/img/HogwartsLegacy.jpeg'),(12,NULL,'juego','recursos/img/EldenRing.png'),(13,NULL,'juego','recursos/img/TheMortuaryAssistant.jpeg'),(14,NULL,'juego','recursos/img/MirrorForge.jpg'),(15,NULL,'juego','recursos/img/FIFA23.jpg'),(16,NULL,'juego','recursos/img/MarioKart8.jpg'),(17,NULL,'juego','recursos/img/Minecraft.jpg'),(18,NULL,'juego','recursos/img/CitiesSkylines.jpg'),(19,NULL,'juego','recursos/img/Monopoly.jpeg'),(20,NULL,'juego','recursos/img/Uncharted3.jpg'),(21,NULL,'perfil','recursos/img/perfil1.jpg'),(22,NULL,'perfil','recursos/img/perfil2.jpg'),(23,NULL,'perfil','recursos/img/perfil3.jpg'),(24,NULL,'perfil','recursos/img/perfil4.jpg'),(25,NULL,'perfil','recursos/img/perfil5.jpg'),(26,NULL,'perfil','recursos/img/perfil6.jpg'),(27,NULL,'perfil','recursos/img/perfil7.jpg'),(28,NULL,'perfil','recursos/img/perfil8.jpg'),(29,NULL,'perfil','recursos/img/perfil9.jpg'),(30,NULL,'perfil','recursos/img/perfil10.jpg');
 /*!40000 ALTER TABLE `imagenes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -373,9 +373,10 @@ CREATE TABLE `ventajuegosgeneral` (
   `id_consola` varchar(45) NOT NULL,
   `descripcion_nueva` text,
   `nombre_nuevo` varchar(45) DEFAULT NULL,
-  `imagen` blob,
+  `imagen` mediumblob,
   `cantidad` int NOT NULL,
   `idCategoria` varchar(45) DEFAULT NULL,
+  `visibilidad` varchar(45) NOT NULL,
   PRIMARY KEY (`idVenta`),
   KEY `fk_VentaJuegosGeneral_Persona1_idx` (`id_usuario`),
   KEY `fk_VentaJuegosGeneral_Persona2_idx` (`id_administrador`),
@@ -394,7 +395,7 @@ CREATE TABLE `ventajuegosgeneral` (
 
 LOCK TABLES `ventajuegosgeneral` WRITE;
 /*!40000 ALTER TABLE `ventajuegosgeneral` DISABLE KEYS */;
-INSERT INTO `ventajuegosgeneral` VALUES (1,'Aceptado',NULL,'2023-06-01',150.00,'Habilitado',150,2,1,4,'PS5',NULL,NULL,NULL,1,NULL),(2,'No Aceptado',NULL,'2023-05-29',130.00,'Habilitado',110,2,3,2,'PS4',NULL,NULL,NULL,1,NULL),(3,'Rechazado','Dudosa procedencia.','2023-06-11',100.00,'Deshabilitado',NULL,2,5,6,'WIU',NULL,NULL,NULL,1,NULL),(4,'Retirado',NULL,'2023-05-28',105.00,'Habilitado',NULL,2,1,2,'PS5',NULL,NULL,NULL,1,NULL),(5,'Aceptado',NULL,'2023-06-09',100.00,'Habilitado',NULL,4,1,1,'XB3',NULL,NULL,NULL,1,NULL),(6,'No Aceptado',NULL,'2023-06-07',120.00,'Habilitado',90,4,3,9,'XB3',NULL,NULL,NULL,1,NULL),(7,'Aceptado',NULL,'2023-06-08',30.00,'Habilitado',NULL,6,3,11,'SWI',NULL,NULL,NULL,1,NULL),(8,'Aceptado',NULL,'2023-06-12',90.00,'Habilitado',NULL,6,5,12,'PS4',NULL,NULL,NULL,1,NULL),(9,'Aceptado',NULL,'2023-05-25',80.00,'Habilitado',NULL,7,5,10,'XBO',NULL,NULL,NULL,1,NULL),(10,'Retirado',NULL,'2023-06-05',35.00,'Habilitado',NULL,8,3,11,'SWI',NULL,NULL,NULL,1,NULL),(11,'Retirado',NULL,'2023-05-21',80.00,'Habilitado',NULL,8,1,12,'PS4',NULL,NULL,NULL,1,NULL),(12,'Aceptado',NULL,'2023-06-04',150.00,'Habilitado',NULL,9,5,3,'XBO',NULL,NULL,NULL,1,NULL),(13,'Aceptado',NULL,'2023-05-20',200.00,'Deshabilitado',NULL,7,3,2,'PS5',NULL,NULL,NULL,1,NULL);
+INSERT INTO `ventajuegosgeneral` VALUES (1,'Aceptado',NULL,'2023-06-01',150.00,'Habilitado',150,2,1,4,'PS5',NULL,NULL,NULL,1,NULL,'Habilitado'),(2,'No Aceptado',NULL,'2023-05-29',130.00,'Habilitado',110,2,3,2,'PS4',NULL,NULL,NULL,1,NULL,'Habilitado'),(3,'Rechazado','Dudosa procedencia.','2023-06-11',100.00,'Deshabilitado',NULL,2,5,6,'WIU',NULL,NULL,NULL,1,NULL,'Habilitado'),(4,'Retirado',NULL,'2023-05-28',105.00,'Habilitado',NULL,2,1,2,'PS5',NULL,NULL,NULL,1,NULL,'Habilitado'),(5,'Aceptado',NULL,'2023-06-09',100.00,'Habilitado',NULL,4,1,1,'XB3',NULL,NULL,NULL,1,NULL,'Habilitado'),(6,'No Aceptado',NULL,'2023-06-07',120.00,'Habilitado',90,4,3,9,'XB3',NULL,NULL,NULL,1,NULL,'Habilitado'),(7,'Aceptado',NULL,'2023-06-08',30.00,'Habilitado',NULL,6,3,11,'SWI',NULL,NULL,NULL,1,NULL,'Habilitado'),(8,'Aceptado',NULL,'2023-06-12',90.00,'Habilitado',NULL,6,5,12,'PS4',NULL,NULL,NULL,1,NULL,'Habilitado'),(9,'Aceptado',NULL,'2023-05-25',80.00,'Habilitado',NULL,7,5,10,'XBO',NULL,NULL,NULL,1,NULL,'Habilitado'),(10,'Retirado',NULL,'2023-06-05',35.00,'Habilitado',NULL,8,3,11,'SWI',NULL,NULL,NULL,1,NULL,'Habilitado'),(11,'Retirado',NULL,'2023-05-21',80.00,'Habilitado',NULL,8,1,12,'PS4',NULL,NULL,NULL,1,NULL,'Habilitado'),(12,'Aceptado',NULL,'2023-06-04',150.00,'Habilitado',NULL,9,5,3,'XBO',NULL,NULL,NULL,1,NULL,'Habilitado'),(13,'Aceptado',NULL,'2023-05-20',200.00,'Deshabilitado',NULL,7,3,2,'PS5',NULL,NULL,NULL,1,NULL,'Habilitado');
 /*!40000 ALTER TABLE `ventajuegosgeneral` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -415,4 +416,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-06-22 17:13:56
+-- Dump completed on 2023-07-01 17:40:40

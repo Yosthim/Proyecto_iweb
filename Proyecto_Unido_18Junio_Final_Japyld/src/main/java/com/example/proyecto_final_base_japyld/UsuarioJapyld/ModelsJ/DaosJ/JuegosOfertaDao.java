@@ -14,11 +14,13 @@ public class JuegosOfertaDao {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        String sql = "select idJuegos,nombreJuegos,precio,direccion_archivo \n" +
-                "from juegos j \n" +
-                "inner join imagenes i on j.id_imagen = i.idImagenes\n" +
-                "inner join categorias c on j.id_categoria = c.idCategorias\n" +
-                "where j.estadoJuego = \"Oferta\";";
+        String sql = "select idJuegos,nombreJuegos,d.precio_nuevo,direccion_archivo\n" +
+                "                from juegos j\n" +
+                "                inner join descuentos d on j.idJuegos = d.id_juego\n" +
+                "                inner join imagenes i on j.id_imagen = i.idImagenes\n" +
+                "                inner join categorias c on j.id_categoria = c.idCategorias\n" +
+                "                \n" +
+                "                where j.estadoJuego = \"Oferta\";";
 
         String url = "jdbc:mysql://localhost:3306/japyld";
 
