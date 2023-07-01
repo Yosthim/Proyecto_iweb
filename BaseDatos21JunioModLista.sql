@@ -373,9 +373,10 @@ CREATE TABLE `ventajuegosgeneral` (
   `id_consola` varchar(45) NOT NULL,
   `descripcion_nueva` text,
   `nombre_nuevo` varchar(45) DEFAULT NULL,
-  `imagen` blob,
+  `imagen` mediumblob,
   `cantidad` int NOT NULL,
   `idCategoria` varchar(45) DEFAULT NULL,
+  `visibilidad` varchar(45) NOT NULL,
   PRIMARY KEY (`idVenta`),
   KEY `fk_VentaJuegosGeneral_Persona1_idx` (`id_usuario`),
   KEY `fk_VentaJuegosGeneral_Persona2_idx` (`id_administrador`),
@@ -394,7 +395,7 @@ CREATE TABLE `ventajuegosgeneral` (
 
 LOCK TABLES `ventajuegosgeneral` WRITE;
 /*!40000 ALTER TABLE `ventajuegosgeneral` DISABLE KEYS */;
-INSERT INTO `ventajuegosgeneral` VALUES (1,'Aceptado',NULL,'2023-06-01',150.00,'Habilitado',150,2,1,4,'PS5',NULL,NULL,NULL,1,NULL),(2,'No Aceptado',NULL,'2023-05-29',130.00,'Habilitado',110,2,3,2,'PS4',NULL,NULL,NULL,1,NULL),(3,'Rechazado','Dudosa procedencia.','2023-06-11',100.00,'Deshabilitado',NULL,2,5,6,'WIU',NULL,NULL,NULL,1,NULL),(4,'Retirado',NULL,'2023-05-28',105.00,'Habilitado',NULL,2,1,2,'PS5',NULL,NULL,NULL,1,NULL),(5,'Aceptado',NULL,'2023-06-09',100.00,'Habilitado',NULL,4,1,1,'XB3',NULL,NULL,NULL,1,NULL),(6,'No Aceptado',NULL,'2023-06-07',120.00,'Habilitado',90,4,3,9,'XB3',NULL,NULL,NULL,1,NULL),(7,'Aceptado',NULL,'2023-06-08',30.00,'Habilitado',NULL,6,3,11,'SWI',NULL,NULL,NULL,1,NULL),(8,'Aceptado',NULL,'2023-06-12',90.00,'Habilitado',NULL,6,5,12,'PS4',NULL,NULL,NULL,1,NULL),(9,'Aceptado',NULL,'2023-05-25',80.00,'Habilitado',NULL,7,5,10,'XBO',NULL,NULL,NULL,1,NULL),(10,'Retirado',NULL,'2023-06-05',35.00,'Habilitado',NULL,8,3,11,'SWI',NULL,NULL,NULL,1,NULL),(11,'Retirado',NULL,'2023-05-21',80.00,'Habilitado',NULL,8,1,12,'PS4',NULL,NULL,NULL,1,NULL),(12,'Aceptado',NULL,'2023-06-04',150.00,'Habilitado',NULL,9,5,3,'XBO',NULL,NULL,NULL,1,NULL),(13,'Aceptado',NULL,'2023-05-20',200.00,'Deshabilitado',NULL,7,3,2,'PS5',NULL,NULL,NULL,1,NULL);
+INSERT INTO `ventajuegosgeneral` VALUES (1,'Aceptado',NULL,'2023-06-01',150.00,'Habilitado',150,2,1,4,'PS5',NULL,NULL,NULL,1,NULL,'Habilitado'),(2,'No Aceptado',NULL,'2023-05-29',130.00,'Habilitado',110,2,3,2,'PS4',NULL,NULL,NULL,1,NULL,'Habilitado'),(3,'Rechazado','Dudosa procedencia.','2023-06-11',100.00,'Deshabilitado',NULL,2,5,6,'WIU',NULL,NULL,NULL,1,NULL,'Habilitado'),(4,'Retirado',NULL,'2023-05-28',105.00,'Habilitado',NULL,2,1,2,'PS5',NULL,NULL,NULL,1,NULL,'Habilitado'),(5,'Aceptado',NULL,'2023-06-09',100.00,'Habilitado',NULL,4,1,1,'XB3',NULL,NULL,NULL,1,NULL,'Habilitado'),(6,'No Aceptado',NULL,'2023-06-07',120.00,'Habilitado',90,4,3,9,'XB3',NULL,NULL,NULL,1,NULL,'Habilitado'),(7,'Aceptado',NULL,'2023-06-08',30.00,'Habilitado',NULL,6,3,11,'SWI',NULL,NULL,NULL,1,NULL,'Habilitado'),(8,'Aceptado',NULL,'2023-06-12',90.00,'Habilitado',NULL,6,5,12,'PS4',NULL,NULL,NULL,1,NULL,'Habilitado'),(9,'Aceptado',NULL,'2023-05-25',80.00,'Habilitado',NULL,7,5,10,'XBO',NULL,NULL,NULL,1,NULL,'Habilitado'),(10,'Retirado',NULL,'2023-06-05',35.00,'Habilitado',NULL,8,3,11,'SWI',NULL,NULL,NULL,1,NULL,'Habilitado'),(11,'Retirado',NULL,'2023-05-21',80.00,'Habilitado',NULL,8,1,12,'PS4',NULL,NULL,NULL,1,NULL,'Habilitado'),(12,'Aceptado',NULL,'2023-06-04',150.00,'Habilitado',NULL,9,5,3,'XBO',NULL,NULL,NULL,1,NULL,'Habilitado'),(13,'Aceptado',NULL,'2023-05-20',200.00,'Deshabilitado',NULL,7,3,2,'PS5',NULL,NULL,NULL,1,NULL,'Habilitado');
 /*!40000 ALTER TABLE `ventajuegosgeneral` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -415,4 +416,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-06-22 17:13:56
+-- Dump completed on 2023-07-01 17:40:40
