@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class MasDetallesDao {
 
-    public ArrayList<MasDetallesDto> listarMasDetallesJuego(String idjuego){
+    public ArrayList<MasDetallesDto> listarMasDetallesJuego(int idjuego){
         ArrayList<MasDetallesDto> listaMasDetallesJuego = new ArrayList<>();
 
         try {
@@ -19,13 +19,14 @@ public class MasDetallesDao {
                 "from juegos j\n" +
                 "inner join categorias g on g.idCategorias = j.id_categoria\n" +
                 "left join imagenes i on i.idImagenes = j.id_imagen\n" +
-                "where j.nombreJuegos = ?;";
+                "where j.idJuegos = ?;";
         String url = "jdbc:mysql://localhost:3306/japyld";
         try (Connection connection = DriverManager.getConnection(url, "root", "root");
                 /*Usaremos prepared Statement*/
              PreparedStatement ptsmtJuego = connection.prepareStatement(sql))
         {
-            ptsmtJuego.setString(1,idjuego);
+            ptsmtJuego.setInt(1,idjuego);
+
             try (ResultSet rs = ptsmtJuego.executeQuery()){
                 while(rs.next()){
                     MasDetallesDto juegodetalles = new MasDetallesDto();

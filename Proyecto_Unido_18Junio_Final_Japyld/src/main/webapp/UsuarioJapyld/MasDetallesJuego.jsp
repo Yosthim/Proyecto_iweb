@@ -119,6 +119,29 @@
                 </div>
               </div>
             </div>
+            <div class="card shadow mb-4">
+              <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Comentarios de Usuarios</h6>
+              </div>
+              <div class="card-body">
+                <div class="media mb-4">
+                  <img class="mr-3 rounded-circle" src="" alt="Usuario 1">
+                  <div class="media-body">
+                    <h6 class="mt-0">Usuario 1</h6>
+                    <p>¡Me encanta este juego! La historia es cautivadora y los gráficos son impresionantes.</p>
+                  </div>
+                </div>
+                <hr>
+                <div class="media mb-4">
+                  <img class="mr-3 rounded-circle" src="" alt="Usuario 2">
+                  <div class="media-body">
+                    <h6 class="mt-0">Usuario 2</h6>
+                    <p>El gameplay es muy divertido y el modo multijugador ofrece mucha diversión en grupo.</p>
+                  </div>
+                </div>
+                <!-- Agrega más comentarios aquí -->
+              </div>
+            </div>
           </div>
         </div>
 

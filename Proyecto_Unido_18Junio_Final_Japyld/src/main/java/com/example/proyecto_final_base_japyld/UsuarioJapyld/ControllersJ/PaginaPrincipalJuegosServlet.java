@@ -29,7 +29,7 @@ public class PaginaPrincipalJuegosServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        CategoriaDao categoriadao = new CategoriaDao();
         PaginaPrincipalDao buscarjuegosdao = new PaginaPrincipalDao();
 
         String textoBuscar = request.getParameter("textoBuscar");
@@ -38,6 +38,7 @@ public class PaginaPrincipalJuegosServlet extends HttpServlet {
         } else {
             request.setAttribute("textoBusqueda", textoBuscar);
             request.setAttribute("listaJuegos", buscarjuegosdao.buscarJuegoPorNombre(textoBuscar));
+            request.setAttribute("categorias",categoriadao.listaCategoria());
             RequestDispatcher view = request.getRequestDispatcher("UsuarioJapyld/PaginaPrincipal.jsp");
             view.forward(request, response);
         }

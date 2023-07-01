@@ -1,10 +1,9 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.example.proyecto_final_base_japyld.UsuarioJapyld.ModelsJ.DtoJ.PaginaPrincipalDto" %>
-<%@ page import="com.example.proyecto_final_base_japyld.AdministradorJapyld.ModelsJ.DaosJ.CategoriaDao" %>
 <%@ page import="com.example.proyecto_final_base_japyld.BeansGenerales.Categoria" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <% ArrayList<PaginaPrincipalDto> listaJuegos = (ArrayList<PaginaPrincipalDto>) request.getAttribute("listaJuegos"); %>
-<% ArrayList<Categoria> categorias = (ArrayList<Categoria>) request.getAttribute("categorias"); %>
+<% ArrayList<Categoria> categoriaLista = (ArrayList<Categoria>) request.getAttribute("categorias"); %>
 <jsp:useBean id="personaSession" type="com.example.proyecto_final_base_japyld.BeansGenerales.Personas" scope="session" class="com.example.proyecto_final_base_japyld.BeansGenerales.Personas"/>
 <jsp:useBean id="textoBusqueda" scope="request" type="java.lang.String" class="java.lang.String"/>
 
@@ -75,9 +74,10 @@
             </button>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton" style="width: 100%">
               <a class="dropdown-item" href="<%=request.getContextPath()%>/Pagina-principal-oferta">Ofertas</a>
-              <%for (Categoria categoria : categorias){%>
+              <%for (Categoria categoria : categoriaLista){%>
               <a class="dropdown-item" href="<%=request.getContextPath()%>/Pagina-principal-categoria?idcategoria=<%=categoria.getIdCategorias()%>"><%=categoria.getNombre()%></a>
               <%}%>
+              <a class="dropdown-item text-danger" href="<%=request.getContextPath()%>/PaginaPrincipal">Regresar</a>
             </div>
           </div>
         </div>
@@ -102,7 +102,7 @@
                       <%}else{%>
                       <p class="mt-2">Precio: S/. <%=juegos.getPrecio_nuevo()%></p>
                       <%}%>
-                      <a class="btn btn-success" href="<%=request.getContextPath()%>/MasDetallesJuego?idjuego=<%=juegos.getNombreJuegos()%>">Más Detalles</a>
+                      <a class="btn btn-success" href="<%=request.getContextPath()%>/MasDetallesJuego?idjuego=<%=juegos.getIdJuegos()%>">Más Detalles</a>
                     </div>
                   </div>
                 </div>
