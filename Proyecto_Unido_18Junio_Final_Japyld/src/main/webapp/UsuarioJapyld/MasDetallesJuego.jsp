@@ -39,7 +39,7 @@
 <div id="wrapper">
 
   <!-- Sidebar -->
-  <jsp:include page="/Navbars/UsuarioJapyld/SidebarGeneral.jsp">
+  <jsp:include page="/Includes/UsuarioJapyld/SidebarGeneral.jsp">
     <jsp:param name="title" value="Pagina Principal"/>
   </jsp:include>
   <!-- End of Sidebar -->
@@ -51,7 +51,7 @@
     <div id="content">
 
       <!-- Topbar -->
-      <jsp:include page="/Navbars/UsuarioJapyld/navbarUsuarioDemasPaginas.jsp">
+      <jsp:include page="/Includes/UsuarioJapyld/navbarUsuarioDemasPaginas.jsp">
         <jsp:param name="title" value="Mas detalles"/>
       </jsp:include>
       <!-- End of Topbar -->
