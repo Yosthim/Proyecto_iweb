@@ -13,7 +13,7 @@ public class VentaJuegosDao extends BaseDao {
 
     public ArrayList<Juegos> listarNombreJuegos() {
         ArrayList<Juegos> listaJuegos = new ArrayList<>();
-        String sql = "SELECT nombreJuegos FROM juegos";
+        String sql = "SELECT idJuegos, nombreJuegos FROM juegos";
 
         try(Connection connection = this.getConnection();
             Statement stmt = connection.createStatement();
@@ -21,7 +21,8 @@ public class VentaJuegosDao extends BaseDao {
 
             while (resultSet.next()) {
                 Juegos juego = new Juegos();
-                juego.setNombreJuegos(resultSet.getString(1));
+                juego.setIdJuegos(resultSet.getInt(1));
+                juego.setNombreJuegos(resultSet.getString(2));
 
                 listaJuegos.add(juego);
             }

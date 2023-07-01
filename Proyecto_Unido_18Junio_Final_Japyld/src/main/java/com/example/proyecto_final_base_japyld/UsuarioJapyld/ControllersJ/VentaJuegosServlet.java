@@ -32,7 +32,6 @@ public class VentaJuegosServlet extends HttpServlet {
                 view.forward(request, response);
                 break;
             case "exist":
-                request.setAttribute("categorias", ventaJuegosDao.listarCategorias());
                 request.setAttribute("listaJuegos", ventaJuegosDao.listarNombreJuegos());
                 request.setAttribute("consolas", ventaJuegosDao.listarConsolas());
                 view = request.getRequestDispatcher("UsuarioJapyld/JuegoExistente.jsp");
