@@ -120,24 +120,93 @@
                 </div>
               </div>
             </div>
+            <% if (!listaComentarios.isEmpty()) { %>
             <div class="card shadow mb-4">
               <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">Comentarios de Usuarios</h6>
               </div>
               <div class="card-body">
-                <% for (Comentarios comentario : listaComentarios){%>
                 <div class="media mb-4">
-                  <img class="mr-3 rounded-circle" src="" alt="Usuario 1">
+                  <img class="mr-3 rounded-circle" src="" alt="">
                   <div class="media-body">
-                    <h6 class="mt-0"><%=comentario.getPersonaComentario().getNombre()%></h6>
-                    <p><%=comentario.getComentario()%></p>
+                    <div class="d-flex justify-content-between">
+                      <h6 class="mt-0 text-gray-900"><%= listaComentarios.get(0).getPersonaComentario().getNombre() %></h6>
+                      <h6 class="mt-0"><%= listaComentarios.get(0).getFecha_comentario() %></h6>
+                    </div>
+                    <p class="text-justify"><%= listaComentarios.get(0).getComentario() %></p>
                   </div>
                 </div>
-                <hr>
+                <div id="comentariosExtras" style="display: none;">
+                  <% for (int i = 1; i < listaComentarios.size(); i++) { %>
+                  <% Comentarios comentario = listaComentarios.get(i); %>
+                  <div class="media mb-4">
+                    <img class="mr-3 rounded-circle" src="" alt="">
+                    <div class="media-body">
+                      <hr>
+                      <div class="d-flex justify-content-between">
+                        <h6 class="mt-0 text-gray-900"><%= comentario.getPersonaComentario().getNombre() %></h6>
+                        <h6 class="mt-0"><%= comentario.getFecha_comentario() %></h6>
+                      </div>
+                      <p class="text-justify"><%= comentario.getComentario() %></p>
+                    </div>
+                  </div>
+                  <% } %>
+                </div>
+                <% if (listaComentarios.size() > 1) { %>
+                <div class="d-flex justify-content-between">
+                  <div>
+                    <button id="verMasBtn" class="btn btn-primary btn-sm">Ver más comentarios</button>
+                  </div>
+                  <div>
+                    <button id="añadirComentarioBtn" class="btn btn-success btn-sm justify-content-lg-end">Añade un comentario</button>
+                  </div>
+                </div>
+                <div>
+                  <button id="ocultarBtn" class="btn btn-danger btn-sm" style="display: none;">Ocultar comentarios</button>
+                </div>
                 <% } %>
-                <!-- Agrega más comentarios aquí -->
+                <!-- Agrega paginación aquí -->
               </div>
             </div>
+
+            <!-- Formulario para añadir un comentario -->
+            <div id="comentarioForm" style="display: none;">
+              <form class="user" method="POST" action="<%=request.getContextPath()%>/MasDetallesJuego">
+                <div class="form-group">
+                  <textarea class="form-control" id="Comentario" rows="3" placeholder="Ingresa tu comentario"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Enviar comentario</button>
+              </form>
+            </div>
+
+            <script>
+              var comentariosExtras = document.getElementById("comentariosExtras");
+              var verMasBtn = document.getElementById("verMasBtn");
+              var ocultarBtn = document.getElementById("ocultarBtn");
+              var añadirComentarioBtn = document.getElementById("añadirComentarioBtn");
+              var comentarioForm = document.getElementById("comentarioForm");
+
+              verMasBtn.addEventListener("click", function() {
+                comentariosExtras.style.display = "block";
+                verMasBtn.style.display = "none";
+                ocultarBtn.style.display = "block";
+                añadirComentarioBtn.style.display = "none";
+              });
+
+              ocultarBtn.addEventListener("click", function() {
+                comentariosExtras.style.display = "none";
+                verMasBtn.style.display = "block";
+                ocultarBtn.style.display = "none";
+                añadirComentarioBtn.style.display = "block";
+              });
+
+              añadirComentarioBtn.addEventListener("click", function() {
+                comentarioForm.style.display = "block";
+              });
+            </script>
+
+            <% } %>
+
           </div>
         </div>
 

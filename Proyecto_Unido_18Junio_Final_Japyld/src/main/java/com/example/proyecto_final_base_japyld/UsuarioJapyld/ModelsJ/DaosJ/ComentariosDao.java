@@ -15,7 +15,9 @@ public class ComentariosDao extends BaseDao {
                 "FROM comentarios c\n" +
                 "INNER JOIN juegos j ON c.Juegos_idJuegos = j.idJuegos\n" +
                 "LEFT JOIN personas p ON c.Persona_idPersona = p.idPersona\n" +
-                "WHERE j.idJuegos = ?;";
+                "WHERE j.idJuegos = ?\n" +
+                "ORDER BY fecha_comentario DESC\n" +
+                "limit 3;";
 
         try (Connection connection = this.getConnection();
              PreparedStatement ptsmt = connection.prepareStatement(sql)) {
