@@ -1,6 +1,8 @@
+<%@ page import="com.example.proyecto_final_base_japyld.BeansGenerales.VentaJuegosGeneral" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<jsp:useBean id="personaSession" type="com.example.proyecto_final_base_japyld.BeansGenerales.Personas" scope="session"
-             class="com.example.proyecto_final_base_japyld.BeansGenerales.Personas"/>
+<jsp:useBean id="personaSession" type="com.example.proyecto_final_base_japyld.BeansGenerales.Personas" scope="session"/>
+<jsp:useBean id="listaOfertas" type="java.util.ArrayList<com.example.proyecto_final_base_japyld.BeansGenerales.VentaJuegosGeneral>" scope="request"/>
+
 <html>
 <head>
 
@@ -297,11 +299,13 @@
             <div class="container-fluid">
 
                 <!-- Page Heading -->
+                <h1 class="h3 mb-3 text-gray-800">Tus Ventas</h1>
 
+                <!-- Content row -->
                 <div class="container-fluid">
                     <div class="card shadow mb-5">
                         <div class="card-body">
-                            <div class="col-12 col-xl-auto mb-3">
+                            <div class="row mb-3">
                                 <div class="d-flex justify-content-lg-center">
                                     <div class="dropdown no-arrow mb-4">
                                         <button class="btn btn-info dropdown-toggle" type="button"
@@ -324,209 +328,63 @@
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                     <tr>
-                                        <th class="text-center">LISTA DE JUEGOS</th>
-                                        <th class="text-center">ESTADOS</th>
+                                        <th class="text-center">LISTA DE OFERTAS</th>
+                                        <th class="text-center">ESTADO</th>
                                         <th class="text-center">ACCIONES</th>
                                     </tr>
                                     </thead>
 
                                     <tbody>
-                                    <tr>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <label> <img src="../img/zorro.jpg" width="160" height="160" alt="Image"
-                                                             class="img-fluid"></label>
+                                    <% for (VentaJuegosGeneral oferta: listaOfertas) {%>
+                                        <tr>
+                                            <td>
                                                 <div class="d-flex align-items-center">
-                                                    <ul>
-                                                        <br>
-                                                        <h3 class="m-0 font-weight-bold text-primary">JUEGO</h3>
-                                                        <br>
-                                                        <br>
-                                                        <h5 class="m-0 font-weight-bold text-info">
-                                                            <div class="d-flex justify-content-lg-end">
-                                                                <button class="btn btn-primary" type="button">GENERO
-                                                                </button>
-                                                            </div>
-                                                        </h5>
-                                                        <br>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </td><!-- .navbar -->
-                                        <td>
-                                            <br>
-                                            <br>
-                                            <div class="card-body center-h center-h">
-                                                <div class="col-12 col-xl-auto mb-3">
-                                                    <div class="d-flex justify-content-center">
-                                                        <button class="btn btn-success" type="button">ACEPTADO</button>
+                                                    <label> <img src="../img/zorro.jpg" width="160" height="160" alt="Image"
+                                                                 class="img-fluid"></label>
+                                                    <div class="d-flex align-items-center">
+                                                        <ul>
+                                                            <br>
+                                                            <h3 class="m-0 font-weight-bold text-primary">JUEGO</h3>
+                                                            <br>
+                                                            <br>
+                                                            <h5 class="m-0 font-weight-bold text-info">
+                                                                <div class="d-flex justify-content-lg-end">
+                                                                    <button class="btn btn-primary" type="button">GENERO
+                                                                    </button>
+                                                                </div>
+                                                            </h5>
+                                                            <br>
+                                                        </ul>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <body>
-                                            <br>
-                                            <br>
-                                            <br>
-                                            <div class="col-12 col-xl-auto mb-3">
-                                                <div class="d-flex justify-content-lg-center">
-                                                    <button class="btn btn-outline-info" type="button">ELIMINAR DE LA
-                                                        LISTA
-                                                    </button>
+                                            </td><!-- .navbar -->
+                                            <td>
+                                                <br>
+                                                <br>
+                                                <div class="card-body center-h center-h">
+                                                    <div class="col-12 col-xl-auto mb-3">
+                                                        <div class="d-flex justify-content-center">
+                                                            <button class="btn btn-success" type="button">ACEPTADO</button>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            </body>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <label> <img src="../img/zorro.jpg" width="160" height="160" alt="Image"
-                                                             class="img-fluid"></label>
-                                                <div class="d-flex align-items-center">
-                                                    <ul>
-                                                        <br>
-                                                        <h3 class="m-0 font-weight-bold text-primary">JUEGO</h3>
-                                                        <br>
-                                                        <br>
-                                                        <h5 class="m-0 font-weight-bold text-info">
-                                                            <div class="d-flex justify-content-lg-end">
-                                                                <button class="btn btn-primary" type="button">GENERO
-                                                                </button>
-                                                            </div>
-                                                        </h5>
-                                                        <br>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </td><!-- .navbar -->
-                                        <td>
-                                            <br>
-                                            <br>
-                                            <div class="card-body center-h center-h">
+                                            </td>
+                                            <td>
+                                                <body>
+                                                <br>
+                                                <br>
+                                                <br>
                                                 <div class="col-12 col-xl-auto mb-3">
-                                                    <div class="d-flex justify-content-center">
-                                                        <button class="btn btn-warning" type="button">NO ACEPTADO
+                                                    <div class="d-flex justify-content-lg-center">
+                                                        <button class="btn btn-outline-info" type="button">ELIMINAR DE LA
+                                                            LISTA
                                                         </button>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <body>
-                                            <br>
-                                            <div class="d-flex justify-content-lg-center">
-                                                <button class="btn btn-outline-info" type="button">CAMBIAR OFERTA
-                                                </button>
-                                            </div>
-                                            <br>
-                                            <br>
-                                            <div class="d-flex justify-content-lg-center">
-                                                <button class="btn btn-outline-info" type="button">RETIRAR OFERTA
-                                                </button>
-                                            </div>
-                                            </body>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <label> <img src="../img/zorro.jpg" width="160" height="160" alt="Image"
-                                                             class="img-fluid"></label>
-                                                <div class="d-flex align-items-center">
-                                                    <ul>
-                                                        <br>
-                                                        <h3 class="m-0 font-weight-bold text-primary">JUEGO</h3>
-                                                        <br>
-                                                        <br>
-                                                        <h5 class="m-0 font-weight-bold text-info">
-                                                            <div class="d-flex justify-content-lg-end">
-                                                                <button class="btn btn-primary" type="button">GENERO
-                                                                </button>
-                                                            </div>
-                                                        </h5>
-                                                        <br>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </td><!-- .navbar -->
-                                        <td>
-                                            <br>
-                                            <br>
-                                            <div class="card-body center-h center-h">
-                                                <div class="col-12 col-xl-auto mb-3">
-                                                    <div class="d-flex justify-content-center">
-                                                        <button class="btn btn-danger" type="button">RECHAZADO</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <body>
-                                            <br>
-                                            <div class="d-flex justify-content-lg-center">
-                                                <button class="btn btn-outline-info" type="button">VER RAZONES</button>
-                                            </div>
-                                            <br>
-                                            <br>
-                                            <div class="d-flex justify-content-lg-center">
-                                                <button class="btn btn-outline-info" type="button">ELIMINAR DE LA
-                                                    LISTA
-                                                </button>
-                                            </div>
-                                            </body>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <label> <img src="../img/zorro.jpg" width="160" height="160" alt="Image"
-                                                             class="img-fluid"></label>
-                                                <div class="d-flex align-items-center">
-                                                    <ul>
-                                                        <br>
-                                                        <h3 class="m-0 font-weight-bold text-primary">JUEGO</h3>
-                                                        <br>
-                                                        <br>
-                                                        <h5 class="m-0 font-weight-bold text-info">
-                                                            <div class="d-flex justify-content-lg-end">
-                                                                <button class="btn btn-primary" type="button">GENERO
-                                                                </button>
-                                                            </div>
-                                                        </h5>
-                                                        <br>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </td><!-- .navbar -->
-                                        <td>
-                                            <br>
-                                            <br>
-                                            <div class="card-body center-h center-h">
-                                                <div class="col-12 col-xl-auto mb-3">
-                                                    <div class="d-flex justify-content-center">
-                                                        <button class="btn btn-secondary" type="button">RETIRADO
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <body>
-                                            <br>
-                                            <br>
-                                            <br>
-                                            <div class="col-12 col-xl-auto mb-3">
-                                                <div class="d-flex justify-content-lg-center">
-                                                    <button class="btn btn-outline-info" type="button">ELIMINAR DE LA
-                                                        LISTA
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            </body>
-                                        </td>
-                                    </tr>
+                                                </body>
+                                            </td>
+                                        </tr>
+                                    <% } %>
                                     </tbody>
                                 </table>
                             </div>

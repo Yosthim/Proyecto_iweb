@@ -5,7 +5,13 @@ import java.math.BigDecimal;
 public class Juegos {
     private int idJuegos;
     private String nombreJuegos;
-
+    private int stock;
+    private BigDecimal precio;
+    private String estadoJuego;
+    private String descripcion;
+    private int idImagen;
+    private Categoria categoria;
+    private int id_categoria;
     public int getIdJuegos() {
         return idJuegos;
     }
@@ -21,21 +27,15 @@ public class Juegos {
     public void setNombreJuegos(String nombreJuegos) {
         this.nombreJuegos = nombreJuegos;
     }
-
     public int getStock() {
         return stock;
     }
-
     public void setStock(int stock) {
         this.stock = stock;
     }
-
-
-
     public String getEstaoJuego() {
         return estadoJuego;
     }
-
     public void setEstaoJuego(String estadoJuego) {
         this.estadoJuego = estadoJuego;
     }
@@ -48,14 +48,6 @@ public class Juegos {
         this.descripcion = descripcion;
     }
 
-    public int getId_imaggen() {
-        return id_imaggen;
-    }
-
-    public void setId_imaggen(int id_imaggen) {
-        this.id_imaggen = id_imaggen;
-    }
-
     public int getId_categoria() {
         return id_categoria;
     }
@@ -63,8 +55,6 @@ public class Juegos {
     public void setId_categoria(int id_categoria) {
         this.id_categoria = id_categoria;
     }
-
-    private int stock;
 
     public BigDecimal getPrecio() {
         return precio;
@@ -74,12 +64,6 @@ public class Juegos {
         this.precio = precio;
     }
 
-    private BigDecimal precio;
-    private String estadoJuego;
-    private String descripcion;
-    private int id_imaggen;
-    private Imagen imagen;
-
     public String getEstadoJuego() {
         return estadoJuego;
     }
@@ -88,12 +72,12 @@ public class Juegos {
         this.estadoJuego = estadoJuego;
     }
 
-    public Imagen getImagen() {
-        return imagen;
+    public int getIdImagen() {
+        return idImagen;
     }
 
-    public void setImagen(Imagen imagen) {
-        this.imagen = imagen;
+    public void setIdImagen(int idImagen) {
+        this.idImagen = idImagen;
     }
 
     public Categoria getCategoria() {
@@ -104,6 +88,5 @@ public class Juegos {
         this.categoria = categoria;
     }
 
-    private Categoria categoria;
-    private int id_categoria;
+
 }

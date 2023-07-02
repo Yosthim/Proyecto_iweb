@@ -1,9 +1,6 @@
 package com.example.proyecto_final_base_japyld.UsuarioJapyld.ControllersJ;
 
-import com.example.proyecto_final_base_japyld.BeansGenerales.Categoria;
-import com.example.proyecto_final_base_japyld.BeansGenerales.Consola;
-import com.example.proyecto_final_base_japyld.BeansGenerales.Personas;
-import com.example.proyecto_final_base_japyld.BeansGenerales.VentaJuegosGeneral;
+import com.example.proyecto_final_base_japyld.BeansGenerales.*;
 import com.example.proyecto_final_base_japyld.UsuarioJapyld.ModelsJ.DaosJ.VentaJuegosDao;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -28,6 +25,8 @@ public class VentaJuegosServlet extends HttpServlet {
 
         switch (action) {
             case "listar":
+                Personas usuario = (Personas) request.getSession().getAttribute("personaSession");
+                request.setAttribute("listaOfertas", ventaJuegosDao.listarOfertas(usuario.getIdPersona()));
                 view = request.getRequestDispatcher("UsuarioJapyld/TusVentas.jsp");
                 view.forward(request, response);
                 break;
@@ -55,39 +54,53 @@ public class VentaJuegosServlet extends HttpServlet {
         VentaJuegosDao ventaJuegosDao = new VentaJuegosDao();
         String action = request.getParameter("act");
 
-        VentaJuegosGeneral ofertaJuego = setOferta(request);
+        VentaJuegosGeneral ofertaJuego = setOferta(request, action);
 
-        Part imageGamePart = request.getPart("imagenJuego");
-        InputStream imageGameContent = imageGamePart.getInputStream();
-
-        ofertaJuego.setImagenNueva(imageGameContent);
-
-        ventaJuegosDao.registrarOferta(ofertaJuego, "nuevo");
-
+        switch (action) {
+            case "new":
+                Part imageGamePart = request.getPart("imagenJuego");
+                InputStream imageGameContent = imageGamePart.getInputStream();
+                ofertaJuego.setImagenNueva(imageGameContent);
+                ventaJuegosDao.registrarOferta(ofertaJuego, "nuevo");
+                break;
+            case "exist":
+                ventaJuegosDao.registrarOferta(ofertaJuego, "existente");
+                break;
+        }
         response.sendRedirect(request.getContextPath() + "/TusVentas");
     }
 
-    public VentaJuegosGeneral setOferta(HttpServletRequest request) {
+    public VentaJuegosGeneral setOferta(HttpServletRequest request, String action) {
         VentaJuegosGeneral ofertaJuego = new VentaJuegosGeneral();
+        VentaJuegosDao ventaJuegosDao = new VentaJuegosDao();
         Personas admin = new Personas();
         Personas usuario = (Personas) request.getSession().getAttribute("personaSession");
-        admin.setIdPersona(1);
+        admin.setIdPersona(ventaJuegosDao.getRandomIdAdmin());
         ofertaJuego.setAdministrador(admin);
         ofertaJuego.setUsuario(usuario);
-
-        ofertaJuego.setNombreNuevo(request.getParameter("nombreJuego").trim());
-        ofertaJuego.setDescripcionNueva(request.getParameter("descripcion").trim());
 
         Consola consola = new Consola();
         consola.setIdConsola(request.getParameter("idConsola"));
         ofertaJuego.setConsola(consola);
 
-        Categoria categoria = new Categoria();
-        categoria.setIdCategorias(request.getParameter("idCategoria"));
-        ofertaJuego.setCategoria(categoria);
-
         ofertaJuego.setPrecioUsuario(new BigDecimal(request.getParameter("precio")));
         ofertaJuego.setCantidad(Integer.parseInt(request.getParameter("stock")));
+
+        switch (action) {
+            case "new":
+                ofertaJuego.setNombreNuevo(request.getParameter("nombreJuego").trim());
+                ofertaJuego.setDescripcionNueva(request.getParameter("descripcion").trim());
+
+                Categoria categoria = new Categoria();
+                categoria.setIdCategorias(request.getParameter("idCategoria"));
+                ofertaJuego.setCategoria(categoria);
+                break;
+            case "exist":
+                Juegos juego = new Juegos();
+                juego.setIdJuegos(Integer.parseInt(request.getParameter("idJuego")));
+                ofertaJuego.setJuego(juego);
+                break;
+        }
 
         return ofertaJuego;
     }

@@ -309,7 +309,7 @@
                             <form method="POST" action="<%=request.getContextPath()%>/TusVentas?act=exist">
                                 <div class="form-group mb-3">
                                     <label class="text-gray-900" for="name">Seleccione el Juego:</label>
-                                    <select class="form-control" id="name" name="nombre">
+                                    <select class="form-control" id="name" name="idJuego">
                                         <option selected>Juego ...</option>
                                         <% for(Juegos juego: listaJuegos) { %>
                                             <option value="<%=juego.getIdJuegos()%>">

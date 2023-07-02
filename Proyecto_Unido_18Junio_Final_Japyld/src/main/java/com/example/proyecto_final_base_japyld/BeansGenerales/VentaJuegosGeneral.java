@@ -21,6 +21,15 @@ public class VentaJuegosGeneral {
     private InputStream imagenNueva;
     private int cantidad;
     private Categoria categoria;
+    private String visibilidad;
+
+    public String getVisibilidad() {
+        return visibilidad;
+    }
+
+    public void setVisibilidad(String visibilidad) {
+        this.visibilidad = visibilidad;
+    }
 
     public Categoria getCategoria() {
         return categoria;
