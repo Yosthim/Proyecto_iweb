@@ -13,8 +13,7 @@ import java.io.IOException;
 public class PerfilAdmiServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        AdminDao adminDao = new AdminDao();
-        request.setAttribute("ventas",adminDao.segundaTabla());
+
         request.getRequestDispatcher("AdministradorJapyld/perfilAdmi.jsp").forward(request,response);
 
 
