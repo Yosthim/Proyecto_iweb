@@ -4,10 +4,7 @@ import com.example.proyecto_final_base_japyld.AdministradorJapyld.ModelsJ.DtoJ.J
 import com.example.proyecto_final_base_japyld.BaseDao;
 import com.example.proyecto_final_base_japyld.BeansGenerales.*;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 
 // DAO DE LAS LISTAS
@@ -200,38 +197,40 @@ public class AdminDao extends BaseDao {
 
     // PAGINA DE OFERTAS GENERALES
 
-    public ArrayList<VentaJuegosGeneral> sextaTabla(){
+    public ArrayList<VentaJuegosGeneral> sextaTabla(int id){
 
         ArrayList<VentaJuegosGeneral> ventas = new ArrayList<>();
 
         String sql = "SELECT * FROM ventajuegosgeneral c\n" +
                 "left join personas p on c.id_usuario = p.idPersona\n" +
                 "left join juegos j on c.id_juego = j.idJuegos\n" +
-                "WHERE c.estadoVenta = 'Aceptado' and disponibilidad = 'Habilitado' \n" +
-                "ORDER BY c.fechaPublicacion DESC\n" +
-                "LIMIT 5;";
+                "WHERE c.estadoVenta = 'Aceptado' and c.id_administrador =? \n" +
+                "ORDER BY c.fechaPublicacion DESC;";
         try(Connection connection = this.getConnection();
-            Statement stmt = connection.createStatement();
-            ResultSet resultSet = stmt.executeQuery(sql)){
+            PreparedStatement preparedStatement = connection.prepareStatement(sql)){
 
-            while (resultSet.next()){
+            preparedStatement.setInt(1,id);
 
-                VentaJuegosGeneral venta = new VentaJuegosGeneral();
-                venta.setIdVenta(resultSet.getInt(1));
+            try(ResultSet resultSet = preparedStatement.executeQuery()){
+                while (resultSet.next()){
 
-                Juegos juego = new Juegos();
-                juego.setIdJuegos((resultSet.getInt("j.idJuegos")));
-                juego.setNombreJuegos(resultSet.getString("nombreJuegos"));
-                juego.setStock(resultSet.getInt("stock"));
-                venta.setJuego(juego);
+                    VentaJuegosGeneral venta = new VentaJuegosGeneral();
+                    venta.setIdVenta(resultSet.getInt(1));
 
-                Personas usuario = new Personas();
-                usuario.setIdPersona(resultSet.getInt("p.idPersona"));
-                usuario.setNombre(resultSet.getString("nombre"));
-                venta.setUsuario(usuario);
+                    Juegos juego = new Juegos();
+                    juego.setIdJuegos((resultSet.getInt("j.idJuegos")));
+                    juego.setNombreJuegos(resultSet.getString("nombreJuegos"));
+                    juego.setStock(resultSet.getInt("stock"));
+                    venta.setJuego(juego);
 
-                ventas.add(venta);
+                    Personas usuario = new Personas();
+                    usuario.setIdPersona(resultSet.getInt("p.idPersona"));
+                    usuario.setNombre(resultSet.getString("nombre"));
+                    venta.setUsuario(usuario);
 
+                    ventas.add(venta);
+
+                }
             }
 
         }catch (SQLException e){
@@ -240,37 +239,40 @@ public class AdminDao extends BaseDao {
         return ventas;
     }
 
-    public ArrayList<VentaJuegosGeneral> setimaTabla(){
+    public ArrayList<VentaJuegosGeneral> setimaTabla(int id){
 
         ArrayList<VentaJuegosGeneral> nuevosJuegos = new ArrayList<>();
 
         String sql = "SELECT * FROM ventajuegosgeneral c\n" +
                 "                left join personas p on c.id_usuario = p.idPersona\n" +
                                 "left join juegos j on c.id_juego = j.idJuegos\n" +
-                "                WHERE c.estadoVenta = 'Espera'  \n" +
+                "                WHERE c.estadoVenta = 'Espera' and disponibilidad = 'Existente' and c.id_administrador =? \n" +
                 "                ORDER BY c.fechaPublicacion DESC;";
         try(Connection connection = this.getConnection();
-            Statement stmt = connection.createStatement();
-            ResultSet resultSet = stmt.executeQuery(sql)){
+        PreparedStatement preparedStatement = connection.prepareStatement(sql)){
 
-            while (resultSet.next()){
+            preparedStatement.setInt(1,id);
 
-                VentaJuegosGeneral venta = new VentaJuegosGeneral();
-                venta.setIdVenta(resultSet.getInt(1));
-                venta.setPrecioUsuario(resultSet.getBigDecimal(5));
+            try(ResultSet resultSet = preparedStatement.executeQuery()){
+                while (resultSet.next()){
 
-                Juegos juego = new Juegos();
-                juego.setIdJuegos((resultSet.getInt("j.idJuegos")));
-                juego.setNombreJuegos(resultSet.getString("nombreJuegos"));
-                venta.setJuego(juego);
+                    VentaJuegosGeneral venta = new VentaJuegosGeneral();
+                    venta.setIdVenta(resultSet.getInt(1));
+                    venta.setPrecioUsuario(resultSet.getBigDecimal(5));
 
-                Personas usuario = new Personas();
-                usuario.setIdPersona(resultSet.getInt("p.idPersona"));
-                usuario.setNombre(resultSet.getString("nombre"));
-                venta.setUsuario(usuario);
+                    Juegos juego = new Juegos();
+                    juego.setIdJuegos((resultSet.getInt("j.idJuegos")));
+                    juego.setNombreJuegos(resultSet.getString("nombreJuegos"));
+                    venta.setJuego(juego);
 
-                nuevosJuegos.add(venta);
+                    Personas usuario = new Personas();
+                    usuario.setIdPersona(resultSet.getInt("p.idPersona"));
+                    usuario.setNombre(resultSet.getString("nombre"));
+                    venta.setUsuario(usuario);
 
+                    nuevosJuegos.add(venta);
+
+                }
             }
 
         }catch (SQLException e){
@@ -279,7 +281,7 @@ public class AdminDao extends BaseDao {
         return nuevosJuegos;
     }
 
-    public ArrayList<VentaJuegosGeneral> octavaTabla(){
+    public ArrayList<VentaJuegosGeneral> octavaTabla(int id){
 
         ArrayList<VentaJuegosGeneral> nuevosOfertas = new ArrayList<>();
 
@@ -287,36 +289,39 @@ public class AdminDao extends BaseDao {
         String sql = "SELECT * FROM ventajuegosgeneral c\n" +
                 "                left join personas p on c.id_usuario = p.idPersona\n" +
                 "                   left join juegos j on c.id_juego = j.idJuegos\n" +
-                "                WHERE c.estadoVenta = 'Aceptado' and disponibilidad = 'Deshabilitado' \n" +
-                "                ORDER BY c.fechaPublicacion DESC\n" +
-                "                LIMIT 5;";
+                "                WHERE c.estadoVenta = 'Espera' and disponibilidad = 'Nuevo' and c.id_administrador =? \n" +
+                "                ORDER BY c.fechaPublicacion DESC;";
 
         try(Connection connection = this.getConnection();
-            Statement stmt = connection.createStatement();
-            ResultSet resultSet = stmt.executeQuery(sql)){
+        PreparedStatement preparedStatement = connection.prepareStatement(sql)){
 
-            while (resultSet.next()){
+            preparedStatement.setInt(1,id);
 
-                VentaJuegosGeneral venta = new VentaJuegosGeneral();
-                venta.setIdVenta(resultSet.getInt(1));
-                venta.setNombreNuevo(resultSet.getString(13));
-                venta.setDescripcionNueva(resultSet.getString(12));
+            try(ResultSet resultSet =preparedStatement.executeQuery()){
+                while (resultSet.next()){
 
-                venta.setPrecioUsuario(resultSet.getBigDecimal(5));
+                    VentaJuegosGeneral venta = new VentaJuegosGeneral();
+                    venta.setIdVenta(resultSet.getInt(1));
+                    venta.setNombreNuevo(resultSet.getString(13));
+                    venta.setDescripcionNueva(resultSet.getString(12));
 
-                Juegos juego = new Juegos();
-                juego.setIdJuegos((resultSet.getInt("j.idJuegos")));
-                juego.setNombreJuegos(resultSet.getString("nombreJuegos"));
-                venta.setJuego(juego);
+                    venta.setPrecioUsuario(resultSet.getBigDecimal(5));
 
-                Personas usuario = new Personas();
-                usuario.setIdPersona(resultSet.getInt("p.idPersona"));
-                usuario.setNombre(resultSet.getString("nombre"));
-                venta.setUsuario(usuario);
+                    Juegos juego = new Juegos();
+                    juego.setIdJuegos((resultSet.getInt("j.idJuegos")));
+                    juego.setNombreJuegos(resultSet.getString("nombreJuegos"));
+                    venta.setJuego(juego);
 
-                nuevosOfertas.add(venta);
+                    Personas usuario = new Personas();
+                    usuario.setIdPersona(resultSet.getInt("p.idPersona"));
+                    usuario.setNombre(resultSet.getString("nombre"));
+                    venta.setUsuario(usuario);
 
+                    nuevosOfertas.add(venta);
+
+                }
             }
+
 
         }catch (SQLException e){
             throw new RuntimeException(e);
@@ -324,73 +329,6 @@ public class AdminDao extends BaseDao {
         return nuevosOfertas;
     }
 
-    // AGREGAR UN JUEGO QUE EL USUARIO VENDIO
 
-    public ArrayList<Juegos> infoJuegoNuevo(){
-
-        ArrayList<Juegos> juegos= new ArrayList<>();
-
-        String sql = "SELECT * FROM ventajuegosgeneral\n" +
-                "Where disponibilidad like 'Deshabilitado' and estadoVenta like 'Aceptado';";
-        try(Connection connection = this.getConnection();
-            Statement stmt = connection.createStatement();
-            ResultSet resultSet = stmt.executeQuery(sql)){
-
-            while (resultSet.next()){
-
-                Juegos juego =new Juegos();
-                juego.setIdJuegos(resultSet.getInt(1));
-                juego.setNombreJuegos((resultSet.getString(2)));
-                juego.setPrecio(resultSet.getBigDecimal(4));
-                juego.setDescripcion(resultSet.getString(6));
-
-                Categoria categoria = new Categoria();
-                categoria.setIdCategorias(resultSet.getString("c.idCategorias"));
-                categoria.setNombre((resultSet.getString("nombre")));
-
-                Imagen imagen = new Imagen();
-                imagen.setIdImagenes(resultSet.getInt("i.idImagenes"));
-                imagen.setDireccionArchivo((resultSet.getString("direccion_archivo")));
-
-                juego.setCategoria(categoria);
-                juego.setImagen(imagen);
-
-                juegos.add(juego);
-
-            }
-
-        }catch (SQLException e){
-            throw new RuntimeException(e);
-        }
-        return juegos;
-    }
-
-    // PAGINA INCIO
-    public ArrayList<Personas> perfil(){
-
-        ArrayList<Personas> ventas = new ArrayList<>();
-
-        String sql = "SELECT * FROM personas\n" +
-                "WHERE id_roles = 'ADM' and idPersona=1;";
-        try(Connection connection = this.getConnection();
-            Statement stmt = connection.createStatement();
-            ResultSet resultSet = stmt.executeQuery(sql)){
-
-            while (resultSet.next()){
-
-                Personas admi = new Personas();
-                admi.setIdPersona(resultSet.getInt(1));
-                admi.setNombre(resultSet.getString(4));
-                admi.setFechaDeNacimiento(resultSet.getDate(6));
-                admi.setCorreo(resultSet.getString(2));
-                ventas.add(admi);
-
-            }
-
-        }catch (SQLException e){
-            throw new RuntimeException(e);
-        }
-        return ventas;
-    }
 
 }

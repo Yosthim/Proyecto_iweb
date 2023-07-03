@@ -1,21 +1,14 @@
-<%@ page import="com.example.proyecto_final_base_japyld.AdministradorJapyld.ModelsJ.DtoJ.JuegosReservadosDias" %>
-<%@ page import="java.util.ArrayList" %><%--
+<%@ page import="com.example.proyecto_final_base_japyld.BeansGenerales.VentaJuegosGeneral" %><%--
   Created by IntelliJ IDEA.
   User: jossr
   Date: 5/06/2023
-  Time: 16:51
+  Time: 16:50
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:useBean id="personaSession" type="com.example.proyecto_final_base_japyld.BeansGenerales.Personas" scope="session" class="com.example.proyecto_final_base_japyld.BeansGenerales.Personas"/>
 <%
-  ArrayList<JuegosReservadosDias> lista30dias = (ArrayList<JuegosReservadosDias>) request.getAttribute("lista30dias");
-%>
-<%
-  ArrayList<JuegosReservadosDias> lista20dias = (ArrayList<JuegosReservadosDias>) request.getAttribute("lista20dias");
-%>
-<%
-  ArrayList<JuegosReservadosDias> lista10dias = (ArrayList<JuegosReservadosDias>) request.getAttribute("lista10dias");
+  VentaJuegosGeneral ventaJuegosGeneral = (VentaJuegosGeneral) request.getAttribute("ventaJuegosGeneral");
 %>
 <html lang="en">
 
@@ -27,7 +20,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Reservas</title>
+  <title>Rechazar oferta</title>
 
   <title>Gráfico de Barras con Bootstrap 4</title>
 
@@ -206,166 +199,89 @@
       <!-- End of Topbar -->
 
       <!-- Begin Page Content -->
-      <div class="container-xl px-4 mt-4">
-        <!-- Account page navigation-->
-        <br>
+
+      <form method="POST" action="<%=request.getContextPath()%>/OfertasServlet?action=actualizar" id = "actualizar">
+        <input type="hidden" name="id_venta" value="<%=ventaJuegosGeneral.getIdVenta()%>"/>
+        <input type="hidden" name="imagen" value="<%=ventaJuegosGeneral.getImagenNueva()%>"/>
+        <input type="hidden" name="consola" value="<%=ventaJuegosGeneral.getConsola().getIdConsola()%>"/>
+        <input type="hidden" name="categoria" value="<%=ventaJuegosGeneral.getCategoria().getIdCategorias()%>"/>
+        <input type="hidden" name="nombre" value="<%=ventaJuegosGeneral.getNombreNuevo()%>"/>
+        <input type="hidden" name="descripcion" value="<%=ventaJuegosGeneral.getDescripcionNueva()%>"/>
+        <input type="hidden" name="precio" value="<%=ventaJuegosGeneral.getPrecioUsuario()%>"/>
+      <div class="container-fluid">
+
+        <!-- Page Heading -->
+        <h1 class="h3 mb-2 text-gray-800">Rechazar oferta</h1>
+        <h1 class="h3 mb-2 text-gray-800"></h1>
+        <!-- Content Row -->
         <div class="row">
-          <div class="col-xl-6">
-            <!-- Profile picture card-->
-            <div class="card mb-4 mb-xl-0">
+          <div class="col-xl-4 col-lg-4">
+            <!-- Donut Chart -->
+            <div class="card shadow mb-4 border-left-primary">
+              <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary"><%=ventaJuegosGeneral.getNombreNuevo()%></h6>
+              </div>
+              <div class="card-body text-center">
+                <img src="<%=ventaJuegosGeneral.getImagenNueva()%>" alt="Imagen" class="img-fluid">
 
-              <div class="card-header font-weight-bold text-primary">RESERVAS CON MAS DE 10 DIAS</div>
-              <div class="card-body text">
-
-                <section class="intro">
-                  <div class="gradient-custom-1 h-100">
-                    <div class="mask d-flex align-items-center h-100">
-                      <div class="container">
-                        <div class="row justify-content-center">
-                          <div class="col-12">
-                            <div class="table-responsive bg-white">
-                              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                <thead>
-                                <tr>
-                                  <th class="text-center">Juego</th>
-                                  <th class="text-center">Usuario</th>
-                                  <th class="text-center">Dias</th>
-
-                                </tr>
-                                </thead>
-
-                                <tbody class = "text-danger">
-
-                                <%
-                                  for(JuegosReservadosDias j :lista30dias){
-                                %>
-                                <tr>
-                                  <th class="text-center"><%=j.getNombre()%></th>
-                                  <td class="text-center"><%=j.getUsuario()%></td>
-                                  <td class="text-center"><%=j.getDias()%></td>
-                                </tr>
-                                <%
-                                  }
-                                %>
-
-                                </tbody>
-                              </table>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                <div class="mt-3">
+                  <h5 class="mb-0">Rating:</h5>
+                  <div class="rating">
+                    <span class="star">&#9733;</span>
+                    <span class="star">&#9733;</span>
+                    <span class="star">&#9733;</span>
+                    <span class="star">&#9733;</span>
+                    <span class="star">&#9733;</span>
                   </div>
-                </section>
+                  <h5>Género: <%=ventaJuegosGeneral.getCategoria().getNombre()%></h5>
+                </div>
               </div>
             </div>
-            <br>
-            <br>
           </div>
-          <div class="col-xl-6">
-            <!-- Profile picture card-->
-            <div class="card mb-4 mb-xl-0">
-
-              <div class="card-header font-weight-bold text-primary">RESERVAS CON MAS DE 3 DIAS </div>
-              <div class="card-body text">
-
-                <section class="intro">
-                  <div class="gradient-custom-1 h-100">
-                    <div class="mask d-flex align-items-center h-100">
-                      <div class="container">
-                        <div class="row justify-content-center">
-                          <div class="col-12">
-                            <div class="table-responsive bg-white">
-                              <table class="table table-bordered" id="dataTable2" width="100%" cellspacing="0">
-                                <thead>
-                                <tr>
-                                  <th class="text-center">Juego</th>
-                                  <th class="text-center">Usuario</th>
-                                  <th class="text-center">Dias</th>
-
-                                </tr>
-                                </thead>
-
-                                <tbody class="text-warning" >
-                                <%
-                                  for(JuegosReservadosDias j :lista20dias){
-                                %>
-                                <tr>
-                                  <th class="text-center"><%=j.getNombre()%></th>
-                                  <td class="text-center"><%=j.getUsuario()%></td>
-                                  <td class="text-center"><%=j.getDias()%></td>
-                                </tr>
-                                <%
-                                  }
-                                %>
-                                </tbody>
-                              </table>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </section>
+          <div class="col-xl-8 col-lg-8">
+            <!-- Area Chart -->
+            <div class="card shadow mb-4">
+              <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Información del Juego  </h6>
               </div>
-            </div>
-            <br>
-            <br>
-          </div>
-        </div>
-        <div class="col-xl-12">
-          <!-- Profile picture card-->
-          <div class="card mb-4 mb-xl-0">
+              <div class="card-body">
 
-            <div class="card-header font-weight-bold text-primary">RESERVAS RECIENTES</div>
-            <div class="card-body text">
-
-              <section class="intro">
-                <div class="gradient-custom-1 h-100">
-                  <div class="mask d-flex align-items-center h-100">
-                    <div class="container">
-                      <div class="row justify-content-center">
-                        <div class="col-12">
-                          <div class="table-responsive bg-white">
-                            <table class="table table-bordered" id="dataTable1" width="100%" cellspacing="0">
-                              <thead>
-                              <tr>
-                                <th class="text-center">Juego</th>
-                                <th class="text-center">Usuario</th>
-                                <th class="text-center">Dias</th>
-
-                              </tr>
-                              </thead>
-
-                              <tbody>
-                              <%
-                                for(JuegosReservadosDias j :lista10dias){
-                              %>
-                              <tr>
-                                <th class="text-center"><%=j.getNombre()%></th>
-                                <td class="text-center"><%=j.getUsuario()%></td>
-                                <td class="text-center"><%=j.getDias()%></td>
-                              </tr>
-                              <%
-                                }
-                              %>
-                              </tbody>
-                            </table>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                <p class="text-justify"><%=ventaJuegosGeneral.getDescripcionNueva()%></p>
+                <div class="d-flex align-items-center mb-3">
+                  <h6 class="mr-3">Consola: <%=ventaJuegosGeneral.getConsola().getNombre()%></h6>
+                </div>
+                <hr>
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                  <div class="d-flex">
+                    <button class="btn">Precio: S/. <%=ventaJuegosGeneral.getPrecioUsuario()%></button>
                   </div>
                 </div>
-              </section>
+              </div>
             </div>
+            <BR>
+            <div>
+              <span>Comentario:</span>
+            </div>
+            <div>
+              <input type="text" class="form-control form-control-sm "
+                     name="rechazo" id="rechazo"
+                     value=" ">
+
+            </div>
+            <BR>
+            <BR>
+
+            <div class="text-center d-flex justify-content-center">
+              <button type="submit" class="btn btn-danger" form="actualizar" >Actualizar</button>
+            </div>
+
+            <BR>
+            <BR>
           </div>
-          <br>
-          <br>
         </div>
-        <br>
-        <br>
+
       </div>
+      </form>
     </div>
     <!-- End of Main Content -->
 

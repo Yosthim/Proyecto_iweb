@@ -240,22 +240,11 @@
                 <p class="text-justify"><%=ventaJuegosGeneral.getJuego().getDescripcion()%> </p>
 
                 <div class="d-flex align-items-center mb-3">
-                  <h6 class="mr-3">Consola:</h6>
-                  <div class="row">
-                    <div class="col-sm-1">
-                      <img src="recursos/img/kisspng-playstation-2-logo-playstation-logo-5b2a2f6c44a1e2.0330864515294913082811.png" class="img-fluid" alt="PlayStation">
-                    </div>
-                    <div class="col-sm-1">
-                      <img src="recursos/img/kisspng-black-xbox-360-xbox-one-logo-xbox-5abe7f19c6db83.0322681315224338178145.png" class="img-fluid" alt="XBOX">
-                    </div>
-                    <div class="col-sm-1">
-                      <img src="recursos/img/nintendo_logo.png" class="img-fluid" alt="Nintendo">
-                    </div>
-                  </div>
+                  <h6 class="mr-3">Consola: <%=ventaJuegosGeneral.getConsola().getNombre()%></h6>
                 </div>
                 <hr>
                 <div class="d-flex justify-content-between align-items-center mb-3">
-                  <span>Stock: 1</span>
+                  <span>Stock: <%=ventaJuegosGeneral.getJuego().getStock()%></span>
                   <div class="d-flex">
                     <button class="btn">Precio: S/. <%=ventaJuegosGeneral.getPrecioUsuario()%></button>
                   </div>
@@ -269,9 +258,15 @@
       <BR>
       <BR>
 
-      <div class="center">
-        <a onclick="return confirm('Estas seguro de comprar')" class="btn btn-primary"
+      <div class="row justify-content-center">
+        <div class="col-auto">
+          <a onclick="return confirm('Estas seguro de comprar')" class="btn btn-primary"
              href="<%=request.getContextPath()%>/OfertasServlet?action=guardar&id=<%=ventaJuegosGeneral.getIdVenta()%>">Comprar</a>
+        </div>
+        <BR>
+        <BR>
+        <BR>
+        <BR>
       </div>
 
     </div>
