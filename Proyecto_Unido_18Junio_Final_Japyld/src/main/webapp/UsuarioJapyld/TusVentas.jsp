@@ -339,8 +339,13 @@
                                         <tr>
                                             <td>
                                                 <div class="d-flex align-items-center">
-                                                    <label> <img src="../img/zorro.jpg" width="160" height="160" alt="Image"
-                                                                 class="img-fluid"></label>
+                                                    <% if (oferta.getDisponibilidad().equals("Nuevo")) {%>
+                                                        <label> <img src="<%=request.getContextPath()%>/Image?act=venta&id=<%=oferta.getIdVenta()%>"
+                                                                     class="img-thumbnail" width="160" height="160" alt="Image"></label>
+                                                    <% } else {%>
+                                                        <label> <img src="../img/zorro.jpg" width="160" height="160" alt="Image"
+                                                                     class="img-fluid"></label>
+                                                    <% } %>
                                                     <div class="d-flex align-items-center">
                                                         <ul>
                                                             <br>
