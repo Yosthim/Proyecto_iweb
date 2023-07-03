@@ -10,7 +10,6 @@ public class Juegos {
     private String estadoJuego;
     private String descripcion;
     private int idImagen;
-    private Imagen imagen;
     private Categoria categoria;
     private int id_categoria;
 
@@ -22,6 +21,7 @@ public class Juegos {
         this.imagen = imagen;
     }
 
+    private Imagen imagen;
     public int getIdJuegos() {
         return idJuegos;
     }

@@ -9,6 +9,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class OfertasDao extends BaseDao {
+
+    // Obtiene la venta
+
     public VentaJuegosGeneral obtenerJuego(int id_venta){
         VentaJuegosGeneral ventaJuegosGeneral = null;
         Juegos juegos = null;
@@ -34,31 +37,33 @@ public class OfertasDao extends BaseDao {
                     ventaJuegosGeneral = new VentaJuegosGeneral();
                     ventaJuegosGeneral.setIdVenta(rs.getInt(1));
                     ventaJuegosGeneral.setPrecioUsuario(rs.getBigDecimal(5));
+                    ventaJuegosGeneral.setCantidad(rs.getInt(15));
 
                     juegos = new Juegos();
                     juegos.setIdJuegos(rs.getInt(10));
-                    juegos.setNombreJuegos(rs.getString(18));
-                    juegos.setDescripcion(rs.getString(22));
+                    juegos.setNombreJuegos(rs.getString(19));
+                    juegos.setDescripcion(rs.getString(23));
+                    juegos.setStock(rs.getInt(20));
 
                     imagen = new Imagen();
-                    imagen.setIdImagenes(rs.getInt(27));
-                    imagen.setDireccionArchivo(rs.getString(30));
+                    imagen.setIdImagenes(rs.getInt(28));
+                    imagen.setDireccionArchivo(rs.getString(31));
                     juegos.setImagen(imagen);
 
                     categoria = new Categoria();
-                    categoria.setIdCategorias(rs.getString("ca.idCategorias"));
-                    categoria.setNombre(rs.getString("ca.nombre"));
+                    categoria.setIdCategorias(rs.getString(26));
+                    categoria.setNombre(rs.getString(27));
                     juegos.setCategoria(categoria);
 
                     ventaJuegosGeneral.setJuego(juegos);
 
                     usaurio = new Personas();
-                    usaurio.setIdPersona(rs.getInt("p.idPersona"));
+                    usaurio.setIdPersona(rs.getInt(8));
 
                     ventaJuegosGeneral.setUsuario(usaurio);
 
                     consola= new Consola();
-                    consola.setIdConsola(rs.getString("c.idConsolas"));
+                    consola.setIdConsola(rs.getString(11));
                     consola.setNombre(rs.getString("c.nombre"));
 
                     ventaJuegosGeneral.setConsola(consola);
@@ -74,6 +79,8 @@ public class OfertasDao extends BaseDao {
 
         return ventaJuegosGeneral;
     }
+
+    // Rechazar un juego
 
     public void editarVenta(VentaJuegosGeneral ventaJuegosGeneral){
 
@@ -95,6 +102,8 @@ public class OfertasDao extends BaseDao {
         }
 
     }
+
+    // Enviar una contraoeferta
 
     public void editarVentaC(VentaJuegosGeneral ventaJuegosGeneral){
 
@@ -119,6 +128,8 @@ public class OfertasDao extends BaseDao {
 
     }
 
+    // Acepta una compra de un juego  que ya esta en la base de datos
+
     public void borrar(VentaJuegosGeneral ventaJuegosGeneral){
 
         String sql = "UPDATE ventajuegosgeneral SET estadoVenta = 'Aceptado' WHERE idVenta = ?;";
@@ -126,6 +137,26 @@ public class OfertasDao extends BaseDao {
              PreparedStatement pstmt = connection.prepareStatement(sql)) {
 
             pstmt.setInt(1, ventaJuegosGeneral.getIdVenta());
+            pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    // Se actualiza el stock del juego
+
+    public void actualizarStock(VentaJuegosGeneral ventaJuegosGeneral){
+
+        String sql = "UPDATE juegos SET stock = ?" +
+                " WHERE idJuegos = ?;";
+        try (Connection connection = this.getConnection();
+             PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            int nuevo =ventaJuegosGeneral.getJuego().getStock()+ventaJuegosGeneral.getCantidad();
+            System.out.println(nuevo);
+            pstmt.setInt(1,nuevo);
+            pstmt.setInt(2, ventaJuegosGeneral.getJuego().getIdJuegos());
             pstmt.executeUpdate();
 
         } catch (SQLException e) {
