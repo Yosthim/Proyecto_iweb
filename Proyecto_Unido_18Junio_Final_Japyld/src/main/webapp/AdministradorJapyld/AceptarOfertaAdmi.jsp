@@ -255,7 +255,7 @@
                 </div>
                 <hr>
                 <div class="d-flex justify-content-between align-items-center mb-3">
-                  <span>Stock: 1</span>
+                  <span>Stock: <%=ventaJuegosGeneral.getJuego().getStock()%></span>
                   <div class="d-flex">
                     <button class="btn">Precio: S/. <%=ventaJuegosGeneral.getPrecioUsuario()%></button>
                   </div>
@@ -269,9 +269,15 @@
       <BR>
       <BR>
 
-      <div class="center">
-        <a onclick="return confirm('Estas seguro de comprar')" class="btn btn-primary"
+      <div class="row justify-content-center">
+        <div class="col-auto">
+          <a onclick="return confirm('Estas seguro de comprar')" class="btn btn-primary"
              href="<%=request.getContextPath()%>/OfertasServlet?action=guardar&id=<%=ventaJuegosGeneral.getIdVenta()%>">Comprar</a>
+        </div>
+        <BR>
+        <BR>
+        <BR>
+        <BR>
       </div>
 
     </div>

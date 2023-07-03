@@ -272,7 +272,7 @@
               <span>Comentario:</span>
             </div>
             <div>
-              <input type="text" class="form-control form-control-sm"
+              <input type="text" class="form-control form-control-sm "
                      name="rechazo" id="rechazo"
                      value=" ">
 

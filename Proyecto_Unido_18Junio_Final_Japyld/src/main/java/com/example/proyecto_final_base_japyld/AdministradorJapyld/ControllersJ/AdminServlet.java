@@ -6,12 +6,14 @@ import com.example.proyecto_final_base_japyld.AdministradorJapyld.ModelsJ.DaosJ.
 import com.example.proyecto_final_base_japyld.BeansGenerales.Categoria;
 import com.example.proyecto_final_base_japyld.BeansGenerales.Imagen;
 import com.example.proyecto_final_base_japyld.BeansGenerales.Juegos;
+import com.example.proyecto_final_base_japyld.BeansGenerales.Personas;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -28,6 +30,9 @@ public class AdminServlet extends HttpServlet {
         CrudDao crudDao = new CrudDao();
         CategoriaDao categoriaDao = new CategoriaDao();
 
+        HttpSession session = request.getSession();
+        Personas administrador= (Personas)session.getAttribute("personaSession");
+
         switch (action){
             case "lista":
                 request.setAttribute("ultimasCompras",adminDao.primeraTabla());
@@ -41,9 +46,9 @@ public class AdminServlet extends HttpServlet {
                 request.getRequestDispatcher("AdministradorJapyld/adminVideojuegos.jsp").forward(request,response);
                 break;
             case "listaPaginaOfertas":
-                request.setAttribute("ventas",adminDao.sextaTabla());
-                request.setAttribute("nuevosJuegos",adminDao.octavaTabla());
-                request.setAttribute("nuevosOfertas", adminDao.setimaTabla());
+                request.setAttribute("ventas",adminDao.sextaTabla(administrador.getIdPersona()));
+                request.setAttribute("nuevosJuegos",adminDao.octavaTabla(administrador.getIdPersona()));
+                request.setAttribute("nuevosOfertas", adminDao.setimaTabla(administrador.getIdPersona()));
                 request.getRequestDispatcher("AdministradorJapyld/OfertasAdmi.jsp").forward(request,response);
                 break;
             case "editar":

@@ -255,7 +255,7 @@
                 </div>
                 <hr>
                 <div class="d-flex justify-content-between align-items-center mb-3">
-                  <span>Stock: 1</span>
+                  <span>Stock: <%=ventaJuegosGeneral.getJuego().getStock()%></span>
                   <div class="d-flex">
                     <button class="btn">Precio: S/. <%=ventaJuegosGeneral.getPrecioUsuario()%></button>
                   </div>

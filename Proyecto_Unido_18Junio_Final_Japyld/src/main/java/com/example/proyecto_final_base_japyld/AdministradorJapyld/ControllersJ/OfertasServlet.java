@@ -16,14 +16,14 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @WebServlet(name = "OfertasServlet", value = "/OfertasServlet")
 public class OfertasServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        HttpSession session = request.getSession();
-        Personas administrador= (Personas)session.getAttribute("personaSession");
         OfertasDao ofertasDao = new OfertasDao();
         RequestDispatcher view;
         String action = request.getParameter("action") == null ? "lista" :request.getParameter("action");
@@ -78,7 +78,9 @@ public class OfertasServlet extends HttpServlet {
                     VentaJuegosGeneral ventaJuegosGeneral = ofertasDao.obtenerJuego(id_veta_int1);
 
                     if(ventaJuegosGeneral != null){
+                        ofertasDao.actualizarStock(ventaJuegosGeneral);
                         ofertasDao.borrar(ventaJuegosGeneral);
+                        request.getSession().setAttribute("info","Venta realizada exitosamente");
                         response.sendRedirect(request.getContextPath() + "/AdminServlet?action=listaPaginaOfertas");
 
                     }else{
@@ -162,26 +164,48 @@ public class OfertasServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action") == null ? "lista" :request.getParameter("action");
         OfertasDao ofertasDao = new OfertasDao();
-        VentaJuegosGeneral ventaJuegosGeneral = setVenta(request);
 
-        VentaJuegosGeneral ventaJuegosGeneralC = setVentaC(request);
 
         switch (action){
 
             case"actualizar":
 
-                ventaJuegosGeneral.setIdVenta(Integer.parseInt(request.getParameter("id_venta")));
-                ofertasDao.editarVenta(ventaJuegosGeneral);
-                response.sendRedirect("AdminServlet?action=listaPaginaOfertas");
+                if(validar_texto(request.getParameter("rechazo").trim()) == true){
+
+                    VentaJuegosGeneral ventaJuegosGeneral = setVenta(request);
+                    ventaJuegosGeneral.setIdVenta(Integer.parseInt(request.getParameter("id_venta").trim()));
+                    ofertasDao.editarVenta(ventaJuegosGeneral);
+                    request.getSession().setAttribute("info","Mensaje de rechazo enviado exitosamente");
+                    response.sendRedirect("AdminServlet?action=listaPaginaOfertas");
+                }else {
+                    request.getSession().setAttribute("info","Mensaje no enviado, verifique que se ingrese solo letras");
+                    response.sendRedirect("AdminServlet?action=listaPaginaOfertas");
+                }
+
 
                 break;
             case "actualizarC":
-                ventaJuegosGeneralC.setIdVenta(Integer.parseInt(request.getParameter("id_venta")));
-                ofertasDao.editarVentaC(ventaJuegosGeneralC);
-                response.sendRedirect("AdminServlet?action=listaPaginaOfertas");
+
+                if(validar_texto(request.getParameter("rechazo").trim()) == true) {
+
+                    if(valida_precio(request.getParameter("precioAdmi").trim())==true){
+                        VentaJuegosGeneral ventaJuegosGeneralC = setVentaC(request);
+
+                        ventaJuegosGeneralC.setIdVenta(Integer.parseInt(request.getParameter("id_venta")));
+                        ofertasDao.editarVentaC(ventaJuegosGeneralC);
+                        request.getSession().setAttribute("info","Contraoferta enviada exitosamente");
+                        response.sendRedirect("AdminServlet?action=listaPaginaOfertas");
+                    }else{
+                        request.getSession().setAttribute("info","Contraoferta no enviada, ingrese un valor de precio valido");
+                        response.sendRedirect("AdminServlet?action=listaPaginaOfertas");
+                    }
+
+                }else{
+                    request.getSession().setAttribute("info","Contraoferta no enviada, verifique que se ingrese solo letras en la razon de rechazo");
+                    response.sendRedirect("AdminServlet?action=listaPaginaOfertas");
+                }
+
                 break;
-
-
         }
 
 
@@ -190,44 +214,64 @@ public class OfertasServlet extends HttpServlet {
     private VentaJuegosGeneral setVenta(HttpServletRequest request){
 
         VentaJuegosGeneral ventaJuegosGeneral = new VentaJuegosGeneral();
-        ventaJuegosGeneral.setPrecioUsuario(new BigDecimal(request.getParameter("precio")));
-
-        ventaJuegosGeneral.setRazonRechazo(request.getParameter("rechazo"));
+        ventaJuegosGeneral.setPrecioUsuario(new BigDecimal(request.getParameter("precio").trim()));
+        ventaJuegosGeneral.setRazonRechazo(request.getParameter("rechazo").trim());
 
         Juegos juegos = new Juegos();
-        juegos.setIdJuegos(Integer.parseInt(request.getParameter("juego")));
+        juegos.setIdJuegos(Integer.parseInt(request.getParameter("juego").trim()));
 
         Imagen imagen = new Imagen();
-        imagen.setIdImagenes(Integer.parseInt(request.getParameter("imagen")));
+        imagen.setIdImagenes(Integer.parseInt(request.getParameter("imagen").trim()));
         juegos.setImagen(imagen);
 
         ventaJuegosGeneral.setJuego(juegos);
-
-
 
         return  ventaJuegosGeneral;
     }
 
     private VentaJuegosGeneral setVentaC(HttpServletRequest request){
 
+
+
         VentaJuegosGeneral ventaJuegosGeneral = new VentaJuegosGeneral();
-        ventaJuegosGeneral.setPrecioUsuario(new BigDecimal(request.getParameter("precio")));
-        ventaJuegosGeneral.setPrecioAdmi(new BigDecimal(request.getParameter("precioAdmi")));
-        ventaJuegosGeneral.setRazonRechazo(request.getParameter("rechazo"));
+        ventaJuegosGeneral.setPrecioUsuario(new BigDecimal(request.getParameter("precio").trim()));
+        ventaJuegosGeneral.setPrecioAdmi(new BigDecimal(request.getParameter("precioAdmi").trim()));
+        ventaJuegosGeneral.setRazonRechazo(request.getParameter("rechazo").trim());
 
         Juegos juegos = new Juegos();
-        juegos.setIdJuegos(Integer.parseInt(request.getParameter("juego")));
+        juegos.setIdJuegos(Integer.parseInt(request.getParameter("juego").trim()));
 
         Imagen imagen = new Imagen();
-        imagen.setIdImagenes(Integer.parseInt(request.getParameter("imagen")));
+        imagen.setIdImagenes(Integer.parseInt(request.getParameter("imagen").trim()));
         juegos.setImagen(imagen);
 
         ventaJuegosGeneral.setJuego(juegos);
 
-
-
         return  ventaJuegosGeneral;
     }
 
+    public  boolean validar_texto(String input) {
+        String regex = "^[a-zA-Z\\s]+$";
+
+        Pattern pattern = Pattern.compile(regex);
+
+        Matcher matcher = pattern.matcher(input);
+
+        return matcher.matches();
+    }
+
+    public boolean valida_precio(String input){
+        String regex = "\\d+";
+        if (!input.matches(regex)) {
+            return false;
+        }
+
+        int numero = Integer.parseInt(input);
+        if (numero <= 0) {
+            return false;
+        }
+
+        return true;
+    }
 
 }

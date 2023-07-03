@@ -203,6 +203,17 @@
         </ul>
 
       </nav>
+
+      <% if (session.getAttribute("info") != null) {
+        //if (request.getParameter("msg") != null) {%>
+      <div id="mensaje" class="alert alert-success" role="alert">
+        <%=session.getAttribute("info")%>
+      </div>
+      <%
+          session.setAttribute("info", null);
+        }
+      %>
+
       <!-- End of Topbar -->
 
       <!-- Begin Page Content -->
@@ -264,7 +275,7 @@
             <!-- Profile picture card-->
             <div class="card mb-4 mb-xl-0">
 
-              <div class="card-header font-weight-bold text-primary">NUEVAS OFERTAS </div>
+              <div class="card-header font-weight-bold text-primary">NUEVAS OFERTAS DE JUEGOS EXISTENTES</div>
               <div class="card-body text">
 
                 <section class="intro">
@@ -316,7 +327,7 @@
           <!-- Profile picture card-->
           <div class="card mb-4 mb-xl-0">
 
-            <div class="card-header font-weight-bold text-primary">JUEGOS NUEVOS</div>
+            <div class="card-header font-weight-bold text-primary">NUEVAS OFERTAS DE JUEGOS NUEVOS</div>
             <div class="card-body text">
 
               <section class="intro">
@@ -341,11 +352,10 @@
                                 for(VentaJuegosGeneral j :nuevosJuegos){
                               %>
                               <tr>
-                                <td class="text-center"><%=j.getNombreNuevo()%></td>
+                                <td class="text-center"><a href="<%=request.getContextPath()%>/OfertasServlet?action=ofertas&id=<%=j.getIdVenta()%>"><%=j.getJuego().getNombreJuegos()%></a>.</td>
+
                                 <td class="text-center"><%=j.getUsuario().getNombre()%></td>
-                                <th class="text-center">
-                                  <a href="<%=request.getContextPath()%>/AgregarJuegoUsuarioServlet?action=agregarJuegoUsuario" class="btn btn-primary">Agregar</a>
-                                </th>
+                                <td class="text-center"><%=j.getPrecioUsuario()%></td>
                               </tr>
                               <%
                                 }
