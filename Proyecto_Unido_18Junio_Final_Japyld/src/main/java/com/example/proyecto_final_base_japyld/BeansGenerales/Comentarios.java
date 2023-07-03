@@ -1,5 +1,7 @@
 package com.example.proyecto_final_base_japyld.BeansGenerales;
 
+import java.util.Date;
+
 public class Comentarios {
 
     private int idComentario;
@@ -12,6 +14,8 @@ public class Comentarios {
     private Juegos juegoComentario;
 
     private Personas personaComentario;
+
+    private Date fecha_comentario1;
 
     public int getIdComentario() {
         return idComentario;
@@ -59,5 +63,13 @@ public class Comentarios {
 
     public void setFecha_comentario(String fecha_comentario) {
         this.fecha_comentario = fecha_comentario;
+    }
+
+    public Date getFecha_comentario1() {
+        return fecha_comentario1;
+    }
+
+    public void setFecha_comentario1(Date fecha_comentario1) {
+        this.fecha_comentario1 = fecha_comentario1;
     }
 }

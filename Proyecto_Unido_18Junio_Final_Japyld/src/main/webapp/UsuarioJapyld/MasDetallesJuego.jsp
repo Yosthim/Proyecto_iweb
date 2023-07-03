@@ -152,7 +152,7 @@
                   </div>
                   <% } %>
                 </div>
-                <% if (listaComentarios.size() > 1) { %>
+                <% if (listaComentarios.size() >= 1) { %>
                 <div class="d-flex justify-content-between">
                   <div>
                     <button id="verMasBtn" class="btn btn-primary btn-sm">Ver más comentarios</button>
@@ -171,9 +171,9 @@
 
             <!-- Formulario para añadir un comentario -->
             <div id="comentarioForm" style="display: none;">
-              <form class="user" method="POST" action="<%=request.getContextPath()%>/MasDetallesJuego">
+              <form class="user" method="POST" action="<%=request.getContextPath()%>/MasDetallesJuego?idjuego=<%=juego.getIdJuegos()%>&idpersona=<%=personaSession.getIdPersona()%>">
                 <div class="form-group">
-                  <textarea class="form-control" id="Comentario" rows="3" placeholder="Ingresa tu comentario"></textarea>
+                  <textarea class="form-control" name="Comentario" rows="3" placeholder="Ingresa tu comentario"></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary">Enviar comentario</button>
               </form>
@@ -205,8 +205,15 @@
               });
             </script>
 
+            <%}%>
+            <% if (listaComentarios.isEmpty()) { %>
+            <form class="user" method="POST" action="<%=request.getContextPath()%>/MasDetallesJuego?idjuego=<%=juego.getIdJuegos()%>&idpersona=<%=personaSession.getIdPersona()%>">
+              <div class="form-group">
+                <textarea class="form-control" name="Comentario" rows="3" placeholder="Ingresa tu comentario"></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary">Enviar comentario</button>
+            </form>
             <% } %>
-
           </div>
         </div>
 
