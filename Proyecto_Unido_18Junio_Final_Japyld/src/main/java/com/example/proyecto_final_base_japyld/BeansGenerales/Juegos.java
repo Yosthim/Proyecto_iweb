@@ -10,8 +10,18 @@ public class Juegos {
     private String estadoJuego;
     private String descripcion;
     private int idImagen;
+    private Imagen imagen;
     private Categoria categoria;
     private int id_categoria;
+
+    public Imagen getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(Imagen imagen) {
+        this.imagen = imagen;
+    }
+
     public int getIdJuegos() {
         return idJuegos;
     }
