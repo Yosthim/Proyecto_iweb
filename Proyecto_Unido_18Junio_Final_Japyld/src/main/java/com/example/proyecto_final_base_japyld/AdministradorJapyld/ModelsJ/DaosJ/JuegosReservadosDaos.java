@@ -19,7 +19,7 @@ public class JuegosReservadosDaos {
                 "                from juegoscompradosreservados r \n" +
                 "                left join juegos j on  r.id_juego =j.idJuegos\n" +
                 "                left join personas p on r.id_usuario =p.idPersona\n" +
-                "                where timestampdiff(day,r.fechaCompraJuego, current_date())>30 and r.estadoCompraJuego = 'Reservado' and r.id_administrador = ?;";
+                "                where timestampdiff(day,r.fechaCompraJuego, current_date())>10 and r.estadoCompraJuego = 'Reservado' and r.id_administrador = ?;";
         String url = "jdbc:mysql://localhost:3306/japyld";
 
         try(Connection connection = DriverManager.getConnection(url,"root","root");
@@ -57,7 +57,7 @@ public class JuegosReservadosDaos {
                 "                from juegoscompradosreservados r \n" +
                 "                left join juegos j on  r.id_juego =j.idJuegos\n" +
                 "                left join personas p on r.id_usuario =p.idPersona\n" +
-                "                where timestampdiff(day,r.fechaCompraJuego, current_date()) between 10 and 30 and r.estadoCompraJuego = 'Reservado' and r.id_administrador = ?;";
+                "                where timestampdiff(day,r.fechaCompraJuego, current_date()) between 3 and 10 and r.estadoCompraJuego = 'Reservado' and r.id_administrador = ?;";
         String url = "jdbc:mysql://localhost:3306/japyld";
 
 
@@ -95,7 +95,7 @@ public class JuegosReservadosDaos {
                 "                from juegoscompradosreservados r \n" +
                 "                left join juegos j on  r.id_juego =j.idJuegos\n" +
                 "                left join personas p on r.id_usuario =p.idPersona\n" +
-                "                where timestampdiff(day,r.fechaCompraJuego, current_date())<10  and r.estadoCompraJuego = 'Reservado' and r.id_administrador = ?;";
+                "                where timestampdiff(day,r.fechaCompraJuego, current_date())<3  and r.estadoCompraJuego = 'Reservado' and r.id_administrador = ?;";
         String url = "jdbc:mysql://localhost:3306/japyld";
 
 
