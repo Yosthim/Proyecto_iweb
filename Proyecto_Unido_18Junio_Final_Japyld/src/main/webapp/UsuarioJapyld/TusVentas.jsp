@@ -305,22 +305,20 @@
                 <div class="container-fluid">
                     <div class="card shadow mb-5">
                         <div class="card-body">
-                            <div class="row mb-3">
-                                <div class="d-flex justify-content-lg-center">
-                                    <div class="dropdown no-arrow mb-4">
-                                        <button class="btn btn-info dropdown-toggle" type="button"
-                                                id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-                                                aria-expanded="false">
-                                            Nueva Publicación (+)
-                                        </button>
-                                        <div class="dropdown-menu dropdown-menu-right animated--fade-in">
-                                            <a class="dropdown-item" href="<%=request.getContextPath()%>/TusVentas?act=exist">
-                                                Juego en Catálogo
-                                            </a>
-                                            <a class="dropdown-item" href="<%=request.getContextPath()%>/TusVentas?act=new">
-                                                Juego nuevo
-                                            </a>
-                                        </div>
+                            <div class="row mb-5 justify-content-center">
+                                <div class="dropdown no-arrow mb-4">
+                                    <button class="btn btn-primary dropdown-toggle" type="button"
+                                            id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                            aria-expanded="false">
+                                        Nueva Publicación (+)
+                                    </button>
+                                    <div class="dropdown-menu dropdown-menu-right animated--fade-in">
+                                        <a class="dropdown-item" href="<%=request.getContextPath()%>/TusVentas?act=exist">
+                                            Juego en Catálogo
+                                        </a>
+                                        <a class="dropdown-item" href="<%=request.getContextPath()%>/TusVentas?act=new">
+                                            Juego nuevo
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -336,57 +334,110 @@
 
                                     <tbody>
                                     <% for (VentaJuegosGeneral oferta: listaOfertas) {%>
+                                        <%
+                                            String background = "";
+                                            switch (oferta.getEstadoVenta()) {
+                                                case "Pendiente":
+                                                    background = "bg-info";
+                                                    break;
+                                                case "Aceptado":
+                                                    background = "bg-success";
+                                                    break;
+                                                case "No Aceptado":
+                                                    background = "bg-warning";
+                                                    break;
+                                                case "Retirado":
+                                                    background = "bg-secondary";
+                                                    break;
+                                                case "Rechazado":
+                                                    background = "bg-danger";
+                                                    break;
+                                            }
+                                        %>
+
                                         <tr>
                                             <td>
-                                                <div class="d-flex align-items-center">
+                                                <div class="row align-items-center">
                                                     <% if (oferta.getDisponibilidad().equals("Nuevo")) {%>
-                                                        <label> <img src="<%=request.getContextPath()%>/Image?act=venta&id=<%=oferta.getIdVenta()%>"
-                                                                     class="img-thumbnail" width="160" height="160" alt="Image"></label>
+                                                        <div class="h-100 col-4 col-sm-4 text-center">
+                                                            <img src="<%=request.getContextPath()%>/Image?act=venta&id=<%=oferta.getIdVenta()%>"
+                                                                     class="img-fluid mh-100" alt="Image">
+                                                        </div>
                                                     <% } else {%>
-                                                        <label> <img src="../img/zorro.jpg" width="160" height="160" alt="Image"
-                                                                     class="img-fluid"></label>
+                                                        <div class="h-100 col-4 col-sm-4 text-center">
+                                                            <img src="<%=request.getContextPath()%>/Image?act=juego&id=<%=oferta.getJuego().getIdImagen()%>"
+                                                                     alt="Image" class="img-fluid mh-100">
+                                                        </div>
                                                     <% } %>
-                                                    <div class="d-flex align-items-center">
-                                                        <ul>
-                                                            <br>
-                                                            <h3 class="m-0 font-weight-bold text-primary">JUEGO</h3>
-                                                            <br>
-                                                            <br>
-                                                            <h5 class="m-0 font-weight-bold text-info">
-                                                                <div class="d-flex justify-content-lg-end">
-                                                                    <button class="btn btn-primary" type="button">GENERO
-                                                                    </button>
-                                                                </div>
-                                                            </h5>
-                                                            <br>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </td><!-- .navbar -->
-                                            <td>
-                                                <br>
-                                                <br>
-                                                <div class="card-body center-h center-h">
-                                                    <div class="col-12 col-xl-auto mb-3">
-                                                        <div class="d-flex justify-content-center">
-                                                            <button class="btn btn-success" type="button">ACEPTADO</button>
+                                                    <div class="col-8 col-sm-8">
+                                                        <div class="card h-100 py-2">
+                                                            <div class="card-header text-center">
+                                                                <h5 class="font-weight-bold text-primary mb-0">
+                                                                    <%=oferta.getJuego().getNombreJuegos()%>
+                                                                </h5>
+                                                            </div>
+                                                            <div class="card-body text-center">
+                                                                <p class="font-weight-bold text-gray-900 py-2 mb-0">
+                                                                    Categoría: <%=oferta.getJuego().getCategoria().getNombre()%>
+                                                                </p>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td>
-                                                <body>
-                                                <br>
-                                                <br>
-                                                <br>
-                                                <div class="col-12 col-xl-auto mb-3">
-                                                    <div class="d-flex justify-content-lg-center">
-                                                        <button class="btn btn-outline-info" type="button">ELIMINAR DE LA
-                                                            LISTA
-                                                        </button>
+                                            <td class="align-middle">
+                                                <div class="card <%=background%> text-white shadow">
+                                                    <div class="card-body text-center">
+                                                        <%=oferta.getEstadoVenta()%>
                                                     </div>
                                                 </div>
-                                                </body>
+                                            </td>
+                                            <td class="align-middle">
+                                                <%
+                                                switch (oferta.getEstadoVenta()) {
+                                                    case "Retirado":%>
+                                                        <div class="row justify-content-center">
+                                                            <a class="btn btn-outline-dark" href="#">Eliminar de la lista</a>
+                                                        </div>
+                                                        <%break;
+                                                    case "Aceptado":%>
+                                                        <div class="row justify-content-center">
+                                                            <a class="btn btn-outline-dark" href="#">Eliminar de la lista</a>
+                                                        </div>
+                                                        <%break;
+                                                    case "Pendiente":%>
+                                                        <div class="row justify-content-center">
+                                                            <a class="btn btn-outline-dark" href="#">Retirar oferta</a>
+                                                        </div>
+                                                        <%break;
+                                                    case "Rechazado":%>
+                                                        <div class="row mb-3 px-2">
+                                                            <div class="card shadow px-2">
+                                                                <a href="#RazonRechazo" id="header" class="d-block card-header text-center py-3" data-toggle="collapse"
+                                                                    role="button" aria-expanded="false" aria-controls="RazonRechazo">
+                                                                    <h6 class="m-0 font-weight-bold text-gray-900">Razon del rechazo</h6>
+                                                                </a>
+                                                                <div class="collapse" id="RazonRechazo" aria-labelledby="header">
+                                                                    <div class="card-body">
+                                                                        <%=oferta.getRazonRechazo()%>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row justify-content-center">
+                                                            <a href="#" class="btn btn-outline-dark">Eliminar de la lista</a>
+                                                        </div>
+                                                        <%break;
+                                                    case "No Aceptado":%>
+                                                        <div class="row justify-content-center mb-3">
+                                                            <a href="#" class="btn btn-outline-dark">Cambiar oferta</a>
+                                                        </div>
+                                                        <div class="row justify-content-center">
+                                                            <a href="#" class="btn btn-outline-dark">Retirar oferta</a>
+                                                        </div>
+                                                        <%break;
+                                                }
+                                                %>
                                             </td>
                                         </tr>
                                     <% } %>
