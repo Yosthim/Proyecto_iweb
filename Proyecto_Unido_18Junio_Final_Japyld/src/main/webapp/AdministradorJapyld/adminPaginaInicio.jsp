@@ -15,6 +15,9 @@
 <%
   ArrayList<VentaJuegosGeneral> ventas = (ArrayList<VentaJuegosGeneral>) request.getAttribute("ventas");
 %>
+<%
+  ArrayList<BarrasInicioAdmin> listabarras = (ArrayList<BarrasInicioAdmin>) request.getAttribute("listabarras");
+%>
 <html lang="en">
 
 <head>

@@ -1,7 +1,8 @@
 
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.example.proyecto_final_base_japyld.BeansGenerales.Juegos" %>
-<%@ page import="com.example.proyecto_final_base_japyld.AdministradorJapyld.ModelsJ.DtoJ.JuegosPopulares" %><%--
+<%@ page import="com.example.proyecto_final_base_japyld.AdministradorJapyld.ModelsJ.DtoJ.JuegosPopulares" %>
+<%@ page import="com.example.proyecto_final_base_japyld.AdministradorJapyld.ModelsJ.DtoJ.JuegosxCategoria" %><%--
   Created by IntelliJ IDEA.
   User: jossr
   Date: 5/06/2023
@@ -15,7 +16,7 @@
   ArrayList<JuegosPopulares> lista  =(ArrayList<JuegosPopulares>) request.getAttribute("lista");
 %>
 <%
-  ArrayList<JuegosPopulares> lista1  =(ArrayList<JuegosPopulares>) request.getAttribute("lista1");
+  ArrayList<JuegosxCategoria> popCategoria  =(ArrayList<JuegosxCategoria>) request.getAttribute("popCategoria");
 %>
 
 <%
@@ -284,10 +285,10 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <% for (JuegosPopulares j :lista) { %>
+                                <<% for (JuegosxCategoria jx :popCategoria) { %>
                                 <tr>
-                                  <td><%=j.getNombre()%></td>
-                                  <td class="text-center"><%=j.getCantidadVentasCategorias()%></td>
+                                  <td><%=jx.getNombreCategoria()%></td>
+                                  <td class="text-center"><%=jx.getCantidadRepetida()%></td>
                                 </tr>
                                 <%}%>
                                 </tbody>
@@ -309,12 +310,12 @@
               <div class="card-header">
                 <b class="mr-5">LISTA DE JUEGOS</b>
 
-                <form class="d-none d-sm-inline-block form-inline mr-4 ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                <form method="post" action="<%=request.getContextPath()%>/AdminServlet?p=buscar">
                   <div class="input-group">
-                    <input type="text" class="form-control bg-light border-0 small" placeholder="Buscar..."
-                           aria-label="Search" aria-describedby="basic-addon2">
+                    <input type="text" class="form-control bg-light border-0 small" placeholder="Buscar..." name="textoBuscar"
+                           aria-label="Search" aria-describedby="basic-addon2"/>
                     <div class="input-group-append">
-                      <button class="btn btn-primary" type="button">
+                      <button class="btn btn-primary" type="button" href="<%=request.getContextPath()%>/AdminServlet?p=buscar">
                         <i class="fas fa-search fa-sm"></i>
                       </button>
                     </div>
@@ -343,19 +344,19 @@
                               </tr>
                               </thead>
                               <tbody>
-                              <% for (Juegos j :juegos) { %>
-                              <tr>
-                                <td class="text-center"><%=j.getNombreJuegos()%></td>
-                                <td class="text-center"><%=j.getPrecio()%></td>
-                                <td class="text-center"><%=j.getCategoria().getNombre()%></td>
-                                <td class="text-center"><%=j.getStock()%></td>
+                              <% for (Juegos j : juegos) { %>
+                              <tr <% if (j.getStock() == 0) { %>style="color: red;"<% } %>>
+                                <td class="text-center"><%= j.getNombreJuegos() %></td>
+                                <td class="text-center"><%= j.getPrecio() %></td>
+                                <td class="text-center"><%= j.getCategoria().getNombre() %></td>
+                                <td class="text-center"><%= j.getStock() %></td>
                                 <td class="text-center">
-                                  <a class="btn btn-primary" href="<%=request.getContextPath()%>/AdminServlet?action=editar&id=<%=j.getIdJuegos()%>">
+                                  <a class="btn btn-primary <% if (j.getStock() == 0) { %>btn-danger<% } %>" href="<%= request.getContextPath() %>/AdminServlet?action=editar&id=<%= j.getIdJuegos() %>">
                                     Editar
                                   </a>
                                 </td>
                               </tr>
-                              <%}%>
+                              <% } %>
                               </tbody>
                             </table>
                           </div>

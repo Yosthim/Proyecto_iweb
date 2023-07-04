@@ -7,6 +7,7 @@ import com.example.proyecto_final_base_japyld.BeansGenerales.*;
 import java.sql.*;
 import java.util.ArrayList;
 
+
 // DAO DE LAS LISTAS
 
 public class AdminDao extends BaseDao {
@@ -60,9 +61,10 @@ public class AdminDao extends BaseDao {
         ArrayList<VentaJuegosGeneral> ventas= new ArrayList<>();
 
         String sql1 = "SELECT * FROM ventajuegosgeneral v\n" +
-                "left join personas p on v.id_usuario = p.idPersona\n" +
-                "left join juegos j on v.id_juego = j.idJuegos\n" +
-                "ORDER BY v.fechaPublicacion DESC\n" +
+                " join personas p on v.id_usuario = p.idPersona\n" +
+                " left join juegos j on v.id_juego = j.idJuegos\n" +
+                " WHERE estadoJuego like  'Oferta'\n" +
+                " ORDER BY v.fechaPublicacion DESC \n" +
                 "LIMIT 5;";
 
 
@@ -131,34 +133,33 @@ public class AdminDao extends BaseDao {
     }
 
 
-    public ArrayList<JuegosPopulares> cuartaTabla(){
+    public ArrayList<JuegosxCategoria> tablaPopularesxCategotia(){
 
-        ArrayList<JuegosPopulares> lista3= new ArrayList<>();
+        ArrayList<JuegosxCategoria> popCategoria= new ArrayList<>();
 
 
-        String sql1 = "SELECT COUNT(nombreJuegos) as 'Juegos_comprados_por_título', rating, nombreJuegos, estadoCompraJuego, idJuegos\n" +
-                "                FROM juegoscompradosreservados jc\n" +
-                "                INNER JOIN juegos j ON jc.id_juego = j.idJuegos\n" +
-                "                WHERE jc.estadoCompraJuego = 'Comprado'\n" +
-                "                GROUP BY j.nombreJuegos, rating, estadoCompraJuego, idJuegos\n" +
-                "                ORDER BY count(nombreJuegos) desc\n" +
-                "                limit 5;";
+        String sql1 = "SELECT c.nombre AS nombreCategoria, COUNT(*) AS cantidadRepetida\n" +
+                "FROM juegoscompradosreservados jc\n" +
+                "INNER JOIN juegos j ON j.idJuegos = jc.id_juego\n" +
+                "INNER JOIN categorias c ON j.id_categoria = c.idCategorias\n" +
+                "WHERE jc.fechaCompraJuego >= DATE_SUB(NOW(), INTERVAL 1 MONTH) AND jc.estadoCompraJuego = 'Comprado'\n" +
+                "GROUP BY c.nombre;";
 
         try(Connection connection = this.getConnection();
             Statement stmt = connection.createStatement();
             ResultSet resultSet = stmt.executeQuery(sql1)){
 
             while (resultSet.next()){
-                JuegosPopulares videoJuego3 = new JuegosPopulares();
-                videoJuego3.setNombre(resultSet.getString(3));
-                videoJuego3.setCantidadVentasCategorias(resultSet.getInt(1));
-                lista3.add(videoJuego3);
+                JuegosxCategoria cat = new JuegosxCategoria();
+                cat.setNombreCategoria(resultSet.getString(1));
+                cat.setCantidadRepetida(resultSet.getInt(2));
+                popCategoria.add(cat);
             }
 
         }catch (SQLException e){
             throw new RuntimeException(e);
         }
-        return lista3;
+        return popCategoria;
     }
 
     public ArrayList<Juegos> quintaTabla(){
@@ -194,8 +195,48 @@ public class AdminDao extends BaseDao {
         }
         return juegos;
     }
+    //Buscar Juego
+    public ArrayList<Juegos> buscarJuegosPorNombre(String name) {
 
-    // PAGINA DE OFERTAS GENERALES
+        ArrayList<Juegos> ljuegos = new ArrayList<>();
+
+        String sql = "SELECT *\n" +
+                "FROM juegos j\n" +
+                "LEFT JOIN categorias c ON j.id_categoria = c.idCategorias\n" +
+                "WHERE j.nombreJuegos like ? ;";
+
+        try (Connection conn = this.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, name );
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+
+                while (rs.next()) {
+                    Juegos juegos = new Juegos();
+                    fetchJuegosData(juegos, rs);
+
+                    ljuegos.add(juegos);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return ljuegos;
+    }
+    private void fetchJuegosData(Juegos juegos, ResultSet rs) throws SQLException {
+        juegos.setNombreJuegos(rs.getString(2));
+        juegos.setPrecio(rs.getBigDecimal(4));
+        juegos.setStock(rs.getInt(3));
+        juegos.setIdJuegos(rs.getInt(1));
+        Categoria categoria = new Categoria();
+        categoria.setNombre(rs.getString(10));
+
+        juegos.setCategoria(categoria);
+    }
+
+
+// PAGINA DE OFERTAS GENERALES
 
     public ArrayList<VentaJuegosGeneral> sextaTabla(int id){
 
@@ -206,6 +247,7 @@ public class AdminDao extends BaseDao {
                 "left join juegos j on c.id_juego = j.idJuegos\n" +
                 "WHERE c.estadoVenta = 'Aceptado' and c.id_administrador =? \n" +
                 "ORDER BY c.fechaPublicacion DESC;";
+
         try(Connection connection = this.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(sql)){
 

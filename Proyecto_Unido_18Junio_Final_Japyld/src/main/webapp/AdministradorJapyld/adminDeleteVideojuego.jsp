@@ -6,7 +6,10 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<jsp:useBean id="personaSession" type="com.example.proyecto_final_base_japyld.BeansGenerales.Personas" scope="session" class="com.example.proyecto_final_base_japyld.BeansGenerales.Personas"/>
+<jsp:useBean id="textoBusqueda" scope="request" type="java.lang.String" class="java.lang.String"/>
+<%
+  ArrayList<Juegos> juegos  =(ArrayList<Juegos>) request.getAttribute("juegos");
+%>
 <html lang="en">
 
 <head>
@@ -264,7 +267,15 @@
                   <br>
                   <div class="col-12 col-xl-auto mb-3">
                     <div class="d-flex justify-content-center">
-                      <button class="btn btn-outline-danger" type="button">Confirmar eliminación</button>
+                      <td>
+                        <a onclick="return confirm('¿Estas seguro de borrar?');"
+                           href="<%=request.getContextPath()%>/AdminServlet?action=borrar&id=<%= Juegos.getIdJuegos(  )%>"
+                           type="button" class="btn btn-danger">
+                          <i class="bi bi-trash"></i>
+                        </a>
+                      </td>
+
+
                     </div>
                   </div>
                   <br>

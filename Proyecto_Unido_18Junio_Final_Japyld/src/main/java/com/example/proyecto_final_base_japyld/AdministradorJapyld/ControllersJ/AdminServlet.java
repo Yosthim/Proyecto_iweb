@@ -29,6 +29,8 @@ public class AdminServlet extends HttpServlet {
         AdminDao adminDao = new AdminDao();
         CrudDao crudDao = new CrudDao();
         CategoriaDao categoriaDao = new CategoriaDao();
+        ConsolaDao consolaDao = new ConsolaDao();
+        BarrasAdminDao barrasAdminDao = new BarrasAdminDao();
 
         HttpSession session = request.getSession();
         Personas administrador= (Personas)session.getAttribute("personaSession");
@@ -37,11 +39,12 @@ public class AdminServlet extends HttpServlet {
             case "lista":
                 request.setAttribute("ultimasCompras",adminDao.primeraTabla());
                 request.setAttribute("ventas",adminDao.segundaTabla());
+                request.setAttribute("listaBarras", barrasAdminDao.Barras());
                 request.getRequestDispatcher("AdministradorJapyld/adminPaginaInicio.jsp").forward(request,response);
                 break;
             case "listasPaginaVideojuegos":
                 request.setAttribute("lista",adminDao.terceraTabla());
-                request.setAttribute("lista1",adminDao.cuartaTabla());
+                request.setAttribute("popCategoria",adminDao.tablaPopularesxCategotia());
                 request.setAttribute("juegos",adminDao.quintaTabla());
                 request.getRequestDispatcher("AdministradorJapyld/adminVideojuegos.jsp").forward(request,response);
                 break;
@@ -103,6 +106,38 @@ public class AdminServlet extends HttpServlet {
 
                 response.sendRedirect("AdminServlet");
 
+                break;
+            case "buscar":
+
+                String textoBuscar = request.getParameter("textoBuscar");
+                request.setAttribute("textoBusqueda", textoBuscar);
+                request.setAttribute("listaJuegos", adminDao.buscarJuegosPorNombre(textoBuscar));
+                RequestDispatcher view = request.getRequestDispatcher("AdministradorJapyld/adminVideojuegos.jsp");
+                view.forward(request, response);
+                break;
+            case "borrar":
+                if (request.getParameter("id") != null) {
+                    String idJuegosString = request.getParameter("id");
+                    int idJuegos = 0;
+                    try {
+                        idJuegos = Integer.parseInt(idJuegosString);
+                    } catch (NumberFormatException ex) {
+                        response.sendRedirect("AdminServlet?err=Error al borrar el Juego");
+                    }
+
+                    Juegos jg = adminDao.obetenerJuego(idJuegos);
+
+                    if (jg != null) {
+                        try {
+                            adminDao.borrarjuego(idJuegos);
+                            response.sendRedirect("AdminServlet?msg=Empleado borrado exitosamente");
+                        } catch (SQLException e) {
+                            response.sendRedirect("AdminServlet?err=Error al borrar el empleado");
+                        }
+                    }
+                } else {
+                    response.sendRedirect("AdminServlet?err=Error al borrar el empleado");
+                }
                 break;
         }
 
