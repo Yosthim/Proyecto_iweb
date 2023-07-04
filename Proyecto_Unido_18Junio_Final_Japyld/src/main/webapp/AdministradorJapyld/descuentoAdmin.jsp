@@ -1,4 +1,4 @@
-<%--
+<%@ page import="com.example.proyecto_final_base_japyld.BeansGenerales.Juegos" %><%--
   Created by IntelliJ IDEA.
   User: jossr
   Date: 5/06/2023
@@ -8,6 +8,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:useBean id="personaSession" type="com.example.proyecto_final_base_japyld.BeansGenerales.Personas" scope="session" class="com.example.proyecto_final_base_japyld.BeansGenerales.Personas"/>
 <html lang="en">
+<%
+  Juegos juego = (Juegos) request.getAttribute("juego");
+%>
 
 <head>
 
@@ -44,13 +47,13 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
   <!-- Custom fonts for this template-->
-  <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="recursos/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link
           href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
           rel="stylesheet">
 
   <!-- Custom styles for this template-->
-  <link href="../css/sb-admin-2.min.css" rel="stylesheet">
+  <link href="recursos/css/sb-admin-2.min.css" rel="stylesheet">
 
 </head>
 
@@ -199,77 +202,93 @@
       <!-- Begin Page Content -->
       <div class="container-fluid">
 
-        <!-- Page Heading -->
-        <h1 class="h3 mb-2 text-gray-800">Aceptar oferta</h1>
-        <h1 class="h3 mb-2 text-gray-800"></h1>
-        <!-- Content Row -->
-        <div class="row">
-          <div class="col-xl-4 col-lg-4">
-            <!-- Donut Chart -->
-            <div class="card shadow mb-4 border-left-primary">
-              <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">The Legend of Zelda </h6>
-              </div>
-              <div class="card-body text-center">
-                <img src="../img/Legend_of_Zelda.jpg" alt="Imagen" class="img-fluid">
+        <form method="POST" action="<%=request.getContextPath()%>/DescuentoServlet?action=NuevoPrecio" id = "NuevoPrecio">
+          <input type="hidden" name="id_juego" value="<%=juego.getIdJuegos()%>"/>
 
-                <div class="mt-3">
-                  <h5 class="mb-0">Rating:</h5>
-                  <div class="rating">
-                    <span class="star">&#9733;</span>
-                    <span class="star">&#9733;</span>
-                    <span class="star">&#9733;</span>
-                    <span class="star">&#9733;</span>
-                    <span class="star">&#9733;</span>
+          <div class="container-fluid">
+
+            <!-- Page Heading -->
+            <h1 class="h3 mb-2 text-gray-800">Agregar Descuento</h1>
+            <h1 class="h3 mb-2 text-gray-800"></h1>
+            <!-- Content Row -->
+            <div class="row">
+              <div class="col-xl-4 col-lg-4">
+                <!-- Donut Chart -->
+                <div class="card shadow mb-4 border-left-primary">
+                  <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary"><%=juego.getNombreJuegos()%></h6>
                   </div>
-                  <h5>Género: Aventura</h5>
+                  <div class="card-body text-center">
+                    <img src="<%=request.getContextPath()%>/Image?act=juego&id=<%=juego.getIdImagen()%>" alt="Imagen" class="img-fluid">
+
+                    <div class="mt-3">
+                      <h5 class="mb-0">Rating:</h5>
+                      <div class="rating">
+                        <span class="star">&#9733;</span>
+                        <span class="star">&#9733;</span>
+                        <span class="star">&#9733;</span>
+                        <span class="star">&#9733;</span>
+                        <span class="star">&#9733;</span>
+                      </div>
+                      <h5>Género: <%=juego.getCategoria().getNombre()%></h5>
+                    </div>
+                  </div>
                 </div>
               </div>
+              <div class="col-xl-8 col-lg-8">
+                <!-- Area Chart -->
+                <div class="card shadow mb-4">
+                  <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Información del Juego  </h6>
+                  </div>
+                  <div class="card-body">
+
+                    <p class="text-justify"><%=juego.getDescripcion()%></p>
+                    <div class="d-flex align-items-center mb-3">
+                      <h6 class="mr-3">Consola: </h6>
+                    </div>
+                    <hr>
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                      <span>Stock: 5</span>
+                      <div class="d-flex">
+                        <button class="btn">Precio: S/. <%=juego.getPrecio()%></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <span>Precio con DESCUENTO:</span>
+                </div>
+                <div>
+                  <input type="number" class="form-control form-control-sm"
+                         name="precioDescuento" id="precioDescuento"
+                         value=" " required>
+
+                </div>
+                <BR>
+                <div>
+                  <span>Duración en días:</span>
+                </div>
+                <div>
+                  <input type="number" class="form-control form-control-sm"
+                         name="dias" id="dias"
+                         value=" " required>
+
+                </div>
+                <BR>
+                <BR>
+
+                <div class="text-center d-flex justify-content-center">
+                  <button type="submit" class="btn btn-danger" form="NuevoPrecio" >Enviar</button>
+                </div>
+
+                <BR>
+                <BR>
+              </div>
             </div>
+
           </div>
-          <div class="col-xl-8 col-lg-8">
-            <!-- Area Chart -->
-            <div class="card shadow mb-4">
-              <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Información del Juego  </h6>
-              </div>
-              <div class="card-body">
-
-                <p class="text-justify">Se trata del primer juego original de la popular saga Zelda para la consola de última generación de Nintendo. El título promete un estilo visual completamente nuevo con el que desmarcarse de todo lo visto hasta el momento. </p>
-                <div class="d-flex align-items-center mb-3">
-                  <h6 class="mr-3">Consola:</h6>
-                  <div class="row">
-                    <div class="col-sm-1">
-                      <img src="../img/kisspng-playstation-2-logo-playstation-logo-5b2a2f6c44a1e2.0330864515294913082811.png" class="img-fluid" alt="PlayStation">
-                    </div>
-                    <div class="col-sm-1">
-                      <img src="../img/kisspng-black-xbox-360-xbox-one-logo-xbox-5abe7f19c6db83.0322681315224338178145.png" class="img-fluid" alt="XBOX">
-                    </div>
-                    <div class="col-sm-1">
-                      <img src="../img/nintendo_logo.png" class="img-fluid" alt="Nintendo">
-                    </div>
-                  </div>
-                </div>
-                <hr>
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                  <div class="d-flex flex-column position-relative">
-                    <span class="original-price">Precio original: S/. 150</span>
-                    <div class="diagonal-line"></div>
-                    <button class="btn">Precio de oferta: S/. 120</button>
-                    <p style="color: #808080; margin-top: 5px;">hasta: 4 de junio de 2023</p>
-                  </div>
-                  <span>Stock: 5</span>
-                </div>
-
-
-
-              </div>
-            </div>
-            <div class="d-flex justify-content-end">
-              <a href="" class="btn btn-primary">Pagar</a>
-            </div>
-          </div>
-        </div>
+        </form>
 
       </div>
     </div>
@@ -317,21 +336,21 @@
 </div>
 
 <!-- Bootstrap core JavaScript-->
-<script src="../vendor/jquery/jquery.min.js"></script>
-<script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="recursos/vendor/jquery/jquery.min.js"></script>
+<script src="recursos/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 <!-- Core plugin JavaScript-->
-<script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
+<script src="recursos/vendor/jquery-easing/jquery.easing.min.js"></script>
 
 <!-- Custom scripts for all pages-->
-<script src="../js/sb-admin-2.min.js"></script>
+<script src="recursos/js/sb-admin-2.min.js"></script>
 
 <!-- Page level plugins -->
-<script src="../vendor/chart.js/Chart.min.js"></script>
+<script src="recursos/vendor/chart.js/Chart.min.js"></script>
 
 <!-- Page level custom scripts -->
-<script src="../js/demo/chart-area-demo.js"></script>
-<script src="../js/demo/chart-pie-demo.js"></script>
+<script src="recursos/js/demo/chart-area-demo.js"></script>
+<script src="recursos/js/demo/chart-pie-demo.js"></script>
 
 </body>
 

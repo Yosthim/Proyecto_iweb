@@ -300,6 +300,7 @@
         </div>
 
       </div>
+      </form>
     </div>
     <!-- End of Main Content -->
 

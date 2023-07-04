@@ -205,7 +205,19 @@
 
         </ul>
 
+
       </nav>
+
+      <% if (session.getAttribute("info") != null) {
+        //if (request.getParameter("msg") != null) {%>
+      <div id="mensaje" class="alert alert-success" role="alert">
+        <%=session.getAttribute("info")%>
+      </div>
+      <%
+          session.setAttribute("info", null);
+        }
+      %>
+
       <!-- End of Topbar -->
 
       <!-- Begin Page Content -->

@@ -319,7 +319,8 @@
                                                 <a class="btn btn-outline-danger"
                                                    href="AdministradorJapyld/adminDeleteVideojuego.jsp "
                                                    class="btn btn-danger">Eliminar juego del catálogo</a>
-                                                <button type="submit" class="btn btn-danger" form="actualizar" >Actualizar</button>
+                                                <a href="<%=request.getContextPath()%>/DescuentoServlet?action=descuento&id=<%=juego.getIdJuegos()%>" class="btn btn-success mr-5">Descuento</a>
+                                                <button type="submit" class="btn btn-primary" form="actualizar" >Actualizar</button>
 
                                             </div>
                                             <!-- Submit button-->
