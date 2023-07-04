@@ -1,40 +1,32 @@
 package com.example.proyecto_final_base_japyld.AdministradorJapyld.ControllersJ;
 
-import com.example.proyecto_final_base_japyld.AdministradorJapyld.ModelsJ.DaosJ.CrudDao;
 import com.example.proyecto_final_base_japyld.AdministradorJapyld.ModelsJ.DaosJ.OfertasDao;
-import com.example.proyecto_final_base_japyld.BeansGenerales.Imagen;
-import com.example.proyecto_final_base_japyld.BeansGenerales.Juegos;
-import com.example.proyecto_final_base_japyld.BeansGenerales.Personas;
-import com.example.proyecto_final_base_japyld.BeansGenerales.VentaJuegosGeneral;
-import jakarta.servlet.RequestDispatcher;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
+import com.example.proyecto_final_base_japyld.BeansGenerales.*;
+import jakarta.servlet.*;
+import jakarta.servlet.http.*;
+import jakarta.servlet.annotation.*;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.math.BigDecimal;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-@WebServlet(name = "OfertasServlet", value = "/OfertasServlet")
-public class OfertasServlet extends HttpServlet {
+@WebServlet(name = "JuegosNuevosServlet", value = "/JuegosNuevosServlet")
+public class JuegosNuevosServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         OfertasDao ofertasDao = new OfertasDao();
         RequestDispatcher view;
         String action = request.getParameter("action") == null ? "lista" :request.getParameter("action");
-        switch (action){
 
-            case "ofertas":
+        switch (action){
+            case"ofertas":
                 String id_venta = request.getParameter("id");
                 int id_veta_int = Integer.parseInt(id_venta);
                 request.setAttribute("venta_3_meses",ofertasDao.venta_3_meses(id_veta_int));
-                request.setAttribute("ventaJuegosGeneral", ofertasDao.obtenerJuego(id_veta_int));
-                request.getRequestDispatcher("AdministradorJapyld/NuevaOfertaAdmi.jsp").forward(request,response);
+                request.setAttribute("ventaJuegosGeneral", ofertasDao.obtenerVenta(id_veta_int));
+                request.getRequestDispatcher("AdministradorJapyld/NuevaOfertaAdmiJuegoNuevo.jsp").forward(request,response);
                 break;
 
             case "aceptar":
@@ -48,12 +40,12 @@ public class OfertasServlet extends HttpServlet {
                         response.sendRedirect("OfertasServlet");
                     }
 
-                    VentaJuegosGeneral ventaJuegosGeneral = ofertasDao.obtenerJuego(id_veta_int1);
+                    VentaJuegosGeneral ventaJuegosGeneral = ofertasDao.obtenerVenta(id_veta_int1);
 
                     if(ventaJuegosGeneral != null){
 
                         request.setAttribute("ventaJuegosGeneral",ventaJuegosGeneral);
-                        view = request.getRequestDispatcher("AdministradorJapyld/AceptarOfertaAdmi.jsp");
+                        view = request.getRequestDispatcher("AdministradorJapyld/AceptarOfertaAdmiNuevo.jsp");
                         view.forward(request,response);
                     }else{
                         response.sendRedirect("OfertasServlet");
@@ -76,11 +68,11 @@ public class OfertasServlet extends HttpServlet {
                         response.sendRedirect("OfertasServlet");
                     }
 
-                    VentaJuegosGeneral ventaJuegosGeneral = ofertasDao.obtenerJuego(id_veta_int1);
+                    VentaJuegosGeneral ventaJuegosGeneral = ofertasDao.obtenerVenta(id_veta_int1);
 
                     if(ventaJuegosGeneral != null){
-                        ofertasDao.actualizarStock(ventaJuegosGeneral);
                         ofertasDao.borrar(ventaJuegosGeneral);
+                        ofertasDao.aceptarVenta(ventaJuegosGeneral);
                         request.getSession().setAttribute("info","Compra realizada exitosamente");
                         response.sendRedirect(request.getContextPath() + "/AdminServlet?action=listaPaginaOfertas");
 
@@ -105,12 +97,12 @@ public class OfertasServlet extends HttpServlet {
                         response.sendRedirect("OfertasServlet");
                     }
 
-                    VentaJuegosGeneral ventaJuegosGeneral = ofertasDao.obtenerJuego(id_veta_int2);
+                    VentaJuegosGeneral ventaJuegosGeneral = ofertasDao.obtenerVenta(id_veta_int2);
 
                     if(ventaJuegosGeneral != null){
 
                         request.setAttribute("ventaJuegosGeneral",ventaJuegosGeneral);
-                        view = request.getRequestDispatcher("AdministradorJapyld/RechazarOferta.jsp");
+                        view = request.getRequestDispatcher("AdministradorJapyld/RechazarOfertaNuevo.jsp");
                         view.forward(request,response);
                     }else{
                         response.sendRedirect("OfertasServlet");
@@ -133,12 +125,12 @@ public class OfertasServlet extends HttpServlet {
                         response.sendRedirect("OfertasServlet");
                     }
 
-                    VentaJuegosGeneral ventaJuegosGeneral = ofertasDao.obtenerJuego(id_veta_int3);
+                    VentaJuegosGeneral ventaJuegosGeneral = ofertasDao.obtenerVenta(id_veta_int3);
 
                     if(ventaJuegosGeneral != null){
 
                         request.setAttribute("ventaJuegosGeneral",ventaJuegosGeneral);
-                        view = request.getRequestDispatcher("AdministradorJapyld/ContraofertaAdmi.jsp");
+                        view = request.getRequestDispatcher("AdministradorJapyld/ContraofertaAdmiNuevo.jsp");
                         view.forward(request,response);
                     }else{
                         response.sendRedirect("OfertasServlet");
@@ -158,13 +150,12 @@ public class OfertasServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         String action = request.getParameter("action") == null ? "lista" :request.getParameter("action");
         OfertasDao ofertasDao = new OfertasDao();
 
-
         switch (action){
-
-            case"actualizar":
+            case "actualizar":
 
                 if(validar_texto(request.getParameter("rechazo").trim()) == true){
 
@@ -178,15 +169,14 @@ public class OfertasServlet extends HttpServlet {
                     response.sendRedirect("AdminServlet?action=listaPaginaOfertas");
                 }
 
-
                 break;
             case "actualizarC":
 
                 if(validar_texto(request.getParameter("rechazo").trim()) == true) {
 
                     if(valida_precio(request.getParameter("precioAdmi").trim())==true){
-                        VentaJuegosGeneral ventaJuegosGeneralC = setVentaC(request);
 
+                        VentaJuegosGeneral ventaJuegosGeneralC = setVentaC(request);
                         ventaJuegosGeneralC.setIdVenta(Integer.parseInt(request.getParameter("id_venta")));
                         ofertasDao.editarVentaC(ventaJuegosGeneralC);
                         request.getSession().setAttribute("info","Contraoferta enviada exitosamente");
@@ -207,7 +197,6 @@ public class OfertasServlet extends HttpServlet {
                 response.sendRedirect("OfertasServlet");
         }
 
-
     }
 
     private VentaJuegosGeneral setVenta(HttpServletRequest request){
@@ -215,36 +204,39 @@ public class OfertasServlet extends HttpServlet {
         VentaJuegosGeneral ventaJuegosGeneral = new VentaJuegosGeneral();
         ventaJuegosGeneral.setPrecioUsuario(new BigDecimal(request.getParameter("precio").trim()));
         ventaJuegosGeneral.setRazonRechazo(request.getParameter("rechazo").trim());
+        // como llamar a l imagen?
+        Consola consola = new Consola();
+        consola.setIdConsola(request.getParameter("consola").trim());
+        ventaJuegosGeneral.setConsola(consola);
 
-        Juegos juegos = new Juegos();
-        juegos.setIdJuegos(Integer.parseInt(request.getParameter("juego").trim()));
+        Categoria categoria = new Categoria();
+        categoria.setIdCategorias(request.getParameter("categoria").trim());
+        ventaJuegosGeneral.setCategoria(categoria);
 
-        Imagen imagen = new Imagen();
-        imagen.setIdImagenes(Integer.parseInt(request.getParameter("imagen").trim()));
-        juegos.setImagen(imagen);
-
-        ventaJuegosGeneral.setJuego(juegos);
+        ventaJuegosGeneral.setNombreNuevo(request.getParameter("nombre").trim());
+        ventaJuegosGeneral.setDescripcionNueva(request.getParameter("descripcion").trim());
 
         return  ventaJuegosGeneral;
     }
 
     private VentaJuegosGeneral setVentaC(HttpServletRequest request){
 
-
-
         VentaJuegosGeneral ventaJuegosGeneral = new VentaJuegosGeneral();
         ventaJuegosGeneral.setPrecioUsuario(new BigDecimal(request.getParameter("precio").trim()));
         ventaJuegosGeneral.setPrecioAdmi(new BigDecimal(request.getParameter("precioAdmi").trim()));
         ventaJuegosGeneral.setRazonRechazo(request.getParameter("rechazo").trim());
+        // como llamar a l imagen?
+        Consola consola = new Consola();
+        consola.setIdConsola(request.getParameter("consola").trim());
+        ventaJuegosGeneral.setConsola(consola);
 
-        Juegos juegos = new Juegos();
-        juegos.setIdJuegos(Integer.parseInt(request.getParameter("juego").trim()));
+        Categoria categoria = new Categoria();
+        categoria.setIdCategorias(request.getParameter("categoria").trim());
+        ventaJuegosGeneral.setCategoria(categoria);
 
-        Imagen imagen = new Imagen();
-        imagen.setIdImagenes(Integer.parseInt(request.getParameter("imagen").trim()));
-        juegos.setImagen(imagen);
+        ventaJuegosGeneral.setNombreNuevo(request.getParameter("nombre").trim());
+        ventaJuegosGeneral.setDescripcionNueva(request.getParameter("descripcion").trim());
 
-        ventaJuegosGeneral.setJuego(juegos);
 
         return  ventaJuegosGeneral;
     }
@@ -272,5 +264,4 @@ public class OfertasServlet extends HttpServlet {
 
         return true;
     }
-
 }

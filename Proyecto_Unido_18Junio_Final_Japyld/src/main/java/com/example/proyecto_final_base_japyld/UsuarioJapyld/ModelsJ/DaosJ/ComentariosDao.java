@@ -50,7 +50,35 @@ public class ComentariosDao extends BaseDao {
         }
         return listaComentarios;
     }
+    public void guardarComentario(Comentarios comentario){
+
+        String sql = "INSERT INTO comentarios(comentario,fecha_comentario,Juegos_idJuegos,Persona_idPersona) VALUES (?,?,?,?);";
+
+        try (Connection conn = this.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)){
+
+             pstmt.setString(1,comentario.getComentario());
+             long Fecha_comentario = comentario.getFecha_comentario1().getTime();
+             java.sql.Date sqlDateFecha_comentario = new java.sql.Date(Fecha_comentario);
+             pstmt.setDate(2,sqlDateFecha_comentario);
+             pstmt.setInt(3,comentario.getJuegoComentario().getIdJuegos());
+             pstmt.setInt(4,comentario.getPersonaComentario().getIdPersona());
+
+             pstmt.executeUpdate();
+
+        }catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+
+    }
+
 
 }
+
+
+
+
+
+
 
 

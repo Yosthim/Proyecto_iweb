@@ -1,6 +1,7 @@
 
 <%@ page import="com.example.proyecto_final_base_japyld.BeansGenerales.Juegos" %>
-<%@ page import="com.example.proyecto_final_base_japyld.BeansGenerales.VentaJuegosGeneral" %><%--
+<%@ page import="com.example.proyecto_final_base_japyld.BeansGenerales.VentaJuegosGeneral" %>
+<%@ page import="java.util.ArrayList" %><%--
   Created by IntelliJ IDEA.
   User: jossr
   Date: 5/06/2023
@@ -12,6 +13,9 @@
 <html lang="en">
 <%
   VentaJuegosGeneral ventaJuegosGeneral = (VentaJuegosGeneral) request.getAttribute("ventaJuegosGeneral");
+%>
+<%
+  ArrayList<Integer> venta_3_meses = (ArrayList<Integer>) request.getAttribute("venta_3_meses");
 %>
 <head>
 
@@ -240,25 +244,24 @@
                 <p class="text-justify"><%=ventaJuegosGeneral.getJuego().getDescripcion()%> </p>
 
                 <div class="d-flex align-items-center mb-3">
-                  <h6 class="mr-3">Consola:</h6>
-                  <div class="row">
-                    <div class="col-sm-1">
-                      <img src="recursos/img/kisspng-playstation-2-logo-playstation-logo-5b2a2f6c44a1e2.0330864515294913082811.png" class="img-fluid" alt="PlayStation">
-                    </div>
-                    <div class="col-sm-1">
-                      <img src="recursos/img/kisspng-black-xbox-360-xbox-one-logo-xbox-5abe7f19c6db83.0322681315224338178145.png" class="img-fluid" alt="XBOX">
-                    </div>
-                    <div class="col-sm-1">
-                      <img src="recursos/img/nintendo_logo.png" class="img-fluid" alt="Nintendo">
-                    </div>
-                  </div>
+                  <h6 class="mr-3">Consola: <%=ventaJuegosGeneral.getConsola().getNombre()%></h6>
                 </div>
                 <hr>
                 <div class="d-flex justify-content-between align-items-center mb-3">
                   <span>Stock: <%=ventaJuegosGeneral.getJuego().getStock()%></span>
+
                   <div class="d-flex">
                     <button class="btn">Precio: S/. <%=ventaJuegosGeneral.getPrecioUsuario()%></button>
                   </div>
+                </div>
+                <div>
+                  <%
+                    for(int j :venta_3_meses){
+                  %>
+                  <span>Compras en los ultimos 3 meses: <%=j%></span>
+                  <%
+                    }
+                  %>
                 </div>
               </div>
             </div>
