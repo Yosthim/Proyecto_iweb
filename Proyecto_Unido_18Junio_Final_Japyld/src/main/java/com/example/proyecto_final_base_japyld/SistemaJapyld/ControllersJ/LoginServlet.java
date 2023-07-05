@@ -1,6 +1,7 @@
 package com.example.proyecto_final_base_japyld.SistemaJapyld.ControllersJ;
 
 
+import com.example.proyecto_final_base_japyld.AdministradorJapyld.ModelsJ.DaosJ.DescuentoDao;
 import com.example.proyecto_final_base_japyld.BeansGenerales.Personas;
 import com.example.proyecto_final_base_japyld.SistemaJapyld.ModelsJ.DaosJ.PersonaDao;
 import jakarta.servlet.RequestDispatcher;
@@ -42,6 +43,8 @@ public class LoginServlet extends HttpServlet {
 
         PersonaDao personadao = new PersonaDao();
 
+        DescuentoDao descuentoDao = new DescuentoDao();
+
         String username = request.getParameter("inputEmail");
         String password = request.getParameter("inputPassword");
         Personas persona= personadao.validarUsuarioPassword(username,password);
@@ -50,6 +53,9 @@ public class LoginServlet extends HttpServlet {
             String estado = persona.getEstado();
             String rol = persona.getRol().getIdRoles();
             if(!estado.equals("Baneado") && !estado.equals("Despedido")){
+
+                descuentoDao.actualizarEstadoJuego();
+
                 HttpSession session = request.getSession();
                 session.setAttribute("personaSession",persona);
                 session.setMaxInactiveInterval(30*60);
