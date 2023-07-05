@@ -163,6 +163,55 @@ public class AdminDao extends BaseDao {
         return popCategoria;
     }
 
+    // Lista de categorias
+
+    public ArrayList<Categoria> listaCategoria(){
+
+        ArrayList<Categoria> lista = new ArrayList<>();
+
+        String sql = "SELECT * FROM categorias;";
+
+        try(Connection connection = this.getConnection();
+            Statement stmt = connection.createStatement();
+            ResultSet resultSet = stmt.executeQuery(sql)){
+
+            while (resultSet.next()){
+                Categoria categoria = new Categoria();
+                categoria.setIdCategorias(resultSet.getString(1));
+                categoria.setNombre(resultSet.getString(2));
+                lista.add(categoria);
+            }
+
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return lista;
+    }
+
+    // Agregar categoria
+
+    public void agregarCategoria(Categoria categoria){
+
+        String sql = "INSERT INTO categorias (idCategorias,nombre)\n" +
+                "                VALUES (?,?);\n";
+
+        try(Connection connection = this.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql)){
+
+            String palabra = categoria.getNombre();
+            String tresPrimerasLetras = palabra.substring(0, 3);
+            String tresPrimerasMayusculas = tresPrimerasLetras.toUpperCase();
+            preparedStatement.setString(1,tresPrimerasMayusculas);
+            preparedStatement.setString(2,categoria.getNombre());
+            preparedStatement.executeUpdate();
+
+
+        }catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+
+    }
+
     public ArrayList<Juegos> quintaTabla(){
 
         ArrayList<Juegos> juegos= new ArrayList<>();

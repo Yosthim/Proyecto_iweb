@@ -281,7 +281,7 @@
             <BR>
 
             <div class="text-center d-flex justify-content-center">
-              <button type="submit" class="btn btn-danger" form="actualizar" >Actualizar</button>
+              <button type="submit" class="btn btn-success" form="actualizar" >Enviar</button>
             </div>
 
             <BR>

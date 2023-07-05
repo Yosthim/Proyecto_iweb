@@ -65,6 +65,12 @@
   <!-- Custom styles for this template-->
   <link href="recursos/css/sb-admin-2.min.css" rel="stylesheet">
 
+  <script>
+    $(document).ready(function(){
+      $("#mensaje").delay(2000).hide(2000);
+    });
+  </script>
+
 </head>
 
 <body id="page-top">
@@ -218,6 +224,15 @@
           session.setAttribute("info", null);
         }
       %>
+      <% if (session.getAttribute("err") != null) {
+        //if (request.getParameter("msg") != null) {%>
+      <div id="mensajeError" class="alert alert-danger" role="alert">
+        <%=session.getAttribute("err")%>
+      </div>
+      <%
+          session.setAttribute("err", null);
+        }
+      %>
 
       <!-- End of Topbar -->
 
@@ -299,8 +314,37 @@
                       </div>
                     </div>
                   </div>
+                  <BR>
+
                 </section>
               </div>
+
+              <div class="container">
+
+                <button class="btn btn-primary container" type="button" onclick="enviarFormulario()">Agregar Categoria</button>
+                <BR>
+                <form id="agregarCategoria" style="display: none;" action="<%=request.getContextPath()%>/AdminServlet?action=agregarCategoria" method="post">
+                  <!-- Aquí van los campos del formulario -->
+                  <div class="container">
+                    <div>
+                      <input class=" px-4 mt-4"  style="margin-right: 10px; margin-left: 20px;" type="text" name="nombre" placeholder="Nombre">
+                    </div>
+                    <div>
+                      <button type="submit" class="btn btn-success px-4 mt-4"  style="margin-right: 10px; margin-left: 20px;" form="agregarCategoria" >Enviar</button>
+                    </div>
+                  </div>
+                  <BR>
+                </form>
+
+                <script>
+                  function enviarFormulario() {
+                    var formulario = document.getElementById("agregarCategoria");
+                    formulario.style.display = "block";
+                  }
+                </script>
+
+              </div>
+              <BR>
             </div>
           </div>
           <div class="col-xl-6">
