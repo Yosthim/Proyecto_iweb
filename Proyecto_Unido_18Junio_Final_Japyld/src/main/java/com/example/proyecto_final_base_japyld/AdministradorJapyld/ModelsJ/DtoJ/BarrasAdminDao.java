@@ -1,7 +1,7 @@
 package com.example.proyecto_final_base_japyld.AdministradorJapyld.ModelsJ.DtoJ;
 
 import com.example.proyecto_final_base_japyld.AdministradorJapyld.ModelsJ.DtoJ.BarrasInicioAdmin;
-import com.example.proyecto_final_base_japyld.BaseDaoJapyld;
+import com.example.proyecto_final_base_japyld.BaseDao;
 import com.example.proyecto_final_base_japyld.BeansGenerales.Juegos;
 import com.example.proyecto_final_base_japyld.BeansGenerales.Personas;
 import com.example.proyecto_final_base_japyld.BeansGenerales.VentaJuegosGeneral;
@@ -12,7 +12,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-public class BarrasAdminDao  extends BaseDaoJapyld {
+public class BarrasAdminDao  extends BaseDao {
     public ArrayList<BarrasInicioAdmin> Barras(){
 
         ArrayList<BarrasInicioAdmin> listaBarras= new ArrayList<>();

@@ -3,6 +3,7 @@ package com.example.proyecto_final_base_japyld.AdministradorJapyld.ControllersJ;
 import com.example.proyecto_final_base_japyld.AdministradorJapyld.ModelsJ.DaosJ.AdminDao;
 import com.example.proyecto_final_base_japyld.AdministradorJapyld.ModelsJ.DaosJ.CategoriaDao;
 import com.example.proyecto_final_base_japyld.AdministradorJapyld.ModelsJ.DaosJ.CrudDao;
+import com.example.proyecto_final_base_japyld.AdministradorJapyld.ModelsJ.DtoJ.BarrasAdminDao;
 import com.example.proyecto_final_base_japyld.BeansGenerales.Categoria;
 import com.example.proyecto_final_base_japyld.BeansGenerales.Imagen;
 import com.example.proyecto_final_base_japyld.BeansGenerales.Juegos;
@@ -17,6 +18,7 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.sql.SQLException;
 
 @WebServlet(name = "AdminServlet", value = "/AdminServlet")
 public class AdminServlet extends HttpServlet {
@@ -29,7 +31,6 @@ public class AdminServlet extends HttpServlet {
         AdminDao adminDao = new AdminDao();
         CrudDao crudDao = new CrudDao();
         CategoriaDao categoriaDao = new CategoriaDao();
-        ConsolaDao consolaDao = new ConsolaDao();
         BarrasAdminDao barrasAdminDao = new BarrasAdminDao();
 
         HttpSession session = request.getSession();
@@ -97,6 +98,7 @@ public class AdminServlet extends HttpServlet {
         CrudDao crudDao = new CrudDao();
 
         Juegos juegos = setJuegos(request);
+        AdminDao adminDao = new AdminDao();
 
         switch (action){
             case "actualizar":
