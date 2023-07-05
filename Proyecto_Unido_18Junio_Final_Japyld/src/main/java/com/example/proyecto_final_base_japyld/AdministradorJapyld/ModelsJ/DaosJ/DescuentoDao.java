@@ -93,4 +93,24 @@ public class DescuentoDao extends BaseDao {
 
     }
 
+    // ACTUALIZA EL ESTADO DEL JUEGO CUANDO YA SE ACABO EL PAZO,
+
+    public void actualizarEstadoJuego(){
+
+        String sql = "UPDATE juegos SET estadoJuego = 'Activo'\n" +
+                "WHERE idJuegos IN (select idJuegos from(Select j.idJuegos\n" +
+                "from  descuentos d\n" +
+                "left join juegos j on  d.id_juego =j.idJuegos\n" +
+                "where timestampdiff(day,d.fecha_publicacion, current_date())=d.duracion) as t);";
+        try (Connection connection = this.getConnection();
+             PreparedStatement pstmt = connection.prepareStatement(sql)) {
+
+            pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
 }
