@@ -370,6 +370,41 @@ public class AdminDao extends BaseDao {
         }
         return nuevosOfertas;
     }
+    // Borrar juego
+    public void borrarjuego(int idJuegos) throws SQLException {
+        String sql = "DELETE * FROM juegos j left join categorias c on j.id_categoria = c.idCategorias;";
+        try (Connection conn = this.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql);) {
+            pstmt.setInt(1, idJuegos);
+            pstmt.executeUpdate();
+        }
+    }
+    public Juegos obetenerJuego(int idJuegos) {
+
+        Juegos juegos = null;
+
+        String sql = "SELECT * FROM juegos j \n" +
+                "left join categorias c on j.id_categoria = c.idCategorias\n" +
+                "where j.idJuegos = ?;";
+
+        try (Connection conn = this.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, idJuegos);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+
+                if (rs.next()) {
+                    juegos = new Juegos();
+                    fetchJuegosData(juegos, rs);
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return juegos;
+    }
 
 
 
