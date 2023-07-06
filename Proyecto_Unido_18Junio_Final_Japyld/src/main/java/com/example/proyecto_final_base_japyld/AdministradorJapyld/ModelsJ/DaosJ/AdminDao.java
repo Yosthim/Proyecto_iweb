@@ -248,7 +248,7 @@ public class AdminDao extends BaseDao {
     //Buscar Juego
     public ArrayList<Juegos> buscarJuegosPorNombre(String name) {
 
-        ArrayList<Juegos> ljuegos = new ArrayList<>();
+        ArrayList<Juegos> listaJuegos = new ArrayList<>();
 
         String sql = "SELECT *\n" +
                 "FROM juegos j\n" +
@@ -257,7 +257,7 @@ public class AdminDao extends BaseDao {
 
         try (Connection conn = this.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
+            name = '%'+ name +'%';
             pstmt.setString(1, name );
 
             try (ResultSet rs = pstmt.executeQuery()) {
@@ -266,13 +266,13 @@ public class AdminDao extends BaseDao {
                     Juegos juegos = new Juegos();
                     fetchJuegosData(juegos, rs);
 
-                    ljuegos.add(juegos);
+                    listaJuegos.add(juegos);
                 }
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
-        return ljuegos;
+        return listaJuegos;
     }
     private void fetchJuegosData(Juegos juegos, ResultSet rs) throws SQLException {
         juegos.setNombreJuegos(rs.getString(2));

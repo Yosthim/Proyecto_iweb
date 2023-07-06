@@ -112,11 +112,11 @@ public class AdminServlet extends HttpServlet {
             case "buscar":
 
                 String textoBuscar = request.getParameter("textoBuscar");
+
                 request.setAttribute("textoBusqueda", textoBuscar);
-                request.setAttribute("listaJuegos", adminDao.buscarJuegosPorNombre(textoBuscar));
+                    request.setAttribute("listaJuegos", adminDao.buscarJuegosPorNombre(textoBuscar));
                 RequestDispatcher view = request.getRequestDispatcher("AdministradorJapyld/adminVideojuegos.jsp");
                 view.forward(request, response);
-                break;
             case "borrar":
                 if (request.getParameter("id") != null) {
                     String idJuegosString = request.getParameter("id");
