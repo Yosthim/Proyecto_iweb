@@ -13,6 +13,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <!-- Agrega el enlace a Leaflet.css -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+
+    <!-- Agrega el enlace a Leaflet.js -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+    <!-- Agrega el enlace a Leaflet.Geocoder.js -->
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+
 
     <title>SB Admin 2 - Charts</title>
 
@@ -120,16 +131,16 @@
                         <div class="card shadow mb-4">
                             <div class="card-header py-3">
                                 <h6 class="m-0 font-weight-bold text-primary">Dirección de entrega</h6>
-
                             </div>
                             <div class="card-body">
-                                <div class="d-flex flex-column">
-                                    <input type="text" class="form-control" id="inputAddress" placeholder="Ingresa tu dirección">
-                                    <hr>
-                                    <img src="recursos/img/mapa.png" alt="Imagen" class="img-fluid">
+                                <div id="address-container">
+                                    <input type="text" id="address" placeholder="Dirección" class="form-control">
                                 </div>
+                                <hr>
+                                <div id="map" style="height: 400px;"></div>
                             </div>
                         </div>
+
                     </div>
 
                 </div>
@@ -175,6 +186,77 @@
         </div>
     </div>
 </div>
+
+<script>
+    var map = L.map('map').setView([-12.0691658, -77.0799348336087], 15);
+    var marker;
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoicGFibG8xMjN4IiwiYSI6ImNsanRuZ3N0OTB2dmYzZWtjODhneWQxaHgifQ.eu01nLDmz8SJzzYbUwJfKQ', {
+        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+        tileSize: 512,
+        zoomOffset: -1
+    }).addTo(map);
+
+
+    // Función para mostrar la ubicación en el mapa
+    function showLocationOnMap(address) {
+        // Elimina el marcador anterior, si existe
+        if (marker) {
+            marker.remove();
+        }
+
+        // Convierte la dirección a coordenadas
+        var geocodeService = L.Control.Geocoder.nominatim();
+        geocodeService.geocode(address, function(results) {
+            if (results.length > 0) {
+                var location = results[0].center;
+                var latlng = L.latLng(location.lat, location.lng);
+
+                // Crea un nuevo marcador en la ubicación
+                marker = L.marker(latlng).addTo(map);
+                map.setView(latlng, 20);
+            }
+        });
+    }
+
+    // Agrega un controlador de clic al mapa
+    map.on('click', function(event) {
+        var latlng = event.latlng;
+
+        // Convierte las coordenadas a una dirección
+        var geocodeService = L.Control.Geocoder.nominatim();
+        geocodeService.reverse(latlng, map.options.crs.scale(map.getZoom()), function(results) {
+            if (results.length > 0) {
+                var address = results[0].name;
+                var addressBox = document.getElementById('address');
+                addressBox.value = address;
+
+                // Muestra la ubicación de la dirección en el mapa
+                showLocationOnMap(address);
+            }
+        });
+    });
+
+    // Agrega un controlador de evento al cuadro de texto
+    var addressBox = document.getElementById('address');
+    addressBox.addEventListener('change', function() {
+        var address = addressBox.value;
+        if (address) {
+            showLocationOnMap(address);
+        } else {
+            // Si el cuadro de texto está vacío, borra el marcador
+            if (marker) {
+                marker.remove();
+                marker = null;
+            }
+        }
+    });
+</script>
+
+
+
+
+
 
 <!-- Bootstrap core JavaScript-->
 <script src="recursos/vendor/jquery/jquery.min.js"></script>
