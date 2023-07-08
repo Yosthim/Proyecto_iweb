@@ -19,6 +19,13 @@
 
     <!-- Custom styles for this template-->
     <link href="recursos/css/sb-admin-2.min.css" rel="stylesheet">
+    <style>
+        .bg-loginimagen {
+            background: url("https://unsplash.com/photos/ITFwHdPEED0/download?ixid=M3wxMjA3fDB8MXxzZWFyY2h8M3x8dmlkZW9qdWVnb3N8ZXN8MHx8fHwxNjg4NzQ5NjYyfDA&force=true&w=640");
+            background-position: center;
+            background-size: cover;
+        }
+    </style>
 
 </head>
 
@@ -35,7 +42,7 @@
                 <div class="card-body p-0">
                     <!-- Nested Row within Card Body -->
                     <div class="row">
-                        <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
+                        <div class="col-lg-6 d-none d-lg-block bg-loginimagen"></div>
                         <div class="col-lg-6">
                             <div class="p-5">
                                 <div class="text-center">
