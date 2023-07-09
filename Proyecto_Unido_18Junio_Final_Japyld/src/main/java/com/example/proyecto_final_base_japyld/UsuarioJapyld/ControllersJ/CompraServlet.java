@@ -17,8 +17,9 @@ public class CompraServlet extends HttpServlet {
         CompraDao comprajuego = new CompraDao();
 
         int idjuego = Integer.parseInt(request.getParameter("idjuego"));
+        String consola = request.getParameter("consola");
 
-        request.setAttribute("listaDetallesCompra", comprajuego.listarDetallesCompra(idjuego));
+        request.setAttribute("listaDetallesCompra", comprajuego.listarDetallesCompra(idjuego,consola));
         RequestDispatcher view = request.getRequestDispatcher("UsuarioJapyld/PaginaCompra.jsp");
         view.forward(request,response);
     }

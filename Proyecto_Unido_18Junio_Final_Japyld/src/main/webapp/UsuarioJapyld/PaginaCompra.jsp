@@ -1,7 +1,8 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.example.proyecto_final_base_japyld.UsuarioJapyld.ModelsJ.DtoJ.MasDetallesDto" %>
+<%@ page import="com.example.proyecto_final_base_japyld.UsuarioJapyld.ModelsJ.DtoJ.CompraDto" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<% ArrayList<MasDetallesDto> listaDetallesCompra = (ArrayList<MasDetallesDto>) request.getAttribute("listaDetallesCompra"); %>
+<% ArrayList<CompraDto> listaDetallesCompra = (ArrayList<CompraDto>) request.getAttribute("listaDetallesCompra"); %>
 <jsp:useBean id="personaSession" type="com.example.proyecto_final_base_japyld.BeansGenerales.Personas" scope="session" class="com.example.proyecto_final_base_japyld.BeansGenerales.Personas"/>
 
 <html>
@@ -73,7 +74,7 @@
 
 
                 <!-- Page Heading -->
-                <% for (MasDetallesDto juegocompra : listaDetallesCompra){ %>
+                <% for (CompraDto juegocompra : listaDetallesCompra){ %>
                 <h1 class="h3 mb-2 text-gray-800">Página de Compra</h1>
                 <!-- Content Row -->
                 <div class="row">
@@ -81,7 +82,7 @@
                         <!-- Donut Chart -->
                         <div class="card shadow mb-4 border-left-primary">
                             <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary"><%=juegocompra.getNombreJuegos()%></h6>
+                                <h6 class="m-0 font-weight-bold text-primary"><%=juegocompra.getNombreJuego()%></h6>
                             </div>
                             <div class="card-body text-center">
                                 <img src="<%=juegocompra.getDireccion_imagen()%>" class="img-fluid img_juego_grande" alt="Imagen">
@@ -115,14 +116,20 @@
                             <div class="card-body">
                                 <div class="d-flex flex-column">
                                     <div class="btn-group">
-                                        <button class="btn btn-info mb-2">Género: <%=juegocompra.getCategoria()%> </button>
+                                        <button class="btn btn-info mb-2">Categoría: <%=juegocompra.getNombreCategoria()%> </button>
                                     </div>
                                     <div class="btn-group">
-                                        <button class="btn btn-info mb-2">Consola: Playstation</button>
+                                        <button class="btn btn-info mb-2">Consola: <%=juegocompra.getIdConsola()%></button>
                                     </div>
+                                    <% if (juegocompra.getPrecio_nuevo() == 0) { %>
                                     <div class="btn-group">
                                         <button class="btn btn-info mb-2">Precio: S/.<%=juegocompra.getPrecio()%></button>
                                     </div>
+                                    <% } else { %>
+                                    <div class="btn-group">
+                                        <button class="btn btn-info mb-2">Precio: S/.<%=juegocompra.getPrecio_nuevo()%></button>
+                                    </div>
+                                    <% } %>
                                 </div>
                             </div>
                         </div>

@@ -1,9 +1,11 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.example.proyecto_final_base_japyld.UsuarioJapyld.ModelsJ.DtoJ.MasDetallesDto" %>
 <%@ page import="com.example.proyecto_final_base_japyld.BeansGenerales.Comentarios" %>
+<%@ page import="com.example.proyecto_final_base_japyld.UsuarioJapyld.ModelsJ.DtoJ.ConsolasDetallesDto" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <% ArrayList<Comentarios> listaComentarios = (ArrayList<Comentarios>) request.getAttribute("listaComentarios"); %>
 <% ArrayList<MasDetallesDto> listaMasDetallesJuego = (ArrayList<MasDetallesDto>) request.getAttribute("listaMasDetallesJuego"); %>
+<% ArrayList<ConsolasDetallesDto> listaConsolaPorJuego = (ArrayList<ConsolasDetallesDto>) request.getAttribute("listaConsolaPorJuego");%>
 <jsp:useBean id="personaSession" type="com.example.proyecto_final_base_japyld.BeansGenerales.Personas" scope="session" class="com.example.proyecto_final_base_japyld.BeansGenerales.Personas"/>
 
 <html>
@@ -93,29 +95,55 @@
                 <h6 class="m-0 font-weight-bold text-primary">Información del Juego</h6>
               </div>
               <div class="card-body">
-
                 <p class="text-justify"><%=juego.getDescripcion()%></p>
                 <div class="d-flex align-items-center mb-3">
                   <h6 class="mr-3">Consola:</h6>
                   <div class="row">
-                    <div class="col-sm-2">
-                      <img src="recursos/img/kisspng-playstation-2-logo-playstation-logo-5b2a2f6c44a1e2.0330864515294913082811.png" class="img-fluid" alt="PlayStation">
-                    </div>
-                    <div class="col-sm-2">
-                      <img src="recursos/img/kisspng-black-xbox-360-xbox-one-logo-xbox-5abe7f19c6db83.0322681315224338178145.png" class="img-fluid" alt="XBOX">
-                    </div>
-                    <div class="col-sm-2">
-                      <img src="recursos/img/nintendo_logo.png" class="img-fluid" alt="Nintendo">
-                    </div>
+                      <% for (ConsolasDetallesDto consola: listaConsolaPorJuego){%>
+                      <% if(consola.getConsola1() != null){ %>
+                      <div class="col">
+                        <button type="button" class="btn btn-primary" onclick="capturarConsola(this)">PS5</button>
+                      </div>
+                      <% } %>
+                      <% if(consola.getConsola2() != null){ %>
+                      <div class="col">
+                        <button type="button" class="btn btn-primary" onclick="capturarConsola(this)">PS4</button>
+                      </div>
+                      <% } %>
+                      <% if(consola.getConsola3() != null){ %>
+                      <div class="col">
+                        <button type="button" class="btn btn-primary" onclick="capturarConsola(this)">XB3</button>
+                      </div>
+                      <% } %>
+                      <% if(consola.getConsola4() != null){ %>
+                      <div class="col">
+                        <button type="button" class="btn btn-primary" onclick="capturarConsola(this)">XBO</button>
+                      </div>
+                      <% } %>
+                      <% if(consola.getConsola5() != null){ %>
+                      <div class="col">
+                        <button type="button" class="btn btn-primary" onclick="capturarConsola(this)">SWI</button>
+                      </div>
+                      <% } %>
+                      <% if(consola.getConsola6() != null){ %>
+                      <div class="col">
+                        <button type="button" class="btn btn-primary" onclick="capturarConsola(this)">WIU</button>
+                      </div>
+                      <% } %>
+                      <% } %>
                   </div>
                 </div>
                 <hr>
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                  <span>Stock: <%=juego.getStock()%></span>
-                  <div class="d-flex">
-                    <button class="btn">Precio: S/. <%=juego.getPrecio()%></button>
-                    <a class="btn btn-success ml-2" href="<%=request.getContextPath()%>/PaginaCompra?idjuego=<%=juego.getIdJuegos()%>">Comprar</a>
-
+                <div class="d-flex justify-content-between">
+                  <div>
+                    <% if (juego.getPrecio_nuevo() == 0) { %>
+                    <button class="btn">Precio: S/. <%= juego.getPrecio() %></button>
+                    <% } else { %>
+                    <button class="btn">Precio: S/. <%= juego.getPrecio_nuevo() %></button>
+                    <% } %>
+                  </div>
+                  <div>
+                    <a class="btn btn-success" href="<%= request.getContextPath() %>/PaginaCompra?idjuego=<%=juego.getIdJuegos()%>">Comprar</a>
                   </div>
                 </div>
               </div>
