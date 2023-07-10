@@ -98,11 +98,11 @@
                                 <div class="card-body text-center">
                                     <div class="form-group">
                                         <label class="font-weight-bold h4">Introduzca su número de Tarjeta</label>
-                                        <input type="text" class="form-control bg-gradient-light" name="NumeroTarjeta" placeholder="Ingrese el número de tarjeta">
+                                        <input type="text" class="form-control bg-gradient-light" name="NumeroTarjeta" placeholder="XXXX-XXXX-XXXX-XXXX">
                                     </div>
                                     <div class="form-group">
                                         <label class="font-weight-bold h4">CVV</label>
-                                        <input type="text" class="form-control bg-gradient-light" name="CVV" placeholder="Ingrese su CVV">
+                                        <input type="text" class="form-control bg-gradient-light" name="CVV" placeholder="XXX">
                                     </div>
                                     <!-- Ahora si pondremos los datos para mandar en el forms -->
                                     <input type="hidden" name="idUsuario" value="<%=personaSession.getIdPersona()%>">
@@ -111,6 +111,18 @@
                                     <input type="hidden" name="PrecioNuevo" value="<%=juegocompra.getPrecio_nuevo()%>">
                                     <input type="hidden" name="idJuego" value="<%=juegocompra.getIdJuego()%>">
                                     <button class ="btn btn-lg btn-success btn-block" type="submit">Comprar</button>
+                                    <%if(request.getParameter("error") == null) {%>
+                                    <%}else{%>
+                                    <% if (request.getParameter("error").equals("error1")) { %>
+                                    <div class = "text-danger justify-content-center"><span>La dirección de entrega de tu juego debe estar completada.</span></div>
+                                    <% } %>
+                                    <% if (request.getParameter("error").equals("error2")) { %>
+                                    <div class = "text-danger justify-content-center"><span>Tu número de tarjeta no es válido. Recuerda que debes seguir el formato y empezar con 4 o 5.</span></div>
+                                    <% } %>
+                                    <% if (request.getParameter("error").equals("error3")) { %>
+                                    <div class = "text-danger justify-content-center"><span>Tu CVV no es válido.</span></div>
+                                    <% } %>
+                                    <%}%>
                                 </div>
                             </div>
                         </div>

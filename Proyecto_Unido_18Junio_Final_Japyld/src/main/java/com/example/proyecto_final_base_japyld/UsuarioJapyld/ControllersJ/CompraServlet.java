@@ -38,28 +38,66 @@ public class CompraServlet extends HttpServlet {
 
         Juegos juego = new Juegos();
         JuegosXConsola juegoxconsola = new JuegosXConsola();
-
         CompraDao crearJuegoCompradoReservadoDao = new CompraDao();
-        JuegosCompradosReservados juegoCompradoReservado = parseJuegoCompradoReservado(request);
-        crearJuegoCompradoReservadoDao.guardarJuegoComprado(juegoCompradoReservado);
+
+        //1era validacion Direccion de entrega
+        String direccion = request.getParameter("Direccion");
+        int validacion1 = 0;
+        if (!direccion.equals("") && direccion.contains("Perú")) {
+            validacion1 = 1;
+        }
+
+        //2da validacion Numero de tarjetas
+        String numeroTarjeta = request.getParameter("NumeroTarjeta");
+        int validacion2 = 0;
+
+        String regex2 = "^[45]\\d{3}-\\d{4}-\\d{4}-\\d{4}$";
+        String digitRegex = "\\d+";
+        if (!numeroTarjeta.equals("") && numeroTarjeta.matches(regex2) && numeroTarjeta.replaceAll("-", "").matches(digitRegex)) {
+            validacion2 = 1;
+        }
+
+        //3ra validación CVV
+        String CVV = request.getParameter("CVV");
+        int validacion3 = 0;
+        String regex3 = "^\\d{3}$";
+        if (CVV != null && CVV.matches(regex3)) {
+            validacion3 = 1;
+        }
 
         String idJuegosActualizar = request.getParameter("idJuego");
         int idJuegosActualizado = Integer.parseInt(idJuegosActualizar);
-        //Primero se obtiene el juego al que le restaré su stock
-        juego = crearJuegoCompradoReservadoDao.obtenerJuego(idJuegosActualizado);
-        //Aqui se lo paso y lo actualizo
-        crearJuegoCompradoReservadoDao.actualizarStockJuegos(juego,idJuegosActualizado);
-
         String idConsolaActualizar = request.getParameter("idConsola");
-        //Primero obtengo la línea de juegos por consola
-        juegoxconsola = crearJuegoCompradoReservadoDao.obtenerJuegoXConsola(idConsolaActualizar,idJuegosActualizado);
-        //Aqui le paso esa linea y actualizo, falta pasarle juegosconsola
-        crearJuegoCompradoReservadoDao.actualizarStockJuegosConsola(juegoxconsola,idConsolaActualizar,idJuegosActualizado);
 
-        response.sendRedirect(request.getContextPath() + "/TusJuegos");
+        if((validacion1==1) && (validacion2==1) && (validacion3==1)){
+            JuegosCompradosReservados juegoCompradoReservado = parseJuegoCompradoReservado(request);
+            crearJuegoCompradoReservadoDao.guardarJuegoComprado(juegoCompradoReservado);
 
+            //Primero se obtiene el juego al que le restaré su stock
+            juego = crearJuegoCompradoReservadoDao.obtenerJuego(idJuegosActualizado);
+            //Aqui se lo paso y lo actualizo
+            crearJuegoCompradoReservadoDao.actualizarStockJuegos(juego,idJuegosActualizado);
+
+            //Primero obtengo la línea de juegos por consola
+            juegoxconsola = crearJuegoCompradoReservadoDao.obtenerJuegoXConsola(idConsolaActualizar,idJuegosActualizado);
+            //Aqui le paso esa linea y actualizo, falta pasarle juegosconsola
+            crearJuegoCompradoReservadoDao.actualizarStockJuegosConsola(juegoxconsola,idConsolaActualizar,idJuegosActualizado);
+
+            response.sendRedirect(request.getContextPath() + "/TusJuegos");
+        }else{
+            if(validacion1 != 1){
+                response.sendRedirect(request.getContextPath()+"/PaginaCompra?idjuego=" + idJuegosActualizar + "&consola=" + idConsolaActualizar +"&error=error1");
+            }else{
+                if(validacion2 != 1){
+                    response.sendRedirect(request.getContextPath()+"/PaginaCompra?idjuego="+ idJuegosActualizar + "&consola=" + idConsolaActualizar +"&error=error2");
+                }else{
+                    if(validacion3 != 1){
+                        response.sendRedirect(request.getContextPath()+ "/PaginaCompra?idjuego="+ idJuegosActualizar + "&consola=" + idConsolaActualizar +"&error=error3");
+                    }
+                }
+            }
+        }
     }
-
 
     public JuegosCompradosReservados parseJuegoCompradoReservado(HttpServletRequest request){
 
