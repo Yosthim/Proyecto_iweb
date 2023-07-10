@@ -143,7 +143,7 @@
                       Precio: S/. <%= juego.getPrecio() %>
                     </div>
                     <% } else { %>
-                    <div class="btn-success disabled" style="padding: 0.375rem 0.75rem; border: 1px solid transparent; border-radius: 0.25rem; background-image:#1cc88a">
+                    <div class="btn-success disabled" style="padding: 0.375rem 0.75rem; border: 1px solid transparent; border-radius: 0.25rem; background-image:#1cc88a ">
                       Precio: S/. <%= juego.getPrecio_nuevo() %>
                     </div>
                     <% } %>
