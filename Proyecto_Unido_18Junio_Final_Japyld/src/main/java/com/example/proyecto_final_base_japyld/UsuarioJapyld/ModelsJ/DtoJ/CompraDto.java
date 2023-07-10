@@ -1,6 +1,8 @@
 package com.example.proyecto_final_base_japyld.UsuarioJapyld.ModelsJ.DtoJ;
 
 public class CompraDto {
+
+    private int IdJuego;
     private String nombreJuego;
 
     private String direccion_imagen;
@@ -69,5 +71,13 @@ public class CompraDto {
 
     public void setPrecio_nuevo(int precio_nuevo) {
         this.precio_nuevo = precio_nuevo;
+    }
+
+    public int getIdJuego() {
+        return IdJuego;
+    }
+
+    public void setIdJuego(int idJuego) {
+        IdJuego = idJuego;
     }
 }

@@ -96,58 +96,90 @@
               </div>
               <div class="card-body">
                 <p class="text-justify"><%=juego.getDescripcion()%></p>
+                <hr>
+                <p class="text-justify">Si deseas comprar este juego, debes elegir la consola en la que lo desees.</p>
                 <div class="d-flex align-items-center mb-3">
                   <h6 class="mr-3">Consola:</h6>
                   <div class="row">
-                      <% for (ConsolasDetallesDto consola: listaConsolaPorJuego){%>
-                      <% if(consola.getConsola1() != null){ %>
-                      <div class="col">
-                        <button type="button" class="btn btn-primary" onclick="capturarConsola(this)">PS5</button>
-                      </div>
-                      <% } %>
-                      <% if(consola.getConsola2() != null){ %>
-                      <div class="col">
-                        <button type="button" class="btn btn-primary" onclick="capturarConsola(this)">PS4</button>
-                      </div>
-                      <% } %>
-                      <% if(consola.getConsola3() != null){ %>
-                      <div class="col">
-                        <button type="button" class="btn btn-primary" onclick="capturarConsola(this)">XB3</button>
-                      </div>
-                      <% } %>
-                      <% if(consola.getConsola4() != null){ %>
-                      <div class="col">
-                        <button type="button" class="btn btn-primary" onclick="capturarConsola(this)">XBO</button>
-                      </div>
-                      <% } %>
-                      <% if(consola.getConsola5() != null){ %>
-                      <div class="col">
-                        <button type="button" class="btn btn-primary" onclick="capturarConsola(this)">SWI</button>
-                      </div>
-                      <% } %>
-                      <% if(consola.getConsola6() != null){ %>
-                      <div class="col">
-                        <button type="button" class="btn btn-primary" onclick="capturarConsola(this)">WIU</button>
-                      </div>
-                      <% } %>
-                      <% } %>
+                    <% for (ConsolasDetallesDto consola: listaConsolaPorJuego){%>
+                    <% if(consola.getConsola1() != null){ %>
+                    <div class="col">
+                      <button type="button" class="btn btn-primary" onclick="mostrarBoton('PS5')">PS5</button>
+                    </div>
+                    <% } %>
+                    <% if(consola.getConsola2() != null){ %>
+                    <div class="col">
+                      <button type="button" class="btn btn-primary" onclick="mostrarBoton('PS4')">PS4</button>
+                    </div>
+                    <% } %>
+                    <% if(consola.getConsola3() != null){ %>
+                    <div class="col">
+                      <button type="button" class="btn btn-primary" onclick="mostrarBoton('XB3')">XB3</button>
+                    </div>
+                    <% } %>
+                    <% if(consola.getConsola4() != null){ %>
+                    <div class="col">
+                      <button type="button" class="btn btn-primary" onclick="mostrarBoton('XBO')">XBO</button>
+                    </div>
+                    <% } %>
+                    <% if(consola.getConsola5() != null){ %>
+                    <div class="col">
+                      <button type="button" class="btn btn-primary" onclick="mostrarBoton('SWI')">SWI</button>
+                    </div>
+                    <% } %>
+                    <% if(consola.getConsola6() != null){ %>
+                    <div class="col">
+                      <button type="button" class="btn btn-primary" onclick="mostrarBoton('WIU')">WIU</button>
+                    </div>
+                    <% } %>
+                    <% } %>
                   </div>
                 </div>
                 <hr>
                 <div class="d-flex justify-content-between">
                   <div>
                     <% if (juego.getPrecio_nuevo() == 0) { %>
-                    <button class="btn">Precio: S/. <%= juego.getPrecio() %></button>
+                    <div class="btn-success disabled" style="padding: 0.375rem 0.75rem; border: 1px solid transparent; border-radius: 0.25rem; background:#1cc88a ">
+                      Precio: S/. <%= juego.getPrecio() %>
+                    </div>
                     <% } else { %>
-                    <button class="btn">Precio: S/. <%= juego.getPrecio_nuevo() %></button>
+                    <div class="btn-success disabled" style="padding: 0.375rem 0.75rem; border: 1px solid transparent; border-radius: 0.25rem; background-image:#1cc88a">
+                      Precio: S/. <%= juego.getPrecio_nuevo() %>
+                    </div>
                     <% } %>
                   </div>
-                  <div>
-                    <a class="btn btn-success" href="<%= request.getContextPath() %>/PaginaCompra?idjuego=<%=juego.getIdJuegos()%>">Comprar</a>
+
+                  <div id="comprarButton">
                   </div>
                 </div>
               </div>
             </div>
+
+            <script>
+              function mostrarBoton(consola) {
+                var comprarButton = document.getElementById('comprarButton');
+                comprarButton.innerHTML = '<a href="' + obtenerURLConsola(consola) + '" class="btn btn-success">Comprar</a>';
+              }
+
+              function obtenerURLConsola(consola) {
+                switch (consola) {
+                  case 'PS5':
+                    return '<%=request.getContextPath()%>/PaginaCompra?idjuego=<%=juego.getIdJuegos()%>&consola=PS5';
+                  case 'PS4':
+                    return '<%=request.getContextPath()%>/PaginaCompra?idjuego=<%=juego.getIdJuegos()%>&consola=PS4';
+                  case 'XB3':
+                    return '<%=request.getContextPath()%>/PaginaCompra?idjuego=<%=juego.getIdJuegos()%>&consola=XB3';
+                  case 'XBO':
+                    return '<%=request.getContextPath()%>/PaginaCompra?idjuego=<%=juego.getIdJuegos()%>&consola=XBO';
+                  case 'SWI':
+                    return '<%=request.getContextPath()%>/PaginaCompra?idjuego=<%=juego.getIdJuegos()%>&consola=SWI';
+                  case 'WIU':
+                    return '<%=request.getContextPath()%>/PaginaCompra?idjuego=<%=juego.getIdJuegos()%>&consola=WIU';
+                  default:
+                    return '#'; // En caso de que no haya URL definida para la consola seleccionada
+                }
+              }
+            </script>
             <% if (!listaComentarios.isEmpty()) { %>
             <div class="card shadow mb-4">
               <div class="card-header py-3">

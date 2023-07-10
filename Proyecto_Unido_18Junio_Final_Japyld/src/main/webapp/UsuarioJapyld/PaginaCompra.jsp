@@ -69,88 +69,109 @@
             </jsp:include>
             <!-- End of Topbar -->
 
+
             <!-- Begin Page Content -->
             <div class="container-fluid">
-
-
-                <!-- Page Heading -->
-                <% for (CompraDto juegocompra : listaDetallesCompra){ %>
-                <h1 class="h3 mb-2 text-gray-800">Página de Compra</h1>
-                <!-- Content Row -->
-                <div class="row">
-                    <div class="col-xl-4 col-lg-4">
-                        <!-- Donut Chart -->
-                        <div class="card shadow mb-4 border-left-primary">
-                            <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary"><%=juegocompra.getNombreJuego()%></h6>
+                <!-- Inicio Form Compra Juego -->
+                <form method="POST" action="<%=request.getContextPath()%>/PaginaCompra">
+                    <!-- Page Heading -->
+                    <% for (CompraDto juegocompra : listaDetallesCompra){ %>
+                    <h1 class="h3 mb-2 text-gray-800">Página de Compra</h1>
+                    <!-- Content Row -->
+                    <div class="row">
+                        <div class="col-xl-4 col-lg-4">
+                            <!-- Donut Chart -->
+                            <div class="card shadow mb-4 border-left-primary">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary"><%=juegocompra.getNombreJuego()%></h6>
+                                </div>
+                                <div class="card-body text-center">
+                                    <img src="<%=juegocompra.getDireccion_imagen()%>" class="img-fluid img_juego_grande" alt="Imagen">
+                                    <div class="mt-3">
+                                    </div>
+                                </div>
                             </div>
-                            <div class="card-body text-center">
-                                <img src="<%=juegocompra.getDireccion_imagen()%>" class="img-fluid img_juego_grande" alt="Imagen">
-                                <div class="mt-3">
+                            <div class="card shadow mb-4 border-left-primary">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Datos de pago:</h6>
+                                </div>
+                                <div class="card-body text-center">
+                                    <div class="form-group">
+                                        <label class="font-weight-bold h4">Introduzca su número de Tarjeta</label>
+                                        <input type="text" class="form-control bg-gradient-light" name="NumeroTarjeta" placeholder="Ingrese el número de tarjeta">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="font-weight-bold h4">CVV</label>
+                                        <input type="text" class="form-control bg-gradient-light" name="CVV" placeholder="Ingrese su CVV">
+                                    </div>
+                                    <!-- Ahora si pondremos los datos para mandar en el forms -->
+                                    <input type="hidden" name="idUsuario" value="<%=personaSession.getIdPersona()%>">
+                                    <input type="hidden" name="idConsola" value="<%=juegocompra.getIdConsola()%>">
+                                    <input type="hidden" name="Precio" value="<%=juegocompra.getPrecio()%>">
+                                    <input type="hidden" name="PrecioNuevo" value="<%=juegocompra.getPrecio_nuevo()%>">
+                                    <input type="hidden" name="idJuego" value="<%=juegocompra.getIdJuego()%>">
+                                    <button class ="btn btn-lg btn-success btn-block" type="submit">Comprar</button>
                                 </div>
                             </div>
                         </div>
-                        <div class="card shadow mb-4 border-left-primary">
-                            <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary">Datos de pago:</h6>
-                            </div>
-                            <div class="card-body text-center">
-                                <div class="form-group">
-                                    <label for="inputCardNumber" class="font-weight-bold h4">Introduzca su número de Tarjeta</label>
-                                    <input type="text" class="form-control bg-gradient-light" id="inputCardNumber" placeholder="Ingrese el número de tarjeta">
+                        <div class="col-xl-8 col-lg-8">
+                            <!-- Primer cuadro -->
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Resumen del Juego</h6>
                                 </div>
-                                <div class="form-group">
-                                    <label for="inputCVV" class="font-weight-bold h4">CVV</label>
-                                    <input type="text" class="form-control bg-gradient-light" id="inputCVV" placeholder="Ingrese el CVV">
+                                <div class="card-body">
+                                    <div class="d-flex flex-column">
+                                        <div class="btn-info mb-2 disabled text-center" style="padding: 0.375rem 0.75rem; border: 1px solid transparent; border-radius: 0.25rem; background-color: #36b9cc;">
+                                            Categoría:
+                                        </div>
+                                        <div class="btn-light mb-2 disabled text-center" style="padding: 0.375rem 0.75rem; border: 1px solid transparent; border-radius: 0.25rem; background-color: #f8f9fc;">
+                                            <%=juegocompra.getNombreCategoria()%>
+                                        </div>
+                                        <div class="btn-info mb-2 disabled text-center" style="padding: 0.375rem 0.75rem; border: 1px solid transparent; border-radius: 0.25rem; background-color: #36b9cc;">
+                                            Consola:
+                                        </div>
+                                        <div class="btn-light mb-2 disabled text-center" style="padding: 0.375rem 0.75rem; border: 1px solid transparent; border-radius: 0.25rem; background-color: #f8f9fc;">
+                                            <%=juegocompra.getIdConsola()%>
+                                        </div>
+                                        <% if (juegocompra.getPrecio_nuevo() == 0) { %>
+                                        <div class="btn-info mb-2 disabled text-center" style="padding: 0.375rem 0.75rem; border: 1px solid transparent; border-radius: 0.25rem; background-color: #36b9cc;">
+                                            Precio:
+                                        </div>
+                                        <div class="btn-light mb-2 disabled text-center" style="padding: 0.375rem 0.75rem; border: 1px solid transparent; border-radius: 0.25rem; background-color: #f8f9fc;">
+                                            S/.<%=juegocompra.getPrecio()%>
+                                        </div>
+                                        <% } else { %>
+                                        <div class="btn-info mb-2 disabled text-center" style="padding: 0.375rem 0.75rem; border: 1px solid transparent; border-radius: 0.25rem; background-color: #36b9cc;">
+                                            Precio:
+                                        </div>
+                                        <div class="btn-light mb-2 disabled text-center" style="padding: 0.375rem 0.75rem; border: 1px solid transparent; border-radius: 0.25rem; background-color: #f8f9fc;">
+                                            S/.<%=juegocompra.getPrecio_nuevo()%>
+                                        </div>
+                                        <% } %>
+                                    </div>
                                 </div>
-                                <a class="btn btn-success btn-block" href="pagina_juegos_reservados_japyld_new.html">Comprar</a>
                             </div>
+                            <% } %>
+                            <!-- Segundo cuadro -->
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Dirección de entrega</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div id="address-container">
+                                        <input type="text" id="address" name="Direccion" placeholder="Dirección" class="form-control">
+                                    </div>
+                                    <hr>
+                                    <div id="map" style="height: 400px;"></div>
+                                </div>
+                            </div>
+
                         </div>
+
                     </div>
-                    <div class="col-xl-8 col-lg-8">
-                        <!-- Primer cuadro -->
-                        <div class="card shadow mb-4">
-                            <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary">Resumen del Juego</h6>
-                            </div>
-                            <div class="card-body">
-                                <div class="d-flex flex-column">
-                                    <div class="btn-group">
-                                        <button class="btn btn-info mb-2">Categoría: <%=juegocompra.getNombreCategoria()%> </button>
-                                    </div>
-                                    <div class="btn-group">
-                                        <button class="btn btn-info mb-2">Consola: <%=juegocompra.getIdConsola()%></button>
-                                    </div>
-                                    <% if (juegocompra.getPrecio_nuevo() == 0) { %>
-                                    <div class="btn-group">
-                                        <button class="btn btn-info mb-2">Precio: S/.<%=juegocompra.getPrecio()%></button>
-                                    </div>
-                                    <% } else { %>
-                                    <div class="btn-group">
-                                        <button class="btn btn-info mb-2">Precio: S/.<%=juegocompra.getPrecio_nuevo()%></button>
-                                    </div>
-                                    <% } %>
-                                </div>
-                            </div>
-                        </div>
-                        <% } %>
-                        <!-- Segundo cuadro -->
-                        <div class="card shadow mb-4">
-                            <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary">Dirección de entrega</h6>
-                            </div>
-                            <div class="card-body">
-                                <div id="address-container">
-                                    <input type="text" id="address" placeholder="Dirección" class="form-control">
-                                </div>
-                                <hr>
-                                <div id="map" style="height: 400px;"></div>
-                            </div>
-                        </div>
-
-                    </div>
-
-                </div>
+                </form>
+                <!-- Form para comprar juego -->
             </div>
 
         </div>
