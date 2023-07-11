@@ -75,7 +75,6 @@
                                     </a>
                                     <hr>
                                 </form>
-                                <hr>
                                 <div class="text-center">
 
                                 </div>

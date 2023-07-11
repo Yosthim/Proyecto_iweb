@@ -31,8 +31,25 @@ public class RegisterServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("SistemaJapyld/Register.jsp");
-        requestDispatcher.forward(request,response);
+        Personas p = (Personas) request.getSession().getAttribute("personaSession");
+
+        if(p != null && p.getIdPersona() != 0){
+            if(p.getRol().getIdRoles().equals("USR")){
+                response.sendRedirect(request.getContextPath()+"/PaginaPrincipal");
+            }else{
+                if(p.getRol().getIdRoles().equals("ADM")){
+                    response.sendRedirect(request.getContextPath()+"/AdminServlet");
+                }else{
+                    if(p.getRol().getIdRoles().equals("MNG")){
+                        response.sendRedirect(request.getContextPath()+"/ManagerServlet");
+                    }
+                }
+            }
+        }else{
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("SistemaJapyld/Register.jsp");
+            requestDispatcher.forward(request,response);
+        }
+
 
     }
     @Override

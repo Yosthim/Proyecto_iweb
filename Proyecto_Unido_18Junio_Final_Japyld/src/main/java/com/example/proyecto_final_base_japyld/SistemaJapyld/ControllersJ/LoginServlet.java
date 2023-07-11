@@ -27,9 +27,27 @@ public class LoginServlet extends HttpServlet {
         RequestDispatcher view;
         switch(action){
             case "loginform":
-                view = request.getRequestDispatcher("SistemaJapyld/Login.jsp");
-                view.forward(request,response);
+
+                Personas p = (Personas) request.getSession().getAttribute("personaSession");
+
+                if(p != null && p.getIdPersona() != 0){
+                    if(p.getRol().getIdRoles().equals("USR")){
+                        response.sendRedirect(request.getContextPath()+"/PaginaPrincipal");
+                    }else{
+                        if(p.getRol().getIdRoles().equals("ADM")){
+                            response.sendRedirect(request.getContextPath()+"/AdminServlet");
+                        }else{
+                            if(p.getRol().getIdRoles().equals("MNG")){
+                                response.sendRedirect(request.getContextPath()+"/ManagerServlet");
+                            }
+                        }
+                    }
+                }else{
+                    view = request.getRequestDispatcher("SistemaJapyld/Login.jsp");
+                    view.forward(request,response);
+                }
                 break;
+
             case "logout":
                 HttpSession session = request.getSession();
                 session.invalidate();
