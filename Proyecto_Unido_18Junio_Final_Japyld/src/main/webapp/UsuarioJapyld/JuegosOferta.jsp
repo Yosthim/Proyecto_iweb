@@ -98,7 +98,7 @@
                                         <img src="<%=juegos.getDireccion_imagen()%>" class="img-fluid img_juego" alt="Imagen">
                                         <div class="mt-3">
                                             <p class="mt-2">Precio: S/. <%=juegos.getPrecio()%></p>
-                                            <a class="btn btn-success" href="<%=request.getContextPath()%>/MasDetallesJuego?idjuego=<%=juegos.getNombreJuegos()%>">Más Detalles</a>
+                                            <a class="btn btn-success" href="<%=request.getContextPath()%>/MasDetallesJuego?idjuego=<%=juegos.getIdJuegos()%>">Más Detalles</a>
                                         </div>
                                     </div>
                                 </div>

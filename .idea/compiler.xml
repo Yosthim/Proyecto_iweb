@@ -9,8 +9,5 @@
         <module name="proyecto_base_japyld" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="proyecto_base_japyld" target="11" />
-    </bytecodeTargetLevel>
   </component>
 </project>

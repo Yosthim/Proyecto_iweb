@@ -18,6 +18,7 @@ public class MasDetallesDto {
 
     private String rating;
 
+    private int precio_nuevo;
     public String getNombreJuegos() {
         return nombreJuegos;
     }
@@ -90,4 +91,11 @@ public class MasDetallesDto {
         this.idJuegos = idJuegos;
     }
 
+    public int getPrecio_nuevo() {
+        return precio_nuevo;
+    }
+
+    public void setPrecio_nuevo(int precio_nuevo) {
+        this.precio_nuevo = precio_nuevo;
+    }
 }

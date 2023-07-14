@@ -1,6 +1,7 @@
 package com.example.proyecto_final_base_japyld.AdministradorJapyld.ModelsJ.DaosJ;
 
 import com.example.proyecto_final_base_japyld.AdministradorJapyld.ModelsJ.DtoJ.JuegosPopulares;
+import com.example.proyecto_final_base_japyld.AdministradorJapyld.ModelsJ.DtoJ.JuegosxCategoria;
 import com.example.proyecto_final_base_japyld.BaseDao;
 import com.example.proyecto_final_base_japyld.BeansGenerales.*;
 
@@ -162,6 +163,55 @@ public class AdminDao extends BaseDao {
         return popCategoria;
     }
 
+    // Lista de categorias
+
+    public ArrayList<Categoria> listaCategoria(){
+
+        ArrayList<Categoria> lista = new ArrayList<>();
+
+        String sql = "SELECT * FROM categorias;";
+
+        try(Connection connection = this.getConnection();
+            Statement stmt = connection.createStatement();
+            ResultSet resultSet = stmt.executeQuery(sql)){
+
+            while (resultSet.next()){
+                Categoria categoria = new Categoria();
+                categoria.setIdCategorias(resultSet.getString(1));
+                categoria.setNombre(resultSet.getString(2));
+                lista.add(categoria);
+            }
+
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return lista;
+    }
+
+    // Agregar categoria
+
+    public void agregarCategoria(Categoria categoria){
+
+        String sql = "INSERT INTO categorias (idCategorias,nombre)\n" +
+                "                VALUES (?,?);\n";
+
+        try(Connection connection = this.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql)){
+
+            String palabra = categoria.getNombre();
+            String tresPrimerasLetras = palabra.substring(0, 3);
+            String tresPrimerasMayusculas = tresPrimerasLetras.toUpperCase();
+            preparedStatement.setString(1,tresPrimerasMayusculas);
+            preparedStatement.setString(2,categoria.getNombre());
+            preparedStatement.executeUpdate();
+
+
+        }catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+
+    }
+
     public ArrayList<Juegos> quintaTabla(){
 
         ArrayList<Juegos> juegos= new ArrayList<>();
@@ -198,7 +248,7 @@ public class AdminDao extends BaseDao {
     //Buscar Juego
     public ArrayList<Juegos> buscarJuegosPorNombre(String name) {
 
-        ArrayList<Juegos> ljuegos = new ArrayList<>();
+        ArrayList<Juegos> listaJuegos = new ArrayList<>();
 
         String sql = "SELECT *\n" +
                 "FROM juegos j\n" +
@@ -207,7 +257,7 @@ public class AdminDao extends BaseDao {
 
         try (Connection conn = this.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
+            name = '%'+ name +'%';
             pstmt.setString(1, name );
 
             try (ResultSet rs = pstmt.executeQuery()) {
@@ -216,13 +266,13 @@ public class AdminDao extends BaseDao {
                     Juegos juegos = new Juegos();
                     fetchJuegosData(juegos, rs);
 
-                    ljuegos.add(juegos);
+                    listaJuegos.add(juegos);
                 }
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
-        return ljuegos;
+        return listaJuegos;
     }
     private void fetchJuegosData(Juegos juegos, ResultSet rs) throws SQLException {
         juegos.setNombreJuegos(rs.getString(2));

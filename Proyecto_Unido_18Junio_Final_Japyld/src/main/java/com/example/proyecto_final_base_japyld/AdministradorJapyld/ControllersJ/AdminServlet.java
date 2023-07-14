@@ -3,10 +3,8 @@ package com.example.proyecto_final_base_japyld.AdministradorJapyld.ControllersJ;
 import com.example.proyecto_final_base_japyld.AdministradorJapyld.ModelsJ.DaosJ.AdminDao;
 import com.example.proyecto_final_base_japyld.AdministradorJapyld.ModelsJ.DaosJ.CategoriaDao;
 import com.example.proyecto_final_base_japyld.AdministradorJapyld.ModelsJ.DaosJ.CrudDao;
-import com.example.proyecto_final_base_japyld.BeansGenerales.Categoria;
-import com.example.proyecto_final_base_japyld.BeansGenerales.Imagen;
-import com.example.proyecto_final_base_japyld.BeansGenerales.Juegos;
-import com.example.proyecto_final_base_japyld.BeansGenerales.Personas;
+import com.example.proyecto_final_base_japyld.AdministradorJapyld.ModelsJ.DtoJ.BarrasAdminDao;
+import com.example.proyecto_final_base_japyld.BeansGenerales.*;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -17,6 +15,10 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @WebServlet(name = "AdminServlet", value = "/AdminServlet")
 public class AdminServlet extends HttpServlet {
@@ -29,7 +31,6 @@ public class AdminServlet extends HttpServlet {
         AdminDao adminDao = new AdminDao();
         CrudDao crudDao = new CrudDao();
         CategoriaDao categoriaDao = new CategoriaDao();
-        ConsolaDao consolaDao = new ConsolaDao();
         BarrasAdminDao barrasAdminDao = new BarrasAdminDao();
 
         HttpSession session = request.getSession();
@@ -96,10 +97,11 @@ public class AdminServlet extends HttpServlet {
 
         CrudDao crudDao = new CrudDao();
 
-        Juegos juegos = setJuegos(request);
+        AdminDao adminDao = new AdminDao();
 
         switch (action){
             case "actualizar":
+                Juegos juegos = setJuegos(request);
                 juegos.setIdJuegos(Integer.parseInt(request.getParameter("id_juego")));
 
                 crudDao.editarJuego(juegos);
@@ -110,11 +112,11 @@ public class AdminServlet extends HttpServlet {
             case "buscar":
 
                 String textoBuscar = request.getParameter("textoBuscar");
+
                 request.setAttribute("textoBusqueda", textoBuscar);
-                request.setAttribute("listaJuegos", adminDao.buscarJuegosPorNombre(textoBuscar));
+                    request.setAttribute("listaJuegos", adminDao.buscarJuegosPorNombre(textoBuscar));
                 RequestDispatcher view = request.getRequestDispatcher("AdministradorJapyld/adminVideojuegos.jsp");
                 view.forward(request, response);
-                break;
             case "borrar":
                 if (request.getParameter("id") != null) {
                     String idJuegosString = request.getParameter("id");
@@ -139,6 +141,35 @@ public class AdminServlet extends HttpServlet {
                     response.sendRedirect("AdminServlet?err=Error al borrar el empleado");
                 }
                 break;
+
+            case"agregarCategoria":
+
+                if(validar_texto(request.getParameter("nombre").trim()) == true){
+
+                    Categoria categoria = new Categoria();
+
+                    String oracion = request.getParameter("nombre").trim();
+                    String primeraLetraMayuscula = oracion.substring(0, 1).toUpperCase();
+                    String restoOracionMinuscula = oracion.substring(1).toLowerCase();
+                    String oracionFinal = primeraLetraMayuscula + restoOracionMinuscula;
+                    categoria.setNombre(oracionFinal);
+                    if (validar(oracionFinal, adminDao.listaCategoria()) == true){
+                        adminDao.agregarCategoria(categoria);
+                        request.getSession().setAttribute("info","Categoria agregada exitosamente");
+                        response.sendRedirect("AdminServlet?action=listasPaginaVideojuegos");
+                    }else {
+                        request.getSession().setAttribute("err","Categoria ya existe");
+                        response.sendRedirect("AdminServlet?action=listasPaginaVideojuegos");
+                    }
+
+                }else {
+                    request.getSession().setAttribute("err","Categoria no agregada, verifique que se ingrese solo letras");
+                    response.sendRedirect("AdminServlet?action=listasPaginaVideojuegos");
+                }
+                break;
+
+            default:
+                response.sendRedirect("AdminServlet");
         }
 
     }
@@ -161,4 +192,32 @@ public class AdminServlet extends HttpServlet {
 
         return juegos;
     }
+
+    public  boolean validar_texto(String input) {
+        String regex = "^[a-zA-Z\\s]+$";
+
+        Pattern pattern = Pattern.compile(regex);
+
+        Matcher matcher = pattern.matcher(input);
+
+        return matcher.matches();
+    }
+
+    public Boolean validar(String nombre, ArrayList<Categoria> lista){
+
+        int r=0;
+        for(int i =0 ; i< lista.size() ; i++){
+
+            if(nombre.equals(lista.get(i).getNombre())){
+                r++;
+            }
+        }
+
+        if (r>0){
+            return false;
+        }
+
+        return true;
+    }
+
 }

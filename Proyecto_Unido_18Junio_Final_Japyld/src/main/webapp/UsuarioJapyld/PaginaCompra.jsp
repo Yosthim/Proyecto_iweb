@@ -1,7 +1,8 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.example.proyecto_final_base_japyld.UsuarioJapyld.ModelsJ.DtoJ.MasDetallesDto" %>
+<%@ page import="com.example.proyecto_final_base_japyld.UsuarioJapyld.ModelsJ.DtoJ.CompraDto" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<% ArrayList<MasDetallesDto> listaDetallesCompra = (ArrayList<MasDetallesDto>) request.getAttribute("listaDetallesCompra"); %>
+<% ArrayList<CompraDto> listaDetallesCompra = (ArrayList<CompraDto>) request.getAttribute("listaDetallesCompra"); %>
 <jsp:useBean id="personaSession" type="com.example.proyecto_final_base_japyld.BeansGenerales.Personas" scope="session" class="com.example.proyecto_final_base_japyld.BeansGenerales.Personas"/>
 
 <html>
@@ -13,6 +14,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <!-- Agrega el enlace a Leaflet.css -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+
+    <!-- Agrega el enlace a Leaflet.js -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+    <!-- Agrega el enlace a Leaflet.Geocoder.js -->
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+
 
     <title>SB Admin 2 - Charts</title>
 
@@ -57,82 +69,121 @@
             </jsp:include>
             <!-- End of Topbar -->
 
+
             <!-- Begin Page Content -->
             <div class="container-fluid">
-
-
-                <!-- Page Heading -->
-                <% for (MasDetallesDto juegocompra : listaDetallesCompra){ %>
-                <h1 class="h3 mb-2 text-gray-800">Página de Compra</h1>
-                <!-- Content Row -->
-                <div class="row">
-                    <div class="col-xl-4 col-lg-4">
-                        <!-- Donut Chart -->
-                        <div class="card shadow mb-4 border-left-primary">
-                            <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary"><%=juegocompra.getNombreJuegos()%></h6>
-                            </div>
-                            <div class="card-body text-center">
-                                <img src="<%=juegocompra.getDireccion_imagen()%>" class="img-fluid img_juego_grande" alt="Imagen">
-                                <div class="mt-3">
+                <!-- Inicio Form Compra Juego -->
+                <form method="POST" action="<%=request.getContextPath()%>/PaginaCompra">
+                    <!-- Page Heading -->
+                    <% for (CompraDto juegocompra : listaDetallesCompra){ %>
+                    <h1 class="h3 mb-2 text-gray-800">Página de Compra</h1>
+                    <!-- Content Row -->
+                    <div class="row">
+                        <div class="col-xl-4 col-lg-4">
+                            <!-- Donut Chart -->
+                            <div class="card shadow mb-4 border-left-primary">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary"><%=juegocompra.getNombreJuego()%></h6>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="card shadow mb-4 border-left-primary">
-                            <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary">Datos de pago:</h6>
-                            </div>
-                            <div class="card-body text-center">
-                                <div class="form-group">
-                                    <label for="inputCardNumber" class="font-weight-bold h4">Introduzca su número de Tarjeta</label>
-                                    <input type="text" class="form-control bg-gradient-light" id="inputCardNumber" placeholder="Ingrese el número de tarjeta">
-                                </div>
-                                <div class="form-group">
-                                    <label for="inputCVV" class="font-weight-bold h4">CVV</label>
-                                    <input type="text" class="form-control bg-gradient-light" id="inputCVV" placeholder="Ingrese el CVV">
-                                </div>
-                                <a class="btn btn-success btn-block" href="pagina_juegos_reservados_japyld_new.html">Comprar</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-8 col-lg-8">
-                        <!-- Primer cuadro -->
-                        <div class="card shadow mb-4">
-                            <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary">Resumen del Juego</h6>
-                            </div>
-                            <div class="card-body">
-                                <div class="d-flex flex-column">
-                                    <div class="btn-group">
-                                        <button class="btn btn-info mb-2">Género: <%=juegocompra.getCategoria()%> </button>
-                                    </div>
-                                    <div class="btn-group">
-                                        <button class="btn btn-info mb-2">Consola: Playstation</button>
-                                    </div>
-                                    <div class="btn-group">
-                                        <button class="btn btn-info mb-2">Precio: S/.<%=juegocompra.getPrecio()%></button>
+                                <div class="card-body text-center">
+                                    <img src="<%=juegocompra.getDireccion_imagen()%>" class="img-fluid img_juego_grande" alt="Imagen">
+                                    <div class="mt-3">
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <% } %>
-                        <!-- Segundo cuadro -->
-                        <div class="card shadow mb-4">
-                            <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary">Dirección de entrega</h6>
-
+                            <div class="card shadow mb-4 border-left-primary">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Datos de pago:</h6>
+                                </div>
+                                <div class="card-body text-center">
+                                    <div class="form-group">
+                                        <label class="font-weight-bold h4">Introduzca su número de Tarjeta</label>
+                                        <input type="text" class="form-control bg-gradient-light" name="NumeroTarjeta" placeholder="XXXX-XXXX-XXXX-XXXX">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="font-weight-bold h4">CVV</label>
+                                        <input type="text" class="form-control bg-gradient-light" name="CVV" placeholder="XXX">
+                                    </div>
+                                    <!-- Ahora si pondremos los datos para mandar en el forms -->
+                                    <input type="hidden" name="idUsuario" value="<%=personaSession.getIdPersona()%>">
+                                    <input type="hidden" name="idConsola" value="<%=juegocompra.getIdConsola()%>">
+                                    <input type="hidden" name="Precio" value="<%=juegocompra.getPrecio()%>">
+                                    <input type="hidden" name="PrecioNuevo" value="<%=juegocompra.getPrecio_nuevo()%>">
+                                    <input type="hidden" name="idJuego" value="<%=juegocompra.getIdJuego()%>">
+                                    <button class ="btn btn-lg btn-success btn-block" type="submit">Comprar</button>
+                                    <%if(request.getParameter("error") == null) {%>
+                                    <%}else{%>
+                                    <% if (request.getParameter("error").equals("error1")) { %>
+                                    <div class = "text-danger justify-content-center"><span>La dirección de entrega de tu juego debe estar completada.</span></div>
+                                    <% } %>
+                                    <% if (request.getParameter("error").equals("error2")) { %>
+                                    <div class = "text-danger justify-content-center"><span>Tu número de tarjeta no es válido. Recuerda que debes seguir el formato y empezar con 4 o 5.</span></div>
+                                    <% } %>
+                                    <% if (request.getParameter("error").equals("error3")) { %>
+                                    <div class = "text-danger justify-content-center"><span>Tu CVV no es válido.</span></div>
+                                    <% } %>
+                                    <%}%>
+                                </div>
                             </div>
-                            <div class="card-body">
-                                <div class="d-flex flex-column">
-                                    <input type="text" class="form-control" id="inputAddress" placeholder="Ingresa tu dirección">
+                        </div>
+                        <div class="col-xl-8 col-lg-8">
+                            <!-- Primer cuadro -->
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Resumen del Juego</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="d-flex flex-column">
+                                        <div class="btn-info mb-2 disabled text-center" style="padding: 0.375rem 0.75rem; border: 1px solid transparent; border-radius: 0.25rem; background-color: #36b9cc;">
+                                            Categoría:
+                                        </div>
+                                        <div class="btn-light mb-2 disabled text-center" style="padding: 0.375rem 0.75rem; border: 1px solid transparent; border-radius: 0.25rem; background-color: #f8f9fc;">
+                                            <%=juegocompra.getNombreCategoria()%>
+                                        </div>
+                                        <div class="btn-info mb-2 disabled text-center" style="padding: 0.375rem 0.75rem; border: 1px solid transparent; border-radius: 0.25rem; background-color: #36b9cc;">
+                                            Consola:
+                                        </div>
+                                        <div class="btn-light mb-2 disabled text-center" style="padding: 0.375rem 0.75rem; border: 1px solid transparent; border-radius: 0.25rem; background-color: #f8f9fc;">
+                                            <%=juegocompra.getIdConsola()%>
+                                        </div>
+                                        <% if (juegocompra.getPrecio_nuevo() == 0) { %>
+                                        <div class="btn-info mb-2 disabled text-center" style="padding: 0.375rem 0.75rem; border: 1px solid transparent; border-radius: 0.25rem; background-color: #36b9cc;">
+                                            Precio:
+                                        </div>
+                                        <div class="btn-light mb-2 disabled text-center" style="padding: 0.375rem 0.75rem; border: 1px solid transparent; border-radius: 0.25rem; background-color: #f8f9fc;">
+                                            S/.<%=juegocompra.getPrecio()%>
+                                        </div>
+                                        <% } else { %>
+                                        <div class="btn-info mb-2 disabled text-center" style="padding: 0.375rem 0.75rem; border: 1px solid transparent; border-radius: 0.25rem; background-color: #36b9cc;">
+                                            Precio:
+                                        </div>
+                                        <div class="btn-light mb-2 disabled text-center" style="padding: 0.375rem 0.75rem; border: 1px solid transparent; border-radius: 0.25rem; background-color: #f8f9fc;">
+                                            S/.<%=juegocompra.getPrecio_nuevo()%>
+                                        </div>
+                                        <% } %>
+                                    </div>
+                                </div>
+                            </div>
+                            <% } %>
+                            <!-- Segundo cuadro -->
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Dirección de entrega</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div id="address-container">
+                                        <input type="text" id="address" name="Direccion" placeholder="Dirección" class="form-control">
+                                    </div>
                                     <hr>
-                                    <img src="recursos/img/mapa.png" alt="Imagen" class="img-fluid">
+                                    <div id="map" style="height: 400px;"></div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
 
-                </div>
+                        </div>
+
+                    </div>
+                </form>
+                <!-- Form para comprar juego -->
             </div>
 
         </div>
@@ -175,6 +226,77 @@
         </div>
     </div>
 </div>
+
+<script>
+    var map = L.map('map').setView([-12.0691658, -77.0799348336087], 15);
+    var marker;
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoicGFibG8xMjN4IiwiYSI6ImNsanRuZ3N0OTB2dmYzZWtjODhneWQxaHgifQ.eu01nLDmz8SJzzYbUwJfKQ', {
+        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+        tileSize: 512,
+        zoomOffset: -1
+    }).addTo(map);
+
+
+    // Función para mostrar la ubicación en el mapa
+    function showLocationOnMap(address) {
+        // Elimina el marcador anterior, si existe
+        if (marker) {
+            marker.remove();
+        }
+
+        // Convierte la dirección a coordenadas
+        var geocodeService = L.Control.Geocoder.nominatim();
+        geocodeService.geocode(address, function(results) {
+            if (results.length > 0) {
+                var location = results[0].center;
+                var latlng = L.latLng(location.lat, location.lng);
+
+                // Crea un nuevo marcador en la ubicación
+                marker = L.marker(latlng).addTo(map);
+                map.setView(latlng, 20);
+            }
+        });
+    }
+
+    // Agrega un controlador de clic al mapa
+    map.on('click', function(event) {
+        var latlng = event.latlng;
+
+        // Convierte las coordenadas a una dirección
+        var geocodeService = L.Control.Geocoder.nominatim();
+        geocodeService.reverse(latlng, map.options.crs.scale(map.getZoom()), function(results) {
+            if (results.length > 0) {
+                var address = results[0].name;
+                var addressBox = document.getElementById('address');
+                addressBox.value = address;
+
+                // Muestra la ubicación de la dirección en el mapa
+                showLocationOnMap(address);
+            }
+        });
+    });
+
+    // Agrega un controlador de evento al cuadro de texto
+    var addressBox = document.getElementById('address');
+    addressBox.addEventListener('change', function() {
+        var address = addressBox.value;
+        if (address) {
+            showLocationOnMap(address);
+        } else {
+            // Si el cuadro de texto está vacío, borra el marcador
+            if (marker) {
+                marker.remove();
+                marker = null;
+            }
+        }
+    });
+</script>
+
+
+
+
+
 
 <!-- Bootstrap core JavaScript-->
 <script src="recursos/vendor/jquery/jquery.min.js"></script>

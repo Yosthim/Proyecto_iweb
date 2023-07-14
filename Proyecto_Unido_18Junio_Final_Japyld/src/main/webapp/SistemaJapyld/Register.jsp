@@ -31,7 +31,13 @@
 
     <!-- Custom styles for this template-->
     <link href="recursos/css/sb-admin-2.min.css" rel="stylesheet">
-
+    <style>
+        .bg-registerimagen {
+            background: url("https://unsplash.com/photos/blYe0BupDuQ/download?ixid=M3wxMjA3fDB8MXxhbGx8fHx8fHx8fHwxNjg4ODA1NDc2fA&force=true&w=640");
+            background-position: center;
+            background-size: cover;
+        }
+    </style>
 </head>
 
 <body class="bg-gradient-primary">
@@ -42,7 +48,7 @@
         <div class="card-body p-0">
             <!-- Nested Row within Card Body -->
             <div class="row">
-                <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
+                <div class="col-lg-5 d-none d-lg-block bg-registerimagen"></div>
                 <div class="col-lg-7">
                     <div class="p-5">
                         <div class="text-center">

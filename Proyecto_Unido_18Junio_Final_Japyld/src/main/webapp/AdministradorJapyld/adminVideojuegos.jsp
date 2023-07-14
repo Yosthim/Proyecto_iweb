@@ -11,6 +11,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:useBean id="personaSession" type="com.example.proyecto_final_base_japyld.BeansGenerales.Personas" scope="session" class="com.example.proyecto_final_base_japyld.BeansGenerales.Personas"/>
+<jsp:useBean id="textoBusqueda" scope="request" type="java.lang.String" class="java.lang.String"/>
 
 <%
   ArrayList<JuegosPopulares> lista  =(ArrayList<JuegosPopulares>) request.getAttribute("lista");
@@ -64,6 +65,12 @@
 
   <!-- Custom styles for this template-->
   <link href="recursos/css/sb-admin-2.min.css" rel="stylesheet">
+
+  <script>
+    $(document).ready(function(){
+      $("#mensaje").delay(2000).hide(2000);
+    });
+  </script>
 
 </head>
 
@@ -218,6 +225,15 @@
           session.setAttribute("info", null);
         }
       %>
+      <% if (session.getAttribute("err") != null) {
+        //if (request.getParameter("msg") != null) {%>
+      <div id="mensajeError" class="alert alert-danger" role="alert">
+        <%=session.getAttribute("err")%>
+      </div>
+      <%
+          session.setAttribute("err", null);
+        }
+      %>
 
       <!-- End of Topbar -->
 
@@ -247,12 +263,16 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <% for (JuegosPopulares j :lista) { %>
+                                <% boolean mostrarBusqueda = !textoBusqueda.isEmpty(); %>
+                                <% if (!mostrarBusqueda) { %>
+                                <!-- Sección de juegos populares -->
+                                <% for (JuegosPopulares j : lista) { %>
                                 <tr>
                                   <td><%=j.getNombre()%></td>
                                   <td class="text-center"><%=j.getCantidadVentasJuegos()%></td>
                                 </tr>
-                                <%}%>
+                                <% } %>
+                                <% } %>
                                 </tbody>
                               </table>
                             </div>
@@ -285,7 +305,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <<% for (JuegosxCategoria jx :popCategoria) { %>
+                                <% for (JuegosxCategoria jx :popCategoria) { %>
                                 <tr>
                                   <td><%=jx.getNombreCategoria()%></td>
                                   <td class="text-center"><%=jx.getCantidadRepetida()%></td>
@@ -299,29 +319,64 @@
                       </div>
                     </div>
                   </div>
+                  <BR>
+
                 </section>
               </div>
+
+              <div class="container">
+
+                <button class="btn btn-primary container" type="button" onclick="enviarFormulario()">Agregar Categoria</button>
+                <BR>
+                <form id="agregarCategoria" style="display: none;" action="<%=request.getContextPath()%>/AdminServlet?action=agregarCategoria" method="post">
+                  <!-- Aquí van los campos del formulario -->
+                  <div class="container">
+                    <div>
+                      <input class=" px-4 mt-4"  style="margin-right: 10px; margin-left: 20px;" type="text" name="nombre" placeholder="Nombre">
+                    </div>
+                    <div>
+                      <button type="submit" class="btn btn-success px-4 mt-4"  style="margin-right: 10px; margin-left: 20px;" form="agregarCategoria" >Enviar</button>
+                    </div>
+                  </div>
+                  <BR>
+                </form>
+
+                <script>
+                  function enviarFormulario() {
+                    var formulario = document.getElementById("agregarCategoria");
+                    formulario.style.display = "block";
+                  }
+                </script>
+
+              </div>
+              <BR>
             </div>
           </div>
           <div class="col-xl-6">
             <!-- Account details card-->
             <div class="card mb-5">
 
+
+              <!-- Sección de búsqueda -->
               <div class="card-header">
                 <b class="mr-5">LISTA DE JUEGOS</b>
 
-                <form method="post" action="<%=request.getContextPath()%>/AdminServlet?p=buscar">
+                <form method="post" action="<%=request.getContextPath()%>/AdminServlet?action=buscar">
                   <div class="input-group">
-                    <input type="text" class="form-control bg-light border-0 small" placeholder="Buscar..." name="textoBuscar"
+                    <input type="text" class="form-control bg-light border-0 small" placeholder="Buscar..." name="textoBuscar" value="<%=textoBusqueda%>"
                            aria-label="Search" aria-describedby="basic-addon2"/>
                     <div class="input-group-append">
-                      <button class="btn btn-primary" type="button" href="<%=request.getContextPath()%>/AdminServlet?p=buscar">
+                      <button class="btn btn-primary" type="submit">
                         <i class="fas fa-search fa-sm"></i>
                       </button>
+                      <a class="btn btn-danger" href="<%=request.getContextPath()%>/AdminServlet?action=buscar">
+                        <i class="fas fa-window-close fa-sm"></i>
+                      </a>
                     </div>
                   </div>
                 </form>
               </div>
+              
 
               <br>
 
@@ -344,19 +399,26 @@
                               </tr>
                               </thead>
                               <tbody>
-                              <% for (Juegos j : juegos) { %>
+                              <% for (Juegos j : juegos) {
+                                boolean match = !mostrarBusqueda || j.getNombreJuegos().toLowerCase().contains(textoBusqueda.toLowerCase()); // Verificar si el juego coincide con el texto de búsqueda
+                                if (!match) { // Si hay un texto de búsqueda y no hay coincidencia, pasar al siguiente juego
+                                  continue;
+                                }
+                              %>
                               <tr <% if (j.getStock() == 0) { %>style="color: red;"<% } %>>
                                 <td class="text-center"><%= j.getNombreJuegos() %></td>
                                 <td class="text-center"><%= j.getPrecio() %></td>
                                 <td class="text-center"><%= j.getCategoria().getNombre() %></td>
                                 <td class="text-center"><%= j.getStock() %></td>
                                 <td class="text-center">
-                                  <a class="btn btn-primary <% if (j.getStock() == 0) { %>btn-danger<% } %>" href="<%= request.getContextPath() %>/AdminServlet?action=editar&id=<%= j.getIdJuegos() %>">
+                                  <a class="btn btn-primary <% if (j.getStock() == 0) { %>btn-danger<% } %>"
+                                     href="<%= request.getContextPath() %>/AdminServlet?action=editar&id=<%= j.getIdJuegos() %>">
                                     Editar
                                   </a>
                                 </td>
                               </tr>
                               <% } %>
+
                               </tbody>
                             </table>
                           </div>

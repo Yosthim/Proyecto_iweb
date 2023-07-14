@@ -1,5 +1,7 @@
 package com.example.proyecto_final_base_japyld.UsuarioJapyld.ModelsJ.DaosJ;
 
+import com.example.proyecto_final_base_japyld.BeansGenerales.Juegos;
+import com.example.proyecto_final_base_japyld.UsuarioJapyld.ModelsJ.DtoJ.ConsolasDetallesDto;
 import com.example.proyecto_final_base_japyld.UsuarioJapyld.ModelsJ.DtoJ.MasDetallesDto;
 
 import java.sql.*;
@@ -15,11 +17,12 @@ public class MasDetallesDao {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        String sql = "select idJuegos, nombreJuegos, descripcion,stock, precio, nombre as \"Categorías\", direccion_archivo\n" +
-                "from juegos j\n" +
-                "inner join categorias g on g.idCategorias = j.id_categoria\n" +
-                "left join imagenes i on i.idImagenes = j.id_imagen\n" +
-                "where j.idJuegos = ?;";
+        String sql = "SELECT idJuegos, nombreJuegos, precio,direccion_archivo, COALESCE(d.precio_nuevo, 0) AS precio_nuevo,c.nombre,j.descripcion\n" +
+                "                FROM juegos j\n" +
+                "                LEFT JOIN descuentos d ON j.idJuegos = d.id_juego\n" +
+                "                LEFT JOIN categorias c ON j.id_categoria = c.idCategorias\n" +
+                "                INNER JOIN imagenes i ON j.id_imagen = i.idImagenes\n" +
+                "                WHERE (j.estadoJuego = 'Activo' OR j.estadoJuego = 'Oferta') and idJuegos = ?";
         String url = "jdbc:mysql://localhost:3306/japyld";
         try (Connection connection = DriverManager.getConnection(url, "root", "root");
                 /*Usaremos prepared Statement*/
@@ -32,11 +35,11 @@ public class MasDetallesDao {
                     MasDetallesDto juegodetalles = new MasDetallesDto();
                     juegodetalles.setIdJuegos(rs.getInt(1));
                     juegodetalles.setNombreJuegos(rs.getString(2));
-                    juegodetalles.setDescripcion(rs.getString(3));
-                    juegodetalles.setStock(rs.getInt(4));
-                    juegodetalles.setPrecio(rs.getInt(5));
+                    juegodetalles.setPrecio(rs.getInt(3));
+                    juegodetalles.setDireccion_imagen(rs.getString(4));
+                    juegodetalles.setPrecio_nuevo(rs.getInt(5));
                     juegodetalles.setCategoria(rs.getString(6));
-                    juegodetalles.setDireccion_imagen(rs.getString(7));
+                    juegodetalles.setDescripcion(rs.getString(7));
 
                     listaMasDetallesJuego.add(juegodetalles);
                 }
@@ -47,5 +50,64 @@ public class MasDetallesDao {
         }
 
         return listaMasDetallesJuego;
+    }
+
+    public ArrayList<ConsolasDetallesDto> listarConsolasPorJuego(int idjuego){
+        ArrayList<ConsolasDetallesDto> listaConsolaPorJuego = new ArrayList<>();
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        String sql = "SELECT id_juego,\n" +
+                "       GROUP_CONCAT(CASE WHEN id_consola IN ('PS5') THEN id_consola END) AS consola_1,\n" +
+                "       GROUP_CONCAT(CASE WHEN id_consola IN ('PS4') THEN id_consola END) AS consola_2,\n" +
+                "       GROUP_CONCAT(CASE WHEN id_consola IN ('XB3') THEN id_consola END) AS consola_3,\n" +
+                "       GROUP_CONCAT(CASE WHEN id_consola IN ('XBO') THEN id_consola END) AS consola_4,\n" +
+                "       GROUP_CONCAT(CASE WHEN id_consola IN ('SWI') THEN id_consola END) AS consola_5,\n" +
+                "       GROUP_CONCAT(CASE WHEN id_consola IN ('WIU') THEN id_consola END) AS consola_6\n" +
+                "FROM (\n" +
+                "    SELECT t1.id_juego, t1.id_consola, t2.nombre AS consola\n" +
+                "    FROM juegos_por_consolas t1\n" +
+                "    INNER JOIN consolas t2 ON t1.id_consola = t2.idConsolas\n" +
+                ") AS subquery\n" +
+                "WHERE id_juego = ? \n" +
+                "GROUP BY id_juego\n" +
+                "ORDER BY id_juego;\n";
+
+        String url = "jdbc:mysql://localhost:3306/japyld";
+
+        try (Connection connection = DriverManager.getConnection(url, "root", "root");
+                /*Usaremos prepared Statement*/
+             PreparedStatement ptsmtConsola = connection.prepareStatement(sql))
+        {
+            ptsmtConsola.setInt(1,idjuego);
+            try (ResultSet rs = ptsmtConsola.executeQuery()){
+                while(rs.next()){
+
+                    ConsolasDetallesDto consoladetalles = new ConsolasDetallesDto();
+
+                    Juegos juego = new Juegos();
+                    juego.setIdJuegos(rs.getInt(1));
+
+                    consoladetalles.setJuego(juego);
+                    consoladetalles.setConsola1(rs.getString(2));
+                    consoladetalles.setConsola2(rs.getString(3));
+                    consoladetalles.setConsola3(rs.getString(4));
+                    consoladetalles.setConsola4(rs.getString(5));
+                    consoladetalles.setConsola5(rs.getString(6));
+                    consoladetalles.setConsola6(rs.getString(7));
+
+                    listaConsolaPorJuego.add(consoladetalles);
+                }
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return listaConsolaPorJuego;
+
     }
 }
