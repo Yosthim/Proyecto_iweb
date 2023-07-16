@@ -396,18 +396,23 @@
                                                 <%
                                                 switch (oferta.getEstadoVenta()) {
                                                     case "Retirado":%>
-                                                        <div class="row justify-content-center">
-                                                            <a class="btn btn-outline-dark" href="#">Eliminar de la lista</a>
-                                                        </div>
+                                                        <button type="button" class="btn btn-outline-dark" data-toggle="modal" data-target="#confirmarEliminacion"
+                                                                data-whatever="<%=oferta.getIdVenta()%>">
+                                                            Eliminar de la lista
+                                                        </button>
                                                         <%break;
                                                     case "Aceptado":%>
-                                                        <div class="row justify-content-center">
-                                                            <a class="btn btn-outline-dark" href="#">Eliminar de la lista</a>
-                                                        </div>
+                                                        <button type="button" class="btn btn-outline-dark" data-toggle="modal" data-target="#confirmarEliminacion"
+                                                                data-whatever="<%=oferta.getIdVenta()%>">
+                                                            Eliminar de la lista
+                                                        </button>
                                                         <%break;
                                                     case "Pendiente":%>
                                                         <div class="row justify-content-center">
-                                                            <a class="btn btn-outline-dark" href="#">Retirar oferta</a>
+                                                            <button type="button" class="btn btn-outline-dark" data-toggle="modal" data-target="#retirarOferta"
+                                                                    data-whatever="<%=oferta.getIdVenta()%>">
+                                                                Retirar oferta
+                                                            </button>
                                                         </div>
                                                         <%break;
                                                     case "Rechazado":%>
@@ -425,15 +430,24 @@
                                                             </div>
                                                         </div>
                                                         <div class="row justify-content-center">
-                                                            <a href="#" class="btn btn-outline-dark">Eliminar de la lista</a>
+                                                            <button type="button" class="btn btn-outline-dark" data-toggle="modal" data-target="#confirmarEliminacion"
+                                                                    data-whatever="<%=oferta.getIdVenta()%>">
+                                                                Eliminar de la lista
+                                                            </button>
                                                         </div>
                                                         <%break;
                                                     case "No Aceptado":%>
                                                         <div class="row justify-content-center mb-3">
-                                                            <a href="#" class="btn btn-outline-dark">Cambiar oferta</a>
+                                                            <button type="button" class="btn btn-outline-dark" data-toggle="modal" data-target="#NoAcceptModal"
+                                                                    data-whatever1="<%=oferta.getIdVenta()%>" data-whatever2="<%=oferta.getPrecioAdmi()%>">
+                                                                Cambiar oferta
+                                                            </button>
                                                         </div>
                                                         <div class="row justify-content-center">
-                                                            <a href="#" class="btn btn-outline-dark">Retirar oferta</a>
+                                                            <button type="button" class="btn btn-outline-dark" data-toggle="modal" data-target="#retirarOferta"
+                                                                    data-whatever="<%=oferta.getIdVenta()%>">
+                                                                Retirar oferta
+                                                            </button>
                                                         </div>
                                                         <%break;
                                                 }
@@ -505,20 +519,132 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    El administrador le sugiere cambiar el precio de su oferta a S/<input id="precioAdmin" type="number" readonly>.
+                    El administrador le sugiere cambiar el precio de su oferta a S/<input id="precioAdmin" readonly style="width: fit-content">.
                     <div class="form-group">
                         <label for="precio" class="text-gray-900">Ingrese el nuevo precio:</label>
                         <input class="form-control" type="number" id="precio" name="precioNuevo">
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-danger" type="button" data-bs-dismiss="modal">Cancelar</button>
+                    <button class="btn btn-danger" type="button" data-dismiss="modal">Cancelar</button>
                     <button class="btn btn-primary" type="submit">Cambiar oferta</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
+<!-- Modal para eliminar de la lista -->
+<div class="modal fade" id="confirmarEliminacion" tabindex="-1" role="dialog" aria-labelledby="confirmar" aria-hidden="true">
+    <div class="modal-dialog" role="form">
+        <div class="modal-content">
+            <form method="POST">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmar">Eliminar de la lista:</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    La oferta se eliminará de la lista permanentemente.<br/>
+                    ¿Está seguro que quiere eliminarla?
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-danger" type="button" data-dismiss="modal">Cancelar</button>
+                    <button class="btn btn-primary" type="submit">Eliminar oferta</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Modal para retirar una oferta -->
+<div class="modal fade" id="retirarOferta" tabindex="-1" role="dialog" aria-labelledby="retirar" aria-hidden="true">
+    <div class="modal-dialog" role="form">
+        <div class="modal-content">
+            <form method="POST">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="retirar">Retirar oferta:</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Puede que un administrador revise su oferta pronto.<br/>
+                    ¿Está seguro que quiere retirarla?
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-danger" type="button" data-dismiss="modal">Cancelar</button>
+                    <button class="btn btn-primary" type="submit">Retirar oferta</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Código para modificar los modales dinámicamente -->
+<script>
+    //Lógica para el cambio de oferta
+    <%--var changeOfferModal = document.getElementById('NoAcceptModal');--%>
+    <%--changeOfferModal.addEventListener('show.bs.modal', function (event) {--%>
+    <%--    //Obtenemos el botón relacionado que muestra el modal--%>
+    <%--    let button = event.relatedTarget;--%>
+    <%--    //Obtenemos los valores requeridos--%>
+    <%--    let idOferta = button.getAttribute('data-whatever1');--%>
+    <%--    console.log('hola');--%>
+    <%--    console.log(idOferta);--%>
+    <%--    var precioNuevo = button.getAttribute('data-whatever2');--%>
+    <%--    console.log(precioNuevo);--%>
+    <%--    //Ubicamos el input donde se mostrará el precio nuevo--%>
+    <%--    var input = changeOfferModal.querySelector('#precioAdmin');--%>
+    <%--    input.value = precioNuevo;--%>
+    <%--    input.value = 12;--%>
+    <%--    //Ubicamos la parte del form del modal--%>
+    <%--    let formModal = changeOfferModal.querySelector('form');--%>
+    <%--    //Le indicamos la acción que hará y el parámetro que enviara--%>
+    <%--    formModal.action = "<%=request.getContextPath()%>/TusVentas?act=change&id=" + idOferta;--%>
+    <%--})--%>
+
+    $('#NoAcceptModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget);
+        var idOferta = button.data('whatever1');
+        var precioAdmin = button.data('whatever2');
+        var modal = $(this);
+        modal.find('.modal-body input').val(precioAdmin);
+        modal.find('.modal-content form').action = "<%=request.getContextPath()%>/TusVentas?act=change&id=" + idOferta;
+
+    })
+
+    //Lógica para eliminar una oferta de la lista
+    <%--var deleteOfferModal = document.getElementById('confirmarEliminacion');--%>
+    <%--deleteOfferModal.addEventListener('show.bs.modal', function (event) {--%>
+    <%--    //Botón relacionado al modal--%>
+    <%--    let button = event.relatedTarget;--%>
+    <%--    //Obtenemos el valor del id de la oferta--%>
+    <%--    let idOferta = button.getAttribute('data-whatever');--%>
+    <%--    //Ubicamos la parte del form--%>
+    <%--    let formModal = deleteOfferModal.querySelector('form');--%>
+    <%--    //Le indicamos la acción a realizar--%>
+    <%--    formModal.action = "<%=request.getContextPath()%>/TusVentas?act=delete&id=" + idOferta;--%>
+    <%--    console.log(formModal.action)--%>
+    <%--})--%>
+    $('#confirmarEliminacion').on('show.bs.modal', function (event) {
+        var boton = $(event.relatedTarget);
+        var idOferta = boton.data('whatever');
+        var modal = $(this);
+        modal.find('.modal-content form').action = "../TusVentas?act=new"
+    })
+    //Lógica para retirar una oferta
+    var retireOfferModal = document.getElementById('retirarOferta');
+    retireOfferModal.addEventListener('show.bs.modal', function (event) {
+        //Botón relacionado al modal
+        let button = event.relatedTarget;
+        //Obtenemos el valor del id de la oferta
+        let idOferta = button.getAttribute('data-whatever');
+        //Ubicamos la parte del form
+        let formModal = deleteOfferModal.querySelector('form');
+        //Le indicamos la acción a realizar
+        formModal.action = "<%=request.getContextPath()%>/TusVentas?act=retire&id=" + idOferta;
+    })
+
+</script>
 <!-- Bootstrap core JavaScript-->
 <script src="recursos/vendor/jquery/jquery.min.js"></script>
 <script src="recursos/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
