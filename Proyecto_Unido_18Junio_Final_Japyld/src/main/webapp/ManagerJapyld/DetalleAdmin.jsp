@@ -1,7 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.example.proyecto_final_base_japyld.ManagerJapyld.ModelsJ.DtoJ.DetalleAdmin" %>
-<%ArrayList<DetalleAdmin> lista1 = (ArrayList<DetalleAdmin>) request.getAttribute("listaJuegosPropuestos");%>
+<%@ page import="com.example.proyecto_final_base_japyld.ManagerJapyld.ModelsJ.DtoJ.ModuloAdmin" %>
+<%ArrayList<DetalleAdmin> lista1 = (ArrayList<DetalleAdmin>) request.getAttribute("listaJuegosPropuestosComprados");%>
+<%ArrayList<DetalleAdmin> lista2 = (ArrayList<DetalleAdmin>) request.getAttribute("listaJuegosPropuestosVendidos");%>
 <jsp:useBean id="a" scope="request" type="com.example.proyecto_final_base_japyld.ManagerJapyld.ModelsJ.DtoJ.DetalleAdmin"/>
 <jsp:useBean id="personaSession" type="com.example.proyecto_final_base_japyld.BeansGenerales.Personas" scope="session" class="com.example.proyecto_final_base_japyld.BeansGenerales.Personas"/>
 
@@ -238,7 +240,18 @@
                     <div class="col-xl-8">
                         <!-- Account details card-->
                         <div class="card mb-4">
-                            <div class="card-header m-0 font-weight-bold text-warning">TRABAJADOR DEL MES</div>
+
+                            <div class="card-header m-0 font-weight-bold text-warning <%= a.getId() == (Integer)request.getAttribute("idTrabajador") ? "trabajador-mes" : "" %>">
+                                <% if (a.getId() == (Integer)request.getAttribute("idTrabajador")) { %>
+                                TRABAJADOR DEL MES
+                                <% } %>
+                            </div>
+
+                            <div class="card-header m-0 font-weight-bold text-primary">
+                                <a href="<%=request.getContextPath()%>/DetalleAdminServlet?action=exportarCSV&n=<%=a.getId()%>">
+                                    <u>Descargar Perfil</u>
+                                </a>
+                            </div>
 
                             <div class="container">
                                 <br>
@@ -322,7 +335,13 @@
                             <div class="card-body center-h center-h">
                                 <div class="col-12 col-xl-auto mb-3">
                                     <div class="d-flex justify-content-end">
-                                        <a href="<%= request.getContextPath()%>/DetalleAdminServlet?action=editar&n=<%=a.getId()%>" class="btn btn-danger">Despedir</a>
+                                        <% if (a.getEstado().equals("Activo")) { %>
+                                        <a href="<%= request.getContextPath()%>/DetalleAdminServlet?action=editar&n=<%=a.getId()%>" class="btn btn-danger">
+                                            Despedir
+                                        </a>
+                                        <% } else { %>
+
+                                        <% } %>
                                     </div>
                                 </div>
                             </div>
@@ -336,30 +355,29 @@
                     <br>
                     <br>
                     <br>
-                    <h1 class="h3 mb-2 text-gray-800 text-left">JUEGOS PROPUESTOS</h1>
+                    <h1 class="h3 mb-2 text-gray-800 text-left">JUEGOS PROPUESTOS COMPRADOS</h1>
                     <br>
 
                     <div class="row">
                         <!-- Earnings (Monthly) Card Example -->
-                        <% for(DetalleAdmin detalleAdmin:lista1) { %>
+                        <% int i=1;
+                            for(DetalleAdmin detalleAdmin:lista1) { %>
                         <div class="col-xl-6 col-md-6 mb-4">
                             <div class="card border-left-success shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <h5 class="m-0 font-weight-bold text-primary">1. Juego "<%=detalleAdmin.getNombreJuegos()%>"</h5>
+                                            <h5 class="m-0 font-weight-bold text-primary"><%=i%>. "<%=detalleAdmin.getNombreJuegos()%>"</h5>
                                             <br>
                                             <div class="blog-entry d-flex blog-entry-search-item">
                                                 <label> <img src="recursos/img/zorro.jpg" width="255" height="255" alt="Image" class="img-fluid"></label>
                                                 <div class="d-flex align-items-center">
                                                     <ul>
+                                                        <br>
                                                         <h3 class="m-0 font-weight-bold text-info">Precio Compra</h3>
                                                         <br>
                                                         <h5><%=detalleAdmin.getPrecioCompra()%></h5>
                                                         <br>
-                                                        <h3 class="m-0 font-weight-bold text-info">Precio Venta</h3>
-                                                        <br>
-                                                        <h5><%=detalleAdmin.getPrecioVenta()%></h5>
                                                     </ul>
                                                 </div>
                                             </div>
@@ -368,7 +386,49 @@
                                 </div>
                             </div>
                         </div>
-                        <% } %>
+                        <% i++;
+                            } %>
+                    </div>
+
+                    <div class="swiper-pagination"></div>
+                </div>
+                <div class="container-fluid">
+                    <br>
+                    <br>
+                    <br>
+                    <h1 class="h3 mb-2 text-gray-800 text-left">JUEGOS PROPUESTOS VENDIDOS</h1>
+                    <br>
+
+                    <div class="row">
+                        <!-- Earnings (Monthly) Card Example -->
+                        <% int j=1;
+                            for(DetalleAdmin detalleAdmin2:lista2) { %>
+                        <div class="col-xl-6 col-md-6 mb-4">
+                            <div class="card border-left-success shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <h5 class="m-0 font-weight-bold text-primary"><%=j%>. "<%=detalleAdmin2.getNombreJuegos()%>"</h5>
+                                            <br>
+                                            <div class="blog-entry d-flex blog-entry-search-item">
+                                                <label> <img src="recursos/img/zorro.jpg" width="255" height="255" alt="Image" class="img-fluid"></label>
+                                                <div class="d-flex align-items-center">
+                                                    <ul>
+
+                                                        <br>
+                                                        <h3 class="m-0 font-weight-bold text-info">Precio Venta</h3>
+                                                        <br>
+                                                        <h5><%=detalleAdmin2.getPrecioVenta()%></h5>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <% j++;
+                        } %>
                     </div>
 
                     <div class="swiper-pagination"></div>
@@ -380,11 +440,22 @@
         <!-- Footer -->
         <footer class="sticky-footer bg-white">
             <div class="container my-auto">
+                <% for (ModuloAdmin b : (ArrayList<ModuloAdmin>) request.getAttribute("adminActivos")) { %>
+                <% if (b.getId() == a.getId()) { %>
+                <div style="background-color: #e1f0ff; width: 200px; height: 100px; margin: 0 auto;">
+                    <p style="text-align: center; line-height: 100px; font-size: 18px;">GANANCIA: <%= b.getDineroTotal() != null ? b.getDineroTotal() : 0 %></p>
+                </div>
+                <% } %>
+                <% } %>
                 <div class="copyright text-center my-auto">
+                    <br>
+                    <br>
                     <span>Copyright &copy; Your Website 2021</span>
                 </div>
             </div>
         </footer>
+
+
         <!-- End of Footer -->
 
     </div>

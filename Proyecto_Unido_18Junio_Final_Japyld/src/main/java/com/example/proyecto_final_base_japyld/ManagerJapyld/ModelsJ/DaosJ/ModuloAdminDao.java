@@ -17,22 +17,66 @@ public class ModuloAdminDao {
         }
 
         String sql = "SELECT\n" +
+                "                p.idPersona,\n" +
                 "                    p.nombre,\n" +
                 "                    p.apellido,\n" +
                 "                    p.correo,\n" +
-                "                    COUNT(jcr.estadoCompraJuego = 'Comprado') AS Comprados,\n" +
-                "                    COUNT(jcr.estadoCompraJuego = 'Reservado') AS Por_entregar,\n" +
-                "                   p.idPersona,\n" +
-                "                    (SELECT SUM(j.precio) FROM juegoscompradosreservados jcr\n" +
-                "                    LEFT JOIN juegos_por_consolas jpc ON jcr.id_consola = jpc.id_consola\n" +
+                "                    jcr_contador.contador AS contador_juegos,\n" +
+                "                    vg_contador.contador AS contador_ventas,\n" +
+                "                    vg_suma_precios.suma_precios_ventas,\n" +
+                "                    jcr_suma_precios.suma_precios_compras\n" +
+                "                FROM\n" +
+                "                    personas p\n" +
+                "                LEFT JOIN (\n" +
+                "                    SELECT\n" +
+                "                        id_administrador,\n" +
+                "                        COUNT(*) AS contador\n" +
+                "                    FROM\n" +
+                "                        juegoscompradosreservados jcr\n" +
+                "                    WHERE\n" +
+                "                        jcr.estadoCompraJuego IN ('Reservado')\n" +
+                "                    GROUP BY\n" +
+                "                        id_administrador\n" +
+                "                ) jcr_contador ON p.idPersona = jcr_contador.id_administrador\n" +
+                "                LEFT JOIN (\n" +
+                "                    SELECT\n" +
+                "                        id_administrador,\n" +
+                "                        COUNT(*) AS contador\n" +
+                "                    FROM\n" +
+                "                        ventajuegosgeneral vg\n" +
+                "                    WHERE\n" +
+                "                        vg.estadoVenta = 'Aceptado'\n" +
+                "                    GROUP BY\n" +
+                "                        id_administrador\n" +
+                "                ) vg_contador ON p.idPersona = vg_contador.id_administrador\n" +
+                "                LEFT JOIN (\n" +
+                "                    SELECT\n" +
+                "                        id_administrador,\n" +
+                "                        SUM(vg.precio_usuario) AS suma_precios_ventas\n" +
+                "                    FROM\n" +
+                "                        ventajuegosgeneral vg\n" +
+                "                    LEFT JOIN juegos_por_consolas jpc ON vg.id_juego = jpc.id_juego AND vg.id_consola = jpc.id_consola\n" +
                 "                    LEFT JOIN juegos j ON jpc.id_juego = j.idJuegos\n" +
-                "                    WHERE jcr.estadoCompraJuego = 'Comprado' AND jcr.id_administrador = p.idPersona) AS suma_precios\n" +
-                "                FROM personas p\n" +
-                "                LEFT JOIN juegoscompradosreservados jcr ON p.idPersona = jcr.id_administrador\n" +
-                "                LEFT JOIN juegos_por_consolas jpc ON jcr.id_consola = jpc.id_consola\n" +
-                "                LEFT JOIN juegos j ON jpc.id_juego = j.idJuegos\n" +
-                "                WHERE id_roles = 'ADM' and estado ='Activo'\n" +
-                "                GROUP BY p.idPersona;";
+                "                    WHERE\n" +
+                "                        vg.estadoVenta = 'Aceptado'\n" +
+                "                    GROUP BY\n" +
+                "                        id_administrador\n" +
+                "                ) vg_suma_precios ON p.idPersona = vg_suma_precios.id_administrador\n" +
+                "                LEFT JOIN (\n" +
+                "                    SELECT\n" +
+                "                        id_administrador,\n" +
+                "                        SUM(jcr.precio_compra) AS suma_precios_compras\n" +
+                "                    FROM\n" +
+                "                        juegoscompradosreservados jcr\n" +
+                "                    LEFT JOIN juegos_por_consolas jpc ON jcr.id_juego = jpc.id_juego AND jcr.id_consola = jpc.id_consola\n" +
+                "                    LEFT JOIN juegos j ON jpc.id_juego = j.idJuegos\n" +
+                "                    WHERE\n" +
+                "                        jcr.estadoCompraJuego = 'Comprado'\n" +
+                "                    GROUP BY\n" +
+                "                        id_administrador\n" +
+                "                ) jcr_suma_precios ON p.idPersona = jcr_suma_precios.id_administrador\n" +
+                "                WHERE\n" +
+                "                    p.id_roles = 'ADM' AND p.estado = 'Activo'";
         String url = "jdbc:mysql://localhost:3306/japyld";
 
         try (Connection connection = DriverManager.getConnection(url, "root", "root");
@@ -41,13 +85,14 @@ public class ModuloAdminDao {
 
             while(resultSet.next()){
                 ModuloAdmin adminModulo = new ModuloAdmin();
-                adminModulo.setNombre(resultSet.getString(1));
-                adminModulo.setApellido(resultSet.getString(2));
-                adminModulo.setCorreo(resultSet.getString(3));
-                adminModulo.setJuegoComprados(resultSet.getInt(4));
+                adminModulo.setNombre(resultSet.getString(2));
+                adminModulo.setApellido(resultSet.getString(3));
+                adminModulo.setCorreo(resultSet.getString(4));
+                adminModulo.setJuegoComprados(resultSet.getInt(6));
                 adminModulo.setJuegoPorEntregar(resultSet.getInt(5));
-                adminModulo.setId(resultSet.getInt(6));
+                adminModulo.setId(resultSet.getInt(1));
                 adminModulo.setDineroGastoTotal(resultSet.getBigDecimal(7));
+                adminModulo.setDineroCompraTotal(resultSet.getBigDecimal(8));
 
                 lista.add(adminModulo);
             }
@@ -74,14 +119,12 @@ public class ModuloAdminDao {
              PreparedStatement smt2 = connection.prepareStatement(sql2);
              PreparedStatement smt3 = connection.prepareStatement(sql3)) {
 
-            // Insertar datos en la tabla de imágenes
 
             smt2.setInt(1,admin.getIdImagen());
             smt2.setString(2, admin.getTipo());
             smt2.setString(3, admin.getImagen());
             smt2.executeUpdate();
 
-            // Insertar datos en la tabla de personas
             smt3.setInt(1,admin.getId());
             smt3.setString(2, admin.getCorreo());
             smt3.setString(3, admin.getContrasenia());
@@ -172,22 +215,52 @@ public class ModuloAdminDao {
         }
 
         String sql = "SELECT\n" +
-                "                    p.nombre,\n" +
-                "                    p.apellido,\n" +
-                "                    p.correo,\n" +
-                "                    COUNT(jcr.estadoCompraJuego = 'Comprado') AS Comprados,\n" +
-                "                    COUNT(jcr.estadoCompraJuego = 'Reservado') AS Por_entregar,\n" +
-                "                   p.idPersona,\n" +
-                "                    (SELECT SUM(j.precio) FROM juegoscompradosreservados jcr\n" +
-                "                    LEFT JOIN juegos_por_consolas jpc ON jcr.id_consola = jpc.id_consola\n" +
-                "                    LEFT JOIN juegos j ON jpc.id_juego = j.idJuegos\n" +
-                "                    WHERE jcr.estadoCompraJuego = 'Comprado' AND jcr.id_administrador = p.idPersona) AS suma_precios\n" +
-                "                FROM personas p\n" +
-                "                LEFT JOIN juegoscompradosreservados jcr ON p.idPersona = jcr.id_administrador\n" +
-                "                LEFT JOIN juegos_por_consolas jpc ON jcr.id_consola = jpc.id_consola\n" +
-                "                LEFT JOIN juegos j ON jpc.id_juego = j.idJuegos\n" +
-                "                WHERE id_roles = 'ADM' and estado ='Despedido'\n" +
-                "                GROUP BY p.idPersona;";
+                "\tp.idPersona,\n" +
+                "    p.nombre,\n" +
+                "    p.apellido,\n" +
+                "    p.correo,\n" +
+                "    jcr_contador.contador AS contador_juegos,\n" +
+                "    vg_contador.contador AS contador_ventas,\n" +
+                "    vg_suma_precios.suma_precios_ventas\n" +
+                "FROM\n" +
+                "    personas p\n" +
+                "LEFT JOIN (\n" +
+                "    SELECT\n" +
+                "        id_administrador,\n" +
+                "        COUNT(*) AS contador\n" +
+                "    FROM\n" +
+                "        juegoscompradosreservados\n" +
+                "    WHERE\n" +
+                "        estadoCompraJuego IN ('Comprado')\n" +
+                "    GROUP BY\n" +
+                "        id_administrador\n" +
+                ") jcr_contador ON p.idPersona = jcr_contador.id_administrador\n" +
+                "LEFT JOIN (\n" +
+                "    SELECT\n" +
+                "        id_administrador,\n" +
+                "        COUNT(*) AS contador\n" +
+                "    FROM\n" +
+                "        ventajuegosgeneral vg\n" +
+                "    WHERE\n" +
+                "        vg.estadoVenta = 'Aceptado'\n" +
+                "    GROUP BY\n" +
+                "        id_administrador\n" +
+                ") vg_contador ON p.idPersona = vg_contador.id_administrador\n" +
+                "LEFT JOIN (\n" +
+                "    SELECT\n" +
+                "        id_administrador,\n" +
+                "        SUM(vg.precio_usuario) AS suma_precios_ventas\n" +
+                "    FROM\n" +
+                "        ventajuegosgeneral vg\n" +
+                "    LEFT JOIN juegos_por_consolas jpc ON vg.id_juego = jpc.id_juego AND vg.id_consola = jpc.id_consola\n" +
+                "    LEFT JOIN juegos j ON jpc.id_juego = j.idJuegos\n" +
+                "    WHERE\n" +
+                "        vg.estadoVenta = 'Aceptado'\n" +
+                "    GROUP BY\n" +
+                "        id_administrador\n" +
+                ") vg_suma_precios ON p.idPersona = vg_suma_precios.id_administrador\n" +
+                "WHERE\n" +
+                "    p.id_roles = 'ADM' AND p.estado = 'Despedido';";
         String url = "jdbc:mysql://localhost:3306/japyld";
 
         try (Connection connection = DriverManager.getConnection(url, "root", "root");
@@ -196,12 +269,12 @@ public class ModuloAdminDao {
 
             while(resultSet.next()){
                 ModuloAdmin adminModulo = new ModuloAdmin();
-                adminModulo.setNombre(resultSet.getString(1));
-                adminModulo.setApellido(resultSet.getString(2));
-                adminModulo.setCorreo(resultSet.getString(3));
-                adminModulo.setJuegoComprados(resultSet.getInt(4));
+                adminModulo.setNombre(resultSet.getString(2));
+                adminModulo.setApellido(resultSet.getString(3));
+                adminModulo.setCorreo(resultSet.getString(4));
+                adminModulo.setJuegoComprados(resultSet.getInt(6));
                 adminModulo.setJuegoPorEntregar(resultSet.getInt(5));
-                adminModulo.setId(resultSet.getInt(6));
+                adminModulo.setId(resultSet.getInt(1));
                 adminModulo.setDineroGastoTotal(resultSet.getBigDecimal(7));
 
                 listaAdminInactivos.add(adminModulo);
