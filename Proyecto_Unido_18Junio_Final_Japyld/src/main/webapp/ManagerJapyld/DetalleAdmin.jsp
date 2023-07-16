@@ -247,6 +247,11 @@
                                 <% } %>
                             </div>
 
+                            <div class="card-header m-0 font-weight-bold text-primary">
+                                <a href="<%=request.getContextPath()%>/DetalleAdminServlet?action=exportarCSV&n=<%=a.getId()%>">
+                                    <u>Descargar Perfil</u>
+                                </a>
+                            </div>
 
                             <div class="container">
                                 <br>
