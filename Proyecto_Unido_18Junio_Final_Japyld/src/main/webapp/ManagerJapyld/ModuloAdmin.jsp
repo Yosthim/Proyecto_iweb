@@ -207,7 +207,8 @@
                   <tr <%= um.getId() == (Integer)request.getAttribute("idMax") ? "style='background-color: rgba(255, 215, 0, 0.5);'" : "" %>>
                   <td>
                       <div class="d-flex align-items-center">
-                        <label> <img src="recursos/img/profile-1.png" alt="" style="width: 45px; height: 45px;"></label>
+
+                        <label> <img src="<%=um.getImagen()%>" alt="" style="width: 45px; height: 45px;"></label>
                         <div class="d-flex align-items-center">
                           <ul>
                             <a href="<%=request.getContextPath()%>/DetalleAdminServlet?n=<%=String.valueOf(um.getId())%>" style="color:rgb(115,115,115);"><%=um.getNombre() + " " + um.getApellido()%></a>
@@ -259,7 +260,7 @@
                     <tr>
                       <td>
                         <div class="d-flex align-items-center">
-                          <label> <img src="recursos/img/profile-1.png" alt="" style="width: 45px; height: 45px;"></label>
+                          <label> <img src="<%=um.getImagen()%>" alt="" style="width: 45px; height: 45px;"></label>
                           <div class="d-flex align-items-center">
                             <ul>
                               <a href="<%=request.getContextPath()%>/DetalleAdminServlet?n=<%=String.valueOf(um.getId())%>" style="color:rgb(115,115,115);"><%=um.getNombre() + " " + um.getApellido()%></a>

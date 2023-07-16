@@ -7,7 +7,6 @@
 <% ArrayList<MasDetallesDto> listaMasDetallesJuego = (ArrayList<MasDetallesDto>) request.getAttribute("listaMasDetallesJuego"); %>
 <% ArrayList<ConsolasDetallesDto> listaConsolaPorJuego = (ArrayList<ConsolasDetallesDto>) request.getAttribute("listaConsolaPorJuego");%>
 <jsp:useBean id="personaSession" type="com.example.proyecto_final_base_japyld.BeansGenerales.Personas" scope="session" class="com.example.proyecto_final_base_japyld.BeansGenerales.Personas"/>
-
 <html>
 <head>
 
@@ -63,7 +62,7 @@
       <div class="container-fluid">
 
         <!-- Page Heading -->
-        <h1 class="h3 mb-2 text-gray-800">Más detalles</h1>
+        <h1 class="h3 mb-2 text-gray-700">Más detalles</h1>
         <!-- Content Row -->
         <div class="row">
           <div class="col-xl-4 col-lg-4">

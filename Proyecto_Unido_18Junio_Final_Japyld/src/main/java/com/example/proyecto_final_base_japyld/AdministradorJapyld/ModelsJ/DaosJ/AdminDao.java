@@ -4,6 +4,7 @@ import com.example.proyecto_final_base_japyld.AdministradorJapyld.ModelsJ.DtoJ.J
 import com.example.proyecto_final_base_japyld.AdministradorJapyld.ModelsJ.DtoJ.JuegosxCategoria;
 import com.example.proyecto_final_base_japyld.BaseDao;
 import com.example.proyecto_final_base_japyld.BeansGenerales.*;
+import com.example.proyecto_final_base_japyld.UsuarioJapyld.ModelsJ.DtoJ.PaginaPrincipalDto;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -246,34 +247,7 @@ public class AdminDao extends BaseDao {
         return juegos;
     }
     //Buscar Juego
-    public ArrayList<Juegos> buscarJuegosPorNombre(String name) {
 
-        ArrayList<Juegos> listaJuegos = new ArrayList<>();
-
-        String sql = "SELECT *\n" +
-                "FROM juegos j\n" +
-                "LEFT JOIN categorias c ON j.id_categoria = c.idCategorias\n" +
-                "WHERE j.nombreJuegos like ? ;";
-
-        try (Connection conn = this.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            name = '%'+ name +'%';
-            pstmt.setString(1, name );
-
-            try (ResultSet rs = pstmt.executeQuery()) {
-
-                while (rs.next()) {
-                    Juegos juegos = new Juegos();
-                    fetchJuegosData(juegos, rs);
-
-                    listaJuegos.add(juegos);
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return listaJuegos;
-    }
     private void fetchJuegosData(Juegos juegos, ResultSet rs) throws SQLException {
         juegos.setNombreJuegos(rs.getString(2));
         juegos.setPrecio(rs.getBigDecimal(4));
@@ -420,9 +394,78 @@ public class AdminDao extends BaseDao {
         }
         return nuevosOfertas;
     }
+    //Todos los Juegos
+    public ArrayList<PaginaPrincipalDto> todosJuegos(){
+        ArrayList<PaginaPrincipalDto> tjuegos = new ArrayList<>();
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        String sql = "SELECT idJuegos, nombreJuegos, precio,direccion_archivo\n" +
+                "FROM juegos j\n" +
+                "LEFT JOIN descuentos d ON j.idJuegos = d.id_juego\n" +
+                "INNER JOIN imagenes i ON j.id_imagen = i.idImagenes";
+
+        String url = "jdbc:mysql://localhost:3306/japyld";
+        try (Connection connection = DriverManager.getConnection(url, "root", "root");
+             Statement stmt = connection.createStatement();
+             ResultSet resultSet = stmt.executeQuery(sql)) {
+
+            while(resultSet.next()){
+                PaginaPrincipalDto juegosPrincipal = new PaginaPrincipalDto();
+                juegosPrincipal.setIdJuegos(resultSet.getInt(1));
+                juegosPrincipal.setNombreJuegos(resultSet.getString(2));
+                juegosPrincipal.setPrecio(resultSet.getInt(3));
+                juegosPrincipal.setDireccion_imagen(resultSet.getString(4));
+                tjuegos.add(juegosPrincipal);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return tjuegos;
+    }
+    //Buscar
+    public ArrayList<PaginaPrincipalDto> buscarJuegoPorNombre(String name) {
+
+        ArrayList<PaginaPrincipalDto> listaJuegos = new ArrayList<>();
+
+        String sql = "SELECT idJuegos, nombreJuegos, precio, direccion_archivo\n" +
+                "FROM juegos j\n" +
+                "INNER JOIN imagenes i ON j.id_imagen = i.idImagenes\n" +
+                "WHERE j.nombreJuegos LIKE ?;";
+
+
+        try (Connection conn = this.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            name = '%'+ name +'%';
+            pstmt.setString(1, name);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+
+                while (rs.next()) {
+                    PaginaPrincipalDto juego = new PaginaPrincipalDto();
+                    juego.setIdJuegos(rs.getInt(1));
+                    juego.setNombreJuegos(rs.getString(2));
+                    juego.setPrecio(rs.getInt(3));
+                    juego.setDireccion_imagen(rs.getString(4));
+
+                    listaJuegos.add(juego);
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return listaJuegos;
+    }
+
     // Borrar juego
     public void borrarjuego(int idJuegos) throws SQLException {
-        String sql = "DELETE * FROM juegos j left join categorias c on j.id_categoria = c.idCategorias;";
+        String sql = "DELETE FROM juegos WHERE idJuegos = ?;";
         try (Connection conn = this.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql);) {
             pstmt.setInt(1, idJuegos);

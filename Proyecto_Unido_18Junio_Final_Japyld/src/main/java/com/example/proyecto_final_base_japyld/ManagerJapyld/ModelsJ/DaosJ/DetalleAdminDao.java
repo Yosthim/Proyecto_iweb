@@ -17,8 +17,9 @@ public class DetalleAdminDao {
             e.printStackTrace();
         }
 
-        String sql = "SELECT idPersona, nombre, apellido, correo, fechaDeNacimiento, dni, genero, categoriaJuegoPreferida, fechaRegistro, estado, contrasenia FROM personas\n" +
-                "                                WHERE id_roles = \"ADM\" and idPersona = ?;";
+        String sql = "SELECT p.idPersona, p.nombre, p.apellido, p.correo, p.fechaDeNacimiento, p.dni, p.genero, p.categoriaJuegoPreferida, p.fechaRegistro, p.estado, p.contrasenia, i.direccion_archivo FROM personas p\n" +
+                "left join imagenes i on p.id_perfil = i.idImagenes\n" +
+                "WHERE p.id_roles = \"ADM\" and p.idPersona = ?";
 
         String url = "jdbc:mysql://localhost:3306/japyld";
 
@@ -42,6 +43,7 @@ public class DetalleAdminDao {
                     perfilAdmin.setFechaRegistro(resultSet.getDate(9));
                     perfilAdmin.setEstado(resultSet.getString(10));
                     perfilAdmin.setContrasenia(resultSet.getString(11));
+                    perfilAdmin.setDireccion_imagen(resultSet.getString(12));
                 }
             }
         }
@@ -51,9 +53,9 @@ public class DetalleAdminDao {
         return perfilAdmin;
     }
 
-    public ArrayList<DetalleAdmin> listarJuegosPropuestos(int jp){
+    public ArrayList<DetalleAdmin> listarJuegosPropuestosVendidos(int jp){
 
-        ArrayList <DetalleAdmin> listaJuegosAceptados = new ArrayList<>();
+        ArrayList <DetalleAdmin> listaJuegosComprados = new ArrayList<>();
 
 
         try {
@@ -62,11 +64,12 @@ public class DetalleAdminDao {
             e.printStackTrace();
         }
 
-        String sql = "SELECT p.idPersona,j.nombreJuegos, j.precio FROM juegoscompradosreservados jcr\n" +
-                "                left join personas p on jcr.id_administrador = p.idPersona\n" +
-                "                left join juegos_por_consolas jpc on jcr.id_consola = jpc.id_consola\n" +
-                "                left join juegos j on jpc.id_juego = j.idJuegos\n" +
-                "\t\t\t    where jcr.estadoCompraJuego = \"Comprado\" and p.idPersona=?";
+        String sql = "SELECT p.idPersona,p.nombre,j.nombreJuegos, jcr.precio_compra, i.direccion_archivo FROM juegoscompradosreservados jcr\n" +
+                "                                                left join personas p on jcr.id_administrador = p.idPersona\n" +
+                "                                                left join juegos_por_consolas jpc on jcr.id_consola = jpc.id_consola and jcr.id_juego=jpc.id_juego\n" +
+                "                                                left join juegos j on jpc.id_juego = j.idJuegos\n" +
+                "                                                left join imagenes i on j.id_imagen = i.idImagenes\n" +
+                "                                    where jcr.estadoCompraJuego = \"Comprado\" and p.idPersona=?";
 
         String url = "jdbc:mysql://localhost:3306/japyld";
 
@@ -80,9 +83,53 @@ public class DetalleAdminDao {
                     DetalleAdmin juegoPropuestos = new DetalleAdmin();
 
                     juegoPropuestos.setId(resultSet.getInt(1));
-                    juegoPropuestos.setNombreJuegos(resultSet.getString(2)); // Establece el valor del nombre ingresado en el método
-                    juegoPropuestos.setPrecioCompra(resultSet.getBigDecimal(3));
-                    juegoPropuestos.setPrecioVenta(resultSet.getBigDecimal(3));
+                    juegoPropuestos.setNombreJuegos(resultSet.getString(3)); // Establece el valor del nombre ingresado en el método
+                    juegoPropuestos.setPrecioVenta(resultSet.getBigDecimal(4));
+                    juegoPropuestos.setDireccion_imagen(resultSet.getString(5));
+
+                    listaJuegosComprados.add(juegoPropuestos);
+                }
+            }
+        }
+        catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+        return listaJuegosComprados;
+    }
+
+    public ArrayList<DetalleAdmin> listarJuegosPropuestosComprados(int jp){
+
+        ArrayList <DetalleAdmin> listaJuegosAceptados = new ArrayList<>();
+
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e){
+            e.printStackTrace();
+        }
+
+        String sql = "SELECT p.idPersona,p.nombre,j.nombreJuegos, vjg.precio_usuario, i.direccion_archivo FROM ventajuegosgeneral vjg\n" +
+                "                                                left join personas p on vjg.id_administrador = p.idPersona\n" +
+                "                                                left join juegos_por_consolas jpc on vjg.id_consola = jpc.id_consola and vjg.id_juego=jpc.id_juego\n" +
+                "                                                left join juegos j on jpc.id_juego = j.idJuegos\n" +
+                "                                                left join imagenes i on j.id_imagen = i.idImagenes\n" +
+                "                                    where vjg.estadoVenta = \"Aceptado\" and p.idPersona=? ";
+
+        String url = "jdbc:mysql://localhost:3306/japyld";
+
+        try (Connection connection = DriverManager.getConnection(url, "root", "root");
+             PreparedStatement smt = connection.prepareStatement(sql)) {
+
+            smt.setInt(1, jp);
+
+            try (ResultSet resultSet = smt.executeQuery()) {
+                while (resultSet.next()) {
+                    DetalleAdmin juegoPropuestos = new DetalleAdmin();
+
+                    juegoPropuestos.setId(resultSet.getInt(1));
+                    juegoPropuestos.setNombreJuegos(resultSet.getString(3));
+                    juegoPropuestos.setPrecioCompra(resultSet.getBigDecimal(4));
+                    juegoPropuestos.setDireccion_imagen(resultSet.getString(5));
 
                     listaJuegosAceptados.add(juegoPropuestos);
                 }
