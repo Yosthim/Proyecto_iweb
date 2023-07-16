@@ -5,7 +5,7 @@
 <%@ page import="com.example.proyecto_final_base_japyld.AdministradorJapyld.ModelsJ.DtoJ.JuegosxCategoria" %><%--
   Created by IntelliJ IDEA.
   User: jossr
-  Date: 5/06/2023
+  Date: 5/06/2023gi
   Time: 16:47
   To change this template use File | Settings | File Templates.
 --%>
@@ -20,9 +20,6 @@
   ArrayList<JuegosxCategoria> popCategoria  =(ArrayList<JuegosxCategoria>) request.getAttribute("popCategoria");
 %>
 
-<%
-  ArrayList<Juegos> juegos  =(ArrayList<Juegos>) request.getAttribute("juegos");
-%>
 
 <html lang="en">
 
@@ -243,11 +240,10 @@
         <hr class="mt-0 mb-4">
         <div class="row">
           <div class="col-xl-6">
-            <!-- Profile picture card-->
+            <!-- Juegos más populares de los últimos 30 días -->
             <div class="card mb-4 mb-xl-0">
               <div class="card-header"><b>JUEGOS MÁS POPULARES DE LOS ÚLTIMOS 30 DÍAS</b></div>
               <div class="card-body text">
-
                 <section class="intro">
                   <div class="gradient-custom-1 h-100">
                     <div class="mask d-flex align-items-center h-100">
@@ -286,10 +282,24 @@
             </div>
             <br>
             <br>
+            <!-- Todos los juegos -->
+            <div class="card mb-4 mb-xl-0">
+              <div class="card-header">
+                <div class="input-group">
+                  <div class="input-group-append">
+                    <a class="btn btn-primary" href="<%=request.getContextPath()%>/AdminTodosJuegos">
+                      Todos los juegos
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-6">
+            <!-- Categorías de juegos más populares en los últimos 30 días -->
             <div class="card mb-4 mb-xl-0">
               <div class="card-header"><b>CATEGORÍAS DE JUEGOS MÁS POPULARES EN LOS ÚLTIMOS 30 DÍAS</b></div>
               <div class="card-body text">
-
                 <section class="intro">
                   <div class="gradient-custom-1 h-100">
                     <div class="mask d-flex align-items-center h-100">
@@ -300,8 +310,8 @@
                               <table class="table mb-0">
                                 <thead>
                                 <tr>
-                                  <th scope="col" style="color: #666666;">JUEGO</th>
-                                  <th scope="col" class="text-center" style="color: #666666;">CANTIDAD DE VENTAS</th>
+                                  <th scope="col" style="color: #666666;">CATEGORÍA</th>
+                                  <th scope="col" class="text-center" style="color: #666666;">CANTIDAD DE REPETICIONES</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -320,115 +330,41 @@
                     </div>
                   </div>
                   <BR>
-
                 </section>
               </div>
-
               <div class="container">
-
-                <button class="btn btn-primary container" type="button" onclick="enviarFormulario()">Agregar Categoria</button>
+                <button class="btn btn-primary container" type="button" onclick="enviarFormulario()">Agregar Categoría</button>
                 <BR>
                 <form id="agregarCategoria" style="display: none;" action="<%=request.getContextPath()%>/AdminServlet?action=agregarCategoria" method="post">
                   <!-- Aquí van los campos del formulario -->
                   <div class="container">
                     <div>
-                      <input class=" px-4 mt-4"  style="margin-right: 10px; margin-left: 20px;" type="text" name="nombre" placeholder="Nombre">
+                      <input class="px-4 mt-4" style="margin-right: 10px; margin-left: 20px;" type="text" name="nombre" placeholder="Nombre">
                     </div>
                     <div>
-                      <button type="submit" class="btn btn-success px-4 mt-4"  style="margin-right: 10px; margin-left: 20px;" form="agregarCategoria" >Enviar</button>
+                      <button type="submit" class="btn btn-success px-4 mt-4" style="margin-right: 10px; margin-left: 20px;" form="agregarCategoria">Enviar</button>
                     </div>
                   </div>
                   <BR>
                 </form>
-
                 <script>
                   function enviarFormulario() {
                     var formulario = document.getElementById("agregarCategoria");
                     formulario.style.display = "block";
                   }
                 </script>
-
               </div>
               <BR>
             </div>
           </div>
-          <div class="col-xl-6">
-            <!-- Account details card-->
-            <div class="card mb-5">
-
-
-              <!-- Sección de búsqueda -->
-              <div class="card-header">
-                <b class="mr-5">LISTA DE JUEGOS</b>
-
-                <div class="input-group">
-                  <div class="input-group-append">
-                    <a class="btn btn-primary" href="<%=request.getContextPath()%>/AdminTodosJuegos">
-                      Todos los juegos
-                    </a>
-                  </div>
-                </div>
-
-              </div>
-
-
-              <br>
-
-
-              <section class="intro">
-                <div class="gradient-custom-1 h-100">
-                  <div class="mask d-flex align-items-center h-100">
-                    <div class="container">
-                      <div class="row justify-content-center">
-                        <div class="col-12">
-                          <div class="table-responsive bg-white">
-                            <table class="table mb-0">
-                              <thead>
-                              <tr>
-                                <th scope="col">NOMBRE</th>
-                                <th scope="col">COSTO</th>
-                                <th scope="col">CATEGORIA</th>
-                                <th scope="col">STOCK</th>
-                                <th scope="col">EDITAR</th>
-                              </tr>
-                              </thead>
-                              <tbody>
-                              <% for (Juegos j : juegos) {
-                                boolean match = !mostrarBusqueda || j.getNombreJuegos().toLowerCase().contains(textoBusqueda.toLowerCase()); // Verificar si el juego coincide con el texto de búsqueda
-                                if (!match) { // Si hay un texto de búsqueda y no hay coincidencia, pasar al siguiente juego
-                                  continue;
-                                }
-                              %>
-                              <tr <% if (j.getStock() == 0) { %>style="color: red;"<% } %>>
-                                <td class="text-center"><%= j.getNombreJuegos() %></td>
-                                <td class="text-center"><%= j.getPrecio() %></td>
-                                <td class="text-center"><%= j.getCategoria().getNombre() %></td>
-                                <td class="text-center"><%= j.getStock() %></td>
-                                <td class="text-center">
-                                  <a class="btn btn-primary <% if (j.getStock() == 0) { %>btn-danger<% } %>"
-                                     href="<%= request.getContextPath() %>/AdminServlet?action=editar&id=<%= j.getIdJuegos() %>">
-                                    Editar
-                                  </a>
-                                </td>
-                              </tr>
-                              <% } %>
-
-                              </tbody>
-                            </table>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </section>
-
-              <br>
-
-            </div>
-          </div>
         </div>
       </div>
+
+
+
+
+
+
     </div>
     <!-- End of Main Content -->
 
