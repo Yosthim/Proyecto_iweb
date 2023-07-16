@@ -361,20 +361,14 @@
               <div class="card-header">
                 <b class="mr-5">LISTA DE JUEGOS</b>
 
-                <form method="post" action="<%=request.getContextPath()%>/AdminServlet?action=buscar">
-                  <div class="input-group">
-                    <input type="text" class="form-control bg-light border-0 small" placeholder="Buscar..." name="textoBuscar" value="<%=textoBusqueda%>"
-                           aria-label="Search" aria-describedby="basic-addon2"/>
-                    <div class="input-group-append">
-                      <button class="btn btn-primary" type="submit">
-                        <i class="fas fa-search fa-sm"></i>
-                      </button>
-                      <a class="btn btn-danger" href="<%=request.getContextPath()%>/AdminServlet?action=buscar">
-                        <i class="fas fa-window-close fa-sm"></i>
-                      </a>
-                    </div>
+                <div class="input-group">
+                  <div class="input-group-append">
+                    <a class="btn btn-primary" href="<%=request.getContextPath()%>/AdminTodosJuegos">
+                      Todos los juegos
+                    </a>
                   </div>
-                </form>
+                </div>
+
               </div>
 
 
