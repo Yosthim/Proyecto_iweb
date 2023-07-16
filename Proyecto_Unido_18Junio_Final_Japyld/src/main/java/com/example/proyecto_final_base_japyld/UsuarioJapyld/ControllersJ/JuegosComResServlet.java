@@ -1,6 +1,8 @@
 package com.example.proyecto_final_base_japyld.UsuarioJapyld.ControllersJ;
 
+import com.example.proyecto_final_base_japyld.BeansGenerales.Comentarios;
 import com.example.proyecto_final_base_japyld.BeansGenerales.Personas;
+import com.example.proyecto_final_base_japyld.UsuarioJapyld.ModelsJ.DaosJ.ComentariosDao;
 import com.example.proyecto_final_base_japyld.UsuarioJapyld.ModelsJ.DaosJ.TusJuegosDao;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -34,4 +36,24 @@ public class JuegosComResServlet extends HttpServlet {
         view = request.getRequestDispatcher("UsuarioJapyld/TusJuegos.jsp");
         view.forward(request, response);
     }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        TusJuegosDao actualizarRatingDao = new TusJuegosDao();
+
+        String idJuegoCompradoReservado = request.getParameter("IdCompradoReservado");
+        int idjcr = Integer.parseInt(idJuegoCompradoReservado);
+
+        String rating = request.getParameter("rating");
+        int ratingid = Integer.parseInt(rating);
+
+        String idusuario = request.getParameter("idUsuario");
+        int idusuarioint = Integer.parseInt(idusuario);
+        actualizarRatingDao.añadirRating(idjcr,ratingid);
+
+        response.sendRedirect(request.getContextPath() + "/TusJuegos?idusuario=" + idusuarioint);
+
+    }
+
 }

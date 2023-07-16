@@ -107,17 +107,21 @@ public class DetalleUsuarioDao {
             e.printStackTrace();
         }
 
-        String sql = "SELECT p.idPersona, j.nombreJuegos,\n" +
+        String sql = "SELECT DISTINCT\n" +
+                "    p.idPersona,\n" +
+                "    j.nombreJuegos,\n" +
                 "    CASE\n" +
                 "        WHEN d.precio_nuevo IS NOT NULL THEN d.precio_nuevo\n" +
                 "        ELSE j.precio\n" +
                 "    END AS precio\n" +
-                "FROM juegoscompradosreservados jcr\n" +
-                "LEFT JOIN personas p ON jcr.id_usuario = p.idPersona\n" +
-                "LEFT JOIN juegos_por_consolas jpc ON jcr.id_consola = jpc.id_consola AND jcr.id_juego = jpc.id_juego\n" +
-                "LEFT JOIN juegos j ON jpc.id_juego = j.idJuegos\n" +
-                "LEFT JOIN descuentos d ON j.idJuegos = d.id_juego\n" +
-                "WHERE p.idPersona = ?;";
+                "FROM\n" +
+                "    juegoscompradosreservados jcr\n" +
+                "    LEFT JOIN personas p ON jcr.id_usuario = p.idPersona\n" +
+                "    LEFT JOIN juegos_por_consolas jpc ON jcr.id_consola = jpc.id_consola AND jcr.id_juego = jpc.id_juego\n" +
+                "    LEFT JOIN juegos j ON jpc.id_juego = j.idJuegos\n" +
+                "    LEFT JOIN descuentos d ON j.idJuegos = d.id_juego\n" +
+                "WHERE\n" +
+                "    p.idPersona = ?;";
 
         String url = "jdbc:mysql://localhost:3306/japyld";
 

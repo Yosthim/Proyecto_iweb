@@ -3,10 +3,7 @@ package com.example.proyecto_final_base_japyld.UsuarioJapyld.ModelsJ.DaosJ;
 import com.example.proyecto_final_base_japyld.BaseDao;
 import com.example.proyecto_final_base_japyld.BeansGenerales.*;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 
 public class TusJuegosDao extends BaseDao {
@@ -14,10 +11,10 @@ public class TusJuegosDao extends BaseDao {
     public ArrayList<JuegosCompradosReservados> listarJuegos(int idUsuario) {
         ArrayList<JuegosCompradosReservados> listaJuegos = new ArrayList<>();
 
-        String sql = "SELECT jr.id_juego, j.nombreJuegos, jr.estadoCompraJuego, j.id_imagen FROM juegoscompradosreservados jr left join juegos j on jr.id_juego = j.idJuegos\n" +
-                "left join imagenes i on j.id_imagen = i.idImagenes\n" +
-                "where jr.id_usuario = "+idUsuario+"\n" +
-                "order by jr.id_juego";
+        String sql = "SELECT jr.id_juego, j.nombreJuegos, jr.estadoCompraJuego, j.id_imagen,jr.id_consola,jr.idJuegosCompradosReservados FROM juegoscompradosreservados jr left join juegos j on jr.id_juego = j.idJuegos\n" +
+                "                left join imagenes i on j.id_imagen = i.idImagenes\n" +
+                "                where jr.id_usuario = "+idUsuario+"\n" +
+                "                order by jr.id_juego;";
 
         try(Connection connection = this.getConnection();
             Statement stmt = connection.createStatement();
@@ -34,6 +31,10 @@ public class TusJuegosDao extends BaseDao {
                 juego.setIdImagen(resultSet.getInt(4));
                 juegoComp.setJuego(juego);
 
+                Consola consolas = new Consola();
+                consolas.setIdConsola(resultSet.getString(5));
+                juegoComp.setConsola(consolas);
+                juegoComp.setIdJuegosCompradosReservados(resultSet.getInt(6));
                 listaJuegos.add(juegoComp);
 
             }
@@ -116,6 +117,25 @@ public class TusJuegosDao extends BaseDao {
         }
 
         return categoria;
+    }
+
+    public void añadirRating(int idjcr, int rating){
+
+        String sql = "UPDATE juegoscompradosreservados\n" +
+                     "SET rating = ? \n" +
+                     "WHERE idJuegosCompradosReservados = ?;";
+
+        try(Connection connection = this.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql)){
+
+            preparedStatement.setInt(1,rating);
+            preparedStatement.setInt(2,idjcr);
+
+            preparedStatement.executeUpdate();
+
+        }catch (SQLException e){
+            throw new RuntimeException(e);
+        }
     }
 
 }

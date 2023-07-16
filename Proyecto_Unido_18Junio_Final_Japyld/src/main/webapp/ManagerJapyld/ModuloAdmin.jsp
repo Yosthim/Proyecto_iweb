@@ -204,8 +204,8 @@
                   </thead>
                   <tbody>
                   <% for (ModuloAdmin um : listarAdminActivos) { %>
-                  <tr>
-                    <td>
+                  <tr <%= um.getId() == (Integer)request.getAttribute("idMax") ? "style='background-color: rgba(255, 215, 0, 0.5);'" : "" %>>
+                  <td>
                       <div class="d-flex align-items-center">
                         <label> <img src="recursos/img/profile-1.png" alt="" style="width: 45px; height: 45px;"></label>
                         <div class="d-flex align-items-center">
@@ -217,10 +217,11 @@
                     </td>
                     <td class="text-center"><%=um.getJuegoPorEntregar() %></td>
                     <td class="text-center"><%=um.getJuegoComprados()%></td>
-                    <td class="text-center"><%=um.getDineroGastoTotal()%></td>
+                    <td class="text-center"><%=um.getDineroGastoTotal() != null ? um.getDineroGastoTotal() : "0" %></td>
                   </tr>
                   <% } %>
                   </tbody>
+
                 </table>
               </div>
               <br>
@@ -268,7 +269,7 @@
                       </td>
                       <td class="text-center"><%=um.getJuegoPorEntregar() %></td>
                       <td class="text-center"><%=um.getJuegoComprados()%></td>
-                      <td class="text-center"><%=um.getDineroGastoTotal()%></td>
+                      <td class="text-center"><%=um.getDineroGastoTotal() != null ? um.getDineroGastoTotal() : "0" %></td>
                     </tr>
                     <% } %>
                   </tbody>

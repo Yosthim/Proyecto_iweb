@@ -241,8 +241,11 @@
                     <div class="col-xl-8">
                         <!-- Account details card-->
                         <div class="card mb-4">
-                            <div class="card-header m-0 font-weight-bold text-primary"><u>Descargar Perfil</u></div>
-
+                            <div class="card-header m-0 font-weight-bold text-primary">
+                                <a href="<%=request.getContextPath()%>/DetalleUsuarioServlet?action=exportarCSV&nm=<%=e.getId()%>">
+                                    <u>Descargar Perfil</u>
+                                </a>
+                            </div>
                             <div class="container">
                                 <br>
                                 <h6 class="text-primary" style="color:#31a290;">NOMBRE DE PERFIL</h6>
@@ -293,11 +296,17 @@
                             <div class="card-body center-h center-h">
                                 <div class="col-12 col-xl-auto mb-3">
                                     <div class="d-flex justify-content-end">
-                                        <a href="<%= request.getContextPath()%>/DetalleUsuarioServlet?action=editar&nm=<%=e.getId()%>" class="btn btn-danger">Ban</a>
+                                        <% if (e.getEstado().equals("Activo")) { %>
+                                        <a href="<%= request.getContextPath()%>/DetalleUsuarioServlet?action=editar&nm=<%=e.getId()%>" class="btn btn-danger">
+                                            Ban
+                                        </a>
+                                        <% } else { %>
+
+                                        <% } %>
                                     </div>
                                 </div>
-
                             </div>
+
                         </div>
                     </div>
                 </div>

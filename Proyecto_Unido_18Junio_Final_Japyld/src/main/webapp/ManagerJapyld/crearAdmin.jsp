@@ -181,21 +181,25 @@
                                 <div class="row gx-3">
                                     <div class="mb-3 col-md-6" class="form-group">
                                         <label class="small mb-1" for="nombre">Nombre </label>
-                                        <input class="form-control" id="nombre" type="text" name="nombre" placeholder="Enter Firstname"  wtx-context="434A1E15-D4FD-4427-8AAE-AEFCABA1691D">
+                                        <input class="form-control" id="nombre" type="text" name="nombre" placeholder="Enter Firstname"  pattern="[A-Za-záÁéÉíÍóÓúÚñÑüÜ\s]+" wtx-context="434A1E15-D4FD-4427-8AAE-AEFCABA1691D" title="Ingrese solo letras sin caracteres especiales ni números" required>
+                                        <span class="error-message"></span>
                                     </div>
                                     <div class="mb-3 col-md-6">
                                         <label class="small mb-1" for="apellido">Apellido</label>
-                                        <input class="form-control" id="apellido" type="text" name="apellido" placeholder="Enter Lastname"  wtx-context="42795CFB-4E11-4FF6-A475-9275BD7BCAAE">
+                                        <input class="form-control" id="apellido" type="text" name="apellido" placeholder="Enter Lastname"  pattern="[A-Za-záÁéÉíÍóÓúÚñÑüÜ\s]+" wtx-context="42795CFB-4E11-4FF6-A475-9275BD7BCAAE" title="Ingrese solo letras sin caracteres especiales ni números" required>
+                                        <span class="error-message"></span>
                                     </div>
                                 </div>
                                 <div class="mb-3" class="form-group">
                                     <label class="small mb-1" for="correo">Correo electrónico</label>
-                                    <input class="form-control" id="correo" type="email" name="correo" placeholder="Enter your email address"  wtx-context="9DF972A9-6C9A-45AE-8715-63056FD50C08">
+                                    <input class="form-control" id="correo" type="email" name="correo" placeholder="Enter your email address"  wtx-context="9DF972A9-6C9A-45AE-8715-63056FD50C08" required>
+                                    <span class="error-message"></span>
                                 </div>
 
                                 <div class="mb-3" class="form-group">
                                     <label class="small mb-1" for="contrasenia">Contraseña</label>
-                                    <input class="form-control" id="contrasenia" type="text" name="contrasenia" placeholder="Enter Password"  wtx-context="9DF972A9-6C9A-45AE-8715-63056FD50C08">
+                                    <input class="form-control" id="contrasenia" type="password" name="contrasenia" placeholder="Enter Password"  wtx-context="9DF972A9-6C9A-45AE-8715-63056FD50C08" required>
+                                    <span class="error-message"></span>
                                 </div>
 
                                 <hr class="my-4">
@@ -206,6 +210,40 @@
                                     <button class="btn btn-primary" type="submit">Añadir</button>
                                 </div>
                             </form>
+
+                            <script>
+                                document.addEventListener('DOMContentLoaded', function() {
+                                    var form = document.querySelector('form');
+                                    var requiredInputs = form.querySelectorAll(':required');
+
+                                    form.addEventListener('submit', function(event) {
+                                        var requiredFields = form.querySelectorAll(':required');
+                                        for (var i = 0; i < requiredFields.length; i++) {
+                                            var field = requiredFields[i];
+                                            if (!field.value.trim()) {
+                                                event.preventDefault(); // Evita que se envíe el formulario
+                                                field.classList.add('error');
+                                                var errorMessage = document.createElement('span');
+                                                errorMessage.className = 'error-message';
+                                                errorMessage.textContent = field.dataset.errorMessage || 'Campo requerido';
+                                                field.parentNode.appendChild(errorMessage);
+                                            }
+                                        }
+                                    });
+
+                                    for (var i = 0; i < requiredInputs.length; i++) {
+                                        var input = requiredInputs[i];
+                                        input.addEventListener('input', function() {
+                                            this.classList.remove('error');
+                                            var errorMessage = this.parentNode.querySelector('.error-message');
+                                            if (errorMessage) {
+                                                errorMessage.remove();
+                                            }
+                                        });
+                                    }
+                                });
+                            </script>
+
                         </div>
                     </div>
                 </div>
