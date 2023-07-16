@@ -118,6 +118,7 @@ public class DetalleAdminServlet extends HttpServlet {
                 for (DetalleAdmin juego2 : listaVendidos) {
                     writer.println(juego2.getNombreJuegos() + "," + juego2.getPrecioVenta());
                 }
+                writer.println();
 
                 writer.println("Ganancia Total");
                 writer.println("Ganancia");

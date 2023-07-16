@@ -115,11 +115,13 @@ public class ModuloAdminServlet extends HttpServlet {
                 for (ModuloAdmin admi1: comparar){
                     if (admi1.getCorreo().equals(request.getParameter("correo"))){
                         centinela=1;
+                        break;
                     }
                     String valor = admi1.getNombre()+admi1.getApellido();
                     String valor2 = request.getParameter("nombre")+request.getParameter("apellido");
                     if (valor.equals(valor2)){
                         centinela2=1;
+                        break;
                     }
                 }
 
