@@ -298,23 +298,21 @@
                 var barChart = new Chart(ctx, {
                   type: 'bar',
                   data: {
-                    labels: ['Juego 1', 'Juego 2', 'Juego 3', 'Juego 4', 'Juego 4'],
+                    labels: ['Juego 1','Juego 2', 'Juego 3', 'Juego 4'],
                     datasets: [{
                       labels: ' ',
-                      data: [10, 20, 15, 45, 10],
+                      data: [15, 20, 15, 45],
                       backgroundColor: [
                         'rgba(76, 175, 80, 0.5)', // Verde
                         'rgba(33, 150, 243, 0.5)', // Azul
                         'rgba(255, 193, 7, 0.5)', // Amarillo
                         'rgba(156, 39, 176, 0.5)', // Morado
-                        'rgba(244, 67, 54, 0.5)' // Rojo
                       ],
                       borderColor: [
                         'rgba(76, 175, 80, 1)', // Verde
                         'rgba(33, 150, 243, 1)', // Azul
                         'rgba(255, 193, 7, 1)', // Amarillo
                         'rgba(156, 39, 176, 1)', // Morado
-                        'rgba(244, 67, 54, 1)' // Rojo
                       ],
                       borderWidth: 1
                     }]
@@ -337,12 +335,7 @@
               <div class="card-body ">
                 <div class="my-2"></div>
                 <div class="d-flex justify-content-center">
-                  <ul href="#" class="btn btn-success btn-icon-split">
-                                                <span class="icon text-white-50">
-                                                    <i class="fas fa-dollar-sign"></i>
-                                                </span>
                     <span class="text">Ganancia del día</span>
-                  </ul>
                 </div>
                 <div class="my-2"></div>
               </div>

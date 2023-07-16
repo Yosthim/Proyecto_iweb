@@ -18,11 +18,11 @@ public class BarrasAdminDao  extends BaseDao {
         ArrayList<BarrasInicioAdmin> listaBarras= new ArrayList<>();
 
         String sql1 = "SELECT jr.id_juego, COUNT(jr.id_juego), j.nombreJuegos, j.precio*count(j.precio)\n" +
-                "FROM juegoscompradosreservados jr\n" +
-                "INNER JOIN juegos j ON j.idJuegos = jr.id_juego\n" +
-                "WHERE jr.estadoCompraJuego = 'Comprado' AND jr.fechaCompraJuego >= DATE_SUB(NOW(), INTERVAL 1 MONTH)\n" +
-                "GROUP BY jr.id_juego, j.nombreJuegos, j.idJuegos\n" +
-                "limit 4;";
+                "                FROM juegoscompradosreservados jr\n" +
+                "                INNER JOIN juegos j ON j.idJuegos = jr.id_juego\n" +
+                "                WHERE jr.estadoCompraJuego = 'Comprado' AND jr.fechaCompraJuego= curdate()\n" +
+                "                GROUP BY jr.id_juego, j.nombreJuegos, j.idJuegos\n" +
+                "                limit 4;";
 
 
         try(Connection connection = this.getConnection();
