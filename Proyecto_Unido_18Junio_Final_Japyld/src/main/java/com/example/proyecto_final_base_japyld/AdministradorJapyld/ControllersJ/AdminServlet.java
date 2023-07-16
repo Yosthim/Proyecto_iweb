@@ -114,7 +114,7 @@ public class AdminServlet extends HttpServlet {
                 String textoBuscar = request.getParameter("textoBuscar");
 
                 request.setAttribute("textoBusqueda", textoBuscar);
-                    request.setAttribute("listaJuegos", adminDao.buscarJuegosPorNombre(textoBuscar));
+                request.setAttribute("listaJuegos", adminDao.buscarJuegosPorNombre(textoBuscar));
                 RequestDispatcher view = request.getRequestDispatcher("AdministradorJapyld/adminVideojuegos.jsp");
                 view.forward(request, response);
             case "borrar":
@@ -132,13 +132,13 @@ public class AdminServlet extends HttpServlet {
                     if (jg != null) {
                         try {
                             adminDao.borrarjuego(idJuegos);
-                            response.sendRedirect("AdminServlet?msg=Empleado borrado exitosamente");
+                            response.sendRedirect("AdminServlet?msg=Juego borrado exitosamente");
                         } catch (SQLException e) {
-                            response.sendRedirect("AdminServlet?err=Error al borrar el empleado");
+                            response.sendRedirect("AdminServlet?err=Error al borrar el Juego");
                         }
                     }
                 } else {
-                    response.sendRedirect("AdminServlet?err=Error al borrar el empleado");
+                    response.sendRedirect("AdminServlet?err=Error al borrar el Juego");
                 }
                 break;
 

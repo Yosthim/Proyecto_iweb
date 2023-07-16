@@ -1,13 +1,10 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Labtel
-  Date: 8/06/2023
-  Time: 16:48
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="com.example.proyecto_final_base_japyld.BeansGenerales.JuegosCompradosReservados" %>
+<%@ page import="com.example.proyecto_final_base_japyld.BeansGenerales.Juegos" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<jsp:useBean id="personaSession" type="com.example.proyecto_final_base_japyld.BeansGenerales.Personas" scope="session" class="com.example.proyecto_final_base_japyld.BeansGenerales.Personas"/>
-
+<jsp:useBean id="personaSession" type="com.example.proyecto_final_base_japyld.BeansGenerales.Personas" scope="session"/>
+<jsp:useBean id="categoriaPreferida" type="java.lang.String" scope="request"/>
+<jsp:useBean id="listaJuegos" type="java.util.ArrayList<com.example.proyecto_final_base_japyld.BeansGenerales.JuegosCompradosReservados>" scope="request"/>
+<jsp:useBean id="juegosRecomendados" type="java.util.ArrayList<com.example.proyecto_final_base_japyld.BeansGenerales.Juegos>" scope="request"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -310,7 +307,7 @@
                                         Categoría que más compraste
                                     </div>
                                     <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                        Acción y Aventura
+                                        <%=categoriaPreferida%>
                                     </div>
                                 </div>
                                 <div class="col-auto">
@@ -323,7 +320,7 @@
                 <hr class="mb-4"/>
                 <!-- Juegos comprados/Reservados y Recomendaciones-->
                 <div class="row">
-                    <div class="col-lg-9">
+                    <div class="col-lg-8">
                         <div class="row justify-content-center">
                             <div class="card border-left-info shadow h-100 py-2">
                                 <div class="card-header py-3">
@@ -334,83 +331,37 @@
                             </div>
                         </div>
                         <div class="row mt-4 mb-3">
-                            <div class="col-xl-3 mb-2">
+                            <%for (JuegosCompradosReservados juego : listaJuegos) {
+                                String type = null;
+                                switch (juego.getEstadoCompraJuego()) {
+                                    case "Comprado":
+                                        type = "success";
+                                        break;
+                                    case "Reservado":
+                                        type = "warning";
+                                        break;
+                                }
+                            %>
+                            <div class="col-xl-4 col-md-6 col-sm-10 mb-2">
                                 <div class="card border-left-success shadow h-100 py-2">
                                     <div class="card-header">
-                                        <h5 class="mb-0 font-weight-bold text-success">
-                                            Comprado
+                                        <h5 class="mb-0 font-weight-bold text-<%=type%>">
+                                            <%=juego.getEstadoCompraJuego()%>
                                         </h5>
                                     </div>
                                     <div class="card-body justify-content-center">
                                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                            <h6>The Legend of Zelda</h6>
+                                            <h6><%=juego.getJuego().getNombreJuegos()%></h6>
                                         </div>
-                                        <img src="../img/Legend_of_Zelda.jpg" class="img-fluid" alt="Imagen">
+                                        <img src="<%=request.getContextPath()%>/Image?act=juego&id=<%=juego.getJuego().getIdImagen()%>"
+                                             class="img-fluid" alt="Imagen">
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-xl-3 mb-2">
-                                <div class="card border-left-warning shadow h-100 py-2">
-                                    <div class="card-header">
-                                        <h5 class="mb-0 font-weight-bold text-warning">
-                                            Reservado
-                                        </h5>
-                                    </div>
-                                    <div class="card-body justify-content-center">
-                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                            <h6>The Legend of Zelda</h6>
-                                        </div>
-                                        <img src="../img/Legend_of_Zelda.jpg" class="img-fluid" alt="Imagen">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 mb-2">
-                                <div class="card border-left-warning shadow h-100 py-2">
-                                    <div class="card-header">
-                                        <h5 class="mb-0 font-weight-bold text-warning">
-                                            Reservado
-                                        </h5>
-                                    </div>
-                                    <div class="card-body justify-content-center">
-                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                            <h6>The Legend of Zelda</h6>
-                                        </div>
-                                        <img src="../img/Legend_of_Zelda.jpg" class="img-fluid" alt="Imagen">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 mb-2">
-                                <div class="card border-left-success shadow h-100 py-2">
-                                    <div class="card-header">
-                                        <h5 class="mb-0 font-weight-bold text-success">
-                                            Comprado
-                                        </h5>
-                                    </div>
-                                    <div class="card-body justify-content-center">
-                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                            <h6>The Legend of Zelda</h6>
-                                        </div>
-                                        <img src="../img/Legend_of_Zelda.jpg" class="img-fluid" alt="Imagen">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 mb-2">
-                                <div class="card border-left-success shadow h-100 py-2">
-                                    <div class="card-header">
-                                        <h5 class="mb-0 font-weight-bold text-success">
-                                            Comprado
-                                        </h5>
-                                    </div>
-                                    <div class="card-body justify-content-center">
-                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                            <h6>The Legend of Zelda</h6>
-                                        </div>
-                                        <img src="../img/Legend_of_Zelda.jpg" class="img-fluid" alt="Imagen">
-                                    </div>
-                                </div>
-                            </div>
+                            <%}%>
                         </div>
                     </div>
+                    <div class="col-lg-1"></div>
                     <div class="col-lg-3">
                         <div class="row justify-content-center">
                             <div class="card border-left-info shadow h-100 py-2">
@@ -422,21 +373,25 @@
                             </div>
                         </div>
                         <div class="row mt-4 justify-content-center">
-                            <div class="col-xl-10 mb-2">
+                            <%for (Juegos juego : juegosRecomendados) {%>
+                            <div class="col-xl-11 col-sm-10 mb-2">
                                 <div class="card border-left-primary shadow h-100 py-2">
                                     <div class="card-header">
                                         <h5 class="mb-0 font-weight-bold text-primary">
-                                            The Legend of Zelda
+                                            <%=juego.getNombreJuegos()%>
                                         </h5>
                                     </div>
                                     <div class="card-body justify-content-center">
-                                        <img src="../img/Legend_of_Zelda.jpg" class="img-fluid" alt="Imagen">
+                                        <img src="<%=request.getContextPath()%>/Image?act=juego&id=<%=juego.getIdImagen()%>"
+                                             class="img-fluid" alt="Imagen">
                                         <div class="mt-3">
-                                            <a href="#" class="btn btn-success">Más detalles</a>
+                                            <a href="<%=request.getContextPath()%>/MasDetallesJuego?idjuego=<%=juego.getIdJuegos()%>"
+                                               class="btn btn-success">Más detalles</a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            <%}%>
                         </div>
                     </div>
                 </div>

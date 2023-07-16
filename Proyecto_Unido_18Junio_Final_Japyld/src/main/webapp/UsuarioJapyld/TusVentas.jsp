@@ -486,12 +486,39 @@
             <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                <a class="btn btn-primary" href="ZAdministrador/login.html">Logout</a>
+                <a class="btn btn-primary" href="<%=request.getContextPath()%>/LoginServlet?action=logout">Logout</a>
             </div>
         </div>
     </div>
 </div>
 
+<!-- No Aceptado Modal -->
+<div class="modal fade" id="NoAcceptModal" tabindex="-1" role="dialog" aria-labelledby="cambiarOferta"
+    aria-hidden="true">
+    <div class="modal-dialog" role="form">
+        <div class="modal-content">
+            <form method="POST">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="cambiarOferta">¿Desea cambiar su oferta?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    El administrador le sugiere cambiar el precio de su oferta a S/<input id="precioAdmin" type="number" readonly>.
+                    <div class="form-group">
+                        <label for="precio" class="text-gray-900">Ingrese el nuevo precio:</label>
+                        <input class="form-control" type="number" id="precio" name="precioNuevo">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-danger" type="button" data-bs-dismiss="modal">Cancelar</button>
+                    <button class="btn btn-primary" type="submit">Cambiar oferta</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 <!-- Bootstrap core JavaScript-->
 <script src="recursos/vendor/jquery/jquery.min.js"></script>
 <script src="recursos/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

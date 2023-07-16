@@ -267,8 +267,11 @@
                   <div class="col-12 col-xl-auto mb-3">
                     <div class="d-flex justify-content-center">
                       <td>
-                        <a onclick="return confirm('¿Estas seguro de borrar?');"
-                           href="<%=request.getContextPath()%>/AdminServlet?action=borrar&id=<%= Juegos.getIdJuegos(  )%>"
+                        <%
+                          String juegoId = request.getParameter("id");
+                        %>
+                        <a onclick="return confirm('¿Estás seguro de borrar?');"
+                           href="<%=request.getContextPath()%>/AdminServlet?action=borrar&id=<%= juegoId %>"
                            type="button" class="btn btn-danger">
                           <i class="bi bi-trash"></i>
                         </a>
