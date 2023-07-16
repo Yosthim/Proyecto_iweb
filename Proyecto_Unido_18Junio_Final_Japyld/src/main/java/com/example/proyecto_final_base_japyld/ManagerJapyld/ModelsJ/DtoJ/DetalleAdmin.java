@@ -23,6 +23,8 @@ public class DetalleAdmin {
     private BigDecimal precioCompra;
     private BigDecimal DineroTotal;
 
+    private String direccion_imagen;
+
     public int getId() {
         return id;
     }
@@ -141,5 +143,13 @@ public class DetalleAdmin {
 
     public void setDineroTotal(BigDecimal dineroTotal) {
         DineroTotal = dineroTotal;
+    }
+
+    public String getDireccion_imagen() {
+        return direccion_imagen;
+    }
+
+    public void setDireccion_imagen(String direccion_imagen) {
+        this.direccion_imagen = direccion_imagen;
     }
 }
