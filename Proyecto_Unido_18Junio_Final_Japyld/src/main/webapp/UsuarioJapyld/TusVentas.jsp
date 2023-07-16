@@ -299,8 +299,7 @@
             <div class="container-fluid">
 
                 <!-- Page Heading -->
-                <h1 class="h3 mb-3 text-gray-800">Tus Ventas</h1>
-
+                <h1 class="h3 mb-3 text-gray-700">Tus Ventas</h1>
                 <!-- Content row -->
                 <div class="container-fluid">
                     <div class="card shadow mb-5">

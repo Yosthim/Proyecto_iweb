@@ -76,7 +76,7 @@
                 <form method="POST" action="<%=request.getContextPath()%>/PaginaCompra">
                     <!-- Page Heading -->
                     <% for (CompraDto juegocompra : listaDetallesCompra){ %>
-                    <h1 class="h3 mb-2 text-gray-800">Página de Compra</h1>
+                    <h1 class="h3 mb-2 text-gray-700">Página de Compra</h1>
                     <!-- Content Row -->
                     <div class="row">
                         <div class="col-xl-4 col-lg-4">

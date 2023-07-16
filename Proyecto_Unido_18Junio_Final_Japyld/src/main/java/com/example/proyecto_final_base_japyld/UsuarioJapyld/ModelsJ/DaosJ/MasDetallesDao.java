@@ -1,13 +1,14 @@
 package com.example.proyecto_final_base_japyld.UsuarioJapyld.ModelsJ.DaosJ;
 
-import com.example.proyecto_final_base_japyld.BeansGenerales.Juegos;
+import com.example.proyecto_final_base_japyld.BaseDao;
+import com.example.proyecto_final_base_japyld.BeansGenerales.*;
 import com.example.proyecto_final_base_japyld.UsuarioJapyld.ModelsJ.DtoJ.ConsolasDetallesDto;
 import com.example.proyecto_final_base_japyld.UsuarioJapyld.ModelsJ.DtoJ.MasDetallesDto;
 
 import java.sql.*;
 import java.util.ArrayList;
 
-public class MasDetallesDao {
+public class MasDetallesDao extends BaseDao {
 
     public ArrayList<MasDetallesDto> listarMasDetallesJuego(int idjuego){
         ArrayList<MasDetallesDto> listaMasDetallesJuego = new ArrayList<>();
@@ -110,4 +111,32 @@ public class MasDetallesDao {
         return listaConsolaPorJuego;
 
     }
+
+    public ArrayList<JuegosCompradosReservados> listarRating(int idjuego){
+        ArrayList<JuegosCompradosReservados> listaRating = new ArrayList<>();
+
+        String sql = "SELECT rating\n" +
+                "from juegoscompradosreservados\n" +
+                "where id_juego = ?;";
+
+        try (Connection connection = this.getConnection();
+             PreparedStatement ptsmt = connection.prepareStatement(sql)) {
+
+             ptsmt.setInt(1, idjuego);
+
+             try (ResultSet rs = ptsmt.executeQuery()) {
+                 while (rs.next()) {
+                     JuegosCompradosReservados rating = new JuegosCompradosReservados();
+                     rating.setRating(rs.getInt(1));
+
+                     listaRating.add(rating);
+                 }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return listaRating;
+
+    }
+
 }

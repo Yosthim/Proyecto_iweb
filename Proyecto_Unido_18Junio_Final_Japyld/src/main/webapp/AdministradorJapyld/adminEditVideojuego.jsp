@@ -318,7 +318,9 @@
                                             <br>
                                             <div class="col-12 col-xl-auto mb-3">
                                                 <div class="d-flex justify-content-between">
-                                                    <a href="adminDeleteVideojuego.jsp?id=<%= juego.getIdJuegos() %>" class="btn btn-danger">
+
+                                                    <a onclick="return confirm('¿Estás seguro de borrar?');"
+                                                       href="<%=request.getContextPath()%>/AdminServlet?action=borrar&id=<%=juego.getIdJuegos()%>" type="button" class="btn btn-danger">
                                                         <i class="bi bi-trash"></i>Eliminar juego del catálogo</a>
                                                     <a href="<%=request.getContextPath()%>/DescuentoServlet?action=descuento&id=<%=juego.getIdJuegos()%>" class="btn btn-success mr-5">Descuento</a>
                                                     <button type="submit" class="btn btn-primary" form="actualizar" >Actualizar</button>
