@@ -26,6 +26,7 @@ public class ModuloAdmin {
 
     private BigDecimal DineroGastoTotal;
     private BigDecimal DineroCompraTotal;
+    private BigDecimal DineroTotal;
 
     public int getId() {
         return id;
@@ -178,5 +179,13 @@ public class ModuloAdmin {
 
     public void setDineroCompraTotal(BigDecimal dineroCompraTotal) {
         DineroCompraTotal = dineroCompraTotal;
+    }
+
+    public BigDecimal getDineroTotal() {
+        return DineroTotal;
+    }
+
+    public void setDineroTotal(BigDecimal dineroTotal) {
+        DineroTotal = dineroTotal;
     }
 }

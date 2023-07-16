@@ -21,6 +21,7 @@ public class DetalleAdmin {
     private BigDecimal precioVenta;
 
     private BigDecimal precioCompra;
+    private BigDecimal DineroTotal;
 
     public int getId() {
         return id;
@@ -132,5 +133,13 @@ public class DetalleAdmin {
 
     public void setContrasenia(String contrasenia) {
         this.contrasenia = contrasenia;
+    }
+
+    public BigDecimal getDineroTotal() {
+        return DineroTotal;
+    }
+
+    public void setDineroTotal(BigDecimal dineroTotal) {
+        DineroTotal = dineroTotal;
     }
 }

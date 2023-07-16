@@ -29,22 +29,40 @@ public class DetalleAdminServlet extends HttpServlet {
 
                 ArrayList<ModuloAdmin> listarAdminActivos = adminModuloDao.listarAdmin();
 
-                double maxResultado = Double.MIN_VALUE;
+                double maxResultado = Double.NEGATIVE_INFINITY;
+
 
                 int idMaxResultado = 0;
 
+
                 for (ModuloAdmin a : listarAdminActivos) {
+
+                    BigDecimal dineroCompraTotal = a.getDineroCompraTotal();
+                    BigDecimal dineroGastoTotal = a.getDineroGastoTotal();
+
+                    if(dineroCompraTotal==null){
+                        a.setDineroCompraTotal(BigDecimal.ZERO);
+                    }
+                    if(dineroGastoTotal==null){
+                        a.setDineroGastoTotal(BigDecimal.ZERO);
+                    }
+
                     BigDecimal resta = a.getDineroCompraTotal().subtract(a.getDineroGastoTotal());
                     double resultado = resta.doubleValue();
+
+                    a.setDineroTotal(resta);
 
                     if (resultado > maxResultado) {
                         maxResultado = resultado;
                         idMaxResultado = a.getId();
                     }
                 }
+                request.setAttribute("adminActivos",listarAdminActivos);
+
                 request.setAttribute("idTrabajador", idMaxResultado);
                 request.setAttribute("a", perfilAdminDao.detallesAdmin(Integer.parseInt(id)));
-                request.setAttribute("listaJuegosPropuestos", perfilAdminDao.listarJuegosPropuestos(Integer.parseInt(id)));
+                request.setAttribute("listaJuegosPropuestosComprados", perfilAdminDao.listarJuegosPropuestosComprados(Integer.parseInt(id)));
+                request.setAttribute("listaJuegosPropuestosVendidos", perfilAdminDao.listarJuegosPropuestosVendidos(Integer.parseInt(id)));
 
                 request.getRequestDispatcher("ManagerJapyld/DetalleAdmin.jsp").forward(request, response);
                 break;

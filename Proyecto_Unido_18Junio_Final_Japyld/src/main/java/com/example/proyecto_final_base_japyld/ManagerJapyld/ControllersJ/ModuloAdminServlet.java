@@ -32,11 +32,22 @@ public class ModuloAdminServlet extends HttpServlet {
 
                 ArrayList<ModuloAdmin> listarAdminActivos = adminModuloDao.listarAdmin();
 
-                double maxResultado = Double.MIN_VALUE;
+                double maxResultado = Double.NEGATIVE_INFINITY;
 
                 int idMaxResultado = 0;
 
                 for (ModuloAdmin a : listarAdminActivos) {
+
+                    BigDecimal dineroCompraTotal = a.getDineroCompraTotal();
+                    BigDecimal dineroGastoTotal = a.getDineroGastoTotal();
+
+                    if(dineroCompraTotal==null){
+                        a.setDineroCompraTotal(BigDecimal.ZERO);
+                    }
+                    if(dineroGastoTotal==null){
+                        a.setDineroGastoTotal(BigDecimal.ZERO);
+                    }
+
                     BigDecimal resta = a.getDineroCompraTotal().subtract(a.getDineroGastoTotal());
                     double resultado = resta.doubleValue();
 
