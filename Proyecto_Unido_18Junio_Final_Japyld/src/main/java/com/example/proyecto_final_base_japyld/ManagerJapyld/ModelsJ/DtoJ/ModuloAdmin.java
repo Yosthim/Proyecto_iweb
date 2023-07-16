@@ -25,6 +25,7 @@ public class ModuloAdmin {
     private int juegoComprados;
 
     private BigDecimal DineroGastoTotal;
+    private BigDecimal DineroCompraTotal;
 
     public int getId() {
         return id;
@@ -169,5 +170,13 @@ public class ModuloAdmin {
 
     public void setIdImagen(int idImagen) {
         this.idImagen = idImagen;
+    }
+
+    public BigDecimal getDineroCompraTotal() {
+        return DineroCompraTotal;
+    }
+
+    public void setDineroCompraTotal(BigDecimal dineroCompraTotal) {
+        DineroCompraTotal = dineroCompraTotal;
     }
 }

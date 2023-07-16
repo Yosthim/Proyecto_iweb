@@ -293,11 +293,17 @@
                             <div class="card-body center-h center-h">
                                 <div class="col-12 col-xl-auto mb-3">
                                     <div class="d-flex justify-content-end">
-                                        <a href="<%= request.getContextPath()%>/DetalleUsuarioServlet?action=editar&nm=<%=e.getId()%>" class="btn btn-danger">Ban</a>
+                                        <% if (e.getEstado().equals("Activo")) { %>
+                                        <a href="<%= request.getContextPath()%>/DetalleUsuarioServlet?action=editar&nm=<%=e.getId()%>" class="btn btn-danger">
+                                            Ban
+                                        </a>
+                                        <% } else { %>
+
+                                        <% } %>
                                     </div>
                                 </div>
-
                             </div>
+
                         </div>
                     </div>
                 </div>

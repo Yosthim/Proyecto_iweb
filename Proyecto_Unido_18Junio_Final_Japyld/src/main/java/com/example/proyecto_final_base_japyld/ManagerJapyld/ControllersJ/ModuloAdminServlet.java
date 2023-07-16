@@ -9,8 +9,10 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.ArrayList;
 
@@ -27,6 +29,23 @@ public class ModuloAdminServlet extends HttpServlet {
 
         switch (action) {
             case "lista":
+
+                ArrayList<ModuloAdmin> listarAdminActivos = adminModuloDao.listarAdmin();
+
+                double maxResultado = Double.MIN_VALUE;
+
+                int idMaxResultado = 0;
+
+                for (ModuloAdmin a : listarAdminActivos) {
+                    BigDecimal resta = a.getDineroCompraTotal().subtract(a.getDineroGastoTotal());
+                    double resultado = resta.doubleValue();
+
+                    if (resultado > maxResultado) {
+                        maxResultado = resultado;
+                        idMaxResultado = a.getId();
+                    }
+                }
+                request.setAttribute("idMax", idMaxResultado);
                 request.setAttribute("listarAdminActivos", adminModuloDao.listarAdmin());
                 request.setAttribute("listarAdminInactivo", adminModuloDao.listarAdminInactivos());
 
@@ -71,24 +90,28 @@ public class ModuloAdminServlet extends HttpServlet {
                 int contador2=adminModuloDao.contarPersonas();
                 admin.setId(contador2);
 
+                int centinela2=0;
                 int centinela=0;
+
                 ArrayList<ModuloAdmin> comparar= adminModuloDao.listarAdmin();
                 for (ModuloAdmin admi1: comparar){
                     if (admi1.getCorreo().equals(request.getParameter("correo"))){
                         centinela=1;
                     }
+                    String valor = admi1.getNombre()+admi1.getApellido();
+                    String valor2 = request.getParameter("nombre")+request.getParameter("apellido");
+                    if (valor.equals(valor2)){
+                        centinela2=1;
+                    }
                 }
-                if (centinela==1){
+
+                if (centinela==1 || centinela2 ==1){
                     response.sendRedirect(request.getContextPath()+"/ModuloAdminServlet?action=crear");
                 }else {
                     adminModuloDao.crearAdmin(admin);
                     response.sendRedirect(request.getContextPath()+"/ModuloAdminServlet");
                 }
                 break;
-
         }
-
-
-
     }
 }

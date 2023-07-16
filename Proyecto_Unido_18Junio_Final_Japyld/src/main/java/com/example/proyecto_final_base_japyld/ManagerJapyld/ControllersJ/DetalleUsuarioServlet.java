@@ -1,6 +1,7 @@
 package com.example.proyecto_final_base_japyld.ManagerJapyld.ControllersJ;
 
 import com.example.proyecto_final_base_japyld.ManagerJapyld.ModelsJ.DaosJ.DetalleUsuarioDao;
+import com.example.proyecto_final_base_japyld.ManagerJapyld.ModelsJ.DaosJ.ModuloAdminDao;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -17,6 +18,7 @@ public class DetalleUsuarioServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action") == null ? "lista" : request.getParameter("action");
         DetalleUsuarioDao perfilUsuarioDao = new DetalleUsuarioDao();
+        ModuloAdminDao adminModuloDao = new ModuloAdminDao();
 
         String id = request.getParameter("nm");
 

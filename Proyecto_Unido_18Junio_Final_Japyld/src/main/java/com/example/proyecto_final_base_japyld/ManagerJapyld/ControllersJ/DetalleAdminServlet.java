@@ -1,6 +1,8 @@
 package com.example.proyecto_final_base_japyld.ManagerJapyld.ControllersJ;
 
 import com.example.proyecto_final_base_japyld.ManagerJapyld.ModelsJ.DaosJ.DetalleAdminDao;
+import com.example.proyecto_final_base_japyld.ManagerJapyld.ModelsJ.DaosJ.ModuloAdminDao;
+import com.example.proyecto_final_base_japyld.ManagerJapyld.ModelsJ.DtoJ.ModuloAdmin;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -8,6 +10,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.util.ArrayList;
 
 @WebServlet(name="DetalleAdminServlet", value = "/DetalleAdminServlet")
 public class DetalleAdminServlet extends HttpServlet {
@@ -18,10 +22,27 @@ public class DetalleAdminServlet extends HttpServlet {
         String id = request.getParameter("n");
 
         DetalleAdminDao perfilAdminDao = new DetalleAdminDao();
+        ModuloAdminDao adminModuloDao = new ModuloAdminDao();
 
         switch (action) {
             case "lista":
 
+                ArrayList<ModuloAdmin> listarAdminActivos = adminModuloDao.listarAdmin();
+
+                double maxResultado = Double.MIN_VALUE;
+
+                int idMaxResultado = 0;
+
+                for (ModuloAdmin a : listarAdminActivos) {
+                    BigDecimal resta = a.getDineroCompraTotal().subtract(a.getDineroGastoTotal());
+                    double resultado = resta.doubleValue();
+
+                    if (resultado > maxResultado) {
+                        maxResultado = resultado;
+                        idMaxResultado = a.getId();
+                    }
+                }
+                request.setAttribute("idTrabajador", idMaxResultado);
                 request.setAttribute("a", perfilAdminDao.detallesAdmin(Integer.parseInt(id)));
                 request.setAttribute("listaJuegosPropuestos", perfilAdminDao.listarJuegosPropuestos(Integer.parseInt(id)));
 
@@ -30,6 +51,11 @@ public class DetalleAdminServlet extends HttpServlet {
             case "editar":
 
                 perfilAdminDao.editarAdmin(Integer.parseInt(id));
+
+                int idEntregaMenos =perfilAdminDao.obtenerAdminMenosEntregas();
+
+                perfilAdminDao.cambiarEntregas(Integer.parseInt(id),idEntregaMenos);
+
                 response.sendRedirect(request.getContextPath() + "/ModuloAdminServlet");
                 break;
         }

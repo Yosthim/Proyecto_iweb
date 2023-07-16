@@ -238,7 +238,13 @@
                     <div class="col-xl-8">
                         <!-- Account details card-->
                         <div class="card mb-4">
-                            <div class="card-header m-0 font-weight-bold text-warning">TRABAJADOR DEL MES</div>
+
+                            <div class="card-header m-0 font-weight-bold text-warning <%= a.getId() == (Integer)request.getAttribute("idTrabajador") ? "trabajador-mes" : "" %>">
+                                <% if (a.getId() == (Integer)request.getAttribute("idTrabajador")) { %>
+                                TRABAJADOR DEL MES
+                                <% } %>
+                            </div>
+
 
                             <div class="container">
                                 <br>
@@ -322,7 +328,13 @@
                             <div class="card-body center-h center-h">
                                 <div class="col-12 col-xl-auto mb-3">
                                     <div class="d-flex justify-content-end">
-                                        <a href="<%= request.getContextPath()%>/DetalleAdminServlet?action=editar&n=<%=a.getId()%>" class="btn btn-danger">Despedir</a>
+                                        <% if (a.getEstado().equals("Activo")) { %>
+                                        <a href="<%= request.getContextPath()%>/DetalleAdminServlet?action=editar&n=<%=a.getId()%>" class="btn btn-danger">
+                                            Despedir
+                                        </a>
+                                        <% } else { %>
+
+                                        <% } %>
                                     </div>
                                 </div>
                             </div>

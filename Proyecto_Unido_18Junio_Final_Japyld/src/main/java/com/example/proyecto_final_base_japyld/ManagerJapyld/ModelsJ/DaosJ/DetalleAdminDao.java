@@ -1,6 +1,7 @@
 package com.example.proyecto_final_base_japyld.ManagerJapyld.ModelsJ.DaosJ;
 
 import com.example.proyecto_final_base_japyld.ManagerJapyld.ModelsJ.DtoJ.DetalleAdmin;
+import com.example.proyecto_final_base_japyld.ManagerJapyld.ModelsJ.DtoJ.ModuloAdmin;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -116,4 +117,86 @@ public class DetalleAdminDao {
         }
     }
 
+    public int obtenerAdminMenosEntregas(){
+
+       int id=0;
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e){
+            e.printStackTrace();
+        }
+
+        String sql = "SELECT\n" +
+                "    p.idPersona,\n" +
+                "    p.nombre,\n" +
+                "    p.apellido,\n" +
+                "    p.correo,\n" +
+                "    jcr_contador.contador AS contador_juegos\n" +
+                "FROM\n" +
+                "    personas p\n" +
+                "LEFT JOIN (\n" +
+                "    SELECT\n" +
+                "        id_administrador,\n" +
+                "        COUNT(*) AS contador\n" +
+                "    FROM\n" +
+                "        juegoscompradosreservados\n" +
+                "    WHERE\n" +
+                "        estadoCompraJuego IN ('Reservado')\n" +
+                "    GROUP BY\n" +
+                "        id_administrador\n" +
+                ") AS jcr_contador ON p.idPersona = jcr_contador.id_administrador\n" +
+                "WHERE\n" +
+                "    p.id_roles = 'ADM' AND p.estado = 'Activo'\n" +
+                "ORDER BY\n" +
+                "    contador_juegos ASC\n" +
+                "LIMIT 1;";
+        String url = "jdbc:mysql://localhost:3306/japyld";
+
+        try (Connection connection = DriverManager.getConnection(url, "root", "root");
+             Statement smt = connection.createStatement();
+             ResultSet resultSet = smt.executeQuery(sql)) {
+
+            while(resultSet.next()){
+                id = resultSet.getInt(1);
+            }
+        }catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+
+        return id;
+    }
+
+    public void cambiarEntregas(int idDespedido, int idMenorEntregas){
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        String sql = "UPDATE juegoscompradosreservados\n" +
+                "SET id_administrador = ?\n" +
+                "WHERE id_administrador = ? and estadoCompraJuego='Reservado';";
+
+        String url = "jdbc:mysql://localhost:3306/japyld";
+
+        try (Connection connection = DriverManager.getConnection(url, "root", "root")) {
+            connection.setAutoCommit(false);
+
+            try (PreparedStatement smt = connection.prepareStatement(sql)) {
+                smt.setInt(1, idMenorEntregas);
+                smt.setInt(2, idDespedido);
+                smt.executeUpdate();
+
+                connection.commit();
+            } catch (SQLException e) {
+                connection.rollback();
+                throw new RuntimeException(e);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
 }
