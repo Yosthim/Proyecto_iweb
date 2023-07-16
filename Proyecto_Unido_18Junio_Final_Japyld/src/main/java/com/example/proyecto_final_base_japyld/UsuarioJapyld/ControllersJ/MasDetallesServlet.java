@@ -29,7 +29,7 @@ public class MasDetallesServlet extends HttpServlet {
         request.setAttribute("listaMasDetallesJuego", masdetallesdao.listarMasDetallesJuego(idjuego));
         request.setAttribute("listaComentarios",comentariosDao.listarComentarios(idjuego));
         request.setAttribute("listaConsolaPorJuego",masdetallesdao.listarConsolasPorJuego(idjuego));
-
+        request.setAttribute("listaRating",masdetallesdao.listarRating(idjuego));
         RequestDispatcher view = request.getRequestDispatcher("UsuarioJapyld/MasDetallesJuego.jsp");
         view.forward(request,response);
     }
