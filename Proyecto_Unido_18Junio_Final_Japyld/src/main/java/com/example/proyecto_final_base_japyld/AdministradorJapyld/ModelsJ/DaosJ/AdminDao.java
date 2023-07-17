@@ -283,6 +283,8 @@ public class AdminDao extends BaseDao {
 
                     VentaJuegosGeneral venta = new VentaJuegosGeneral();
                     venta.setIdVenta(resultSet.getInt(1));
+                    venta.setNombreNuevo(resultSet.getString(13));
+                    venta.setCantidad(resultSet.getInt(15));
 
                     Juegos juego = new Juegos();
                     juego.setIdJuegos((resultSet.getInt("j.idJuegos")));
@@ -313,7 +315,7 @@ public class AdminDao extends BaseDao {
         String sql = "SELECT * FROM ventajuegosgeneral c\n" +
                 "                left join personas p on c.id_usuario = p.idPersona\n" +
                                 "left join juegos j on c.id_juego = j.idJuegos\n" +
-                "                WHERE c.estadoVenta = 'Espera' and disponibilidad = 'Existente' and c.id_administrador =? \n" +
+                "                WHERE c.estadoVenta = 'Pendiente' and c.disponibilidad = 'Habilitado' and c.id_administrador =? \n" +
                 "                ORDER BY c.fechaPublicacion DESC;";
         try(Connection connection = this.getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(sql)){
@@ -356,7 +358,7 @@ public class AdminDao extends BaseDao {
         String sql = "SELECT * FROM ventajuegosgeneral c\n" +
                 "                left join personas p on c.id_usuario = p.idPersona\n" +
                 "                   left join juegos j on c.id_juego = j.idJuegos\n" +
-                "                WHERE c.estadoVenta = 'Espera' and disponibilidad = 'Nuevo' and c.id_administrador =? \n" +
+                "                WHERE c.estadoVenta = 'Pendiente' and c.disponibilidad = 'Nuevo' and c.id_administrador =? \n" +
                 "                ORDER BY c.fechaPublicacion DESC;";
 
         try(Connection connection = this.getConnection();

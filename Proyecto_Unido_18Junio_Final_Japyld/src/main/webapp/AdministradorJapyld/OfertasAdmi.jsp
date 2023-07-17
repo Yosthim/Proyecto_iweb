@@ -213,6 +213,15 @@
           session.setAttribute("info", null);
         }
       %>
+      <% if (session.getAttribute("err") != null) {
+        //if (request.getParameter("msg") != null) {%>
+      <div id="mensajeError" class="alert alert-danger" role="alert">
+        <%=session.getAttribute("err")%>
+      </div>
+      <%
+          session.setAttribute("err", null);
+        }
+      %>
 
       <!-- End of Topbar -->
 
@@ -248,13 +257,22 @@
                                 <tbody>
                                 <%
                                   for(VentaJuegosGeneral j :ventas){
+                                    if (j.getNombreNuevo()==null){
                                 %>
-                                <tr>
-                                  <th scope="row" style="color: #666666;"><%=j.getJuego().getNombreJuegos()%></th>
-                                  <td><%=j.getUsuario().getNombre()%></td>
-                                  <td><%=j.getJuego().getStock()%></td>
-                                </tr>
+                                  <tr>
+                                    <th scope="row" style="color: #666666;"><%=j.getJuego().getNombreJuegos()%></th>
+                                    <td><%=j.getUsuario().getNombre()%></td>
+                                    <td><%=j.getJuego().getStock()%></td>
+                                  </tr>
+                                <%  }else{
+                                %>
+                                  <tr>
+                                    <th scope="row" style="color: #666666;"><%=j.getNombreNuevo()%></th>
+                                    <td><%=j.getUsuario().getNombre()%></td>
+                                    <td><%=j.getCantidad()%></td>
+                                  </tr>
                                 <%
+                                    }
                                   }
                                 %>
                                 </tbody>
@@ -342,7 +360,7 @@
                               <tr>
                                 <th class="text-center">Juego</th>
                                 <th class="text-center">Usuario</th>
-                                <th class="text-center">Agregar</th>
+                                <th class="text-center">Precio</th>
 
                               </tr>
                               </thead>
@@ -352,7 +370,7 @@
                                 for(VentaJuegosGeneral j :nuevosJuegos){
                               %>
                               <tr>
-                                <td class="text-center"><a href="<%=request.getContextPath()%>/JuegosNuevosServlet?action=ofertas&id=<%=j.getIdVenta()%>"><%=j.getJuego().getNombreJuegos()%></a>.</td>
+                                <td class="text-center"><a href="<%=request.getContextPath()%>/JuegosNuevosServlet?action=ofertas&id=<%=j.getIdVenta()%>"><%=j.getNombreNuevo()%></a>.</td>
 
                                 <td class="text-center"><%=j.getUsuario().getNombre()%></td>
                                 <td class="text-center"><%=j.getPrecioUsuario()%></td>

@@ -60,16 +60,17 @@ public class AgregarDao extends BaseDao {
         int id=id_imagen();
 
         String sql = "INSERT INTO juegos (nombreJuegos, stock, precio, estadoJuego,descripcion,id_imagen,id_categoria) " +
-                    " VALUES (?,1,?,'Activo',?,?,?)";
+                    " VALUES (?,?,?,'Activo',?,?,?)";
 
         try(Connection connection = this.getConnection();
             PreparedStatement psmt = connection.prepareStatement(sql)){
 
             psmt.setString(1,juegos.getNombreJuegos());
-            psmt.setBigDecimal(2,juegos.getPrecio());
-            psmt.setString(3,juegos.getDescripcion());
-            psmt.setInt(4,id);
-            psmt.setString(5,juegos.getCategoria().getIdCategorias());
+            psmt.setInt(2,juegos.getStock());
+            psmt.setBigDecimal(3,juegos.getPrecio());
+            psmt.setString(4,juegos.getDescripcion());
+            psmt.setInt(5,id);
+            psmt.setString(6,juegos.getCategoria().getIdCategorias());
 
             psmt.executeUpdate();
 
@@ -124,14 +125,15 @@ public class AgregarDao extends BaseDao {
 
         int id=id_juego();
 
-        String sql = "INSERT INTO juegos_por_consolas (id_juego, id_consola)" +
-                " VALUES (?,?)";
+        String sql = "INSERT INTO juegos_por_consolas (id_juego, id_consola,stock_consola)" +
+                " VALUES (?,?,?)";
 
         try(Connection connection = this.getConnection();
             PreparedStatement psmt = connection.prepareStatement(sql)){
 
             psmt.setInt(1,id);
             psmt.setString(2,juegosXConsola.getConsolaDeJuego().getIdConsola());
+            psmt.setInt(3,juegosXConsola.getStockXConsola());
             psmt.executeUpdate();
 
         } catch (SQLException e) {
