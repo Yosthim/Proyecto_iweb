@@ -1,11 +1,19 @@
+<%@ page import="com.example.proyecto_final_base_japyld.BeansGenerales.VentaJuegosGeneral" %>
 <%@ page import="com.example.proyecto_final_base_japyld.BeansGenerales.Categoria" %>
-<%@ page import="com.example.proyecto_final_base_japyld.BeansGenerales.Consola" %>
+<%@ page import="com.example.proyecto_final_base_japyld.BeansGenerales.Consola" %><%--
+  Created by IntelliJ IDEA.
+  User: jossr
+  Date: 5/06/2023
+  Time: 16:48
+  To change this template use File | Settings | File Templates.
+--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<jsp:useBean id="personaSession" type="com.example.proyecto_final_base_japyld.BeansGenerales.Personas" scope="session" class="com.example.proyecto_final_base_japyld.BeansGenerales.Personas"/>
 <jsp:useBean id="categorias" type="java.util.ArrayList<com.example.proyecto_final_base_japyld.BeansGenerales.Categoria>" scope="request"/>
 <jsp:useBean id="consolas" type="java.util.ArrayList<com.example.proyecto_final_base_japyld.BeansGenerales.Consola>" scope="request"/>
-<jsp:useBean id="personaSession" type="com.example.proyecto_final_base_japyld.BeansGenerales.Personas" scope="session"/>
 
-<html>
+<html lang="en">
+
 <head>
 
     <meta charset="utf-8">
@@ -14,8 +22,30 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Dashboard1</title>
+    <title>Contraoferta</title>
 
+    <title>Gráfico de Barras con Bootstrap 4</title>
+
+    <style>
+        /* Estilos personalizados */
+        .custom-textbox {
+            border: 2px solid #ffffff;
+            border-radius: 10px;
+            padding: 10px;
+            font-size: 18px;
+            color: #333;
+            background-color: #F1F7F6;
+            outline: none;
+        }
+
+        .custom-textbox:focus {
+            border-color: #29B6A5;
+            box-shadow: 0 0 0 3px rgba(41, 182, 165, 0.2);
+        }
+    </style>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <!-- Custom fonts for this template-->
     <link href="recursos/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -34,9 +64,63 @@
 <div id="wrapper">
 
     <!-- Sidebar -->
-    <jsp:include page="/Includes/UsuarioJapyld/SidebarGeneral.jsp">
-        <jsp:param name="title" value="Pagina Principal"/>
-    </jsp:include>
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+        <!-- Sidebar - Brand -->
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<%=request.getContextPath()%>/AdminServlet?action=lista">
+            <div class="sidebar-brand-icon rotate-n-15">
+                <i class="fas fa-laugh-wink"></i>
+            </div>
+            <div class="sidebar-brand-text mx-3">JAPYLD <sup>TM</sup></div>
+        </a>
+
+        <!-- Divider -->
+
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+
+        <!-- Heading -->
+        <div class="sidebar-heading">
+            MÓDULOS
+        </div>
+
+        <!-- Nav Item - Pages Collapse Menu -->
+        <li class="nav-item">
+            <a class="nav-link" href="<%=request.getContextPath()%>/AdminServlet?action=lista">
+                <i class="fas fa-home"></i>
+                <span>Inicio</span></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="<%=request.getContextPath()%>/AdminServlet?action=listasPaginaVideojuegos">
+                <i class="fas fa-gamepad"></i>
+                <span>Videojuegos</span>
+            </a>
+
+        </li>
+        <!-- Nav Item - Charts -->
+        <li class="nav-item">
+            <a class="nav-link" href="<%=request.getContextPath()%>/AdminServlet?action=listaPaginaOfertas">
+                <i class="far fa-money-bill-alt"></i>
+                <span>Ofertas</span></a>
+        </li>
+
+        <!-- Nav Item - Tables -->
+        <li class="nav-item">
+            <a class="nav-link" href="<%=request.getContextPath()%>/JuegosReservadosServlet">
+                <i class="fas fa-box-open"></i>
+                <span>Reservas</span></a>
+        </li>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider d-none d-md-block">
+        <br>
+
+        <!-- Sidebar Toggler (Sidebar) -->
+        <div class="text-center d-none d-md-inline">
+            <button class="rounded-circle border-0" id="sidebarToggle"></button>
+        </div>
+
+    </ul>
     <!-- End of Sidebar -->
 
     <!-- Content Wrapper -->
@@ -46,16 +130,81 @@
         <div id="content">
 
             <!-- Topbar -->
-            <jsp:include page="/Includes/UsuarioJapyld/navbarUsuarioDemasPaginas.jsp">
-                <jsp:param name="title" value="Mas detalles"/>
-            </jsp:include>
+            <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+                <!-- Sidebar Toggle (Topbar) -->
+                <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                    <i class="fa fa-bars"></i>
+                </button>
+
+                <!-- Topbar Search -->
+
+                <!-- Topbar Navbar -->
+                <ul class="navbar-nav ml-auto">
+
+                    <!-- Nav Item - Search Dropdown (Visible Only XS) -->
+                    <li class="nav-item dropdown no-arrow d-sm-none">
+                        <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <!-- Dropdown - Messages -->
+                        <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
+                             aria-labelledby="searchDropdown">
+                            <form class="form-inline mr-auto w-100 navbar-search">
+                                <div class="input-group">
+                                    <input type="text" class="form-control bg-light border-0 small"
+                                           placeholder="Search for..." aria-label="Search"
+                                           aria-describedby="basic-addon2">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-primary" type="button">
+                                            <i class="fas fa-search fa-sm"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </li>
+
+                    <!-- Nav Item - Alerts -->
+
+                    <!-- Nav Item - Messages -->
+
+                    <div class="topbar-divider d-none d-sm-block"></div>
+
+                    <!-- Nav Item - User Information -->
+                    <li class="nav-item dropdown no-arrow">
+                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="mr-2 d-none d-lg-inline text-gray-600 small"><%=personaSession.getNombre()%></span>
+                            <img class="img-profile rounded-circle"
+                                 src="recursos/img/undraw_profile.svg">
+                        </a>
+                        <!-- Dropdown - User Information -->
+                        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                             aria-labelledby="userDropdown">
+                            <a class="dropdown-item" href="<%=request.getContextPath()%>/PerfilAdmiServlet">
+                                <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                Profile
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                Logout
+                            </a>
+                        </div>
+                    </li>
+
+                </ul>
+
+            </nav>
             <!-- End of Topbar -->
 
             <!-- Begin Page Content -->
+
             <div class="container-fluid">
 
                 <!-- Page Heading -->
-                <h1 class="h3 mb-2 text-gray-800">Nueva oferta</h1>
 
                 <!-- Content Row -->
                 <div class="row justify-content-center">
@@ -83,9 +232,9 @@
                                         <select class="form-control" id="categorias" name="idCategoria">
                                             <option selected>Categorias</option>
                                             <% for(Categoria categoria: categorias) { %>
-                                                <option value="<%=categoria.getIdCategorias()%>">
-                                                    <%=categoria.getNombre()%>
-                                                </option>
+                                            <option value="<%=categoria.getIdCategorias()%>">
+                                                <%=categoria.getNombre()%>
+                                            </option>
                                             <% } %>
                                         </select>
                                     </div>
@@ -94,9 +243,9 @@
                                         <select class="form-control" id="consolas" name="idConsola">
                                             <option selected>Consolas</option>
                                             <% for(Consola consola: consolas) { %>
-                                                <option value="<%=consola.getIdConsola()%>">
-                                                    <%=consola.getNombre()%>
-                                                </option>
+                                            <option value="<%=consola.getIdConsola()%>">
+                                                <%=consola.getNombre()%>
+                                            </option>
                                             <% } %>
                                         </select>
                                     </div>
@@ -108,10 +257,6 @@
                                             </div>
                                             <input class="form-control" type="number" id="precioInput" name="precio" placeholder="0.00"/>
                                         </div>
-                                    </div>
-                                    <div class="form-group col-md-2">
-                                        <label class="text-gray-900" for="cantidad">Cantidad:</label>
-                                        <input type="number" class="form-control" id="cantidad" name="stock" placeholder="0"/>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -126,7 +271,7 @@
                                     </div>
                                 </div>
                                 <div class="d-flex justify-content-center">
-                                    <a class="btn btn-danger mx-2" href="<%=request.getContextPath()%>/TusVentas?idusuario=<%=personaSession.getIdPersona()%>">Cancelar</a>
+                                    <a class="btn btn-danger mx-2" href="<%=request.getContextPath()%>/AdminTodosJuegos">Cancelar</a>
                                     <button class="btn btn-success mx-2" type="submit">Publicar</button>
                                 </div>
                             </form>
@@ -137,7 +282,6 @@
                 </div>
 
             </div>
-            <!-- /.container-fluid -->
 
         </div>
         <!-- End of Main Content -->
@@ -146,7 +290,7 @@
         <footer class="sticky-footer bg-white">
             <div class="container my-auto">
                 <div class="copyright text-center my-auto">
-                    <span>Copyright &copy; Your Website 2021</span>
+                    <span>Japyld</span>
                 </div>
             </div>
         </footer>
@@ -169,15 +313,15 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Cerrar sesión</h5>
                 <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
-            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+            <div class="modal-body">Seleccione "Confirmar" si desea salir de su cuenta</div>
             <div class="modal-footer">
-                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                <a class="btn btn-primary" href="<%=request.getContextPath()%>/LoginServlet?action=logout">Logout</a>
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                <a class="btn btn-primary" href="<%=request.getContextPath()%>/LoginServlet?action=logout">Confirmar</a>
             </div>
         </div>
     </div>
@@ -199,9 +343,6 @@
 <!-- Page level custom scripts -->
 <script src="recursos/js/demo/chart-area-demo.js"></script>
 <script src="recursos/js/demo/chart-pie-demo.js"></script>
-<script src ="recursos/vendor/fontawesome-free/css/all.min.css"></script>
-<script src ="recursos/css/sb-admin-2.min.css"></script>
-
 <!-- Script para ver un preview de la imagen -->
 <script>
     function readURL(input) {

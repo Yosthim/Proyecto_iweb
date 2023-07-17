@@ -283,17 +283,7 @@
             <br>
             <br>
             <!-- Todos los juegos -->
-            <div class="card mb-4 mb-xl-0">
-              <div class="card-header">
-                <div class="input-group">
-                  <div class="input-group-append">
-                    <a class="btn btn-primary" href="<%=request.getContextPath()%>/AdminTodosJuegos">
-                      Todos los juegos
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
+
           </div>
           <div class="col-xl-6">
             <!-- Categorías de juegos más populares en los últimos 30 días -->
@@ -357,7 +347,24 @@
               <BR>
             </div>
           </div>
+
         </div>
+
+        <BR>
+
+        <div class="card mb-4 mb-xl-0 ">
+          <div class="card-header ">
+            <div class="input-group ">
+              <div class="input-group-append container">
+                <a class="btn btn-primary container" href="<%=request.getContextPath()%>/AdminTodosJuegos">
+                  Lista de juegos
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <BR>
+
       </div>
 
 

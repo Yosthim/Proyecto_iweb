@@ -1,5 +1,7 @@
 package com.example.proyecto_final_base_japyld.BeansGenerales;
 
+import java.io.InputStream;
+
 public class Imagen {
     public int getIdImagenes() {
         return idImagenes;
@@ -30,6 +32,16 @@ public class Imagen {
     private byte[] imagen;
     private String tipo;
     private String direccionArchivo;
+
+    public InputStream getImagem() {
+        return imagem;
+    }
+
+    public void setImagem(InputStream imagem) {
+        this.imagem = imagem;
+    }
+
+    private InputStream imagem;
 
     public byte[] getImagen() {
         return imagen;

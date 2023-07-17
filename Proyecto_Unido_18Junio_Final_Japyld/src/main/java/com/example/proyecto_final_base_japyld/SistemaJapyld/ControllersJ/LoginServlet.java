@@ -72,12 +72,10 @@ public class LoginServlet extends HttpServlet {
             String rol = persona.getRol().getIdRoles();
             if(!estado.equals("Baneado") && !estado.equals("Despedido")){
 
-                descuentoDao.actualizarEstadoJuego();
-
                 HttpSession session = request.getSession();
                 session.setAttribute("personaSession",persona);
                 session.setMaxInactiveInterval(30*60);
-
+                descuentoDao.actualizarEstadoJuego();
                 if (rol.equals("USR")){
                     response.sendRedirect(request.getContextPath()+"/PaginaPrincipal");
                 }
