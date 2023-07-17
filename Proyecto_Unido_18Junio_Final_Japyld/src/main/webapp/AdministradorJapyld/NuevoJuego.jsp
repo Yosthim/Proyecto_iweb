@@ -271,7 +271,7 @@
                                     </div>
                                 </div>
                                 <div class="d-flex justify-content-center">
-                                    <a class="btn btn-danger mx-2" href="<%=request.getContextPath()%>/TusVentas">Cancelar</a>
+                                    <a class="btn btn-danger mx-2" href="<%=request.getContextPath()%>/AdminTodosJuegos">Cancelar</a>
                                     <button class="btn btn-success mx-2" type="submit">Publicar</button>
                                 </div>
                             </form>

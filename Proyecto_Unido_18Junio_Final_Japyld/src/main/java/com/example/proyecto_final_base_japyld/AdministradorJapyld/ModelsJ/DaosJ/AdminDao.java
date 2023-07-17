@@ -468,7 +468,8 @@ public class AdminDao extends BaseDao {
 
     // Borrar juego
     public void borrarjuego(int idJuegos) throws SQLException {
-        String sql = "UPDATE juegos \n" +
+
+        String sql = "UPDATE juegos  \n" +
                 "SET estadoJuego = 'Eliminado'\n" +
                 "WHERE idJuegos = ?;";
         try (Connection conn = this.getConnection();

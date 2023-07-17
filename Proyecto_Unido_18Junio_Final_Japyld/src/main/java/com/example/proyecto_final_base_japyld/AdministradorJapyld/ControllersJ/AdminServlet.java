@@ -100,15 +100,33 @@ public class AdminServlet extends HttpServlet {
         AdminDao adminDao = new AdminDao();
 
         switch (action){
+
             case "actualizar":
-                Juegos juegos = setJuegos(request);
-                juegos.setIdJuegos(Integer.parseInt(request.getParameter("id_juego")));
 
-                crudDao.editarJuego(juegos);
 
-                response.sendRedirect("AdminServlet");
+
+                    if (validarPrecio(request.getParameter("precio").trim()) == true){
+
+                            if (validar_texto(request.getParameter("descripcion").trim())==true){
+
+                                Juegos juegos = setJuegos(request);
+                                juegos.setIdJuegos(Integer.parseInt(request.getParameter("id_juego")));
+                                crudDao.editarJuego(juegos);
+                                request.getSession().setAttribute("info","Actualizacion exitosa");
+                                response.sendRedirect("AdminTodosJuegos");
+                            }else{
+                                request.getSession().setAttribute("err","Cambios no hechos, asegurece de ingresar una descripcion correcta");
+                                response.sendRedirect("AdminTodosJuegos");
+                            }
+
+                    }else{
+                        request.getSession().setAttribute("err","Cambios no hechos,  asegurece de ingresar un precio valido y una descripcion diferente");
+                        response.sendRedirect("AdminTodosJuegos");
+                    }
+
 
                 break;
+
             case "buscar":
 
                 String textoBuscar = request.getParameter("textoBuscar");
@@ -116,6 +134,7 @@ public class AdminServlet extends HttpServlet {
                 request.setAttribute("textoBusqueda", textoBuscar);
                 RequestDispatcher view = request.getRequestDispatcher("AdministradorJapyld/adminVideojuegos.jsp");
                 view.forward(request, response);
+
             case "borrar":
                 if (request.getParameter("id") != null) {
                     String idJuegosString = request.getParameter("id");
@@ -123,7 +142,8 @@ public class AdminServlet extends HttpServlet {
                     try {
                         idJuegos = Integer.parseInt(idJuegosString);
                     } catch (NumberFormatException ex) {
-                        response.sendRedirect("AdminServlet?err=Error al borrar el Juego");
+                        request.getSession().setAttribute("err","Error al borrar el juego");
+                        response.sendRedirect("AdminTodosJuegos");
                     }
 
                     Juegos jg = adminDao.obetenerJuego(idJuegos);
@@ -131,13 +151,16 @@ public class AdminServlet extends HttpServlet {
                     if (jg != null) {
                         try {
                             adminDao.borrarjuego(idJuegos);
-                            response.sendRedirect("AdminServlet?msg=Juego borrado exitosamente");
+                            request.getSession().setAttribute("info","Juego borrado exitosamente");
+                            response.sendRedirect("AdminTodosJuegos");
                         } catch (SQLException e) {
-                            response.sendRedirect("AdminServlet?err=Error al borrar el Juego");
+                            request.getSession().setAttribute("err","Error al borrar el juego");
+                            response.sendRedirect("AdminTodosJuegos");
                         }
                     }
                 } else {
-                    response.sendRedirect("AdminServlet?err=Error al borrar el Juego");
+                    request.getSession().setAttribute("err","Error al borrar el juego");
+                    response.sendRedirect("AdminTodosJuegos");
                 }
                 break;
 
@@ -217,6 +240,14 @@ public class AdminServlet extends HttpServlet {
         }
 
         return true;
+    }
+
+    public Boolean validarPrecio(String nombre) {
+
+        if (nombre.matches("\\d+") && Integer.parseInt(nombre) > 0) {
+            return true;
+        }
+        return false;
     }
 
 }
