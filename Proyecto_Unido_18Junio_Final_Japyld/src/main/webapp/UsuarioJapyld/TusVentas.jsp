@@ -518,7 +518,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    El administrador le sugiere cambiar el precio de su oferta a S/<input id="precioAdmin" readonly style="width: fit-content">.
+                    El administrador le sugiere cambiar el precio de su oferta a S/<strong></strong>.
                     <div class="form-group">
                         <label for="precio" class="text-gray-900">Ingrese el nuevo precio:</label>
                         <input class="form-control" type="number" id="precio" name="precioNuevo">
@@ -556,7 +556,7 @@
     </div>
 </div>
 <!-- Modal para retirar una oferta -->
-<div class="modal fade" id="retirarOferta" tabindex="-1" role="dialog" aria-labelledby="retirar" aria-hidden="true">
+<div class="modal fade" id="retirarOferta" tabindex="-1" role="dialog" aria-labelledby="retirar" aria-hidden="true" show.bs.modal="">
     <div class="modal-dialog" role="form">
         <div class="modal-content">
             <form method="POST">
@@ -606,7 +606,7 @@
         var idOferta = button.data('whatever1');
         var precioAdmin = button.data('whatever2');
         var modal = $(this);
-        modal.find('.modal-body input').val(precioAdmin);
+        modal.find('.modal-body strong').text(precioAdmin);
         modal.find('.modal-content form').action = "<%=request.getContextPath()%>/TusVentas?act=change&id=" + idOferta;
 
     })
