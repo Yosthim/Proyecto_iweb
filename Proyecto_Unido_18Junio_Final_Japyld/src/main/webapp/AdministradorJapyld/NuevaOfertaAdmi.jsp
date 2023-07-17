@@ -235,7 +235,7 @@
                 <h6 class="m-0 font-weight-bold text-primary"><%=ventaJuegosGeneral.getJuego().getNombreJuegos()%> </h6>
               </div>
               <div class="card-body text-center">
-                <img src="<%=ventaJuegosGeneral.getJuego().getImagen().getDireccionArchivo()%>" alt="Imagen" class="img-fluid">
+                <img src="<%=request.getContextPath()%>/Image?act=venta&id=<%=ventaJuegosGeneral.getIdVenta()%>" class="img-fluid img_juego" alt="Imagen">
 
                 <div class="mt-3">
                   <h5 class="mb-0">Rating:</h5>

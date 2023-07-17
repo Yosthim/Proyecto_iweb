@@ -74,7 +74,7 @@ public class DescuentoServlet extends HttpServlet {
                        descuentoDao.publicarDescuento(descuentos,administrador, juegos);
                        descuentoDao.actualizarEstado(juegos);
                        request.getSession().setAttribute("info","Descuento publicado exitosamente");
-                       response.sendRedirect("AAdminTodosJuegos");
+                       response.sendRedirect("AdminTodosJuegos");
                    }else{
                        request.getSession().setAttribute("info","Descuento no publicado, verifique que se ingrese un valor de dias correcto");
                        response.sendRedirect("AdminTodosJuegos");

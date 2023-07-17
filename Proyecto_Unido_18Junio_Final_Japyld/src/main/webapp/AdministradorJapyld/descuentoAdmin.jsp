@@ -237,7 +237,7 @@
                     <h6 class="m-0 font-weight-bold text-primary"><%=juego.getNombreJuegos()%></h6>
                   </div>
                   <div class="card-body text-center">
-                    <img src="<%=request.getContextPath()%>/Image?act=juego&id=<%=juego.getIdImagen()%>" alt="Imagen" class="img-fluid">
+                    <img src="<%=request.getContextPath()%>/Image?act=juego&id=<%=juego.getImagen().getIdImagenes()%>" alt="Imagen" class="img-fluid">
 
                     <div class="mt-3">
                       <h5 class="mb-0">Rating:</h5>

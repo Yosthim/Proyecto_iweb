@@ -158,10 +158,14 @@ public class AdminServlet extends HttpServlet {
             case "buscar":
 
                 String textoBuscar = request.getParameter("textoBuscar");
-
-                request.setAttribute("textoBusqueda", textoBuscar);
-                RequestDispatcher view = request.getRequestDispatcher("AdministradorJapyld/adminVideojuegos.jsp");
-                view.forward(request, response);
+                if (validar_texto(textoBuscar)==true){
+                    request.setAttribute("textoBusqueda", textoBuscar);
+                    RequestDispatcher view = request.getRequestDispatcher("AdministradorJapyld/adminVideojuegos.jsp");
+                    view.forward(request, response);
+                }else{
+                    request.getSession().setAttribute("err","Agregue un texto valido");
+                    response.sendRedirect("AdminTodosJuegos");
+                }
 
             case"agregarCategoria":
 

@@ -1,12 +1,22 @@
 package com.example.proyecto_final_base_japyld.AdministradorJapyld.ModelsJ.DtoJ;
 
+import com.example.proyecto_final_base_japyld.BeansGenerales.Imagen;
+
 public class TodosJuegosDto {
     private int idJuegos;
     private String nombreJuegos;
 
     private int precio;
 
-    private String direccion_imagen;
+    public Imagen getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(Imagen imagen) {
+        this.imagen = imagen;
+    }
+
+    private Imagen imagen;
 
     private int stock;
 
@@ -36,13 +46,6 @@ public class TodosJuegosDto {
         this.precio = precio;
     }
 
-    public String getDireccion_imagen() {
-        return direccion_imagen;
-    }
-
-    public void setDireccion_imagen(String direccion_imagen) {
-        this.direccion_imagen = direccion_imagen;
-    }
 
     public int getStock() {
         return stock;

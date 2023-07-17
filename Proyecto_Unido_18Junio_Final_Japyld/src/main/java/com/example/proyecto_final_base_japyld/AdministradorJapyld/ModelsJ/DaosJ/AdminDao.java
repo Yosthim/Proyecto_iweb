@@ -408,10 +408,10 @@ public class AdminDao extends BaseDao {
             e.printStackTrace();
         }
 
-        String sql = "SELECT idJuegos, nombreJuegos, precio,direccion_archivo, stock, estadoJuego\n" +
-                "FROM juegos j\n" +
-                "LEFT JOIN descuentos d ON j.idJuegos = d.id_juego\n" +
-                "INNER JOIN imagenes i ON j.id_imagen = i.idImagenes";
+        String sql = " SELECT idJuegos, nombreJuegos, precio,direccion_archivo, stock, estadoJuego, i.idImagenes\n" +
+                "                FROM juegos j\n" +
+                "                LEFT JOIN descuentos d ON j.idJuegos = d.id_juego\n" +
+                "                INNER JOIN imagenes i ON j.id_imagen = i.idImagenes       ;";
 
         String url = "jdbc:mysql://localhost:3306/japyld";
         try (Connection connection = DriverManager.getConnection(url, "root", "root");
@@ -423,9 +423,11 @@ public class AdminDao extends BaseDao {
                 jp.setIdJuegos(resultSet.getInt(1));
                 jp.setNombreJuegos(resultSet.getString(2));
                 jp.setPrecio(resultSet.getInt(3));
-                jp.setDireccion_imagen(resultSet.getString(4));
                 jp.setStock(resultSet.getInt(5));
                 jp.setEstado_juego(resultSet.getString(6));
+                Imagen imagen = new Imagen();
+                imagen.setIdImagenes(resultSet.getInt(7));
+                jp.setImagen(imagen);
                 tjuegos.add(jp);
             }
 
@@ -440,11 +442,11 @@ public class AdminDao extends BaseDao {
 
         ArrayList<TodosJuegosDto> tjuegos = new ArrayList<>();
 
-        String sql = "SELECT idJuegos, nombreJuegos, precio,direccion_archivo, stock, estadoJuego\n" +
-                "FROM juegos j\n" +
-                "LEFT JOIN descuentos d ON j.idJuegos = d.id_juego\n" +
-                "INNER JOIN imagenes i ON j.id_imagen = i.idImagenes\n" +
-                "WHERE j.nombreJuegos LIKE ?;";
+        String sql = "SELECT idJuegos, nombreJuegos, precio,direccion_archivo, stock, estadoJuego,i.idImagenes\n" +
+                "                FROM juegos j\n" +
+                "                LEFT JOIN descuentos d ON j.idJuegos = d.id_juego\n" +
+                "                INNER JOIN imagenes i ON j.id_imagen = i.idImagenes\n" +
+                "                WHERE j.nombreJuegos LIKE ?;";
 
 
         try (Connection conn = this.getConnection();
@@ -459,9 +461,11 @@ public class AdminDao extends BaseDao {
                     juego.setIdJuegos(rs.getInt(1));
                     juego.setNombreJuegos(rs.getString(2));
                     juego.setPrecio(rs.getInt(3));
-                    juego.setDireccion_imagen(rs.getString(4));
                     juego.setStock(rs.getInt(5));
                     juego.setEstado_juego(rs.getString(6));
+
+                    Imagen imagen = new Imagen();
+                    imagen.setIdImagenes(rs.getInt(7));
                     tjuegos.add(juego);
                 }
             }

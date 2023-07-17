@@ -232,7 +232,7 @@
                 <h6 class="m-0 font-weight-bold text-primary"><%=juegosCompradosReservados.getJuego().getNombreJuegos()%> </h6>
               </div>
               <div class="card-body text-center">
-                <img src="<%=juegosCompradosReservados.getJuego().getImagen().getDireccionArchivo()%>" alt="Imagen" class="img-fluid">
+                <img src="<%=request.getContextPath()%>/Image?act=juego&id=<%=juegosCompradosReservados.getJuego().getImagen().getIdImagenes()%>" class="img-fluid img_juego" alt="Imagen">
 
               </div>
             </div>

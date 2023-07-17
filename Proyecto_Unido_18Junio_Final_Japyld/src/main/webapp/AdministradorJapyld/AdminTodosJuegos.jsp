@@ -282,7 +282,7 @@
                                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                                 <h6><%= j.getNombreJuegos() %></h6>
                                             </div>
-                                            <img src="<%= j.getDireccion_imagen() %>" class="img-fluid img_juego" alt="Imagen">
+                                            <img src="<%=request.getContextPath()%>/Image?act=juego&id=<%=j.getImagen().getIdImagenes()%>" class="img-fluid img_juego" alt="Imagen">
                                             <div class="mt-3">
                                                 <p class="mt-2">Stock: <%= j.getStock() %></p>
                                                 <p class="mt-2">Estado de juego: <%= j.getEstado_juego() %></p>
