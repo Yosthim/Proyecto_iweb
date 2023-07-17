@@ -147,7 +147,7 @@
                 </button>
 
                 <!-- Topbar Search -->
-                <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" method="POST" action="<%=request.getContextPath()%>/PaginaPrincipal">
+                <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" method="POST" action="<%=request.getContextPath()%>/AdminTodosJuegos">
                     <div class="input-group">
                         <input type="text" class="form-control bg-light border-0 small" placeholder="Busca el juego que desees en nuestro catálogo"
                                aria-label="Search" aria-describedby="basic-addon2" name = "textoBuscar" value = "<%=textoBusqueda%>"/>
@@ -155,7 +155,7 @@
                             <button class="btn btn-primary" type="submit">
                                 <i class="fas fa-search fa-sm"></i>
                             </button>
-                            <a class="btn btn-danger" href="<%=request.getContextPath()%>/PaginaPrincipal">
+                            <a class="btn btn-danger" href="<%=request.getContextPath()%>/AdminTodosJuegos">
                                 <i class="fas fa-window-close fa-sm"></i>
                             </a>
                         </div>

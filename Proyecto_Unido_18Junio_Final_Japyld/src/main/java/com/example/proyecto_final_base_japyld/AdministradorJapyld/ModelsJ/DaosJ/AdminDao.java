@@ -436,12 +436,13 @@ public class AdminDao extends BaseDao {
         return tjuegos;
     }
     //Buscar
-    public ArrayList<PaginaPrincipalDto> buscarJuegoPorNombre(String name) {
+    public ArrayList<TodosJuegosDto> buscarJuegoPorNombre(String name) {
 
-        ArrayList<PaginaPrincipalDto> listaJuegos = new ArrayList<>();
+        ArrayList<TodosJuegosDto> tjuegos = new ArrayList<>();
 
-        String sql = "SELECT idJuegos, nombreJuegos, precio, direccion_archivo\n" +
+        String sql = "SELECT idJuegos, nombreJuegos, precio,direccion_archivo, stock, estadoJuego\n" +
                 "FROM juegos j\n" +
+                "LEFT JOIN descuentos d ON j.idJuegos = d.id_juego\n" +
                 "INNER JOIN imagenes i ON j.id_imagen = i.idImagenes\n" +
                 "WHERE j.nombreJuegos LIKE ?;";
 
@@ -454,19 +455,20 @@ public class AdminDao extends BaseDao {
             try (ResultSet rs = pstmt.executeQuery()) {
 
                 while (rs.next()) {
-                    PaginaPrincipalDto juego = new PaginaPrincipalDto();
+                    TodosJuegosDto juego = new TodosJuegosDto();
                     juego.setIdJuegos(rs.getInt(1));
                     juego.setNombreJuegos(rs.getString(2));
                     juego.setPrecio(rs.getInt(3));
                     juego.setDireccion_imagen(rs.getString(4));
-
-                    listaJuegos.add(juego);
+                    juego.setStock(rs.getInt(5));
+                    juego.setEstado_juego(rs.getString(6));
+                    tjuegos.add(juego);
                 }
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return listaJuegos;
+        return tjuegos;
     }
 
     // Borrar juego

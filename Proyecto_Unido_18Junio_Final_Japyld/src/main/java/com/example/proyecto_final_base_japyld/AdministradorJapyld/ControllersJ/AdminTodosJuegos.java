@@ -37,7 +37,7 @@ public class AdminTodosJuegos extends HttpServlet {
             response.sendRedirect("EmployeeServlet");
         } else {
             request.setAttribute("textoBusqueda", textoBuscar);
-            request.setAttribute("listaJuegos", buscarjuego.buscarJuegoPorNombre(textoBuscar));
+            request.setAttribute("tjuegos", buscarjuego.buscarJuegoPorNombre(textoBuscar));
             request.setAttribute("categorias",categoriadao.listaCategoria());
             RequestDispatcher view = request.getRequestDispatcher("AdministradorJapyld/AdminTodosJuegos.jsp");
             view.forward(request, response);
