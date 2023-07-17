@@ -21,6 +21,7 @@ public class DetalleReservaServlet extends HttpServlet {
         String action = request.getParameter("action") == null ? "lista" :request.getParameter("action");
 
         switch (action){
+
             case "detalle":
 
                 if (request.getParameter("id") != null) {
@@ -37,9 +38,8 @@ public class DetalleReservaServlet extends HttpServlet {
 
                     if(juegosCompradosReservados != null){
 
-                        request.setAttribute("ventaJuegosGeneral",juegosCompradosReservados);
-                        // agregar un nuevo jsp
-                        view = request.getRequestDispatcher("AdministradorJapyld/AceptarOfertaAdmi.jsp");
+                        request.setAttribute("juegosCompradosReservados",juegosCompradosReservados);
+                        view = request.getRequestDispatcher("AdministradorJapyld/DetalleReserva.jsp");
                         view.forward(request,response);
                     }else{
                         response.sendRedirect("OfertasServlet");
@@ -49,6 +49,33 @@ public class DetalleReservaServlet extends HttpServlet {
                     response.sendRedirect("OfertasServlet");
                 }
 
+                break;
+
+            case "recibido":
+
+                if (request.getParameter("id") != null) {
+                    String id_venta1 = request.getParameter("id");
+                    int id_veta_int1 = 0;
+                    try{
+                        id_veta_int1=Integer.parseInt(id_venta1);
+                    }catch (NumberFormatException e){
+                        response.sendRedirect("OfertasServlet");
+                    }
+
+                    JuegosCompradosReservados juegosCompradosReservados = juegosReservadosDaos.obtenerReserva(id_veta_int1);
+
+                    if(juegosCompradosReservados != null){
+                        juegosReservadosDaos.cambiarEstado(juegosCompradosReservados);
+                        request.getSession().setAttribute("info","Actualizacion de informacion realizada correctamente");
+                        response.sendRedirect(request.getContextPath() + "/JuegosReservadosServlet");
+
+                    }else{
+                        response.sendRedirect("OfertasServlet");
+                    }
+
+                }else{
+                    response.sendRedirect("OfertasServlet");
+                }
                 break;
         }
 

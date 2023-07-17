@@ -247,7 +247,7 @@
                                 <tr>
                                   <th class="text-center">Juego</th>
                                   <th class="text-center">Usuario</th>
-                                  <th class="text-center">Dias</th>
+                                  <th class="text-center ">Dias</th>
 
                                 </tr>
                                 </thead>
@@ -258,9 +258,9 @@
                                   for(JuegosReservadosDias j :lista30dias){
                                 %>
                                 <tr>
-                                  <th class="text-center"><%=j.getNombre()%></th>
-                                  <td class="text-center"><%=j.getUsuario()%></td>
-                                  <td class="text-center"><%=j.getDias()%></td>
+                                  <td class="text-center alert-danger"><a href="<%=request.getContextPath()%>/DetalleReservaServlet?action=detalle&id=<%=j.getId_venta()%>"><%=j.getNombre()%></a>.</td>
+                                  <td class="text-center text-primary alert-danger"><%=j.getUsuario()%></td>
+                                  <td class="text-center text-primary alert-danger"><%=j.getDias()%></td>
                                 </tr>
                                 <%
                                   }
@@ -309,9 +309,9 @@
                                   for(JuegosReservadosDias j :lista20dias){
                                 %>
                                 <tr>
-                                  <th class="text-center"><%=j.getNombre()%></th>
-                                  <td class="text-center"><%=j.getUsuario()%></td>
-                                  <td class="text-center"><%=j.getDias()%></td>
+                                  <td class="text-center alert-primary"><a href="<%=request.getContextPath()%>/DetalleReservaServlet?action=detalle&id=<%=j.getId_venta()%>"><%=j.getNombre()%></a>.</td>
+                                  <td class="text-center text-primary alert-primary"><%=j.getUsuario()%></td>
+                                  <td class="text-center text-primary alert-primary"><%=j.getDias()%></td>
                                 </tr>
                                 <%
                                   }
@@ -360,9 +360,9 @@
                                 for(JuegosReservadosDias j :lista10dias){
                               %>
                               <tr>
-                                <th class="text-center"><%=j.getNombre()%></th>
-                                <td class="text-center"><%=j.getUsuario()%></td>
-                                <td class="text-center"><%=j.getDias()%></td>
+                                <td class="text-center alert-secondary"><a href="<%=request.getContextPath()%>/DetalleReservaServlet?action=detalle&id=<%=j.getId_venta()%>"><%=j.getNombre()%></a>.</td>
+                                <td class="text-center text-primary alert-secondary"><%=j.getUsuario()%></td>
+                                <td class="text-center text-primary alert-secondary"><%=j.getDias()%></td>
                               </tr>
                               <%
                                 }

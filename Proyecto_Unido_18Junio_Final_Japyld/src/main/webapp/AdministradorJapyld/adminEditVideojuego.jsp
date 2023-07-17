@@ -221,142 +221,157 @@
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
-                <div id="layoutSidenav_content">
-                    <main>
-                        <!-- Main page content-->
-                        <div class="container-xl px-4 mt-4">
-                            <div class="col-12 col-xl-auto mb-3">
-                                <a class="btn btn-sm btn-light text-primary"
-                                   href="<%=request.getContextPath()%>/AdminTodosJuegos">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                         stroke-linejoin="round" class="feather feather-arrow-left me-1">
-                                        <line x1="19" y1="12" x2="5" y2="12"></line>
-                                        <polyline points="12 19 5 12 12 5"></polyline>
-                                    </svg>
-                                    Volver a la lista de juegos
-                                </a>
+
+                    <div class="container-fluid">
+
+                        <!-- Page Heading -->
+                        <h1 class="h3 mb-2 text-gray-800">Editar</h1>
+                        <!-- Content Row -->
+                        <div class="row">
+                            <div class="col-xl-6 col-lg-4">
+                                <!-- Donut Chart -->
+                                <div class="card shadow mb-4 border-left-primary">
+                                    <div class="card-header py-3">
+                                        <h6 class="m-0 font-weight-bold text-primary"><%=juego.getNombreJuegos()%> </h6>
+                                    </div>
+                                    <div class="card-body text-center">
+                                        <img src="<%=juego.getImagen().getDireccionArchivo()%>" alt="Imagen" class="img-fluid">
+                                    </div>
+
+                                    <div class="card-body text-center">
+                                        <span>Descripción:</span>
+                                    </div>
+                                    <div class="card-body ">
+                                        <span><%=juego.getDescripcion()%></span>
+                                    </div>
+                                    <div class="card-body text-center">
+                                        <span>Precio: <%=juego.getPrecio()%></span>
+                                    </div>
+                                    <div class="card-body text-center">
+                                        <span>Categoria: <%=juego.getCategoria().getNombre()%></span>
+                                    </div>
+
+                                </div>
                             </div>
+                            <div class="col-xl-6 col-lg-8">
+                                <!-- Area Chart -->
+                                <div class="card shadow mb-4">
+                                    <div class="card-header py-3">
+                                        <h6 class="m-0 font-weight-bold text-primary">Opciones </h6>
+                                    </div>
+                                    <div class="card-body">
 
-
-                            <div class="row">
-
-
-                                <div class="col-xl-4">
-                                    <form method="POST" action="AdminServlet?action=actualizar"
-                                          class="col-md-6 col-lg-6" id = "actualizar">    <!-- Profile picture card-->
-                                    <div class="card mb-4 mb-xl-0">
-                                        <div class="card-header m-0 font-weight-bold text-primary">EDITAR JUEGO</div>
-                                        <div class="card-body text-center">
-                                            <!-- Profile picture image-->
-                                            <img src="<%=juego.getImagen().getDireccionArchivo()%>" class="img-fluid"
-                                                 alt="">
-                                            <!-- Profile picture help block-->
-                                            <div class="small font-italic text-muted mb-4">JPG or PNG no larger than 5 MB
-                                            </div>
-                                            <!-- Profile picture upload button-->
-                                            <button class="btn btn-primary" type="button">Upload new image</button>
-
-                                            <input type="hidden" name="id_juego" value="<%= juego.getIdJuegos()%>"/>
-                                            <input type="hidden" name="imagenen"
-                                                   value="<%= juego.getImagen().getIdImagenes()%>"/>
-                                            <input type="hidden" name="nombre" value="<%= juego.getNombreJuegos()%>"/>
-                                        </div>
-
-                                            <div class="container">
-                                                <br>
-                                                <div class="d-flex">
+                                        <div class="container">
+                                            <button class="btn btn-primary container" type="button" onclick="enviarFormulario()">Agregar una nuevo precio</button>
+                                            <BR>
+                                            <form id="precio" style="display: none;" action="<%=request.getContextPath()%>/AdminServlet?action=agregarPrecio" method="post">
+                                                <input type="hidden" name="id_venta" value="<%=juego.getIdJuegos()%>"/>
+                                                <!-- Aquí van los campos del formulario -->
+                                                <div class="container">
                                                     <div>
-                                                        <h6 class="text-primary" style="color:#31a290">
-                                                            <label for="precio">Precio</label>
-                                                        </h6>
-                                                        <div class="flex-grow-1 pr-3 custom-textbox">
-                                                            <input type="text" class="form-control form-control-sm"
-                                                                   name="precio" id="precio"
-                                                                   value="<%= juego.getPrecio() == null ? "" : juego.getPrecio()%>"
-                                                                   required>
-                                                        </div>
+                                                        <input class="px-4 mt-4" style="margin-right: 10px; margin-left: 20px;" type="number" name="nombre" placeholder="Precio" required>
+                                                    </div>
+                                                    <div>
+                                                        <button type="submit" class="btn btn-success px-4 mt-4" style="margin-right: 10px; margin-left: 20px;" form="precio">Aceptar</button>
                                                     </div>
                                                 </div>
-                                            </div>
+                                                <BR>
+                                            </form>
+                                            <script>
+                                                function enviarFormulario() {
+                                                    var formulario = document.getElementById("precio");
+                                                    formulario.style.display = "block";
+                                                }
+                                            </script>
+                                        </div>
+
+                                        <BR>
+
+                                        <div class="container">
+                                            <button class="btn btn-primary container" type="button" onclick="enviarFormulario1()">Agregar una nueva descripción</button>
+                                            <BR>
+                                            <form id="descripcion" style="display: none;" action="<%=request.getContextPath()%>/AdminServlet?action=agregarDescripcion" method="post">
+                                                <input type="hidden" name="id_venta" value="<%=juego.getIdJuegos()%>"/>
+                                                <!-- Aquí van los campos del formulario -->
+                                                <div class="container">
+                                                    <div>
+                                                        <input class="px-4 mt-4" style="margin-right: 10px; margin-left: 20px;" type="text" name="nombre" placeholder="Descripción">
+                                                    </div>
+                                                    <div>
+                                                        <button type="submit" class="btn btn-success px-4 mt-4" style="margin-right: 10px; margin-left: 20px;" form="descripcion">Enviar</button>
+                                                    </div>
+                                                </div>
+                                                <BR>
+                                            </form>
+                                            <script>
+                                                function enviarFormulario1() {
+                                                    var formulario = document.getElementById("descripcion");
+                                                    formulario.style.display = "block";
+                                                }
+                                            </script>
+                                        </div>
+
+                                        <BR>
+
+
+
+                                        <div class="container">
+                                            <button class="btn btn-primary container" type="button" onclick="enviarFormulario2()">Agregar una nueva categoria</button>
+                                            <BR>
+                                            <form id="categoria" style="display: none;" action="<%=request.getContextPath()%>/AdminServlet?action=agrergarCategoria" method="post">
+                                                <input type="hidden" name="id_venta" value="<%=juego.getIdJuegos()%>"/>
+                                                <!-- Aquí van los campos del formulario -->
+                                                <div class="container">
+                                                    <div>
+                                                        <BR>
+                                                        <select class="form-select" name="categoria_id">
+                                                            <% for (Categoria c : categorias) { %>
+                                                            <option value="<%=c.getIdCategorias()%>"
+                                                                    <%=juego.getCategoria().getIdCategorias().equals(c.getIdCategorias()) ? "selected" : ""  %> >
+                                                                <%=c.getNombre()%>
+                                                            </option>
+                                                            <% } %>
+                                                        </select>
+                                                    </div>
+                                                    <div>
+                                                        <button type="submit" class="btn btn-success px-4 mt-4" style="margin-right: 10px; margin-left: 20px;" form="categoria">Enviar</button>
+                                                    </div>
+                                                </div>
+                                                <BR>
+                                            </form>
+                                            <script>
+                                                function enviarFormulario2() {
+                                                    var formulario = document.getElementById("categoria");
+                                                    formulario.style.display = "block";
+                                                }
+                                            </script>
+                                        </div>
+
+                                        <BR>
+
+
+                                        <div class="row justify-content-center">
+                                            <a href="<%=request.getContextPath()%>/DescuentoServlet?action=descuento&id=<%=juego.getIdJuegos()%>" class="btn btn-success mr-5">Descuento</a>
+                                        </div>
+
+                                        <BR>
+                                        <div class="row justify-content-center">
+                                        <div class="col-auto">
+                                            <a onclick="return confirm('Estas seguro de borrar')" class="btn btn-secondary"
+                                               href="<%=request.getContextPath()%>/AdminServlet?action=borrar&id=<%=juego.getIdJuegos()%>">Borrar</a>
+                                        </div>
+                                        </div>
+
                                     </div>
                                 </div>
 
-
-
-                                    <div class="col-xl-8">
-                                    <!-- Account details card-->
-                                        <div class="card mb-4">
-                                        <div class="card-header m-0 font-weight-bold text-primary">DETALLES DEL JUEGO</div>
-
-                                        <div class="container">
-                                            <br>
-                                            <h6 class="text-primary" style="color:#31a290;">NOMBRE DEL JUEGO</h6>
-                                            <div class="d-flex">
-                                                <div id="texto-editable" contenteditable="false"
-                                                     class="flex-grow-1 pr-3 custom-textbox"><b><%=juego.getNombreJuegos()%>
-                                                </b></div>
-                                            </div>
-                                        </div>
-
-                                        <br>
-                                        <div class="container">
-                                            <br>
-                                            <h6 class="text-primary" style="color:#31a290;">
-                                                <label for="descripcion">Descripción</label>
-                                            </h6>
-                                            <div class="flex-grow-1 pr-3 custom-textbox">
-                                                <div>
-                                                    <input type="text" class="form-control form-control-sm"
-                                                           name="descripcion" id="descripcion"
-                                                           value="<%= juego.getDescripcion() == null ? "" : juego.getDescripcion()%>">
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="card-body center-h center-h">
-
-                                            <br>
-                                            <h6 class="text-primary" style="color:#31a290;">
-                                                <label>Categoria</label>
-                                            </h6>
-                                            <div class="flex-grow-1 pr-3 custom-textbox">
-                                                <select class="form-select" name="categoria_id">
-                                                    <% for (Categoria c : categorias) { %>
-                                                    <option value="<%=c.getIdCategorias()%>"
-                                                            <%=juego.getCategoria().getIdCategorias().equals(c.getIdCategorias()) ? "selected" : ""  %> >
-                                                        <%=c.getNombre()%>
-                                                    </option>
-                                                    <% } %>
-                                                </select>
-                                            </div>
-                                            <br>
-                                            <br>
-                                            <br>
-                                            <br>
-                                            <div class="col-12 col-xl-auto mb-3">
-                                                <div class="d-flex justify-content-between">
-
-                                                    <a onclick="return confirm('¿Estás seguro de borrar?');"
-                                                       href="<%=request.getContextPath()%>/AdminServlet?action=borrar&id=<%=juego.getIdJuegos()%>" type="button" class="btn btn-danger">
-                                                        <i class="bi bi-trash"></i>Eliminar juego del catálogo</a>
-                                                    <a href="<%=request.getContextPath()%>/DescuentoServlet?action=descuento&id=<%=juego.getIdJuegos()%>" class="btn btn-success mr-5">Descuento</a>
-                                                    <button type="submit" class="btn btn-primary" form="actualizar" >Actualizar</button>
-
-                                                </div>
-                                                <!-- Submit button-->
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    </div>
-                                    </div>
-                                </form>
+                            </div>
                         </div>
-                    </main>
-                </div>
+                    </div>
+                    <BR>
+                    <BR>
             </div>
-            <!-- End of Main Content -->
+                <!-- End of Main Content -->
 
             <!-- Footer -->
             <br>

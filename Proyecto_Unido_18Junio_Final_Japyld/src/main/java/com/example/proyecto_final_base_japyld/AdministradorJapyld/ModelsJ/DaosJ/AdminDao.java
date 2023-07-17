@@ -7,6 +7,7 @@ import com.example.proyecto_final_base_japyld.BaseDao;
 import com.example.proyecto_final_base_japyld.BeansGenerales.*;
 import com.example.proyecto_final_base_japyld.UsuarioJapyld.ModelsJ.DtoJ.PaginaPrincipalDto;
 
+import java.math.BigDecimal;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -507,6 +508,55 @@ public class AdminDao extends BaseDao {
         return juegos;
     }
 
+    public void actualizarPrecio(int id_juego, BigDecimal precio){
 
+        String sql = "UPDATE juegos  \n" +
+                "SET precio = ?\n" +
+                "WHERE idJuegos = ?;";
+
+        try (Connection conn = this.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setBigDecimal(1,precio);
+            pstmt.setInt(2, id_juego);
+
+            pstmt.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public void actualizarDescripcion(int id_juego, String descripcion){
+
+        String sql = "UPDATE juegos  \n" +
+                "SET descripcion = ?\n" +
+                "WHERE idJuegos = ?;";
+
+        try (Connection conn = this.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1,descripcion);
+            pstmt.setInt(2, id_juego);
+
+            pstmt.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public void actualizarCategoria(int id_juego, String id_categoria){
+
+        String sql = "UPDATE juegos  \n" +
+                "SET id_categoria = ?\n" +
+                "WHERE idJuegos = ?;";
+
+        try (Connection conn = this.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1,id_categoria);
+            pstmt.setInt(2, id_juego);
+
+            pstmt.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
 
 }

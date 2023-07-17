@@ -1,26 +1,18 @@
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="com.example.proyecto_final_base_japyld.BeansGenerales.JuegosCompradosReservados" %>
+
 <%@ page import="com.example.proyecto_final_base_japyld.BeansGenerales.VentaJuegosGeneral" %>
-<%@ page import="com.example.proyecto_final_base_japyld.AdministradorJapyld.ModelsJ.DtoJ.BarrasInicioAdmin" %><%--
+<%@ page import="com.example.proyecto_final_base_japyld.BeansGenerales.JuegosCompradosReservados" %><%--
   Created by IntelliJ IDEA.
   User: jossr
-  Date: 4/06/2023
-  Time: 23:12
+  Date: 5/06/2023
+  Time: 16:49
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:useBean id="personaSession" type="com.example.proyecto_final_base_japyld.BeansGenerales.Personas" scope="session" class="com.example.proyecto_final_base_japyld.BeansGenerales.Personas"/>
-<%
-  ArrayList<JuegosCompradosReservados> ultimasCompras = (ArrayList<JuegosCompradosReservados>) request.getAttribute("ultimasCompras");
-%>
-<%
-  ArrayList<VentaJuegosGeneral> ventas = (ArrayList<VentaJuegosGeneral>) request.getAttribute("ventas");
-%>
-<%
-  ArrayList<BarrasInicioAdmin> listabarras = (ArrayList<BarrasInicioAdmin>) request.getAttribute("listabarras");
-%>
 <html lang="en">
-
+<%
+  JuegosCompradosReservados juegosCompradosReservados = (JuegosCompradosReservados) request.getAttribute("juegosCompradosReservados");
+%>
 <head>
 
   <meta charset="utf-8">
@@ -29,9 +21,28 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Página Principal </title>
+  <title>Nueva oferta</title>
 
   <title>Gráfico de Barras con Bootstrap 4</title>
+
+  <style>
+    /* Estilos personalizados */
+    .custom-textbox {
+      border: 2px solid #ffffff;
+      border-radius: 10px;
+      padding: 10px;
+      font-size: 18px;
+      color: #333;
+      background-color: #F1F7F6;
+      outline: none;
+    }
+
+    .custom-textbox:focus {
+      border-color: #29B6A5;
+      box-shadow: 0 0 0 3px rgba(41, 182, 165, 0.2);
+    }
+  </style>
+
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -156,6 +167,7 @@
 
           <!-- Nav Item - Alerts -->
 
+
           <!-- Nav Item - Messages -->
 
           <div class="topbar-divider d-none d-sm-block"></div>
@@ -207,120 +219,85 @@
       <!-- End of Topbar -->
 
       <!-- Begin Page Content -->
-      <div class="container-xl px-4 mt-4">
-        <!-- Account page navigation-->
-        <hr class="mt-0 mb-4">
+      <div class="container-fluid">
+
+        <!-- Page Heading -->
+        <h1 class="h3 mb-2 text-gray-800">Más detalles</h1>
+        <!-- Content Row -->
         <div class="row">
-          <div class="col-xl-6">
-            <!-- Profile picture card-->
-            <div class="card mb-4 mb-xl-0">
-              <div class="card-header"><b>ÚLTIMAS VENTAS</b></div>
-              <div class="card-body text">
+          <div class="col-xl-4 col-lg-4">
+            <!-- Donut Chart -->
+            <div class="card shadow mb-4 border-left-primary">
+              <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary"><%=juegosCompradosReservados.getJuego().getNombreJuegos()%> </h6>
+              </div>
+              <div class="card-body text-center">
+                <img src="<%=juegosCompradosReservados.getJuego().getImagen().getDireccionArchivo()%>" alt="Imagen" class="img-fluid">
 
-                <section class="intro">
-                  <div class="gradient-custom-1 h-100">
-                    <div class="mask d-flex align-items-center h-100">
-                      <div class="container">
-                        <div class="row justify-content-center">
-                          <div class="col-12">
-                            <div class="table-responsive bg-white">
-                              <table class="table mb-0">
-                                <thead>
-                                <tr>
-                                  <th scope="col">JUEGO</th>
-                                  <th scope="col">USUARIO</th>
-                                  <th scope="col">ESTADO</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <%
-                                  for(JuegosCompradosReservados j :ultimasCompras){
-                                %>
-                                <tr>
-                                  <th scope="row" style="color: #666666;"><%=j.getJuego().getNombreJuegos()%></th>
-                                  <td><%=j.getUsuario().getNombre()%></td>
-                                  <td><%=j.getEstadoCompraJuego()%></td>
-                                </tr>
-                                <%
-                                  }
-                                %>
-                                </tbody>
-                              </table>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </section>
               </div>
             </div>
-            <br>
-            <br>
           </div>
-          <div class="col-xl-6">
-            <!-- Account details card-->
-            <div class="card mb-4 mb-xl-0">
-              <div class="card-header"><b>ÚLTIMAS OFERTAS</b></div>
-              <div class="card-body text">
+          <div class="col-xl-8 col-lg-8">
+            <!-- Area Chart -->
+            <div class="card shadow mb-4">
+              <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Información del Juego </h6>
+              </div>
+              <div class="card-body">
 
-                <section class="intro">
-                  <div class="gradient-custom-1 h-100">
-                    <div class="mask d-flex align-items-center h-100">
-                      <div class="container">
-                        <div class="row justify-content-center">
-                          <div class="col-12">
-                            <div class="table-responsive bg-white">
-                              <table class="table mb-0">
-                                <thead>
-                                <tr>
-                                  <th scope="col">JUEGO</th>
-                                  <th scope="col">USUARIO</th>
-                                  <th scope="col">PRECIO</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <%
-                                  for(VentaJuegosGeneral v : ventas){
-                                %>
-                                <tr>
-                                  <th scope="row" style="color: #666666;"><%=v.getJuego().getNombreJuegos()%></th>
-                                  <td><%=v.getUsuario().getNombre()%></td>
-                                  <td><%=v.getPrecioUsuario()%></td>
-                                </tr>
-                                <%
-                                  }
-                                %>
-                                </tbody>
-                              </table>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                <p class="text-justify"><%=juegosCompradosReservados.getJuego().getDescripcion()%> </p>
+
+                <div class="d-flex align-items-center mb-3">
+                  <h6 class="mr-3">Consola: <%=juegosCompradosReservados.getConsola().getNombre()%></h6>
+                </div>
+                <hr>
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                  <span>Stock: <%=juegosCompradosReservados.getJuego().getStock()%></span>
+                  <div class="d-flex">
+                    <span>Precio: S/. <%=juegosCompradosReservados.getPrecio()%></span>
                   </div>
-                </section>
+                </div>
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                  <span>Dirreción: <%=juegosCompradosReservados.getDireccion_compra()%></span>
+                </div>
               </div>
             </div>
+
           </div>
         </div>
       </div>
+      <BR>
+      <BR>
+
+      <div class="row justify-content-center">
+        <div class="col-auto">
+          <a onclick="return confirm('Estas seguro que fue entregado correctamente')" class="btn btn-primary"
+             href="<%=request.getContextPath()%>/DetalleReservaServlet?action=recibido&id=<%=juegosCompradosReservados.getIdJuegosCompradosReservados()%>">Entregado a domicilio</a>
+        </div>
+        <BR>
+        <BR>
+        <BR>
+        <BR>
+      </div>
+
     </div>
-    <!-- End of Main Content -->
-
-    <!-- Footer -->
-    <br>
-    <footer class="sticky-footer bg-white">
-      <div class="container my-auto">
-        <div class="copyright text-center my-auto">
-          <span>Japyld</span>
-        </div>
-      </div>
-    </footer>
-    <!-- End of Footer -->
-
   </div>
-  <!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Main Content -->
+
+<!-- Footer -->
+<footer class="sticky-footer bg-white">
+  <div class="container my-auto">
+    <div class="copyright text-center my-auto">
+      <span>Japyld</span>
+    </div>
+  </div>
+</footer>
+<!-- End of Footer -->
+
+</div>
+<!-- End of Content Wrapper -->
 
 </div>
 <!-- End of Page Wrapper -->
@@ -350,19 +327,6 @@
   </div>
 </div>
 
-
-<!-- Earnings (Monthly) Card Example -->
-
-<!-- Pending Requests Card Example -->
-
-<!-- Earnings (Monthly) Card Example -->
-
-<!-- Earnings (Monthly) Card Example -->
-
-
-<!-- Pending Requests Card Example -->
-
-
 <!-- Bootstrap core JavaScript-->
 <script src="recursos/vendor/jquery/jquery.min.js"></script>
 <script src="recursos/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -374,7 +338,7 @@
 <script src="recursos/js/sb-admin-2.min.js"></script>
 
 <!-- Page level plugins -->
-<script src="recursos/vendor/chart.js/Chart.min.js"></script>
+<script src="../vendor/chart.js/Chart.min.js"></script>
 
 <!-- Page level custom scripts -->
 <script src="recursos/js/demo/chart-area-demo.js"></script>

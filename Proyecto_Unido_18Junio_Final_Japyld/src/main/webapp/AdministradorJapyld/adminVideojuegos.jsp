@@ -322,6 +322,7 @@
                   <BR>
                 </section>
               </div>
+
               <div class="container">
                 <button class="btn btn-primary container" type="button" onclick="enviarFormulario()">Agregar Categoría</button>
                 <BR>
@@ -344,6 +345,7 @@
                   }
                 </script>
               </div>
+
               <BR>
             </div>
           </div>

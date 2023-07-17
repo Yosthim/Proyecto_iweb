@@ -264,7 +264,7 @@
                 <div class="d-flex justify-content-between align-items-center mb-3">
                   <span>Stock: <%=ventaJuegosGeneral.getJuego().getStock()%></span>
                   <div class="d-flex">
-                    <button class="btn">Precio: S/. <%=ventaJuegosGeneral.getPrecioUsuario()%></button>
+                    <span>Precio: S/. <%=ventaJuegosGeneral.getPrecioUsuario()%></span>
                   </div>
                 </div>
               </div>
