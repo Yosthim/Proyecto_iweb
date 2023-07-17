@@ -2,10 +2,14 @@
 <%@ page import="com.example.proyecto_final_base_japyld.UsuarioJapyld.ModelsJ.DtoJ.MasDetallesDto" %>
 <%@ page import="com.example.proyecto_final_base_japyld.BeansGenerales.Comentarios" %>
 <%@ page import="com.example.proyecto_final_base_japyld.UsuarioJapyld.ModelsJ.DtoJ.ConsolasDetallesDto" %>
+<%@ page import="com.example.proyecto_final_base_japyld.BeansGenerales.JuegosCompradosReservados" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <% ArrayList<Comentarios> listaComentarios = (ArrayList<Comentarios>) request.getAttribute("listaComentarios"); %>
 <% ArrayList<MasDetallesDto> listaMasDetallesJuego = (ArrayList<MasDetallesDto>) request.getAttribute("listaMasDetallesJuego"); %>
 <% ArrayList<ConsolasDetallesDto> listaConsolaPorJuego = (ArrayList<ConsolasDetallesDto>) request.getAttribute("listaConsolaPorJuego");%>
+<% ArrayList<JuegosCompradosReservados> listaRating = (ArrayList<JuegosCompradosReservados>) request.getAttribute("listaRating"); %>
+
 <jsp:useBean id="personaSession" type="com.example.proyecto_final_base_japyld.BeansGenerales.Personas" scope="session" class="com.example.proyecto_final_base_japyld.BeansGenerales.Personas"/>
 <html>
 <head>
@@ -74,13 +78,67 @@
               <div class="card-body text-center">
                 <img src="<%=juego.getDireccion_imagen()%>" class="img-fluid img_juego_grande" alt="Imagen">
                 <div class="mt-3">
+                  <%int contador = 0;%>
+                  <%int suma = 0;%>
+                  <%int puntuacion = 0;%>
+                  <% for (JuegosCompradosReservados rating :listaRating){
+                    if(rating.getRating() != 0) {
+                      contador = contador + 1;
+                      suma = suma + rating.getRating();
+                    }
+                  }%>
+                  <%
+                  if(suma != 0 && contador != 0) {
+                    puntuacion = suma/contador;
+                  }
+                  %>
+                  <%
+                    int validPunt = 0;
+                    if(puntuacion >= 0 && puntuacion <= 1){
+                      validPunt = 1;
+                    }
+                    if(puntuacion >= 1 && puntuacion <= 2){
+                      validPunt = 2;
+                    }
+                    if(puntuacion >= 2 && puntuacion <= 3){
+                      validPunt = 3;
+                    }
+                    if(puntuacion >= 3 && puntuacion <= 4){
+                      validPunt = 4;
+                    }
+                    if(puntuacion >= 4 && puntuacion <= 5){
+                      validPunt = 5;
+                    }
+                  %>
+
                   <h5 class="mb-0">Rating:</h5>
                   <div class="rating">
-                    <span class="star">&#9733;</span>
-                    <span class="star">&#9733;</span>
-                    <span class="star">&#9733;</span>
-                    <span class="star">&#9733;</span>
-                    <span class="star">&#9733;</span>
+                    <%if(validPunt == 1){%>
+                      <span class="star">&#9733;</span>
+                    <%}%>
+                    <%if(validPunt == 2){%>
+                      <span class="star">&#9733;</span>
+                      <span class="star">&#9733;</span>
+                    <%}%>
+                    <%if(validPunt == 3){%>
+                      <span class="star">&#9733;</span>
+                      <span class="star">&#9733;</span>
+                      <span class="star">&#9733;</span>
+                    <%}%>
+                    <%if(validPunt == 4){%>
+                      <span class="star">&#9733;</span>
+                      <span class="star">&#9733;</span>
+                      <span class="star">&#9733;</span>
+                      <span class="star">&#9733;</span>
+
+                    <%}%>
+                    <%if(validPunt == 5){%>
+                      <span class="star">&#9733;</span>
+                      <span class="star">&#9733;</span>
+                      <span class="star">&#9733;</span>
+                      <span class="star">&#9733;</span>
+                      <span class="star">&#9733;</span>
+                    <%}%>
                   </div>
                   <h5>Categoría: <%=juego.getCategoria()%> </h5>
                 </div>
