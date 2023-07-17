@@ -73,7 +73,7 @@
                                         <img src="<%=fotoperfil.getDireccion_archivo()%>" class="img-fluid"/>
                                     <%}%>
                                 <%}%>
-                                <hr/>
+                                <hr>
                                 <div class="d-flex justify-content-center">
                                     <a class="btn btn-info" href="<%=request.getContextPath()%>/EditarPerfil">
                                         Editar foto <i class="fas fa-edit"></i>
