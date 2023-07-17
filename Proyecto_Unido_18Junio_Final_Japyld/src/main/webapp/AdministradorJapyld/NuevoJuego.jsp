@@ -198,6 +198,24 @@
                 </ul>
 
             </nav>
+            <% if (session.getAttribute("info") != null) {
+                //if (request.getParameter("msg") != null) {%>
+            <div id="mensaje" class="alert alert-success" role="alert">
+                <%=session.getAttribute("info")%>
+            </div>
+            <%
+                    session.setAttribute("info", null);
+                }
+            %>
+            <% if (session.getAttribute("err") != null) {
+                //if (request.getParameter("msg") != null) {%>
+            <div id="mensajeError" class="alert alert-danger" role="alert">
+                <%=session.getAttribute("err")%>
+            </div>
+            <%
+                    session.setAttribute("err", null);
+                }
+            %>
             <!-- End of Topbar -->
 
             <!-- Begin Page Content -->
@@ -217,7 +235,7 @@
                             </h4>
                         </div>
                         <div class="card-body justify-content-center">
-                            <form method="POST" action="<%=request.getContextPath()%>/TusVentas?act=new" enctype="multipart/form-data">
+                            <form method="POST" action="<%=request.getContextPath()%>/AgregarJuegoServlet?act=new" enctype="multipart/form-data">
                                 <div class="form-group">
                                     <label class="text-gray-900" for="nombre">Ingrese el nombre del Juego:</label>
                                     <input type="text" class="form-control" id="nombre" name="nombreJuego" placeholder="Nombre del Juego">
@@ -257,6 +275,10 @@
                                             </div>
                                             <input class="form-control" type="number" id="precioInput" name="precio" placeholder="0.00"/>
                                         </div>
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <label class="text-gray-900" for="cantidad">Cantidad:</label>
+                                        <input type="number" class="form-control" id="cantidad" name="stock" placeholder="0"/>
                                     </div>
                                 </div>
                                 <div class="form-group">

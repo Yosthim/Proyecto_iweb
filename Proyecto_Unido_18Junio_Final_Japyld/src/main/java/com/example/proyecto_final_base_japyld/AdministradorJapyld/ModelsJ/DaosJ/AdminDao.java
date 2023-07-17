@@ -2,6 +2,7 @@ package com.example.proyecto_final_base_japyld.AdministradorJapyld.ModelsJ.DaosJ
 
 import com.example.proyecto_final_base_japyld.AdministradorJapyld.ModelsJ.DtoJ.JuegosPopulares;
 import com.example.proyecto_final_base_japyld.AdministradorJapyld.ModelsJ.DtoJ.JuegosxCategoria;
+import com.example.proyecto_final_base_japyld.AdministradorJapyld.ModelsJ.DtoJ.TodosJuegosDto;
 import com.example.proyecto_final_base_japyld.BaseDao;
 import com.example.proyecto_final_base_japyld.BeansGenerales.*;
 import com.example.proyecto_final_base_japyld.UsuarioJapyld.ModelsJ.DtoJ.PaginaPrincipalDto;
@@ -282,6 +283,8 @@ public class AdminDao extends BaseDao {
 
                     VentaJuegosGeneral venta = new VentaJuegosGeneral();
                     venta.setIdVenta(resultSet.getInt(1));
+                    venta.setNombreNuevo(resultSet.getString(13));
+                    venta.setCantidad(resultSet.getInt(15));
 
                     Juegos juego = new Juegos();
                     juego.setIdJuegos((resultSet.getInt("j.idJuegos")));
@@ -312,7 +315,7 @@ public class AdminDao extends BaseDao {
         String sql = "SELECT * FROM ventajuegosgeneral c\n" +
                 "                left join personas p on c.id_usuario = p.idPersona\n" +
                                 "left join juegos j on c.id_juego = j.idJuegos\n" +
-                "                WHERE c.estadoVenta = 'Espera' and disponibilidad = 'Existente' and c.id_administrador =? \n" +
+                "                WHERE c.estadoVenta = 'Pendiente' and c.disponibilidad = 'Habilitado' and c.id_administrador =? \n" +
                 "                ORDER BY c.fechaPublicacion DESC;";
         try(Connection connection = this.getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(sql)){
@@ -355,7 +358,7 @@ public class AdminDao extends BaseDao {
         String sql = "SELECT * FROM ventajuegosgeneral c\n" +
                 "                left join personas p on c.id_usuario = p.idPersona\n" +
                 "                   left join juegos j on c.id_juego = j.idJuegos\n" +
-                "                WHERE c.estadoVenta = 'Espera' and disponibilidad = 'Nuevo' and c.id_administrador =? \n" +
+                "                WHERE c.estadoVenta = 'Pendiente' and c.disponibilidad = 'Nuevo' and c.id_administrador =? \n" +
                 "                ORDER BY c.fechaPublicacion DESC;";
 
         try(Connection connection = this.getConnection();
@@ -395,8 +398,8 @@ public class AdminDao extends BaseDao {
         return nuevosOfertas;
     }
     //Todos los Juegos
-    public ArrayList<PaginaPrincipalDto> todosJuegos(){
-        ArrayList<PaginaPrincipalDto> tjuegos = new ArrayList<>();
+    public ArrayList<TodosJuegosDto> todosJuegos(){
+        ArrayList<TodosJuegosDto> tjuegos = new ArrayList<>();
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -404,7 +407,7 @@ public class AdminDao extends BaseDao {
             e.printStackTrace();
         }
 
-        String sql = "SELECT idJuegos, nombreJuegos, precio,direccion_archivo\n" +
+        String sql = "SELECT idJuegos, nombreJuegos, precio,direccion_archivo, stock, estadoJuego\n" +
                 "FROM juegos j\n" +
                 "LEFT JOIN descuentos d ON j.idJuegos = d.id_juego\n" +
                 "INNER JOIN imagenes i ON j.id_imagen = i.idImagenes";
@@ -415,12 +418,14 @@ public class AdminDao extends BaseDao {
              ResultSet resultSet = stmt.executeQuery(sql)) {
 
             while(resultSet.next()){
-                PaginaPrincipalDto juegosPrincipal = new PaginaPrincipalDto();
-                juegosPrincipal.setIdJuegos(resultSet.getInt(1));
-                juegosPrincipal.setNombreJuegos(resultSet.getString(2));
-                juegosPrincipal.setPrecio(resultSet.getInt(3));
-                juegosPrincipal.setDireccion_imagen(resultSet.getString(4));
-                tjuegos.add(juegosPrincipal);
+                TodosJuegosDto jp = new TodosJuegosDto();
+                jp.setIdJuegos(resultSet.getInt(1));
+                jp.setNombreJuegos(resultSet.getString(2));
+                jp.setPrecio(resultSet.getInt(3));
+                jp.setDireccion_imagen(resultSet.getString(4));
+                jp.setStock(resultSet.getInt(5));
+                jp.setEstado_juego(resultSet.getString(6));
+                tjuegos.add(jp);
             }
 
         } catch (SQLException e) {
@@ -465,6 +470,7 @@ public class AdminDao extends BaseDao {
 
     // Borrar juego
     public void borrarjuego(int idJuegos) throws SQLException {
+
         String sql = "UPDATE juegos  \n" +
                 "SET estadoJuego = 'Eliminado'\n" +
                 "WHERE idJuegos = ?;";

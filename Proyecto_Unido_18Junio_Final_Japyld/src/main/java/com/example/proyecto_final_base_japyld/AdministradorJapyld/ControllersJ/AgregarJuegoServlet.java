@@ -1,5 +1,6 @@
 package com.example.proyecto_final_base_japyld.AdministradorJapyld.ControllersJ;
 
+import com.example.proyecto_final_base_japyld.AdministradorJapyld.ModelsJ.DaosJ.AdminDao;
 import com.example.proyecto_final_base_japyld.AdministradorJapyld.ModelsJ.DaosJ.AgregarDao;
 import com.example.proyecto_final_base_japyld.BeansGenerales.*;
 import jakarta.servlet.RequestDispatcher;
@@ -10,6 +11,9 @@ import jakarta.servlet.http.*;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @WebServlet(name = "AgregarJuegoServlet", value = "/AgregarJuegoServlet")
 @MultipartConfig
@@ -41,26 +45,59 @@ public class AgregarJuegoServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
         AgregarDao agregarDao = new AgregarDao();
+        AdminDao adminDao = new AdminDao();
         String action = request.getParameter("act");
 
-        System.out.println("antes de llemar el seteo del juego ");
-        System.out.println(request.getParameter("nombreJuego"));
-        Juegos juegos = setJuego(request);
+        if (validar_texto(request.getParameter("nombreJuego").trim()) == true){
 
-        System.out.println("antes de llemar el seteo de consola ");
-        System.out.println(request.getParameter("idConsola"));
-        JuegosXConsola juegosXConsola = setConsola(request);
+            if (validar(request.getParameter("nombre").trim(),adminDao.quintaTabla())){
 
-        switch (action){
-            case "new":
-                Part imageGamePart = request.getPart("imagenJuego");
-                InputStream imageGameContent = imageGamePart.getInputStream();
-                juegos.getImagen().setImagem(imageGameContent);
-                agregarDao.registrarJuego(juegos);
-                agregarDao.registrarJuegoXCategoria(juegosXConsola);
-                break;
+                if (validar_texto(request.getParameter("descripcion").trim()) == true){
+
+                    if (validarPrecio(request.getParameter("precio").trim()) == true){
+
+                        if (validarPrecio(request.getParameter("stock").trim()) == true){
+
+                            Juegos juegos = setJuego(request);
+
+                            JuegosXConsola juegosXConsola = setConsola(request);
+
+                            switch (action){
+                                case "new":
+                                    Part imageGamePart = request.getPart("imagenJuego");
+                                    InputStream imageGameContent = imageGamePart.getInputStream();
+                                    juegos.getImagen().setImagem(imageGameContent);
+                                    agregarDao.registrarJuego(juegos);
+                                    agregarDao.registrarJuegoXCategoria(juegosXConsola);
+                                    request.getSession().setAttribute("info","Juego agregado correctamente");
+                                    response.sendRedirect("AdminTodosJuegos");
+                                    break;
+                            }
+
+                        }else{
+                            request.getSession().setAttribute("err","Juego no agregado, ingrese un valor de stock valido");
+                            response.sendRedirect("AdminTodosJuegos");
+                        }
+
+                    }else{
+                        request.getSession().setAttribute("err","Juego no agregado, ingrese un valor de precio valido");
+                        response.sendRedirect("AdminTodosJuegos");
+                    }
+
+                }else{
+                    request.getSession().setAttribute("err","Juego no agregado, ingrese una descripcion valida");
+                    response.sendRedirect("AdminTodosJuegos");
+                }
+            }else{
+                request.getSession().setAttribute("err","Juego no agregado, ya existe ");
+                response.sendRedirect("AdminTodosJuegos");
+            }
+
+        }else{
+            request.getSession().setAttribute("err","Juego no agregado, ingrese un nombre valido");
+            response.sendRedirect("AdminTodosJuegos");
         }
-        response.sendRedirect(request.getContextPath() + "/AdminServlet?action=listasPaginaVideojuegos");
+
     }
 
 
@@ -69,12 +106,10 @@ public class AgregarJuegoServlet extends HttpServlet {
 
         Juegos juegos = new Juegos();
 
-        System.out.println("empieza a cetear ");
-        System.out.println(request.getParameter("nombreJuego"));
-
         juegos.setNombreJuegos(request.getParameter("nombreJuego"));
         juegos.setPrecio(new BigDecimal(request.getParameter("precio")));
         juegos.setDescripcion(request.getParameter("descripcion").trim());
+        juegos.setStock(Integer.parseInt(request.getParameter("stock")));
 
         Categoria categoria = new Categoria();
         categoria.setIdCategorias(request.getParameter("idCategoria"));
@@ -89,14 +124,47 @@ public class AgregarJuegoServlet extends HttpServlet {
 
         JuegosXConsola juegosXConsola = new JuegosXConsola();
 
-        System.out.println("empieza a cetear consola ");
-        System.out.println(request.getParameter("idConsola"));
-
         Consola consola = new Consola();
         consola.setIdConsola(request.getParameter("idConsola"));
 
         juegosXConsola.setConsolaDeJuego(consola);
+        juegosXConsola.setStockXConsola(Integer.parseInt(request.getParameter("stock")));
         return juegosXConsola;
+    }
+
+    public  boolean validar_texto(String input) {
+        String regex = "^[a-zA-Z\\s]+$";
+
+        Pattern pattern = Pattern.compile(regex);
+
+        Matcher matcher = pattern.matcher(input);
+
+        return matcher.matches();
+    }
+
+    public Boolean validar(String nombre, ArrayList<Juegos> lista){
+
+        int r=0;
+        for(int i =0 ; i< lista.size() ; i++){
+
+            if(nombre.equals(lista.get(i).getNombreJuegos())){
+                r++;
+            }
+        }
+
+        if (r>0){
+            return false;
+        }
+
+        return true;
+    }
+
+    public Boolean validarPrecio(String nombre) {
+
+        if (nombre.matches("\\d+") && Integer.parseInt(nombre) > 0) {
+            return true;
+        }
+        return false;
     }
 
 }
