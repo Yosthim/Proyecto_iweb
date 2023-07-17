@@ -149,18 +149,23 @@
                                                 <%
                                                 switch (oferta.getEstadoVenta()) {
                                                     case "Retirado":%>
-                                                        <div class="row justify-content-center">
-                                                            <a class="btn btn-outline-dark" href="#">Eliminar de la lista</a>
-                                                        </div>
+                                                        <button type="button" class="btn btn-outline-dark" data-toggle="modal" data-target="#confirmarEliminacion"
+                                                                data-whatever="<%=oferta.getIdVenta()%>">
+                                                            Eliminar de la lista
+                                                        </button>
                                                         <%break;
                                                     case "Aceptado":%>
-                                                        <div class="row justify-content-center">
-                                                            <a class="btn btn-outline-dark" href="#">Eliminar de la lista</a>
-                                                        </div>
+                                                        <button type="button" class="btn btn-outline-dark" data-toggle="modal" data-target="#confirmarEliminacion"
+                                                                data-whatever="<%=oferta.getIdVenta()%>">
+                                                            Eliminar de la lista
+                                                        </button>
                                                         <%break;
                                                     case "Pendiente":%>
                                                         <div class="row justify-content-center">
-                                                            <a class="btn btn-outline-dark" href="#">Retirar oferta</a>
+                                                            <button type="button" class="btn btn-outline-dark" data-toggle="modal" data-target="#retirarOferta"
+                                                                    data-whatever="<%=oferta.getIdVenta()%>">
+                                                                Retirar oferta
+                                                            </button>
                                                         </div>
                                                         <%break;
                                                     case "Rechazado":%>
@@ -178,15 +183,24 @@
                                                             </div>
                                                         </div>
                                                         <div class="row justify-content-center">
-                                                            <a href="#" class="btn btn-outline-dark">Eliminar de la lista</a>
+                                                            <button type="button" class="btn btn-outline-dark" data-toggle="modal" data-target="#confirmarEliminacion"
+                                                                    data-whatever="<%=oferta.getIdVenta()%>">
+                                                                Eliminar de la lista
+                                                            </button>
                                                         </div>
                                                         <%break;
                                                     case "No Aceptado":%>
                                                         <div class="row justify-content-center mb-3">
-                                                            <a href="#" class="btn btn-outline-dark">Cambiar oferta</a>
+                                                            <button type="button" class="btn btn-outline-dark" data-toggle="modal" data-target="#NoAcceptModal"
+                                                                    data-whatever1="<%=oferta.getIdVenta()%>" data-whatever2="<%=oferta.getPrecioAdmi()%>">
+                                                                Cambiar oferta
+                                                            </button>
                                                         </div>
                                                         <div class="row justify-content-center">
-                                                            <a href="#" class="btn btn-outline-dark">Retirar oferta</a>
+                                                            <button type="button" class="btn btn-outline-dark" data-toggle="modal" data-target="#retirarOferta"
+                                                                    data-whatever="<%=oferta.getIdVenta()%>">
+                                                                Retirar oferta
+                                                            </button>
                                                         </div>
                                                         <%break;
                                                 }
@@ -241,34 +255,6 @@
                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
                 <a class="btn btn-primary" href="<%=request.getContextPath()%>/LoginServlet?action=logout">Logout</a>
             </div>
-        </div>
-    </div>
-</div>
-
-<!-- No Aceptado Modal -->
-<div class="modal fade" id="NoAcceptModal" tabindex="-1" role="dialog" aria-labelledby="cambiarOferta"
-    aria-hidden="true">
-    <div class="modal-dialog" role="form">
-        <div class="modal-content">
-            <form method="POST">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="cambiarOferta">¿Desea cambiar su oferta?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    El administrador le sugiere cambiar el precio de su oferta a S/<input id="precioAdmin" type="number" readonly>.
-                    <div class="form-group">
-                        <label for="precio" class="text-gray-900">Ingrese el nuevo precio:</label>
-                        <input class="form-control" type="number" id="precio" name="precioNuevo">
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-danger" type="button" data-bs-dismiss="modal">Cancelar</button>
-                    <button class="btn btn-primary" type="submit">Cambiar oferta</button>
-                </div>
-            </form>
         </div>
     </div>
 </div>

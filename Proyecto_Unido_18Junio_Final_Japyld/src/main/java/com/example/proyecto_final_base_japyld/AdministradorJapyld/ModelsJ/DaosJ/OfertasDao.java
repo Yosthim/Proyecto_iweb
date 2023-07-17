@@ -226,7 +226,7 @@ public class OfertasDao extends BaseDao {
                     ventaJuegosGeneral.setDescripcionNueva(rs.getString(12));
                     ventaJuegosGeneral.setNombreNuevo(rs.getString(13));
                     // aqui se llama a lo blob de la base de datos?
-                    ventaJuegosGeneral.setImagenNueva(rs.getAsciiStream(14));
+                    ventaJuegosGeneral.setImagenNueva(rs.getBinaryStream(14));
 
                     usaurio = new Personas();
                     usaurio.setIdPersona(rs.getInt(8));
@@ -262,7 +262,7 @@ public class OfertasDao extends BaseDao {
 
     public void aceptarVenta(VentaJuegosGeneral ventaJuegosGeneral){
 
-        Imagen imagen = null;
+//        Imagen imagen = null;
 
         String sql = "INSERT INTO juegos (nombreJuegos,stock,precio,estadoJuego,descripcion,id_imagen,id_categoria)\n" +
                 "VALUES (?,?,?,'Activo',?,?,?);";
@@ -275,6 +275,7 @@ public class OfertasDao extends BaseDao {
             pstmt.setBigDecimal(3,ventaJuegosGeneral.getPrecioUsuario());
             pstmt.setString(4,ventaJuegosGeneral.getDescripcionNueva());
             // error?
+            Imagen imagen = new Imagen();
             imagen.setImagem(ventaJuegosGeneral.getImagenNueva());
             agregar_imagen(imagen);
             pstmt.setInt(5,id_imagen());
