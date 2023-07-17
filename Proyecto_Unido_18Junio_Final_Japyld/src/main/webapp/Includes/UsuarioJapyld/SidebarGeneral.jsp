@@ -43,7 +43,7 @@
     </li>
     <!-- Nav Item - Charts -->
     <li class="nav-item">
-        <a class="nav-link" href="<%=request.getContextPath()%>/TusVentas">
+        <a class="nav-link" href="<%=request.getContextPath()%>/TusVentas?idusuario=<%=personaSession.getIdPersona()%>">
             <i class="far fa-money-bill-alt"></i>
             <span>Venta de juegos</span></a>
     </li>
