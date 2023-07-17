@@ -7,6 +7,7 @@ USE `japyld`;
 -- Server version	8.0.33
 
 
+
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
@@ -144,7 +145,7 @@ CREATE TABLE `imagenes` (
   `idImagenes` int NOT NULL AUTO_INCREMENT,
   `imagen` mediumblob,
   `tipo` varchar(45) NOT NULL,
-  `direccion_archivo` varchar(45) NOT NULL,
+  `direccion_archivo` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`idImagenes`)
 ) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -325,7 +326,7 @@ CREATE TABLE `personas` (
 
 LOCK TABLES `personas` WRITE;
 /*!40000 ALTER TABLE `personas` DISABLE KEYS */;
-INSERT INTO `personas` VALUES (1,'joselin@pucp.edu.pe','12e22f23962137d28a3ad5a3e3a75e9fa423390bba6f82099fdbe0417dfe5da6','Joselin','Raymundo','2001-10-15',75634321,'Femenino','Terror','2023-06-05','Activo','ADM',2),(2,'julio@pucp.edu.pe','0eb1faeedd06bfa0707be855a9ee83e25cf012cf66e5b611c9030fc059970061','Julio','Aliaga','2002-06-03',77832984,'Masculino','AcciÃ³n','2023-06-05','Activo','USR',3),(3,'david@pucp.edu.pe','820dfa5686867361023816c5a0deecb8f5975de321c3066a10ff4a356ca96059','David','Llanos','2002-05-23',45632778,'Masculino','Deportivo','2023-06-05','Activo','ADM',4),(4,'aracely@pucp.edu.pe','02e5f0b3062f5b22883ab0b9e6b85055f1188006f1676f347ab087d05d3faccf','Aracely','La Rosa','2002-04-21',74533212,'Femenino','Aventura','2023-06-05','Activo','USR',8),(5,'luis@pucp.edu.pe','417dd8fc436c8d46da4d1f8a0b1cfb4dc157903f1be994b44af3b98750aebef9','Luis','Quispe','2002-11-10',45689332,'Masculino','Aventura','2023-06-05','Activo','ADM',6),(6,'pablo@pucp.edu.pe','8e4fd3bce54a1a817c2c4b3aa8c8dfe50a4dcbb711b24be6f82a922ca1f28033','Pablo','Flores','2002-11-17',75688415,'Masculino','Aventura','2023-06-05','Activo','USR',7),(7,'cesar@pucp.edu.pe','058595a16998b053e93a62228f9339d05ac490a29466102c6fd9077ab531a9d5','Cesar','SantivaÃ±ez','1970-10-13',32133456,'Masculino','AcciÃ³n','2023-06-05','Activo','USR',1),(8,'manuel@pucp.edu.pe','d7d0e8b1bc42ee54d3dad4133ad4dd8cdddc9ce678b566df21caf1de98e78158','Manuel','YarlequÃ©','1970-04-02',10956323,'Masculino','Terror','2023-06-05','Activo','USR',2),(9,'gumer@pucp.edu.pe','659a56123de3e9b3335ecbc6616e33332e254e27ae11295f65c8cba269d54cdb','Gumer','Bartra','1963-03-30',75632989,'Masculino','Clasico','2023-06-05','Activo','USR',5),(10,'yoshtim@pucp.edu.pe','45ed822f6ce9ebbed92987c98333b739cb850c20f47ac67f6478e4cc8b530270','Yoshtim','Enciso','2002-12-15',56478313,'Masculino','Deportivo','2023-06-05','Activo','MNG',3),(11,'cafg1570@gmail.com','954909e120074efe2ea487247b5695b8e6822eb17582128798c4c73af418ccd0','Carlos','Flores','1970-10-15',10212103,'masculino','accion','2023-06-21','Activo','USR',1),(12,'rrevi_7@hotmail.com','fb7a5be2db202e70f581c5bf03bb0ec10e8c5c82b45a437b78233508e434ffad','RocÃ­o ','Revilla','1967-04-02',9327162,'Femenino','Musical','2023-06-21','Activo','USR',3),(13,'margarita@pucp.edu.pe','134ae5c272585f42e5b10c720ee737405764e3d3821b5ab18c8a87805c4b22ab','Margarita','Flores','1970-10-21',75682412,'Femenino','Accion','2023-07-10','Activo','USR',1);
+INSERT INTO `personas` VALUES (1,'joselin@pucp.edu.pe','12e22f23962137d28a3ad5a3e3a75e9fa423390bba6f82099fdbe0417dfe5da6','Joselin','Raymundo','2001-10-15',75634321,'Femenino','Terror','2023-06-05','Activo','ADM',2),(2,'julio@pucp.edu.pe','0eb1faeedd06bfa0707be855a9ee83e25cf012cf66e5b611c9030fc059970061','Julio','Aliaga','2002-06-03',77832984,'Masculino','AcciÃ³n','2023-06-05','Activo','USR',3),(3,'david@pucp.edu.pe','820dfa5686867361023816c5a0deecb8f5975de321c3066a10ff4a356ca96059','David','Llanos','2002-05-23',45632778,'Masculino','Deportivo','2023-06-05','Activo','ADM',4),(4,'aracely@pucp.edu.pe','02e5f0b3062f5b22883ab0b9e6b85055f1188006f1676f347ab087d05d3faccf','Aracely','La Rosa','2002-04-21',74533212,'Femenino','Aventura','2023-06-05','Activo','USR',8),(5,'luis@pucp.edu.pe','417dd8fc436c8d46da4d1f8a0b1cfb4dc157903f1be994b44af3b98750aebef9','Luis','Quispe','2002-11-10',45689332,'Masculino','Aventura','2023-06-05','Activo','ADM',6),(6,'pablo@pucp.edu.pe','8e4fd3bce54a1a817c2c4b3aa8c8dfe50a4dcbb711b24be6f82a922ca1f28033','Pablo','Flores','2002-11-17',75688415,'Masculino','Aventura','2023-06-05','Activo','USR',1),(7,'cesar@pucp.edu.pe','058595a16998b053e93a62228f9339d05ac490a29466102c6fd9077ab531a9d5','Cesar','SantivaÃ±ez','1970-10-13',32133456,'Masculino','AcciÃ³n','2023-06-05','Activo','USR',1),(8,'manuel@pucp.edu.pe','d7d0e8b1bc42ee54d3dad4133ad4dd8cdddc9ce678b566df21caf1de98e78158','Manuel','YarlequÃ©','1970-04-02',10956323,'Masculino','Terror','2023-06-05','Activo','USR',2),(9,'gumer@pucp.edu.pe','659a56123de3e9b3335ecbc6616e33332e254e27ae11295f65c8cba269d54cdb','Gumer','Bartra','1963-03-30',75632989,'Masculino','Clasico','2023-06-05','Activo','USR',5),(10,'yoshtim@pucp.edu.pe','45ed822f6ce9ebbed92987c98333b739cb850c20f47ac67f6478e4cc8b530270','Yoshtim','Enciso','2002-12-15',56478313,'Masculino','Deportivo','2023-06-05','Activo','MNG',3),(11,'cafg1570@gmail.com','954909e120074efe2ea487247b5695b8e6822eb17582128798c4c73af418ccd0','Carlos','Flores','1970-10-15',10212103,'masculino','accion','2023-06-21','Activo','USR',1),(12,'rrevi_7@hotmail.com','fb7a5be2db202e70f581c5bf03bb0ec10e8c5c82b45a437b78233508e434ffad','RocÃ­o ','Revilla','1967-04-02',9327162,'Femenino','Musical','2023-06-21','Activo','USR',3),(13,'margarita@pucp.edu.pe','134ae5c272585f42e5b10c720ee737405764e3d3821b5ab18c8a87805c4b22ab','Margarita','Flores','1970-10-21',75682412,'Femenino','Accion','2023-07-10','Activo','USR',1);
 /*!40000 ALTER TABLE `personas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -418,4 +419,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-07-16 21:02:10
+-- Dump completed on 2023-07-17 17:30:28
