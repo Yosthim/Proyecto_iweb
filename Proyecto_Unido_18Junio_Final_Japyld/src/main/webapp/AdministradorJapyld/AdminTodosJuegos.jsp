@@ -1,13 +1,11 @@
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="com.example.proyecto_final_base_japyld.UsuarioJapyld.ModelsJ.DtoJ.PaginaPrincipalDto" %>
-<%@ page import="com.example.proyecto_final_base_japyld.BeansGenerales.Categoria" %>
+<%@ page import="com.example.proyecto_final_base_japyld.AdministradorJapyld.ModelsJ.DtoJ.TodosJuegosDto" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:useBean id="personaSession" type="com.example.proyecto_final_base_japyld.BeansGenerales.Personas" scope="session" class="com.example.proyecto_final_base_japyld.BeansGenerales.Personas"/>
 <jsp:useBean id="textoBusqueda" scope="request" type="java.lang.String" class="java.lang.String"/>
-<% ArrayList<Categoria> categoriaLista = (ArrayList<Categoria>) request.getAttribute("categorias"); %>
 
 <%
-    ArrayList<PaginaPrincipalDto> tjuegos  =(ArrayList<PaginaPrincipalDto>) request.getAttribute("tjuegos");
+    ArrayList<TodosJuegosDto> tjuegos  =(ArrayList<TodosJuegosDto>) request.getAttribute("tjuegos");
 %>
 
 
@@ -251,40 +249,44 @@
                 <!-- Page Heading -->
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
                     <h1 class="h3 mb-0 text-gray-700">Todos Los Juegos</h1>
-                    <div class="dropdown d-inline-block">
-                        <button class="btn btn-sm btn-primary shadow-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fas fa-search fa-sm text-white-50"></i> Seleccionar Categoría
-                        </button>
-
-                    </div>
                 </div>
 
                 <!-- Content Row -->
                 <div class="row">
 
                     <!-- Earnings (Monthly) Card Example -->
-                    <% for (PaginaPrincipalDto j : tjuegos) {%>
+                    <% for (TodosJuegosDto j : tjuegos) { %>
                     <div class="col-xl-3 col-md-6 mb-4">
-                        <div class="card border-left-primary shadow h-100 py-2">
-                            <div class="card-body">
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                            <h6><%=j.getNombreJuegos()%></h6>
-                                        </div>
-                                        <img src="<%=j.getDireccion_imagen()%>" class="img-fluid img_juego" alt="Imagen">
-                                        <div class="mt-3">
-                                            <p class="mt-2">Precio: S/. <%=j.getPrecio()%></p>
-                                            <a class="btn btn-success"  href="<%= request.getContextPath() %>/AdminServlet?action=editar&id=<%= j.getIdJuegos() %>">Editar</a>
+                        <% if (j.getStock() == 0) { %>
+                        <div class="card border-left-danger shadow h-100 py-2">
+                            <% } else { %>
+                            <div class="card border-left-primary shadow h-100 py-2">
+                                <% } %>
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                <h6><%= j.getNombreJuegos() %></h6>
+                                            </div>
+                                            <img src="<%= j.getDireccion_imagen() %>" class="img-fluid img_juego" alt="Imagen">
+                                            <div class="mt-3">
+                                                <p class="mt-2">Stock: <%= j.getStock() %></p>
+                                                <p class="mt-2">Estado de juego: <%= j.getEstado_juego() %></p>
+                                                <p class="mt-2">Precio: S/. <%= j.getPrecio() %></p>
+                                                <% if (j.getStock() == 0) { %>
+                                                <a class="btn btn-danger" href="<%= request.getContextPath() %>/AdminServlet?action=editar&id=<%= j.getIdJuegos() %>">Editar</a>
+                                                <% } else { %>
+                                                <a class="btn btn-success" href="<%= request.getContextPath() %>/AdminServlet?action=editar&id=<%= j.getIdJuegos() %>">Editar</a>
+                                                <% } %>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <% } %>
+                        <% } %>
 
-                    <!-- Pending Requests Card Example -->
+                        <!-- Pending Requests Card Example -->
                 </div>
 
                 <!-- Content Row -->
@@ -320,6 +322,7 @@
 
     </div>
     <!-- End of Content Wrapper -->
+    </div>
 
 </div>
 <!-- End of Page Wrapper -->
