@@ -1,4 +1,5 @@
-<%--
+<%@ page import="com.example.proyecto_final_base_japyld.UsuarioJapyld.ModelsJ.DtoJ.ImagenPerfilDto" %>
+<%@ page import="java.util.ArrayList" %><%--
   Created by IntelliJ IDEA.
   User: PABLO
   Date: 21/06/2023
@@ -7,6 +8,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:useBean id="personaSession" type="com.example.proyecto_final_base_japyld.BeansGenerales.Personas" scope="session" class="com.example.proyecto_final_base_japyld.BeansGenerales.Personas"/>
+<% ArrayList<ImagenPerfilDto> listaFotoPerfil = (ArrayList<ImagenPerfilDto>) request.getAttribute("listaFotoPerfil"); %>
 <html>
 <head>
 
@@ -58,7 +60,7 @@
 
                 <!-- Page Heading -->
                 <div class="d-sm-flex align-items-center justify-content-between p-a">
-                    <h1 class="h3 mb-4 text-gray-800">Perfil</h1>
+                    <h1 class="h3 mb-4 text-gray-700">Perfil</h1>
                 </div>
                 <!-- Información del perfil -->
                 <div class="row">
@@ -66,10 +68,14 @@
                     <div class="col-lg-4">
                         <div class="card border-left-primary shadow h-100 py-2">
                             <div class="card-body">
-                                <img src="<%=personaSession.getImagen().getDireccionArchivo()%>" class="img-fluid"/>
+                                <%for (ImagenPerfilDto fotoperfil : listaFotoPerfil){%>
+                                    <%if(personaSession.getIdPersona() == fotoperfil.getIdPersona()){%>
+                                        <img src="<%=fotoperfil.getDireccion_archivo()%>" class="img-fluid"/>
+                                    <%}%>
+                                <%}%>
                                 <hr/>
                                 <div class="d-flex justify-content-center">
-                                    <a class="btn btn-info" href="#">
+                                    <a class="btn btn-info" href="<%=request.getContextPath()%>/EditarPerfil">
                                         Editar foto <i class="fas fa-edit"></i>
                                     </a>
                                 </div>
