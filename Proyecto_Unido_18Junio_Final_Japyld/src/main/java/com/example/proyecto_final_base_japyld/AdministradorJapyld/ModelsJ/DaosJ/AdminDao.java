@@ -408,10 +408,11 @@ public class AdminDao extends BaseDao {
             e.printStackTrace();
         }
 
-        String sql = " SELECT idJuegos, nombreJuegos, precio,direccion_archivo, stock, estadoJuego, i.idImagenes\n" +
-                "                FROM juegos j\n" +
-                "                LEFT JOIN descuentos d ON j.idJuegos = d.id_juego\n" +
-                "                INNER JOIN imagenes i ON j.id_imagen = i.idImagenes       ;";
+        String sql = "SELECT idJuegos, nombreJuegos, precio,COALESCE(d.precio_nuevo, 0), stock, estadoJuego, i.idImagenes\n" +
+                "FROM juegos j\n" +
+                "LEFT JOIN descuentos d ON j.idJuegos = d.id_juego\n" +
+                "INNER JOIN imagenes i ON j.id_imagen = i.idImagenes\n" +
+                "WHERE j.estadoJuego = \"Activo\" OR j.estadoJuego = \"Oferta\";";
 
         String url = "jdbc:mysql://localhost:3306/japyld";
         try (Connection connection = DriverManager.getConnection(url, "root", "root");
@@ -423,6 +424,7 @@ public class AdminDao extends BaseDao {
                 jp.setIdJuegos(resultSet.getInt(1));
                 jp.setNombreJuegos(resultSet.getString(2));
                 jp.setPrecio(resultSet.getInt(3));
+                jp.setPrecio_nuevo(resultSet.getInt(4));
                 jp.setStock(resultSet.getInt(5));
                 jp.setEstado_juego(resultSet.getString(6));
                 Imagen imagen = new Imagen();
