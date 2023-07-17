@@ -247,20 +247,24 @@
 
             <!-- Begin Page Content -->
             <div class="container-fluid">
+                <BR>
 
-                <!-- Page Heading -->
-                <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                    <h1 class="h3 mb-0 text-gray-700">Todos Los Juegos</h1>
-                    <div class="dropdown d-inline-block">
-                        <button class="btn btn-sm btn-primary shadow-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fas fa-search fa-sm text-white-50"></i> Seleccionar Categoría
-                        </button>
-
+                <div class="card mb-4 mb-xl-0 ">
+                    <div class="card-header ">
+                        <div class="input-group ">
+                            <div class="input-group-append container">
+                                <a class="btn btn-primary container" href="<%=request.getContextPath()%>/AgregarJuegoServlet?act=agregar">
+                                    Agregar un juego Nuevo
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
+                <BR>
 
                 <!-- Content Row -->
                 <div class="row">
+
 
                     <!-- Earnings (Monthly) Card Example -->
                     <% for (PaginaPrincipalDto j : tjuegos) {%>
