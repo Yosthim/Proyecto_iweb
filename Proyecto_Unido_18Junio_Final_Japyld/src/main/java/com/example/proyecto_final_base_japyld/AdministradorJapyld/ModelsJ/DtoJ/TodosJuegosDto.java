@@ -8,6 +8,16 @@ public class TodosJuegosDto {
 
     private int precio;
 
+    public int getPrecio_nuevo() {
+        return precio_nuevo;
+    }
+
+    public void setPrecio_nuevo(int precio_nuevo) {
+        this.precio_nuevo = precio_nuevo;
+    }
+
+    private int precio_nuevo;
+
     public Imagen getImagen() {
         return imagen;
     }
