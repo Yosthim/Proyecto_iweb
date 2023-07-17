@@ -11,8 +11,11 @@ import java.io.InputStream;
 import java.math.BigDecimal;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import jakarta.servlet.annotation.MultipartConfig;
+import jakarta.servlet.annotation.WebServlet;
 
 @WebServlet(name = "JuegosNuevosServlet", value = "/JuegosNuevosServlet")
+@MultipartConfig
 public class JuegosNuevosServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -165,7 +168,7 @@ public class JuegosNuevosServlet extends HttpServlet {
                     request.getSession().setAttribute("info","Mensaje de rechazo enviado exitosamente");
                     response.sendRedirect("AdminServlet?action=listaPaginaOfertas");
                 }else {
-                    request.getSession().setAttribute("info","Mensaje no enviado, verifique que se ingrese solo letras");
+                    request.getSession().setAttribute("info","Mensaje no enviado, verifique que se ingrese una contraoferta valida");
                     response.sendRedirect("AdminServlet?action=listaPaginaOfertas");
                 }
 
@@ -182,12 +185,12 @@ public class JuegosNuevosServlet extends HttpServlet {
                         request.getSession().setAttribute("info","Contraoferta enviada exitosamente");
                         response.sendRedirect("AdminServlet?action=listaPaginaOfertas");
                     }else{
-                        request.getSession().setAttribute("info","Contraoferta no enviada, ingrese un valor de precio valido");
+                        request.getSession().setAttribute("err","Contraoferta no enviada, ingrese un valor de precio valido");
                         response.sendRedirect("AdminServlet?action=listaPaginaOfertas");
                     }
 
                 }else{
-                    request.getSession().setAttribute("info","Contraoferta no enviada, verifique que se ingrese solo letras en la razon de rechazo");
+                    request.getSession().setAttribute("err","Contraoferta no enviada, verifique que se ingrese un razon de rechazo valida");
                     response.sendRedirect("AdminServlet?action=listaPaginaOfertas");
                 }
 

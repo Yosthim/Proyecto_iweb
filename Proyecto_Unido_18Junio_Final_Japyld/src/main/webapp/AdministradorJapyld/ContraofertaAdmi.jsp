@@ -196,6 +196,24 @@
         </ul>
 
       </nav>
+      <% if (session.getAttribute("info") != null) {
+        //if (request.getParameter("msg") != null) {%>
+      <div id="mensaje" class="alert alert-success" role="alert">
+        <%=session.getAttribute("info")%>
+      </div>
+      <%
+          session.setAttribute("info", null);
+        }
+      %>
+      <% if (session.getAttribute("err") != null) {
+        //if (request.getParameter("msg") != null) {%>
+      <div id="mensajeError" class="alert alert-danger" role="alert">
+        <%=session.getAttribute("err")%>
+      </div>
+      <%
+          session.setAttribute("err", null);
+        }
+      %>
       <!-- End of Topbar -->
 
       <!-- Begin Page Content -->
@@ -220,7 +238,7 @@
                 <h6 class="m-0 font-weight-bold text-primary"><%=ventaJuegosGeneral.getJuego().getNombreJuegos()%></h6>
               </div>
               <div class="card-body text-center">
-                <img src="<%=ventaJuegosGeneral.getJuego().getImagen().getDireccionArchivo()%>" alt="Imagen" class="img-fluid">
+                <img src="<%=request.getContextPath()%>/Image?act=venta&id=<%=ventaJuegosGeneral.getIdVenta()%>" class="img-fluid img_juego" alt="Imagen">
 
                 <div class="mt-3">
                   <h5 class="mb-0">Rating:</h5>

@@ -197,6 +197,24 @@
         </ul>
 
       </nav>
+      <% if (session.getAttribute("info") != null) {
+        //if (request.getParameter("msg") != null) {%>
+      <div id="mensaje" class="alert alert-success" role="alert">
+        <%=session.getAttribute("info")%>
+      </div>
+      <%
+          session.setAttribute("info", null);
+        }
+      %>
+      <% if (session.getAttribute("err") != null) {
+        //if (request.getParameter("msg") != null) {%>
+      <div id="mensajeError" class="alert alert-danger" role="alert">
+        <%=session.getAttribute("err")%>
+      </div>
+      <%
+          session.setAttribute("err", null);
+        }
+      %>
       <!-- End of Topbar -->
 
       <!-- Begin Page Content -->
@@ -213,7 +231,7 @@
                 <h6 class="m-0 font-weight-bold text-primary"><%=ventaJuegosGeneral.getNombreNuevo()%> </h6>
               </div>
               <div class="card-body text-center">
-                <img src="<%=ventaJuegosGeneral.getImagenNueva()%>" alt="Imagen" class="img-fluid">
+                <img src="<%=request.getContextPath()%>/Image?act=venta&id=<%=ventaJuegosGeneral.getIdVenta()%>" alt="Imagen" class="img-fluid">
 
                 <div class="mt-3">
                   <h5 class="mb-0">Rating:</h5>
@@ -245,7 +263,7 @@
                 <hr>
                 <div class="d-flex justify-content-between align-items-center mb-3">
                   <div class="d-flex">
-                    <button class="btn">Precio: S/. <%=ventaJuegosGeneral.getPrecioUsuario()%></button>
+                    <span>Precio: S/. <%=ventaJuegosGeneral.getPrecioUsuario()%></span>
                   </div>
                 </div>
               </div>

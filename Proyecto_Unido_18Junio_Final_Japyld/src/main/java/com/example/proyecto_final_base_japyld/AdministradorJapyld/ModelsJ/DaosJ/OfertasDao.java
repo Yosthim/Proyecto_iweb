@@ -4,10 +4,7 @@ import com.example.proyecto_final_base_japyld.BaseDao;
 import com.example.proyecto_final_base_japyld.BeansGenerales.*;
 
 import java.math.BigDecimal;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 
 public class OfertasDao extends BaseDao {
@@ -144,7 +141,7 @@ public class OfertasDao extends BaseDao {
     public void editarVentaC(VentaJuegosGeneral ventaJuegosGeneral){
 
         String sql = "UPDATE ventajuegosgeneral  \n" +
-                "SET estadoVenta = 'Contraoferta',\n" +
+                "SET estadoVenta = 'No Aceptado',\n" +
                 "razonRechazo = ?,\n" +
                 "precio_admin = ?\n" +
                 "where idVenta = ?;";
@@ -228,7 +225,7 @@ public class OfertasDao extends BaseDao {
                     ventaJuegosGeneral.setCantidad(rs.getInt(15));
                     ventaJuegosGeneral.setDescripcionNueva(rs.getString(12));
                     ventaJuegosGeneral.setNombreNuevo(rs.getString(13));
-                    // como se llama a la imagen?
+                    // aqui se llama a lo blob de la base de datos?
                     ventaJuegosGeneral.setImagenNueva(rs.getAsciiStream(14));
 
                     usaurio = new Personas();
@@ -265,23 +262,121 @@ public class OfertasDao extends BaseDao {
 
     public void aceptarVenta(VentaJuegosGeneral ventaJuegosGeneral){
 
+        Imagen imagen = null;
+
         String sql = "INSERT INTO juegos (nombreJuegos,stock,precio,estadoJuego,descripcion,id_imagen,id_categoria)\n" +
-                "VALUES (?,1,?,'Activo',?,?,?);";
+                "VALUES (?,?,?,'Activo',?,?,?);";
 
         try (Connection connection = this.getConnection();
              PreparedStatement pstmt = connection.prepareStatement(sql)) {
 
             pstmt.setString(1,ventaJuegosGeneral.getNombreNuevo());
-            pstmt.setBigDecimal(2,ventaJuegosGeneral.getPrecioUsuario());
-            pstmt.setString(3,ventaJuegosGeneral.getDescripcionNueva());
-            // que es lo que se agrega en la tabla de imagen?
-            pstmt.setAsciiStream(4,ventaJuegosGeneral.getImagenNueva());
-            pstmt.setString(5,ventaJuegosGeneral.getCategoria().getIdCategorias());
+            pstmt.setInt(2,ventaJuegosGeneral.getCantidad());
+            pstmt.setBigDecimal(3,ventaJuegosGeneral.getPrecioUsuario());
+            pstmt.setString(4,ventaJuegosGeneral.getDescripcionNueva());
+            // error?
+            imagen.setImagem(ventaJuegosGeneral.getImagenNueva());
+            agregar_imagen(imagen);
+            pstmt.setInt(5,id_imagen());
+            pstmt.setString(6,ventaJuegosGeneral.getCategoria().getIdCategorias());
+
             pstmt.executeUpdate();
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+
+        JuegosXConsola juegosXConsola = new JuegosXConsola();
+        juegosXConsola.setStockXConsola(ventaJuegosGeneral.getCantidad());
+        juegosXConsola.setConsolaDeJuego(ventaJuegosGeneral.getConsola());
+        registrarJuegoXCategoria(juegosXConsola);
+
+    }
+
+    // se agrega imagen
+    public void agregar_imagen(Imagen imagen){
+
+        String sql = "INSERT INTO imagenes (imagen, tipo)" +
+                " VALUES (?,'juego')";
+
+        try(Connection connection = this.getConnection();
+            PreparedStatement psmt = connection.prepareStatement(sql)){
+
+            psmt.setBinaryStream(1,imagen.getImagem());
+            psmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+    // se obtiene el id de la imagen requerido para agregar un juego
+    public int id_imagen(){
+
+        int id=0;
+
+        String sql = "select count(*) from imagenes;";
+
+        try(Connection connection = this.getConnection();
+            Statement stmt = connection.createStatement();
+            ResultSet resultSet = stmt.executeQuery(sql)){
+
+            while (resultSet.next()) {
+
+                id= resultSet.getInt(1);
+
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return id;
+
+    }
+
+    public void registrarJuegoXCategoria(JuegosXConsola juegosXConsola) {
+
+        int id=id_juego();
+
+        String sql = "INSERT INTO juegos_por_consolas (id_juego, id_consola,stock_consola)" +
+                " VALUES (?,?,?)";
+
+        try(Connection connection = this.getConnection();
+            PreparedStatement psmt = connection.prepareStatement(sql)){
+
+            psmt.setInt(1,id);
+            psmt.setString(2,juegosXConsola.getConsolaDeJuego().getIdConsola());
+            psmt.setInt(3,juegosXConsola.getStockXConsola());
+            psmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+
+    }
+
+
+    public int id_juego(){
+
+        int id=0;
+
+        String sql = "select count(*) from juegos;";
+
+        try(Connection connection = this.getConnection();
+            Statement stmt = connection.createStatement();
+            ResultSet resultSet = stmt.executeQuery(sql)){
+
+            while (resultSet.next()) {
+
+                id= resultSet.getInt(1);
+
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return id;
 
     }
 

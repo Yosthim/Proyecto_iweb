@@ -2,6 +2,7 @@ package com.example.proyecto_final_base_japyld.BeansGenerales;
 
 import com.example.proyecto_final_base_japyld.BeansGenerales.Juegos;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 public class JuegosCompradosReservados {
@@ -14,6 +15,25 @@ public class JuegosCompradosReservados {
     private Juegos juego;
     private Consola consola;
     private int precio_compra;
+
+    public String getDireccion_compra() {
+        return direccion_compra;
+    }
+
+    public void setDireccion_compra(String direccion_compra) {
+        this.direccion_compra = direccion_compra;
+    }
+
+    private String direccion_compra;
+    public BigDecimal getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(BigDecimal precio) {
+        this.precio = precio;
+    }
+
+    private BigDecimal precio;
 
     public int getIdJuegosCompradosReservados() {
         return idJuegosCompradosReservados;

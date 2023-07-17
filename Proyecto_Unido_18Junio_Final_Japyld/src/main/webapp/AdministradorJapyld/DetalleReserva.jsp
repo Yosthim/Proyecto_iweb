@@ -1,5 +1,6 @@
 
-<%@ page import="com.example.proyecto_final_base_japyld.BeansGenerales.VentaJuegosGeneral" %><%--
+<%@ page import="com.example.proyecto_final_base_japyld.BeansGenerales.VentaJuegosGeneral" %>
+<%@ page import="com.example.proyecto_final_base_japyld.BeansGenerales.JuegosCompradosReservados" %><%--
   Created by IntelliJ IDEA.
   User: jossr
   Date: 5/06/2023
@@ -10,7 +11,7 @@
 <jsp:useBean id="personaSession" type="com.example.proyecto_final_base_japyld.BeansGenerales.Personas" scope="session" class="com.example.proyecto_final_base_japyld.BeansGenerales.Personas"/>
 <html lang="en">
 <%
-  VentaJuegosGeneral ventaJuegosGeneral = (VentaJuegosGeneral) request.getAttribute("ventaJuegosGeneral");
+  JuegosCompradosReservados juegosCompradosReservados = (JuegosCompradosReservados) request.getAttribute("juegosCompradosReservados");
 %>
 <head>
 
@@ -228,22 +229,11 @@
             <!-- Donut Chart -->
             <div class="card shadow mb-4 border-left-primary">
               <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary"><%=ventaJuegosGeneral.getJuego().getNombreJuegos()%> </h6>
+                <h6 class="m-0 font-weight-bold text-primary"><%=juegosCompradosReservados.getJuego().getNombreJuegos()%> </h6>
               </div>
               <div class="card-body text-center">
-                <img src="<%=request.getContextPath()%>/Image?act=venta&id=<%=ventaJuegosGeneral.getIdVenta()%>" class="img-fluid img_juego" alt="Imagen">
+                <img src="<%=request.getContextPath()%>/Image?act=juego&id=<%=juegosCompradosReservados.getJuego().getImagen().getIdImagenes()%>" class="img-fluid img_juego" alt="Imagen">
 
-                <div class="mt-3">
-                  <h5 class="mb-0">Rating:</h5>
-                  <div class="rating">
-                    <span class="star">&#9733;</span>
-                    <span class="star">&#9733;</span>
-                    <span class="star">&#9733;</span>
-                    <span class="star">&#9733;</span>
-                    <span class="star">&#9733;</span>
-                  </div>
-                  <h5>Género: <%=ventaJuegosGeneral.getJuego().getCategoria().getNombre()%></h5>
-                </div>
               </div>
             </div>
           </div>
@@ -255,17 +245,20 @@
               </div>
               <div class="card-body">
 
-                <p class="text-justify"><%=ventaJuegosGeneral.getJuego().getDescripcion()%> </p>
+                <p class="text-justify"><%=juegosCompradosReservados.getJuego().getDescripcion()%> </p>
 
                 <div class="d-flex align-items-center mb-3">
-                  <h6 class="mr-3">Consola: <%=ventaJuegosGeneral.getConsola().getNombre()%></h6>
+                  <h6 class="mr-3">Consola: <%=juegosCompradosReservados.getConsola().getNombre()%></h6>
                 </div>
                 <hr>
                 <div class="d-flex justify-content-between align-items-center mb-3">
-                  <span>Stock: <%=ventaJuegosGeneral.getJuego().getStock()%></span>
+                  <span>Stock: <%=juegosCompradosReservados.getJuego().getStock()%></span>
                   <div class="d-flex">
-                    <span>Precio: S/. <%=ventaJuegosGeneral.getPrecioUsuario()%></span>
+                    <span>Precio: S/. <%=juegosCompradosReservados.getPrecio()%></span>
                   </div>
+                </div>
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                  <span>Dirreción: <%=juegosCompradosReservados.getDireccion_compra()%></span>
                 </div>
               </div>
             </div>
@@ -278,8 +271,8 @@
 
       <div class="row justify-content-center">
         <div class="col-auto">
-          <a onclick="return confirm('Estas seguro de comprar')" class="btn btn-primary"
-             href="<%=request.getContextPath()%>/OfertasServlet?action=guardar&id=<%=ventaJuegosGeneral.getIdVenta()%>">Comprar</a>
+          <a onclick="return confirm('Estas seguro que fue entregado correctamente')" class="btn btn-primary"
+             href="<%=request.getContextPath()%>/DetalleReservaServlet?action=recibido&id=<%=juegosCompradosReservados.getIdJuegosCompradosReservados()%>">Entregado a domicilio</a>
         </div>
         <BR>
         <BR>

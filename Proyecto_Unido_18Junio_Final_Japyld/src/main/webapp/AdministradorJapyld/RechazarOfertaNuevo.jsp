@@ -196,11 +196,29 @@
         </ul>
 
       </nav>
+      <% if (session.getAttribute("info") != null) {
+        //if (request.getParameter("msg") != null) {%>
+      <div id="mensaje" class="alert alert-success" role="alert">
+        <%=session.getAttribute("info")%>
+      </div>
+      <%
+          session.setAttribute("info", null);
+        }
+      %>
+      <% if (session.getAttribute("err") != null) {
+        //if (request.getParameter("msg") != null) {%>
+      <div id="mensajeError" class="alert alert-danger" role="alert">
+        <%=session.getAttribute("err")%>
+      </div>
+      <%
+          session.setAttribute("err", null);
+        }
+      %>
       <!-- End of Topbar -->
 
       <!-- Begin Page Content -->
 
-      <form method="POST" action="<%=request.getContextPath()%>/OfertasServlet?action=actualizar" id = "actualizar">
+      <form method="POST" action="<%=request.getContextPath()%>/JuegosNuevosServlet?action=actualizar" id = "actualizar">
         <input type="hidden" name="id_venta" value="<%=ventaJuegosGeneral.getIdVenta()%>"/>
         <input type="hidden" name="imagen" value="<%=ventaJuegosGeneral.getImagenNueva()%>"/>
         <input type="hidden" name="consola" value="<%=ventaJuegosGeneral.getConsola().getIdConsola()%>"/>
@@ -222,7 +240,7 @@
                 <h6 class="m-0 font-weight-bold text-primary"><%=ventaJuegosGeneral.getNombreNuevo()%></h6>
               </div>
               <div class="card-body text-center">
-                <img src="<%=ventaJuegosGeneral.getImagenNueva()%>" alt="Imagen" class="img-fluid">
+                <img src="<%=request.getContextPath()%>/Image?act=venta&id=<%=ventaJuegosGeneral.getIdVenta()%>" alt="Imagen" class="img-fluid">
 
                 <div class="mt-3">
                   <h5 class="mb-0">Rating:</h5>

@@ -186,6 +186,24 @@
         </ul>
 
       </nav>
+      <% if (session.getAttribute("info") != null) {
+        //if (request.getParameter("msg") != null) {%>
+      <div id="mensaje" class="alert alert-success" role="alert">
+        <%=session.getAttribute("info")%>
+      </div>
+      <%
+          session.setAttribute("info", null);
+        }
+      %>
+      <% if (session.getAttribute("err") != null) {
+        //if (request.getParameter("msg") != null) {%>
+      <div id="mensajeError" class="alert alert-danger" role="alert">
+        <%=session.getAttribute("err")%>
+      </div>
+      <%
+          session.setAttribute("err", null);
+        }
+      %>
       <!-- End of Topbar -->
 
       <!-- Begin Page Content -->
@@ -239,6 +257,9 @@
             </div>
             <br>
             <br>
+          </div>
+          <div class="col-xl-6">
+            <!-- Account details card-->
             <div class="card mb-4 mb-xl-0">
               <div class="card-header"><b>ÚLTIMAS OFERTAS</b></div>
               <div class="card-body text">
@@ -280,66 +301,6 @@
                   </div>
                 </section>
               </div>
-            </div>
-          </div>
-          <div class="col-xl-6">
-            <!-- Account details card-->
-            <div class="card mb-4">
-              <div class="card-header"><b>ESTADÍSTICAS DE VENTAS DIARIAS</b></div>
-
-              <br>
-
-              <div class="container">
-                <canvas id="barChart"></canvas>
-              </div>
-
-              <script>
-                var ctx = document.getElementById('barChart').getContext('2d');
-                var barChart = new Chart(ctx, {
-                  type: 'bar',
-                  data: {
-                    labels: ['Juego 1','Juego 2', 'Juego 3', 'Juego 4'],
-                    datasets: [{
-                      labels: ' ',
-                      data: [15, 20, 15, 45],
-                      backgroundColor: [
-                        'rgba(76, 175, 80, 0.5)', // Verde
-                        'rgba(33, 150, 243, 0.5)', // Azul
-                        'rgba(255, 193, 7, 0.5)', // Amarillo
-                        'rgba(156, 39, 176, 0.5)', // Morado
-                      ],
-                      borderColor: [
-                        'rgba(76, 175, 80, 1)', // Verde
-                        'rgba(33, 150, 243, 1)', // Azul
-                        'rgba(255, 193, 7, 1)', // Amarillo
-                        'rgba(156, 39, 176, 1)', // Morado
-                      ],
-                      borderWidth: 1
-                    }]
-                  },
-                  options: {
-                    scales: {
-                      y: {
-                        beginAtZero: true
-                      }
-                    },
-                    plugins: {
-                      legend: {
-                        display: false // Oculta la leyenda
-                      }
-                    }
-                  }
-                });
-              </script>
-              <br>
-              <div class="card-body ">
-                <div class="my-2"></div>
-                <div class="d-flex justify-content-center">
-                    <span class="text">Ganancia del día</span>
-                </div>
-                <div class="my-2"></div>
-              </div>
-
             </div>
           </div>
         </div>

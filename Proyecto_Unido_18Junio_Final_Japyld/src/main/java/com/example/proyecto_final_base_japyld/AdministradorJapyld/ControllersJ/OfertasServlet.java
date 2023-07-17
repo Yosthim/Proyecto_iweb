@@ -174,7 +174,7 @@ public class OfertasServlet extends HttpServlet {
                     request.getSession().setAttribute("info","Mensaje de rechazo enviado exitosamente");
                     response.sendRedirect("AdminServlet?action=listaPaginaOfertas");
                 }else {
-                    request.getSession().setAttribute("info","Mensaje no enviado, verifique que se ingrese solo letras");
+                    request.getSession().setAttribute("err","Mensaje no enviado, verifique que se ingrese solo letras");
                     response.sendRedirect("AdminServlet?action=listaPaginaOfertas");
                 }
 
@@ -192,12 +192,12 @@ public class OfertasServlet extends HttpServlet {
                         request.getSession().setAttribute("info","Contraoferta enviada exitosamente");
                         response.sendRedirect("AdminServlet?action=listaPaginaOfertas");
                     }else{
-                        request.getSession().setAttribute("info","Contraoferta no enviada, ingrese un valor de precio valido");
+                        request.getSession().setAttribute("err","Contraoferta no enviada, ingrese un valor de precio valido");
                         response.sendRedirect("AdminServlet?action=listaPaginaOfertas");
                     }
 
                 }else{
-                    request.getSession().setAttribute("info","Contraoferta no enviada, verifique que se ingrese solo letras en la razon de rechazo");
+                    request.getSession().setAttribute("err","Contraoferta no enviada, verifique que se ingrese solo letras en la razon de rechazo");
                     response.sendRedirect("AdminServlet?action=listaPaginaOfertas");
                 }
 

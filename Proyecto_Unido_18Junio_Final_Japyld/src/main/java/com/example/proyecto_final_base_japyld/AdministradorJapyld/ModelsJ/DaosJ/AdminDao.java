@@ -7,6 +7,7 @@ import com.example.proyecto_final_base_japyld.BaseDao;
 import com.example.proyecto_final_base_japyld.BeansGenerales.*;
 import com.example.proyecto_final_base_japyld.UsuarioJapyld.ModelsJ.DtoJ.PaginaPrincipalDto;
 
+import java.math.BigDecimal;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -283,6 +284,8 @@ public class AdminDao extends BaseDao {
 
                     VentaJuegosGeneral venta = new VentaJuegosGeneral();
                     venta.setIdVenta(resultSet.getInt(1));
+                    venta.setNombreNuevo(resultSet.getString(13));
+                    venta.setCantidad(resultSet.getInt(15));
 
                     Juegos juego = new Juegos();
                     juego.setIdJuegos((resultSet.getInt("j.idJuegos")));
@@ -313,7 +316,7 @@ public class AdminDao extends BaseDao {
         String sql = "SELECT * FROM ventajuegosgeneral c\n" +
                 "                left join personas p on c.id_usuario = p.idPersona\n" +
                                 "left join juegos j on c.id_juego = j.idJuegos\n" +
-                "                WHERE c.estadoVenta = 'Espera' and disponibilidad = 'Existente' and c.id_administrador =? \n" +
+                "                WHERE c.estadoVenta = 'Pendiente' and c.disponibilidad = 'Habilitado' and c.id_administrador =? \n" +
                 "                ORDER BY c.fechaPublicacion DESC;";
         try(Connection connection = this.getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(sql)){
@@ -356,7 +359,7 @@ public class AdminDao extends BaseDao {
         String sql = "SELECT * FROM ventajuegosgeneral c\n" +
                 "                left join personas p on c.id_usuario = p.idPersona\n" +
                 "                   left join juegos j on c.id_juego = j.idJuegos\n" +
-                "                WHERE c.estadoVenta = 'Espera' and disponibilidad = 'Nuevo' and c.id_administrador =? \n" +
+                "                WHERE c.estadoVenta = 'Pendiente' and c.disponibilidad = 'Nuevo' and c.id_administrador =? \n" +
                 "                ORDER BY c.fechaPublicacion DESC;";
 
         try(Connection connection = this.getConnection();
@@ -405,10 +408,10 @@ public class AdminDao extends BaseDao {
             e.printStackTrace();
         }
 
-        String sql = "SELECT idJuegos, nombreJuegos, precio,direccion_archivo, stock, estadoJuego\n" +
-                "FROM juegos j\n" +
-                "LEFT JOIN descuentos d ON j.idJuegos = d.id_juego\n" +
-                "INNER JOIN imagenes i ON j.id_imagen = i.idImagenes";
+        String sql = " SELECT idJuegos, nombreJuegos, precio,direccion_archivo, stock, estadoJuego, i.idImagenes\n" +
+                "                FROM juegos j\n" +
+                "                LEFT JOIN descuentos d ON j.idJuegos = d.id_juego\n" +
+                "                INNER JOIN imagenes i ON j.id_imagen = i.idImagenes       ;";
 
         String url = "jdbc:mysql://localhost:3306/japyld";
         try (Connection connection = DriverManager.getConnection(url, "root", "root");
@@ -420,9 +423,11 @@ public class AdminDao extends BaseDao {
                 jp.setIdJuegos(resultSet.getInt(1));
                 jp.setNombreJuegos(resultSet.getString(2));
                 jp.setPrecio(resultSet.getInt(3));
-                jp.setDireccion_imagen(resultSet.getString(4));
                 jp.setStock(resultSet.getInt(5));
                 jp.setEstado_juego(resultSet.getString(6));
+                Imagen imagen = new Imagen();
+                imagen.setIdImagenes(resultSet.getInt(7));
+                jp.setImagen(imagen);
                 tjuegos.add(jp);
             }
 
@@ -433,14 +438,15 @@ public class AdminDao extends BaseDao {
         return tjuegos;
     }
     //Buscar
-    public ArrayList<PaginaPrincipalDto> buscarJuegoPorNombre(String name) {
+    public ArrayList<TodosJuegosDto> buscarJuegoPorNombre(String name) {
 
-        ArrayList<PaginaPrincipalDto> listaJuegos = new ArrayList<>();
+        ArrayList<TodosJuegosDto> tjuegos = new ArrayList<>();
 
-        String sql = "SELECT idJuegos, nombreJuegos, precio, direccion_archivo\n" +
-                "FROM juegos j\n" +
-                "INNER JOIN imagenes i ON j.id_imagen = i.idImagenes\n" +
-                "WHERE j.nombreJuegos LIKE ?;";
+        String sql = "SELECT idJuegos, nombreJuegos, precio,direccion_archivo, stock, estadoJuego,i.idImagenes\n" +
+                "                FROM juegos j\n" +
+                "                LEFT JOIN descuentos d ON j.idJuegos = d.id_juego\n" +
+                "                INNER JOIN imagenes i ON j.id_imagen = i.idImagenes\n" +
+                "                WHERE j.nombreJuegos LIKE ?;";
 
 
         try (Connection conn = this.getConnection();
@@ -451,19 +457,22 @@ public class AdminDao extends BaseDao {
             try (ResultSet rs = pstmt.executeQuery()) {
 
                 while (rs.next()) {
-                    PaginaPrincipalDto juego = new PaginaPrincipalDto();
+                    TodosJuegosDto juego = new TodosJuegosDto();
                     juego.setIdJuegos(rs.getInt(1));
                     juego.setNombreJuegos(rs.getString(2));
                     juego.setPrecio(rs.getInt(3));
-                    juego.setDireccion_imagen(rs.getString(4));
+                    juego.setStock(rs.getInt(5));
+                    juego.setEstado_juego(rs.getString(6));
 
-                    listaJuegos.add(juego);
+                    Imagen imagen = new Imagen();
+                    imagen.setIdImagenes(rs.getInt(7));
+                    tjuegos.add(juego);
                 }
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return listaJuegos;
+        return tjuegos;
     }
 
     // Borrar juego
@@ -505,6 +514,55 @@ public class AdminDao extends BaseDao {
         return juegos;
     }
 
+    public void actualizarPrecio(int id_juego, BigDecimal precio){
 
+        String sql = "UPDATE juegos  \n" +
+                "SET precio = ?\n" +
+                "WHERE idJuegos = ?;";
+
+        try (Connection conn = this.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setBigDecimal(1,precio);
+            pstmt.setInt(2, id_juego);
+
+            pstmt.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public void actualizarDescripcion(int id_juego, String descripcion){
+
+        String sql = "UPDATE juegos  \n" +
+                "SET descripcion = ?\n" +
+                "WHERE idJuegos = ?;";
+
+        try (Connection conn = this.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1,descripcion);
+            pstmt.setInt(2, id_juego);
+
+            pstmt.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public void actualizarCategoria(int id_juego, String id_categoria){
+
+        String sql = "UPDATE juegos  \n" +
+                "SET id_categoria = ?\n" +
+                "WHERE idJuegos = ?;";
+
+        try (Connection conn = this.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1,id_categoria);
+            pstmt.setInt(2, id_juego);
+
+            pstmt.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
 
 }

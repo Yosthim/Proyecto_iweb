@@ -29,4 +29,14 @@ public class JuegosReservadosDias {
     private String nombre;
     private String usuario;
     private int dias;
+
+    public int getId_venta() {
+        return id_venta;
+    }
+
+    public void setId_venta(int id_venta) {
+        this.id_venta = id_venta;
+    }
+
+    private int id_venta;
 }

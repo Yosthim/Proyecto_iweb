@@ -197,6 +197,24 @@
         </ul>
 
       </nav>
+      <% if (session.getAttribute("info") != null) {
+        //if (request.getParameter("msg") != null) {%>
+      <div id="mensaje" class="alert alert-success" role="alert">
+        <%=session.getAttribute("info")%>
+      </div>
+      <%
+          session.setAttribute("info", null);
+        }
+      %>
+      <% if (session.getAttribute("err") != null) {
+        //if (request.getParameter("msg") != null) {%>
+      <div id="mensajeError" class="alert alert-danger" role="alert">
+        <%=session.getAttribute("err")%>
+      </div>
+      <%
+          session.setAttribute("err", null);
+        }
+      %>
       <!-- End of Topbar -->
 
       <!-- Begin Page Content -->
@@ -219,7 +237,7 @@
                     <h6 class="m-0 font-weight-bold text-primary"><%=juego.getNombreJuegos()%></h6>
                   </div>
                   <div class="card-body text-center">
-                    <img src="<%=request.getContextPath()%>/Image?act=juego&id=<%=juego.getIdImagen()%>" alt="Imagen" class="img-fluid">
+                    <img src="<%=request.getContextPath()%>/Image?act=juego&id=<%=juego.getImagen().getIdImagenes()%>" alt="Imagen" class="img-fluid">
 
                     <div class="mt-3">
                       <h5 class="mb-0">Rating:</h5>

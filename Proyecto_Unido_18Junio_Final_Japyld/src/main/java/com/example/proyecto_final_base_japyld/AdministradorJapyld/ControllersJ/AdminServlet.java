@@ -83,6 +83,34 @@ public class AdminServlet extends HttpServlet {
                 }
                 break;
 
+            case "borrar":
+                if (request.getParameter("id") != null) {
+                    String idJuegosString = request.getParameter("id");
+                    int idJuegos = 0;
+                    try {
+                        idJuegos = Integer.parseInt(idJuegosString);
+                    } catch (NumberFormatException ex) {
+                        request.getSession().setAttribute("err","Error al borrar el juego");
+                        response.sendRedirect("AdminTodosJuegos");
+                    }
+                    Juegos jg = adminDao.obetenerJuego(idJuegos);
+                    if (jg != null) {
+                        try {
+                            adminDao.borrarjuego(idJuegos);
+                            request.getSession().setAttribute("info","Juego borrado exitosamente");
+                            response.sendRedirect("AdminTodosJuegos");
+                        } catch (SQLException e) {
+                            request.getSession().setAttribute("err","Error al borrar el juego");
+                            response.sendRedirect("AdminTodosJuegos");
+                        }
+                    }
+                } else {
+                    request.getSession().setAttribute("err","Error al borrar el juego");
+                    response.sendRedirect("AdminTodosJuegos");
+                }
+                break;
+
+
             default:
                 response.sendRedirect("AdminServlet");
         }
@@ -130,39 +158,14 @@ public class AdminServlet extends HttpServlet {
             case "buscar":
 
                 String textoBuscar = request.getParameter("textoBuscar");
-
-                request.setAttribute("textoBusqueda", textoBuscar);
-                RequestDispatcher view = request.getRequestDispatcher("AdministradorJapyld/adminVideojuegos.jsp");
-                view.forward(request, response);
-
-            case "borrar":
-                if (request.getParameter("id") != null) {
-                    String idJuegosString = request.getParameter("id");
-                    int idJuegos = 0;
-                    try {
-                        idJuegos = Integer.parseInt(idJuegosString);
-                    } catch (NumberFormatException ex) {
-                        request.getSession().setAttribute("err","Error al borrar el juego");
-                        response.sendRedirect("AdminTodosJuegos");
-                    }
-
-                    Juegos jg = adminDao.obetenerJuego(idJuegos);
-
-                    if (jg != null) {
-                        try {
-                            adminDao.borrarjuego(idJuegos);
-                            request.getSession().setAttribute("info","Juego borrado exitosamente");
-                            response.sendRedirect("AdminTodosJuegos");
-                        } catch (SQLException e) {
-                            request.getSession().setAttribute("err","Error al borrar el juego");
-                            response.sendRedirect("AdminTodosJuegos");
-                        }
-                    }
-                } else {
-                    request.getSession().setAttribute("err","Error al borrar el juego");
+                if (validar_texto(textoBuscar)==true){
+                    request.setAttribute("textoBusqueda", textoBuscar);
+                    RequestDispatcher view = request.getRequestDispatcher("AdministradorJapyld/adminVideojuegos.jsp");
+                    view.forward(request, response);
+                }else{
+                    request.getSession().setAttribute("err","Agregue un texto valido");
                     response.sendRedirect("AdminTodosJuegos");
                 }
-                break;
 
             case"agregarCategoria":
 
@@ -190,6 +193,41 @@ public class AdminServlet extends HttpServlet {
                 }
                 break;
 
+            case"agregarPrecio":
+
+                if(validarPrecio(request.getParameter("nombre").trim()) == true){
+
+                    adminDao.actualizarPrecio(Integer.parseInt(request.getParameter("id_venta")) ,new BigDecimal(request.getParameter("nombre")));
+                    request.getSession().setAttribute("info","Precio actualizado correctamente");
+                    response.sendRedirect("AdminTodosJuegos");
+
+                }else {
+                    request.getSession().setAttribute("err","Precio no actualizado, ingrese un valor de precio valido");
+                    response.sendRedirect("AdminTodosJuegos");
+                }
+                break;
+
+            case"agregarDescripcion":
+
+                if(validar_texto(request.getParameter("nombre").trim()) == true){
+
+                    adminDao.actualizarDescripcion(Integer.parseInt(request.getParameter("id_venta")) ,request.getParameter("nombre"));
+                    request.getSession().setAttribute("info","Descripción actualizada correctamente");
+                    response.sendRedirect("AdminTodosJuegos");
+
+                }else {
+                    request.getSession().setAttribute("err","Descripción no actualizada, asegurese de ingresar una correctamente");
+                    response.sendRedirect("AdminTodosJuegos");
+                }
+                break;
+            case"agrergarCategoria":
+
+                    adminDao.actualizarCategoria(Integer.parseInt(request.getParameter("id_venta")) ,request.getParameter("categoria_id"));
+                    request.getSession().setAttribute("info","Categoria actualizada correctamente");
+                    response.sendRedirect("AdminTodosJuegos");
+
+                break;
+
             default:
                 response.sendRedirect("AdminServlet");
         }
@@ -204,9 +242,9 @@ public class AdminServlet extends HttpServlet {
         juegos.setPrecio(new BigDecimal(request.getParameter("precio")));
         juegos.setDescripcion(request.getParameter("descripcion"));
 
-        Imagen imagen = new Imagen();
-        imagen.setIdImagenes(Integer.parseInt(request.getParameter("imagenen")));
-        juegos.setImagen(imagen);
+       // Imagen imagen = new Imagen();
+        //imagen.setIdImagenes(Integer.parseInt(request.getParameter("imagenen")));
+        //juegos.setImagen(imagen);
 
         Categoria categoria = new Categoria();
         categoria.setIdCategorias(request.getParameter("categoria_id"));
