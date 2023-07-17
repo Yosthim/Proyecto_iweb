@@ -247,11 +247,9 @@
             <div class="container-fluid">
                 <BR>
 
-<<<<<<< HEAD
                 <!-- Page Heading -->
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
                     <h1 class="h3 mb-0 text-gray-700">Todos Los Juegos</h1>
-=======
                 <div class="card mb-4 mb-xl-0 ">
                     <div class="card-header ">
                         <div class="input-group ">
@@ -262,7 +260,7 @@
                             </div>
                         </div>
                     </div>
->>>>>>> b2ebcc4f823e8beb943a95921e7119f17f58455a
+                </div>
                 </div>
                 <BR>
 
@@ -304,7 +302,6 @@
 
                         <!-- Pending Requests Card Example -->
                 </div>
-
                 <!-- Content Row -->
 
                 <div class="row">
