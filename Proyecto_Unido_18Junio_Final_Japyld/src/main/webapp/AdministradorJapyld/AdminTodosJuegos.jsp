@@ -286,7 +286,11 @@
                                             <div class="mt-3">
                                                 <p class="mt-2">Stock: <%= j.getStock() %></p>
                                                 <p class="mt-2">Estado de juego: <%= j.getEstado_juego() %></p>
+                                                <% if (j.getPrecio_nuevo() != 0) { %>
+                                                <p class="mt-2">Precio: S/. <%= j.getPrecio_nuevo() %></p>
+                                                <% } else { %>
                                                 <p class="mt-2">Precio: S/. <%= j.getPrecio() %></p>
+                                                <% } %>
                                                 <% if (j.getStock() == 0) { %>
                                                 <a class="btn btn-danger" href="<%= request.getContextPath() %>/AdminServlet?action=editar&id=<%= j.getIdJuegos() %>">Editar</a>
                                                 <% } else { %>

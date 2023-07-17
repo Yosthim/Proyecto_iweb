@@ -3,6 +3,7 @@ package com.example.proyecto_final_base_japyld.SistemaJapyld.ControllersJ;
 
 import com.example.proyecto_final_base_japyld.AdministradorJapyld.ModelsJ.DaosJ.DescuentoDao;
 import com.example.proyecto_final_base_japyld.BeansGenerales.Personas;
+import com.example.proyecto_final_base_japyld.SistemaJapyld.ModelsJ.DaosJ.CorreoDao;
 import com.example.proyecto_final_base_japyld.SistemaJapyld.ModelsJ.DaosJ.PersonaDao;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -62,6 +63,7 @@ public class LoginServlet extends HttpServlet {
         PersonaDao personadao = new PersonaDao();
 
         DescuentoDao descuentoDao = new DescuentoDao();
+        CorreoDao correoDao = new CorreoDao();
 
         String username = request.getParameter("inputEmail");
         String password = request.getParameter("inputPassword");
@@ -75,15 +77,17 @@ public class LoginServlet extends HttpServlet {
                 HttpSession session = request.getSession();
                 session.setAttribute("personaSession",persona);
                 session.setMaxInactiveInterval(30*60);
-                descuentoDao.actualizarEstadoJuego();
                 if (rol.equals("USR")){
                     response.sendRedirect(request.getContextPath()+"/PaginaPrincipal");
+                    descuentoDao.actualizarEstadoJuego();
                 }
                 if (rol.equals("ADM")){
                     response.sendRedirect(request.getContextPath()+"/AdminServlet");
+                    descuentoDao.actualizarEstadoJuego();
                 }
                 if (rol.equals("MNG")){
                     response.sendRedirect(request.getContextPath()+"/ManagerServlet");
+                    descuentoDao.actualizarEstadoJuego();
                 }
             }else{
                 if(rol.equals("USR")){
