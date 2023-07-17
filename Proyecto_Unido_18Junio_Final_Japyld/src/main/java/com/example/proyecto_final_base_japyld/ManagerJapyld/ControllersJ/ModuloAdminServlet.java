@@ -1,5 +1,6 @@
 package com.example.proyecto_final_base_japyld.ManagerJapyld.ControllersJ;
 import com.example.proyecto_final_base_japyld.ManagerJapyld.ModelsJ.DaosJ.DetalleAdminDao;
+import com.example.proyecto_final_base_japyld.ManagerJapyld.ModelsJ.DtoJ.ImagenesAdmin;
 import com.example.proyecto_final_base_japyld.ManagerJapyld.ModelsJ.DtoJ.ModuloAdmin;
 import com.example.proyecto_final_base_japyld.ManagerJapyld.ModelsJ.DtoJ.DetalleAdmin;
 import com.example.proyecto_final_base_japyld.ManagerJapyld.ModelsJ.DaosJ.ModuloAdminDao;
@@ -10,7 +11,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-
+import java.util.Random;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.Date;
@@ -82,6 +83,12 @@ public class ModuloAdminServlet extends HttpServlet {
         switch (action) {
             case "guardar":
 
+                ArrayList<ImagenesAdmin> perfiles= adminModuloDao.listaImagenes();
+                Random random = new Random();
+                int indiceAleatorio = random.nextInt(perfiles.size());
+
+                ImagenesAdmin perfilAleatorio = perfiles.get(indiceAleatorio);
+
                 admin.setNombre(request.getParameter("nombre"));
                 admin.setApellido(request.getParameter("apellido"));
                 admin.setCorreo(request.getParameter("correo"));
@@ -92,7 +99,7 @@ public class ModuloAdminServlet extends HttpServlet {
                 admin.setGenero("Por Definir");
                 admin.setDni(11111111);
                 admin.setId_rol("ADM");
-                admin.setImagen("Por Definir");
+                admin.setImagen(perfilAleatorio.getDireccionArchivo());
                 admin.setTipo("Perfil");
                 admin.setCategoriaJuegoPreferida("Por Definir");
                 admin.setFechaRegistro(new Date(System.currentTimeMillis()));
@@ -108,11 +115,13 @@ public class ModuloAdminServlet extends HttpServlet {
                 for (ModuloAdmin admi1: comparar){
                     if (admi1.getCorreo().equals(request.getParameter("correo"))){
                         centinela=1;
+                        break;
                     }
                     String valor = admi1.getNombre()+admi1.getApellido();
                     String valor2 = request.getParameter("nombre")+request.getParameter("apellido");
                     if (valor.equals(valor2)){
                         centinela2=1;
+                        break;
                     }
                 }
 

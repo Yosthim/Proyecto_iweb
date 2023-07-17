@@ -201,7 +201,8 @@
                         <div class="card mb-4 mb-xl-0">
                             <div class="card-body text-center">
                                 <!-- Profile picture image-->
-                                <img class="img-account-profile rounded-circle mb-2" src="recursos/img/profile-1.png" alt="">
+
+                                <img class="img-account-profile rounded-circle mb-2" src="<%=a.getDireccion_imagen()%>" alt="">
                             </div>
 
                             <script3 src="https://code.jquery.com/jquery-3.6.0.min.js"></script3>
@@ -370,7 +371,7 @@
                                             <h5 class="m-0 font-weight-bold text-primary"><%=i%>. "<%=detalleAdmin.getNombreJuegos()%>"</h5>
                                             <br>
                                             <div class="blog-entry d-flex blog-entry-search-item">
-                                                <label> <img src="recursos/img/zorro.jpg" width="255" height="255" alt="Image" class="img-fluid"></label>
+                                                <label> <img src="<%=detalleAdmin.getDireccion_imagen()%>" width="255" height="255" alt="Image" class="img-fluid"></label>
                                                 <div class="d-flex align-items-center">
                                                     <ul>
                                                         <br>
@@ -411,7 +412,7 @@
                                             <h5 class="m-0 font-weight-bold text-primary"><%=j%>. "<%=detalleAdmin2.getNombreJuegos()%>"</h5>
                                             <br>
                                             <div class="blog-entry d-flex blog-entry-search-item">
-                                                <label> <img src="recursos/img/zorro.jpg" width="255" height="255" alt="Image" class="img-fluid"></label>
+                                                <label> <img src="<%=detalleAdmin2.getDireccion_imagen()%>" width="255" height="255" alt="Image" class="img-fluid"></label>
                                                 <div class="d-flex align-items-center">
                                                     <ul>
 
