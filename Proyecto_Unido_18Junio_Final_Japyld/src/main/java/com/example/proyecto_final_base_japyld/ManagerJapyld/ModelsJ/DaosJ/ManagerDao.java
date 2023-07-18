@@ -194,4 +194,34 @@ public class ManagerDao extends BaseDao {
         }
         return recordObjetivos;
     }
+
+
+    public ArrayList<Objetivos> ObjetivosPorMes(String mes){
+
+        ArrayList<Objetivos> objetivos= new ArrayList<>();
+
+        String sql = "SELECT * FROM objetivosmanager\n" +
+                "WHERE MONTHNAME(fecha) = ?;";
+
+        try (Connection connection = this.getConnection();
+             PreparedStatement ptsmtObjetivo = connection.prepareStatement(sql)) {
+
+            ptsmtObjetivo.setString(1,mes);
+            try (ResultSet rs = ptsmtObjetivo.executeQuery()){
+                while(rs.next()){
+                    Objetivos objetivosMes = new Objetivos();
+
+                    objetivosMes.setIdObjetivos(rs.getInt(1));
+                    objetivosMes.setVentasPorMesJuego(rs.getInt(2));
+                    objetivosMes.setGastosPorMesJuego(rs.getInt(3));
+                    objetivosMes.setUsuarioPorMes(rs.getInt(4));
+                    objetivosMes.setFecha(rs.getTimestamp(6));
+                    objetivos.add(objetivosMes);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return objetivos;
+    }
 }

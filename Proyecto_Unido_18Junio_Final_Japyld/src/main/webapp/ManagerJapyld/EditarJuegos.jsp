@@ -95,9 +95,9 @@
                                                     <%}else{%>
                                                     <p class="mt-2">Precio: S/. <%=juegosTodos.getPrecio_nuevo()%></p>
                                                     <%}%>
-                                                    <div class="center">
-                                                        <a onclick="return confirm('Estas seguro de borrar :( ?')" class="btn btn-danger"
-                                                           href="<%=request.getContextPath()%>/EditarJuegosServlet?a=b&idjuego=<%=juegosTodos.getIdJuegos()%>">Borrar</a>
+                                                    <div class="center justify-content-center">
+                                                        <a onclick="return confirm('Estas seguro de borrar :( ?')" class="btn alert-danger"
+                                                           href="<%=request.getContextPath()%>/EditarJuegosServlet?a=b&idjuego=<%=juegosTodos.getIdJuegos()%>">BORRAR</a>
                                                     </div>
                                                 </div>
                                             </div>

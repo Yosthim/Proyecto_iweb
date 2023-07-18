@@ -81,7 +81,7 @@ public class JuegosManagerDao extends BaseDao {
                 "                LEFT JOIN descuentos d ON j.idJuegos = d.id_juego\n" +
                 "                LEFT JOIN categorias c ON j.id_categoria = c.idCategorias\n" +
                 "                INNER JOIN imagenes i ON j.id_imagen = i.idImagenes\n" +
-                "                WHERE (j.estadoJuego = 'Activo' OR j.estadoJuego = 'Oferta') and idJuegos = ?";
+                "                WHERE  idJuegos = ?";
 
         try (Connection connection = this.getConnection();
              PreparedStatement ptsmtJuego = connection.prepareStatement(sql)) {
