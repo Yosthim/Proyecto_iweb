@@ -1,5 +1,6 @@
 package com.example.proyecto_final_base_japyld.BeansGenerales;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 public class Comentarios {
@@ -9,13 +10,11 @@ public class Comentarios {
     private String comentario;
 
     private int ratingComentario;
-
-    private String fecha_comentario;
     private Juegos juegoComentario;
 
     private Personas personaComentario;
 
-    private Date fecha_comentario1;
+    private Timestamp fecha_comentario1;
 
     public int getIdComentario() {
         return idComentario;
@@ -57,19 +56,11 @@ public class Comentarios {
         this.personaComentario = personaComentario;
     }
 
-    public String getFecha_comentario() {
-        return fecha_comentario;
-    }
-
-    public void setFecha_comentario(String fecha_comentario) {
-        this.fecha_comentario = fecha_comentario;
-    }
-
-    public Date getFecha_comentario1() {
+    public Timestamp getFecha_comentario1() {
         return fecha_comentario1;
     }
 
-    public void setFecha_comentario1(Date fecha_comentario1) {
+    public void setFecha_comentario1(Timestamp fecha_comentario1) {
         this.fecha_comentario1 = fecha_comentario1;
     }
 }

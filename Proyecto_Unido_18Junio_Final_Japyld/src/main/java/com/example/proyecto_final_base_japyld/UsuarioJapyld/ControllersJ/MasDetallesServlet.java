@@ -11,6 +11,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+
+import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -56,37 +58,26 @@ public class MasDetallesServlet extends HttpServlet {
         String comentario = request.getParameter("Comentario");
         String juegoId = request.getParameter("idjuego");
         String idpersona = request.getParameter("idpersona");
+        String comentFechaStr = request.getParameter("fecha");
 
-        Date fechaComentario = new Date();
-        DateFormat fechaFormato = new SimpleDateFormat("yyyy-MM-dd");
-        String fechaFormateada = fechaFormato.format(fechaComentario);
+        Timestamp objFecha = Timestamp.valueOf(comentFechaStr);
 
         try {
-            SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
-            try{
-                int juegoId1 = Integer.parseInt(juegoId);
-                int idpersona1 = Integer.parseInt(idpersona);
+            int juegoId1 = Integer.parseInt(juegoId);
+            int idpersona1 = Integer.parseInt(idpersona);
 
-                Date fecha_comentario1 = formato.parse(fechaFormateada);
+            comentarioCreado.setComentario(comentario);
 
-                comentarioCreado.setComentario(comentario);
+            comentarioCreado.setFecha_comentario1(objFecha);
 
-                comentarioCreado.setFecha_comentario1(fecha_comentario1);
+            Juegos juego = new Juegos();
+            juego.setIdJuegos(juegoId1);
+            comentarioCreado.setJuegoComentario(juego);
 
-                Juegos juego = new Juegos();
-                juego.setIdJuegos(juegoId1);
-                comentarioCreado.setJuegoComentario(juego);
+            Personas persona = new Personas();
+            persona.setIdPersona(idpersona1);
+            comentarioCreado.setPersonaComentario(persona);
 
-                Personas persona = new Personas();
-                persona.setIdPersona(idpersona1);
-                comentarioCreado.setPersonaComentario(persona);
-
-
-
-                return comentarioCreado;
-            }catch (ParseException p){
-
-            }
             return comentarioCreado;
         } catch (NumberFormatException e) {
 
