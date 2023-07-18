@@ -93,7 +93,7 @@
                           <%}else{%>
                           <p class="mt-2">Precio: S/. <%=juegosMasVendidos.getPrecio_nuevo()%></p>
                           <%}%>
-                          <a class="btn btn-success" href="<%=request.getContextPath()%>/MasDetallesJuegosServlet?idjuego=<%=juegosMasVendidos.getNombreJuegos()%>">Más Detalles</a>
+                          <a class="btn btn-success" href="<%=request.getContextPath()%>/MasDetallesJuegosServlet?idjuego=<%=juegosMasVendidos.getIdJuegos()%>">Más Detalles</a>
                         </div>
                       </div>
                     </div>

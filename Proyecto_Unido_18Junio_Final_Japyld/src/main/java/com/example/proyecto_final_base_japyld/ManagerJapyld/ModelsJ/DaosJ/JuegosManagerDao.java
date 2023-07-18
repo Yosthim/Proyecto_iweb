@@ -2,8 +2,10 @@ package com.example.proyecto_final_base_japyld.ManagerJapyld.ModelsJ.DaosJ;
 
 import com.example.proyecto_final_base_japyld.BaseDao;
 import com.example.proyecto_final_base_japyld.BeansGenerales.Juegos;
+import com.example.proyecto_final_base_japyld.BeansGenerales.JuegosCompradosReservados;
 import com.example.proyecto_final_base_japyld.ManagerJapyld.ModelsJ.DtoJ.JuegosManager;
 import com.example.proyecto_final_base_japyld.UsuarioJapyld.ModelsJ.DtoJ.ConsolasDetallesDto;
+import com.example.proyecto_final_base_japyld.UsuarioJapyld.ModelsJ.DtoJ.MasDetallesDto;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -70,30 +72,31 @@ public class JuegosManagerDao extends BaseDao {
         return listaMenosVendidos;
     }
 
-    public ArrayList<JuegosManager> listarMasDetallesJuego(String idjuego){
+    public ArrayList<JuegosManager> listarMasDetallesJuego(int idjuego){
 
         ArrayList<JuegosManager> listaMasDetallesJuego = new ArrayList<>();
 
-        String sql = "select idJuegos, nombreJuegos, descripcion,stock, precio, nombre as \"Categorías\", direccion_archivo\n" +
-                "from juegos j\n" +
-                "inner join categorias g on g.idCategorias = j.id_categoria\n" +
-                "left join imagenes i on i.idImagenes = j.id_imagen\n" +
-                "where j.nombreJuegos = ?;";
+        String sql = "SELECT idJuegos, nombreJuegos, precio,direccion_archivo, COALESCE(d.precio_nuevo, 0) AS precio_nuevo,c.nombre,j.descripcion\n" +
+                "                FROM juegos j\n" +
+                "                LEFT JOIN descuentos d ON j.idJuegos = d.id_juego\n" +
+                "                LEFT JOIN categorias c ON j.id_categoria = c.idCategorias\n" +
+                "                INNER JOIN imagenes i ON j.id_imagen = i.idImagenes\n" +
+                "                WHERE  idJuegos = ?";
 
         try (Connection connection = this.getConnection();
              PreparedStatement ptsmtJuego = connection.prepareStatement(sql)) {
 
-            ptsmtJuego.setString(1,idjuego);
+            ptsmtJuego.setInt(1,idjuego);
             try (ResultSet rs = ptsmtJuego.executeQuery()){
                 while(rs.next()){
                     JuegosManager juegodetalles = new JuegosManager();
                     juegodetalles.setIdJuegos(rs.getInt(1));
                     juegodetalles.setNombreJuegos(rs.getString(2));
-                    juegodetalles.setDescripcion_juego(rs.getString(3));
-                    juegodetalles.setStock(rs.getInt(4));
-                    juegodetalles.setPrecio(rs.getInt(5));
+                    juegodetalles.setPrecio(rs.getInt(3));
+                    juegodetalles.setDireccion_imagen(rs.getString(4));
+                    juegodetalles.setPrecio_nuevo(rs.getInt(5));
                     juegodetalles.setCategoria(rs.getString(6));
-                    juegodetalles.setDireccion_imagen(rs.getString(7));
+                    juegodetalles.setDescripcion_juego(rs.getString(7));
 
                     listaMasDetallesJuego.add(juegodetalles);
                 }
@@ -199,6 +202,33 @@ public class JuegosManagerDao extends BaseDao {
         }
 
         return listaConsolaPorJuego;
+
+    }
+
+    public ArrayList<JuegosCompradosReservados> listarRating(int idjuego){
+        ArrayList<JuegosCompradosReservados> listaRating = new ArrayList<>();
+
+        String sql = "SELECT rating\n" +
+                "from juegoscompradosreservados\n" +
+                "where id_juego = ?;";
+
+        try (Connection connection = this.getConnection();
+             PreparedStatement ptsmt = connection.prepareStatement(sql)) {
+
+            ptsmt.setInt(1, idjuego);
+
+            try (ResultSet rs = ptsmt.executeQuery()) {
+                while (rs.next()) {
+                    JuegosCompradosReservados rating = new JuegosCompradosReservados();
+                    rating.setRating(rs.getInt(1));
+
+                    listaRating.add(rating);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return listaRating;
 
     }
 

@@ -16,7 +16,11 @@ public class MasDetallesJuegosServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         JuegosManagerDao detallesJuegos = new JuegosManagerDao();
 
-        String idjuego = request.getParameter("idjuego");
+        int idjuego = Integer.parseInt(request.getParameter("idjuego"));
+
+        request.setAttribute("listaMasDetallesJuego", detallesJuegos.listarMasDetallesJuego(idjuego));
+        request.setAttribute("listaConsolaPorJuego",detallesJuegos.listarConsolasPorJuego(idjuego));
+        request.setAttribute("listaRating",detallesJuegos.listarRating(idjuego));
 
         request.setAttribute("MasDetallesJuego", detallesJuegos.listarMasDetallesJuego(idjuego));
         RequestDispatcher view = request.getRequestDispatcher("ManagerJapyld/MasDetallesJuego.jsp");

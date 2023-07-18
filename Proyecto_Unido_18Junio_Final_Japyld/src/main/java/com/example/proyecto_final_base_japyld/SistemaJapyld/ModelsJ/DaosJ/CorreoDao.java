@@ -35,7 +35,7 @@ public class CorreoDao extends BaseDao {
             mensaje.setRecipient(Message.RecipientType.TO, new InternetAddress(correoDestino));
             mensaje.setSubject(asunto);
             mensaje.setText(contenido);
-            mensaje.setText(contenido + "\n" + "Gracias por su preferencia\n"
+            mensaje.setText(contenido + "\n\nGracias por su preferencia\n"
                     +"Atentamente,\n" +
                     "Japyld\n");
             Transport mTransport = s.getTransport("smtp");

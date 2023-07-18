@@ -80,11 +80,18 @@ public class editarImagenServlet extends HttpServlet {
             case "new":
                 Part imageGamePart = request.getPart("imagenJuego");
                 InputStream imageGameContent = imageGamePart.getInputStream();
+                if (imageGameContent.available()>0){
+                    juegos.getImagen().setImagem(imageGameContent);
+                    agregarDao.actaualizarImagen(juegos);
+                    request.getSession().setAttribute("info","Imagen actualizada correctamente");
+                    response.sendRedirect("AdminTodosJuegos");
+                }else {
+                    request.getSession().setAttribute("err","Ingrese una iamgen");
+                    response.sendRedirect("AdminTodosJuegos");
+                }
 
-                juegos.getImagen().setImagem(imageGameContent);
-                agregarDao.actaualizarImagen(juegos);
-                request.getSession().setAttribute("info","Imagen actualizada correctamente");
-                response.sendRedirect("AdminTodosJuegos");
+
+
 
                 break;
         }

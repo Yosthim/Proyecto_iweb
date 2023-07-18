@@ -69,7 +69,7 @@
                 <!-- Profile picture card-->
                 <div class="card mb-4 mb-xl-0">
 
-                  <div class="card-header font-weight-bold text-primary">TABLA POR CATEGORÍA DE VIDEOJUEGOS</div>
+                  <div class="card-header font-weight-bold text-primary">TABLA POR CONSOLA DE VIDEOJUEGOS</div>
                   <div class="card-body text">
 
                     <section class="intro">
@@ -128,71 +128,57 @@
                     <% cantUsuarios[i] = listaPorConsolaJuego.get(i).getNum_usuarios(); %>
                     <% } %>
 
-                    <p class="alert alert-success" role="alert"> 1. La mayoría de usuarios prefieren jugar con <%= tipoConsola[0] %></p>
-                    <p div class="alert alert-warning"> 2. Algunos usuarios prefieren jugar con <%= tipoConsola[1] + " o " + tipoConsola[2] %></p>
-                    <p class="alert alert-info" role="alert"> 3. Otros usuarios prefieren jugar con <%= tipoConsola[3] %> </p>
-                    <p div class="alert alert-danger" role="alert"> 4. Pocos usuarios prefieren jugar con <%= tipoConsola[4] + " o " + tipoConsola[5] %></p>
-                  </div>
-                </div>
-              </div>
-            </div>
+                    <p div class="alert alert-warning"> A continuación se muestra el gráfico que indica la consola preferida para jugar videojuegos de los usuarios basado en las compras realizadas.</p>
+                    <br>
+                    <div class="container">
+                      <canvas id="barChart4"></canvas>
+                    </div>
 
-            <div class="row justify-content-center">
-              <div class="col-xl-6">
-                <!-- Profile picture card-->
-                <div class="card mb-4 mb-xl-0">
-                  <div class="card-header m-0 font-weight-bold text-primary">GRÁFICO POR CONSOLA DE VIDEOJUEGOS</div>
-                  <br>
-                  <div class="container">
-                    <canvas id="barChart4"></canvas>
-                  </div>
-
-                  <script>
-                    var ctx = document.getElementById('barChart4').getContext('2d');
-                    var barChart4 = new Chart(ctx, {
-                      type: 'bar',
-                      data: {
-                        labels: ['<%= tipoConsola[0] %>', '<%= tipoConsola[1] %>', '<%= tipoConsola[2] %>', '<%= tipoConsola[3] %>', '<%= tipoConsola[4] %>','<%= tipoConsola[5] %>'],
-                        datasets: [{
-                          labels: ' ',
-                          data: [<%= cantUsuarios[0] %>, <%= cantUsuarios[1] %>, <%= cantUsuarios[2] %>, <%= cantUsuarios[3] %>, <%= cantUsuarios[4] %>, <%= cantUsuarios[5] %>],
-                          backgroundColor: [
-                            'rgba(76, 175, 80, 0.5)', // Verde
-                            'rgba(33, 150, 243, 0.5)', // Azul
-                            'rgba(255, 193, 7, 0.5)', // Amarillo
-                            'rgba(156, 39, 176, 0.5)', // Morado
-                            'rgba(244, 67, 54, 0.5)' // Rojo
-                          ],
-                          borderColor: [
-                            'rgba(76, 175, 80, 1)', // Verde
-                            'rgba(33, 150, 243, 1)', // Azul
-                            'rgba(255, 193, 7, 1)', // Amarillo
-                            'rgba(156, 39, 176, 1)', // Morado
-                            'rgba(244, 67, 54, 1)' // Rojo
-                          ],
-                          borderWidth: 1
-                        }]
-                      },
-                      options: {
-                        scales: {
-                          y: {
-                            beginAtZero: true
-                          }
+                    <script>
+                      var ctx = document.getElementById('barChart4').getContext('2d');
+                      var barChart4 = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                          labels: ['<%= tipoConsola[0] %>', '<%= tipoConsola[1] %>', '<%= tipoConsola[2] %>', '<%= tipoConsola[3] %>', '<%= tipoConsola[4] %>','<%= tipoConsola[5] %>'],
+                          datasets: [{
+                            labels: ' ',
+                            data: [<%= cantUsuarios[0] %>, <%= cantUsuarios[1] %>, <%= cantUsuarios[2] %>, <%= cantUsuarios[3] %>, <%= cantUsuarios[4] %>, <%= cantUsuarios[5] %>],
+                            backgroundColor: [
+                              'rgba(76, 175, 80, 0.5)', // Verde
+                              'rgba(33, 150, 243, 0.5)', // Azul
+                              'rgba(255, 193, 7, 0.5)', // Amarillo
+                              'rgba(156, 39, 176, 0.5)', // Morado
+                              'rgba(244, 67, 54, 0.5)' // Rojo
+                            ],
+                            borderColor: [
+                              'rgba(76, 175, 80, 1)', // Verde
+                              'rgba(33, 150, 243, 1)', // Azul
+                              'rgba(255, 193, 7, 1)', // Amarillo
+                              'rgba(156, 39, 176, 1)', // Morado
+                              'rgba(244, 67, 54, 1)' // Rojo
+                            ],
+                            borderWidth: 1
+                          }]
                         },
-                        plugins: {
-                          legend: {
-                            display: false // Oculta la leyenda
+                        options: {
+                          scales: {
+                            y: {
+                              beginAtZero: true
+                            }
+                          },
+                          plugins: {
+                            legend: {
+                              display: false // Oculta la leyenda
+                            }
                           }
                         }
-                      }
-                    });
-                  </script>
-
-                  <br>
-
+                      });
+                    </script>
+                  </div>
                 </div>
               </div>
             </div>
+
 
             <br>
             <br>

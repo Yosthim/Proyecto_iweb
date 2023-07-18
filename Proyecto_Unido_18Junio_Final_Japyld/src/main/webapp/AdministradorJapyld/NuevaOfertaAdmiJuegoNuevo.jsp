@@ -297,6 +297,12 @@
                     <button class="btn">Precio: S/. <%=ventaJuegosGeneral.getPrecioUsuario()%></button>
                   </div>
                 </div>
+                <div class="d-flex justify-content-between align-items-center mb-3">
+
+                  <div class="d-flex">
+                    <button class="btn">Cantidad: <%=ventaJuegosGeneral.getCantidad()%></button>
+                  </div>
+                </div>
               </div>
             </div>
 

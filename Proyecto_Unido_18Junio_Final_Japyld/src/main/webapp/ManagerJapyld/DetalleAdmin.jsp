@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="java.math.BigDecimal" %>
 <%@ page import="com.example.proyecto_final_base_japyld.ManagerJapyld.ModelsJ.DtoJ.DetalleAdmin" %>
 <%@ page import="com.example.proyecto_final_base_japyld.ManagerJapyld.ModelsJ.DtoJ.ModuloAdmin" %>
 <%ArrayList<DetalleAdmin> lista1 = (ArrayList<DetalleAdmin>) request.getAttribute("listaJuegosPropuestosComprados");%>
@@ -239,7 +240,7 @@
                             <br>
                             <br>
                             <br>
-                            <h1 class="h3 mb-2 text-gray-800 text-left">JUEGOS PROPUESTOS COMPRADOS</h1>
+                            <h1 class="h3 mb-2 text-gray-800 text-left">JUEGOS COMPRADOS</h1>
                             <br>
 
                             <div class="row">
@@ -260,7 +261,7 @@
                                                                 <br>
                                                                 <h3 class="m-0 font-weight-bold text-info">Precio Compra</h3>
                                                                 <br>
-                                                                <h5><%=detalleAdmin.getPrecioCompra()%></h5>
+                                                                <h5>S/. <%=detalleAdmin.getPrecioCompra()%></h5>
                                                                 <br>
                                                             </ul>
                                                         </div>
@@ -280,7 +281,7 @@
                             <br>
                             <br>
                             <br>
-                            <h1 class="h3 mb-2 text-gray-800 text-left">JUEGOS PROPUESTOS VENDIDOS</h1>
+                            <h1 class="h3 mb-2 text-gray-800 text-left">JUEGOS VENDIDOS</h1>
                             <br>
 
                             <div class="row">
@@ -302,7 +303,7 @@
                                                                 <br>
                                                                 <h3 class="m-0 font-weight-bold text-info">Precio Venta</h3>
                                                                 <br>
-                                                                <h5><%=detalleAdmin2.getPrecioVenta()%></h5>
+                                                                <h5>S/. <%=detalleAdmin2.getPrecioVenta()%></h5>
                                                             </ul>
                                                         </div>
                                                     </div>
@@ -323,11 +324,24 @@
 
                 <!-- Footer -->
                 <footer class="sticky-footer bg-white">
+
                     <div class="container my-auto">
                         <% for (ModuloAdmin b : (ArrayList<ModuloAdmin>) request.getAttribute("adminActivos")) { %>
                         <% if (b.getId() == a.getId()) { %>
                         <div style="background-color: #e1f0ff; width: 200px; height: 100px; margin: 0 auto;">
-                            <p style="text-align: center; line-height: 100px; font-size: 18px;">GANANCIA: <%= b.getDineroTotal() != null ? b.getDineroTotal() : 0 %></p>
+                            <%
+                                BigDecimal dineroTotal = b.getDineroTotal() != null ? b.getDineroTotal() : BigDecimal.ZERO;
+                                String tipo = "Ganancia";
+                                BigDecimal cero = BigDecimal.ZERO;
+                                int comparacion = dineroTotal.compareTo(cero);
+                                if (comparacion < 0) {
+                                    dineroTotal = dineroTotal.abs();
+                                    tipo = "Perdida";
+                                }
+                            %>
+                            <p style="text-align: center; line-height: 100px; font-size: 18px;">
+                                <%= tipo %>: S/. <%= dineroTotal %>
+                            </p>
                         </div>
                         <% } %>
                         <% } %>
@@ -338,13 +352,9 @@
                         </div>
                     </div>
                 </footer>
-
-
                 <!-- End of Footer -->
-
             </div>
             <!-- End of Content Wrapper -->
-
         </div>
         <!-- End of Page Wrapper -->
 

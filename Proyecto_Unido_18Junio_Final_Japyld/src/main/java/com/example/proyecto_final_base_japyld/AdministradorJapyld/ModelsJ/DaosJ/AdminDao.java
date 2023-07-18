@@ -272,7 +272,8 @@ public class AdminDao extends BaseDao {
                 "left join personas p on c.id_usuario = p.idPersona\n" +
                 "left join juegos j on c.id_juego = j.idJuegos\n" +
                 "WHERE c.estadoVenta = 'Aceptado' and c.id_administrador =? \n" +
-                "ORDER BY c.fechaPublicacion DESC;";
+                "ORDER BY c.fechaPublicacion DESC \n" +
+                "limit 10;";
 
         try(Connection connection = this.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(sql)){
@@ -317,7 +318,7 @@ public class AdminDao extends BaseDao {
                 "                left join personas p on c.id_usuario = p.idPersona\n" +
                                 "left join juegos j on c.id_juego = j.idJuegos\n" +
                 "                WHERE c.estadoVenta = 'Pendiente' and c.disponibilidad = 'Habilitado' and c.id_administrador =? \n" +
-                "                ORDER BY c.fechaPublicacion DESC;";
+                "                ORDER BY c.fechaPublicacion ;";
         try(Connection connection = this.getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(sql)){
 
@@ -360,7 +361,7 @@ public class AdminDao extends BaseDao {
                 "                left join personas p on c.id_usuario = p.idPersona\n" +
                 "                   left join juegos j on c.id_juego = j.idJuegos\n" +
                 "                WHERE c.estadoVenta = 'Pendiente' and c.disponibilidad = 'Nuevo' and c.id_administrador =? \n" +
-                "                ORDER BY c.fechaPublicacion DESC;";
+                "                ORDER BY c.fechaPublicacion ;";
 
         try(Connection connection = this.getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(sql)){
@@ -440,15 +441,15 @@ public class AdminDao extends BaseDao {
         return tjuegos;
     }
     //Buscar
-    public ArrayList<TodosJuegosDto> buscarJuegoPorNombre(String name) {
+    public ArrayList<TodosJuegosDto> buscarJuegoPorNombre2(String name) {
 
         ArrayList<TodosJuegosDto> tjuegos = new ArrayList<>();
 
-        String sql = "SELECT idJuegos, nombreJuegos, precio,direccion_archivo, stock, estadoJuego,i.idImagenes\n" +
-                "                FROM juegos j\n" +
-                "                LEFT JOIN descuentos d ON j.idJuegos = d.id_juego\n" +
-                "                INNER JOIN imagenes i ON j.id_imagen = i.idImagenes\n" +
-                "                WHERE j.nombreJuegos LIKE ?;";
+        String sql = "SELECT idJuegos, nombreJuegos, precio,COALESCE(d.precio_nuevo, 0), stock, estadoJuego,i.idImagenes\n" +
+                "FROM juegos j\n" +
+                "LEFT JOIN descuentos d ON j.idJuegos = d.id_juego\n" +
+                "INNER JOIN imagenes i ON j.id_imagen = i.idImagenes\n" +
+                "WHERE (j.estadoJuego = 'Activo' OR j.estadoJuego = 'Oferta') AND (j.nombreJuegos LIKE ?);";
 
 
         try (Connection conn = this.getConnection();
@@ -463,11 +464,12 @@ public class AdminDao extends BaseDao {
                     juego.setIdJuegos(rs.getInt(1));
                     juego.setNombreJuegos(rs.getString(2));
                     juego.setPrecio(rs.getInt(3));
+                    juego.setPrecio_nuevo(rs.getInt(4));
                     juego.setStock(rs.getInt(5));
                     juego.setEstado_juego(rs.getString(6));
-
                     Imagen imagen = new Imagen();
                     imagen.setIdImagenes(rs.getInt(7));
+                    juego.setImagen(imagen);
                     tjuegos.add(juego);
                 }
             }
@@ -541,7 +543,12 @@ public class AdminDao extends BaseDao {
 
         try (Connection conn = this.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1,descripcion);
+
+            String firstLetter1 = descripcion.substring(0, 1).toUpperCase();
+            String restOfSentence1 = descripcion.substring(1).toLowerCase();
+            String descripcion1  = firstLetter1 + restOfSentence1;
+
+            pstmt.setString(1,descripcion1);
             pstmt.setInt(2, id_juego);
 
             pstmt.executeUpdate();

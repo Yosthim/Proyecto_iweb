@@ -2,6 +2,7 @@ package com.example.proyecto_final_base_japyld.AdministradorJapyld.ModelsJ.DaosJ
 import com.example.proyecto_final_base_japyld.AdministradorJapyld.ModelsJ.DtoJ.JuegosReservadosDias;
 import com.example.proyecto_final_base_japyld.BaseDao;
 import com.example.proyecto_final_base_japyld.BeansGenerales.*;
+import com.example.proyecto_final_base_japyld.SistemaJapyld.ModelsJ.DaosJ.CorreoDao;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -210,6 +211,44 @@ public class JuegosReservadosDaos extends BaseDao {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+
+    }
+
+    public void notifiacion(int id_admi){
+        ArrayList<JuegosCompradosReservados> lista = new ArrayList<>();
+        CorreoDao correoDao = new CorreoDao();
+        String sql = "Select r.idJuegosCompradosReservados , j.idJuegos ,j.nombreJuegos, p.idPersona, p.correo, p.nombre\n" +
+                "                               from juegoscompradosreservados r\n" +
+                "                                left join juegos j on  r.id_juego =j.idJuegos\n" +
+                "                                left join personas p on r.id_usuario =p.idPersona\n" +
+                "                                where timestampdiff(day,r.fechaCompraJuego, current_date())=10 and r.estadoCompraJuego = 'Reservado' and r.id_administrador = ?;";
+        try(Connection connection = this.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql)){
+            preparedStatement.setInt(1,id_admi);
+            try(ResultSet rs = preparedStatement.executeQuery()){
+                while(rs.next()){
+                    JuegosCompradosReservados juegosCompradosReservados = new JuegosCompradosReservados();
+                    juegosCompradosReservados.setIdJuegosCompradosReservados(rs.getInt(1));
+                    Juegos juegos = new Juegos();
+                    juegos.setIdJuegos(rs.getInt(2));
+                    juegos.setNombreJuegos(rs.getString(3));
+                    juegosCompradosReservados.setJuego(juegos);
+                    Personas usuario = new Personas();
+                    usuario.setIdPersona(rs.getInt(4));
+                    usuario.setCorreo(rs.getString(5));
+                    usuario.setNombre(rs.getString(6));
+                    juegosCompradosReservados.setUsuario(usuario);
+                    lista.add(juegosCompradosReservados);
+                    }
+                for (int i=0; i < lista.size();i++){
+                    correoDao.correo(lista.get(i).getUsuario().getCorreo(),"Reserva urgente","Ya pasaron 10 dias desded que el usuario "+ lista.get(i).getUsuario().getNombre() + " realizo la compra del juego " + lista.get(i).getJuego().getNombreJuegos() + " y todavia no llega a su domicilio. Comunicarse con la empresa distribuidora para una rapida entrega.");
+                }
+            }
+        }catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+
+
 
     }
 

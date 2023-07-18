@@ -3,6 +3,7 @@ package com.example.proyecto_final_base_japyld.AdministradorJapyld.ControllersJ;
 import com.example.proyecto_final_base_japyld.AdministradorJapyld.ModelsJ.DaosJ.AdminDao;
 import com.example.proyecto_final_base_japyld.AdministradorJapyld.ModelsJ.DaosJ.CategoriaDao;
 import com.example.proyecto_final_base_japyld.AdministradorJapyld.ModelsJ.DaosJ.CrudDao;
+import com.example.proyecto_final_base_japyld.AdministradorJapyld.ModelsJ.DaosJ.JuegosReservadosDaos;
 import com.example.proyecto_final_base_japyld.AdministradorJapyld.ModelsJ.DtoJ.BarrasAdminDao;
 import com.example.proyecto_final_base_japyld.BeansGenerales.*;
 import com.example.proyecto_final_base_japyld.UsuarioJapyld.ModelsJ.DaosJ.PerfilDao;

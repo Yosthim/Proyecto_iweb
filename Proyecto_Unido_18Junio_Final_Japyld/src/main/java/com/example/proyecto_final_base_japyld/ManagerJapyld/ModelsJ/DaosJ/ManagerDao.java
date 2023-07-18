@@ -80,8 +80,14 @@ public class ManagerDao extends BaseDao {
 
         ArrayList<JuegosManager> nuevoIngreso = new ArrayList<>();
 
-        String sql = "SELECT j.idJuegos, j.nombreJuegos, c.nombre, j.precio, i.direccion_archivo, vjg.id_administrador, p.nombre, p.apellido  FROM juegos j, ventajuegosgeneral vjg, categorias c, imagenes i, personas p\n" +
-                "WHERE j.idJuegos = vjg.id_juego and j.id_categoria = c.idCategorias and vjg.estadoVenta = 'Aceptado' and j.id_imagen = i.idImagenes and p.idPersona = vjg.id_administrador\n" +
+        String sql = "SELECT idJuegos, nombreJuegos, c.nombre, precio,direccion_archivo, COALESCE(d.precio_nuevo, 0) AS precio_nuevo, vjg.id_administrador, p.nombre, p.apellido \n" +
+                "FROM juegos j\n" +
+                "LEFT JOIN ventajuegosgeneral vjg ON j.idJuegos = vjg.id_juego\n" +
+                "LEFT JOIN categorias c ON j.id_categoria = c.idCategorias\n" +
+                "LEFT JOIN descuentos d ON j.idJuegos = d.id_juego\n" +
+                "LEFT JOIN personas p ON p.idPersona = vjg.id_administrador\n" +
+                "INNER JOIN imagenes i ON j.id_imagen = i.idImagenes\n" +
+                "WHERE j.estadoJuego = \"Activo\" OR j.estadoJuego = \"Oferta\"\n" +
                 "ORDER BY vjg.fechaPublicacion DESC\n" +
                 "LIMIT 4;";
 
@@ -96,9 +102,11 @@ public class ManagerDao extends BaseDao {
                 nuevoJuego.setCategoria(resultSet.getString(3));
                 nuevoJuego.setPrecio(resultSet.getInt(4));
                 nuevoJuego.setDireccion_imagen(resultSet.getString(5));
+                nuevoJuego.setPrecio_nuevo(resultSet.getInt(6));
                 Personas personas = new Personas();
-                personas.setNombre(resultSet.getString(7));
-                personas.setApellido(resultSet.getString(8));
+                personas.setIdPersona(resultSet.getInt(7));
+                personas.setNombre(resultSet.getString(8));
+                personas.setApellido(resultSet.getString(9));
                 nuevoJuego.setPersonas(personas);
                 nuevoIngreso.add(nuevoJuego);
             }
@@ -185,5 +193,35 @@ public class ManagerDao extends BaseDao {
             throw new RuntimeException(e);
         }
         return recordObjetivos;
+    }
+
+
+    public ArrayList<Objetivos> ObjetivosPorMes(String mes){
+
+        ArrayList<Objetivos> objetivos= new ArrayList<>();
+
+        String sql = "SELECT * FROM objetivosmanager\n" +
+                "WHERE MONTHNAME(fecha) = ?;";
+
+        try (Connection connection = this.getConnection();
+             PreparedStatement ptsmtObjetivo = connection.prepareStatement(sql)) {
+
+            ptsmtObjetivo.setString(1,mes);
+            try (ResultSet rs = ptsmtObjetivo.executeQuery()){
+                while(rs.next()){
+                    Objetivos objetivosMes = new Objetivos();
+
+                    objetivosMes.setIdObjetivos(rs.getInt(1));
+                    objetivosMes.setVentasPorMesJuego(rs.getInt(2));
+                    objetivosMes.setGastosPorMesJuego(rs.getInt(3));
+                    objetivosMes.setUsuarioPorMes(rs.getInt(4));
+                    objetivosMes.setFecha(rs.getTimestamp(6));
+                    objetivos.add(objetivosMes);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return objetivos;
     }
 }

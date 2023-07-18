@@ -66,7 +66,7 @@ public class AgregarDao extends BaseDao {
             PreparedStatement psmt = connection.prepareStatement(sql)){
 
             String firstLetter = juegos.getNombreJuegos().substring(0, 1).toUpperCase();
-            String restOfSentence = juegos.getNombreJuegos().substring(1);
+            String restOfSentence = juegos.getNombreJuegos().substring(1).toLowerCase();
             String nombre  = firstLetter + restOfSentence;
 
             psmt.setString(1,nombre);
@@ -74,7 +74,7 @@ public class AgregarDao extends BaseDao {
             psmt.setBigDecimal(3,juegos.getPrecio());
 
             String firstLetter1 = juegos.getDescripcion().substring(0, 1).toUpperCase();
-            String restOfSentence1 = juegos.getDescripcion().substring(1);
+            String restOfSentence1 = juegos.getDescripcion().substring(1).toLowerCase();
             String descripcion  = firstLetter1 + restOfSentence1;
 
             psmt.setString(4,descripcion);

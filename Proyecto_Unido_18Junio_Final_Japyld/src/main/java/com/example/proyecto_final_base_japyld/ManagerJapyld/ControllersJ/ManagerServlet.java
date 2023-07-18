@@ -108,6 +108,7 @@ public class ManagerServlet extends HttpServlet {
                 objetivos.setFecha(objFecha);
                 managerDao.actualizarObjetivos(objetivos);
 
+                request.getSession().setAttribute("info","Objetivos actualizados correctamente");
                 response.sendRedirect(request.getContextPath() + "/ManagerServlet?a=metas");
 
                 break;

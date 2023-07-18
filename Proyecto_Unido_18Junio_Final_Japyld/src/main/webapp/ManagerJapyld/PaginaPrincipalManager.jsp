@@ -77,10 +77,11 @@
 
         <!-- Main Content -->
         <div id="content">
-
+          <!-- Topbar -->
           <jsp:include page="/Includes/ManagerJapyld/topbarManager.jsp">
             <jsp:param name="title" value="Mas detalles"/>
           </jsp:include>
+          <!-- End of Topbar -->
 
           <!-- Begin Page Content -->
           <div class="container-fluid" id="resumen">
@@ -148,8 +149,13 @@
                         </div>
                         <img src="<%=nuevosIngresos.getDireccion_imagen()%>" class="img-fluid img_juego" alt="Imagen">
                         <div class="mt-3">
+                          <% if(nuevosIngresos.getPrecio_nuevo() == 0){%>
                           <p class="mt-2">Precio: S/. <%=nuevosIngresos.getPrecio()%></p>
                           <p class="text-gray-500 text-right mb-1"><b> <%= "Admin: " + nuevosIngresos.getPersonas().getNombre() + " " + nuevosIngresos.getPersonas().getApellido()%></b></p>
+                          <%}else{%>
+                          <p class="mt-2">Precio: S/. <%=nuevosIngresos.getPrecio_nuevo()%></p>
+                          <p class="text-gray-500 text-right mb-1"><b> <%= "Admin: " + nuevosIngresos.getPersonas().getNombre() + " " + nuevosIngresos.getPersonas().getApellido()%></b></p>
+                          <%}%>
                         </div>
                       </div>
                     </div>

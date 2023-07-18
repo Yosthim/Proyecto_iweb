@@ -13,8 +13,8 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebServlet(name = "AdminTodosJuegos", value = {"/AdminTodosJuegos"})
-public class AdminTodosJuegos extends HttpServlet {
+@WebServlet(name = "AdminTodosJuegosServlet", value = {"/AdminTodosJuegos"})
+public class AdminTodosJuegosServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
@@ -22,6 +22,7 @@ public class AdminTodosJuegos extends HttpServlet {
         AdminDao tjuegosDao = new AdminDao();
         CategoriaDao categoriadao = new CategoriaDao();
         PerfilDao perfilDao1 = new PerfilDao();
+
         request.setAttribute("listaFotoPerfil",perfilDao1.listarFotoPerfil());
         request.setAttribute("tjuegos",tjuegosDao.todosJuegos());
         request.setAttribute("categorias",categoriadao.listaCategoria());
@@ -32,16 +33,17 @@ public class AdminTodosJuegos extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        CategoriaDao categoriadao = new CategoriaDao();
+
         AdminDao buscarjuego = new AdminDao();
+        PerfilDao perfilDao1 = new PerfilDao();
 
         String textoBuscar = request.getParameter("textoBuscar");
         if (textoBuscar == null) {
             response.sendRedirect("EmployeeServlet");
         } else {
             request.setAttribute("textoBusqueda", textoBuscar);
-            request.setAttribute("tjuegos", buscarjuego.buscarJuegoPorNombre(textoBuscar));
-            request.setAttribute("categorias",categoriadao.listaCategoria());
+            request.setAttribute("tjuegos", buscarjuego.buscarJuegoPorNombre2(textoBuscar));
+            request.setAttribute("listaFotoPerfil",perfilDao1.listarFotoPerfil());
             RequestDispatcher view = request.getRequestDispatcher("AdministradorJapyld/AdminTodosJuegos.jsp");
             view.forward(request, response);
         }

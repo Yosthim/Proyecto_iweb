@@ -36,7 +36,6 @@
 </head>
 
 <body id="page-top">
-
 <!-- Page Wrapper -->
 <div id="wrapper">
 
@@ -58,26 +57,43 @@
 
       <!-- Begin Page Content -->
 
+      <% if (session.getAttribute("info") != null) { %>
+      <div class="alert alert-success d-flex align-items-center justify-content-center" role="alert">
+        <%= session.getAttribute("info") %>
+      </div>
+      <% session.setAttribute("info", null); %>
+      <% } %>
+
+      <% if (session.getAttribute("ale") != null) { %>
+      <div class="alert alert-success d-flex align-items-center justify-content-center" role="alert">
+        <%= session.getAttribute("ale") %>
+      </div>
+      <% session.setAttribute("ale", null); %>
+      <% } %>
+
       <div class="container-fluid">
+
         <!-- Account page navigation-->
         <br>
 
         <div class="col-xl-12">
+
+          <br>
+
           <!-- Profile picture card-->
           <div class="card mb-4 mb-xl-0">
 
             <div class="card-header font-weight-bold text-primary">TABLA DE ADMINISTRADORES ACTIVOS</div>
             <div class="card-body text">
-              <!--
-              <div class="col-12 col-xl-auto mb-3">
 
+              <div class="col-12 col-xl-auto mb-3">
                 <div class="d-flex justify-content-lg-end">
-                  <a href="BuzonMensaje.html">
+                  <a href="<%=request.getContextPath()%>/CorreoAdminServlet">
                     <button class="btn btn-info" type="button">Enviar Mensaje</button>
                   </a>
                 </div>
               </div>
-              -->
+
               <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
@@ -92,7 +108,7 @@
                     <% for (ModuloAdmin um : listarAdminActivos) {
                       boolean esPerdida = adminPerdidas.contains(um.getId());
                     %>
-                    <tr <%= um.getId() == (Integer)request.getAttribute("idMax") ? "style='background-color: rgba(255, 215, 0, 0.5);'" : (esPerdida ? "style='background-color: rgba(255, 25, 25, 0.7);'" : "") %>>
+                    <tr <%= um.getId() == (Integer)request.getAttribute("idMax") ? "style='background-color: rgba(255, 215, 0, 0.5);'" : (esPerdida ? "style='background-color: rgba(255, 107, 83, 0.7);'" : "") %>>
                       <td>
                         <div class="d-flex align-items-center">
 
@@ -106,7 +122,7 @@
                       </td>
                       <td class="text-center"><%=um.getJuegoPorEntregar() %></td>
                       <td class="text-center"><%=um.getJuegoComprados()%></td>
-                      <td class="text-center"><%=um.getDineroGastoTotal() != null ? um.getDineroGastoTotal() : "0" %></td>
+                      <td class="text-center"><%=um.getDineroGastoTotal() != null ? "S/. " + um.getDineroGastoTotal() : "S/. 0" %></td>
                     </tr>
                     <% } %>
                   </tbody>
@@ -158,7 +174,7 @@
                       </td>
                       <td class="text-center"><%=um.getJuegoPorEntregar() %></td>
                       <td class="text-center"><%=um.getJuegoComprados()%></td>
-                      <td class="text-center"><%=um.getDineroGastoTotal() != null ? um.getDineroGastoTotal() : "0" %></td>
+                      <td class="text-center"><%=um.getDineroGastoTotal() != null ? "S/. " + um.getDineroGastoTotal() : "S/. 0" %></td>
                     </tr>
                     <% } %>
                   </tbody>

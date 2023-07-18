@@ -13,7 +13,7 @@ import java.io.IOException;
         servletNames = {"PaginaPrincipalJuegosServlet","CompraServlet","JuegosComResServlet","JuegosXCategoriaServlet","MasDetallesServlet",
                 "OfertaServlet","PerfilUsuarioServlet","VentaJuegosServlet","AdminServlet","DescuentoServlet",
                 "JuegosNuevosServlet","JuegosReservadosServlet","OfertasServlet","PerfilAdmiServlet","DetalleAdminServlet",
-                "DetalleUsuarioServlet","EditarJuegosServlet","ManagerServlet","MasDetallesJuegosServlet","ModuloAdminServlet","ModuloUsuarioServlet",
+                "DetalleUsuarioServlet","EditarJuegosServlet","ManServlet","MasDetallesJuegosServlet","ModuloAdminServlet","ModuloUsuarioServlet",
                 "PerfilManagerServlet","PorCategoriaJuegoServlet","PorConsolaJuegoServlet","Top5MasVendidosServlet","Top5MenosVendidosServlet"})
 public class FilterSession implements Filter {
     @Override
