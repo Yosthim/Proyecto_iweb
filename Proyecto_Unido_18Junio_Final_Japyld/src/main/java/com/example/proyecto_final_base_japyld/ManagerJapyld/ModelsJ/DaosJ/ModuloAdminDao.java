@@ -1,5 +1,6 @@
 package com.example.proyecto_final_base_japyld.ManagerJapyld.ModelsJ.DaosJ;
 
+import com.example.proyecto_final_base_japyld.ManagerJapyld.ModelsJ.DtoJ.CategoriasAdmin;
 import com.example.proyecto_final_base_japyld.ManagerJapyld.ModelsJ.DtoJ.ImagenesAdmin;
 import com.example.proyecto_final_base_japyld.ManagerJapyld.ModelsJ.DtoJ.ModuloAdmin;
 
@@ -318,5 +319,33 @@ public class ModuloAdminDao {
         }
 
         return listaAdminInactivos;
+    }
+
+    public ArrayList<CategoriasAdmin> listaCategorias(){
+        ArrayList<CategoriasAdmin> categorias = new ArrayList<>();
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e){
+            e.printStackTrace();
+        }
+        String sql = "SELECT * FROM categorias";
+        String url = "jdbc:mysql://localhost:3306/japyld";
+
+        try (Connection connection = DriverManager.getConnection(url, "root", "root");
+             Statement smt = connection.createStatement();
+             ResultSet resultSet = smt.executeQuery(sql)) {
+
+            while(resultSet.next()){
+                CategoriasAdmin cate = new CategoriasAdmin();
+                cate.setIdCategoria(resultSet.getString(1));
+                cate.setNombreCategoria(resultSet.getString(2));
+
+                categorias.add(cate);
+            }
+        }catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+
+        return categorias;
     }
 }

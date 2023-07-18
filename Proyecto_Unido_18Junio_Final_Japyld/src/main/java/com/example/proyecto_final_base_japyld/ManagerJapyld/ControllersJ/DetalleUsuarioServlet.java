@@ -54,36 +54,36 @@ public class DetalleUsuarioServlet extends HttpServlet {
                 DetalleUsuario usuario = perfilUsuarioDao.detallesUsuario(Integer.parseInt(id));
 
                 response.setContentType("text/csv");
-                response.setHeader("Content-Disposition", "attachment; filename=\"informacion_usuario.csv\"");
+                response.setHeader("Content-Disposition", "attachment; filename=\"Usuario.csv\"");
 
                 PrintWriter writer = response.getWriter();
 
 
                 writer.println("Información del Usuario");
-                writer.println("Id:," + usuario.getId());
-                writer.println("Nombre:," + usuario.getNombre());
-                writer.println("Apellido:," + usuario.getApellido());
-                writer.println("Correo:," + usuario.getCorreo());
-                writer.println("Nacimiento:," + usuario.getFechaDeNacimiento());
-                writer.println("Dni:," + usuario.getDni());
-                writer.println("Genero:," + usuario.getGenero());
-                writer.println("Categoria Preferida:," + usuario.getCategoriaJuegoPreferida());
-                writer.println("Registro:," + usuario.getFechaRegistro());
-                writer.println("Estado:," + usuario.getEstado());
+                writer.println("Id:;" + usuario.getId());
+                writer.println("Nombre:;" + usuario.getNombre());
+                writer.println("Apellido:;" + usuario.getApellido());
+                writer.println("Correo:;" + usuario.getCorreo());
+                writer.println("Nacimiento:;" + usuario.getFechaDeNacimiento());
+                writer.println("Dni:;" + usuario.getDni());
+                writer.println("Genero:;" + usuario.getGenero());
+                writer.println("Categoria Preferida:;" + usuario.getCategoriaJuegoPreferida());
+                writer.println("Registro:;" + usuario.getFechaRegistro());
+                writer.println("Estado:;" + usuario.getEstado());
                 writer.println();
 
 
                 writer.println("Juegos Comprados");
-                writer.println("NombreJuego,PrecioCompra");
+                writer.println("NombreJuego;PrecioCompra");
                 for (DetalleUsuario juego1 : listaJuegosComprados) {
-                    writer.println(juego1.getNombreJuegos() + "," + juego1.getPrecio());
+                    writer.println(juego1.getNombreJuegos() + ";" + juego1.getPrecio());
                 }
                 writer.println();
 
                 writer.println("Juegos Vendidos");
-                writer.println("NombreJuego,PrecioVenta");
+                writer.println("NombreJuego;PrecioVenta");
                 for (DetalleUsuario juego2 : listaJuegosVendidos) {
-                    writer.println(juego2.getNombreJuegos() + "," + juego2.getPrecio_admin());
+                    writer.println(juego2.getNombreJuegos() + ";" + juego2.getPrecio_admin());
                 }
 
                 writer.close();

@@ -1,6 +1,8 @@
 package com.example.proyecto_final_base_japyld.ManagerJapyld.ControllersJ;
 
+import com.example.proyecto_final_base_japyld.BeansGenerales.Categoria;
 import com.example.proyecto_final_base_japyld.ManagerJapyld.ModelsJ.DaosJ.ModuloAdminDao;
+import com.example.proyecto_final_base_japyld.ManagerJapyld.ModelsJ.DtoJ.CategoriasAdmin;
 import com.example.proyecto_final_base_japyld.ManagerJapyld.ModelsJ.DtoJ.ImagenesAdmin;
 import com.example.proyecto_final_base_japyld.ManagerJapyld.ModelsJ.DtoJ.ModuloAdmin;
 import jakarta.servlet.RequestDispatcher;
@@ -83,24 +85,38 @@ public class ModuloAdminServlet extends HttpServlet {
             case "guardar":
 
                 ArrayList<ImagenesAdmin> perfiles= adminModuloDao.listaImagenes();
+                ArrayList<CategoriasAdmin> categoriaPreferidas = adminModuloDao.listaCategorias();
+
                 Random random = new Random();
+                int indiceCategoria = random.nextInt(categoriaPreferidas.size());
                 int indiceAleatorio = random.nextInt(perfiles.size());
 
                 ImagenesAdmin perfilAleatorio = perfiles.get(indiceAleatorio);
+                CategoriasAdmin categoriaAleatorio = categoriaPreferidas.get(indiceCategoria);
 
                 admin.setNombre(request.getParameter("nombre"));
                 admin.setApellido(request.getParameter("apellido"));
                 admin.setCorreo(request.getParameter("correo"));
                 admin.setContrasenia(request.getParameter("contrasenia"));
 
+                int dniAleatorio;
+                boolean dniUnico = false;
+                while (!dniUnico) {
+                    dniAleatorio = generarNumeroAleatorio8Digitos();
+                    dniUnico = esDniUnico(dniAleatorio, adminModuloDao.listarAdmin());
+                    if (dniUnico) {
+                        admin.setDni(dniAleatorio);
+                    }
+                }
+
                 admin.setEstado("Activo");
                 admin.setFechaDeNacimiento(Date.valueOf("2002-05-15"));
-                admin.setGenero("Por Definir");
-                admin.setDni(11111111);
+                String genero = determinarGeneroPorNombre(request.getParameter("nombre"));
+                admin.setGenero(genero);
                 admin.setId_rol("ADM");
                 admin.setImagen(perfilAleatorio.getDireccionArchivo());
-                admin.setTipo("Perfil");
-                admin.setCategoriaJuegoPreferida("Por Definir");
+                admin.setTipo("Predeterminado");
+                admin.setCategoriaJuegoPreferida(categoriaAleatorio.getNombreCategoria());
                 admin.setFechaRegistro(new Date(System.currentTimeMillis()));
                 int contador=adminModuloDao.contarImagenes();
                 admin.setIdImagen(contador);
@@ -132,5 +148,31 @@ public class ModuloAdminServlet extends HttpServlet {
                 }
                 break;
         }
+    }
+
+    public boolean esDniUnico(int dniGenerado, ArrayList<ModuloAdmin> administradores) {
+        for (ModuloAdmin admin : administradores) {
+            if (admin.getDni() == dniGenerado) {
+                return false; // El DNI ya existe, no es único
+            }
+        }
+        return true; // El DNI es único
+    }
+
+    public int generarNumeroAleatorio8Digitos() {
+        return new Random().nextInt(90000000) + 10000000;
+    }
+
+    public static String determinarGeneroPorNombre(String nombre) {
+        String[] sufijosFemeninos = {"a", "ia", "ana", "ina", "ela", "ella", "ara", "ita", "ena", "la", "ra", "ma", "na", "ta"};
+        String sufijoNombre = nombre.toLowerCase().substring(nombre.length() - 1);
+
+        for (String sufijo : sufijosFemeninos) {
+            if (sufijoNombre.equals(sufijo)) {
+                return "Femenino";
+            }
+        }
+
+        return "Masculino";
     }
 }
