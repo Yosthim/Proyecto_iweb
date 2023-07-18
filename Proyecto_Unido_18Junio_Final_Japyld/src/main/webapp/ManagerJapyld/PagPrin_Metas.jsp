@@ -47,6 +47,16 @@
     <!-- Custom styles for this template-->
     <link href="recursos/css/sb-admin-2.min.css" rel="stylesheet">
 
+    <style>
+      .alert-container {
+        display: flex;
+        justify-content: center; /* Centra horizontalmente */
+        align-items: center; /* Centra verticalmente */
+        max-width: 600px; /* Ajusta el ancho máximo de la alerta */
+        margin: 8px auto; /* Márgenes superior e inferior para separar de otros elementos */
+      }
+    </style>
+
   </head>
 
   <body id="page-top">
@@ -71,6 +81,15 @@
           </jsp:include>
 
           <br>
+
+          <% if (session.getAttribute("info") != null) { %>
+          <div class="alert-container">
+            <div class="alert alert-success d-flex align-items-center align-content-center" role="alert">
+              <%= session.getAttribute("info") %>
+            </div>
+          </div>
+          <% session.setAttribute("info", null); %>
+          <% } %>
 
           <div class="container-fluid" id="metas">
             <br>
