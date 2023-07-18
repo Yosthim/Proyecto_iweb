@@ -3,6 +3,7 @@ package com.example.proyecto_final_base_japyld.AdministradorJapyld.ControllersJ;
 
 import com.example.proyecto_final_base_japyld.AdministradorJapyld.ModelsJ.DaosJ.AdminDao;
 import com.example.proyecto_final_base_japyld.AdministradorJapyld.ModelsJ.DaosJ.CategoriaDao;
+import com.example.proyecto_final_base_japyld.UsuarioJapyld.ModelsJ.DaosJ.PerfilDao;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -20,6 +21,8 @@ public class AdminTodosJuegos extends HttpServlet {
 
         AdminDao tjuegosDao = new AdminDao();
         CategoriaDao categoriadao = new CategoriaDao();
+        PerfilDao perfilDao1 = new PerfilDao();
+        request.setAttribute("listaFotoPerfil",perfilDao1.listarFotoPerfil());
         request.setAttribute("tjuegos",tjuegosDao.todosJuegos());
         request.setAttribute("categorias",categoriadao.listaCategoria());
 

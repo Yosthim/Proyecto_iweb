@@ -2,6 +2,7 @@ package com.example.proyecto_final_base_japyld.AdministradorJapyld.ControllersJ;
 
 import com.example.proyecto_final_base_japyld.AdministradorJapyld.ModelsJ.DaosJ.JuegosReservadosDaos;
 import com.example.proyecto_final_base_japyld.BeansGenerales.Personas;
+import com.example.proyecto_final_base_japyld.UsuarioJapyld.ModelsJ.DaosJ.PerfilDao;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -19,6 +20,9 @@ public class JuegosReservadosServlet extends HttpServlet {
 
         HttpSession session = request.getSession();
         Personas administrador= (Personas)session.getAttribute("personaSession");
+        PerfilDao perfilDao1 = new PerfilDao();
+
+        request.setAttribute("listaFotoPerfil",perfilDao1.listarFotoPerfil());
 
         JuegosReservadosDaos juegosReservadosDaos = new JuegosReservadosDaos();
         request.setAttribute("lista30dias", juegosReservadosDaos.tabla30Dias(administrador.getIdPersona()));
