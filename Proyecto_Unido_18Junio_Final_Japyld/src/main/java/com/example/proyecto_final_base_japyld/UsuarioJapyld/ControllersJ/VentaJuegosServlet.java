@@ -42,6 +42,14 @@ public class VentaJuegosServlet extends HttpServlet {
                 view = request.getRequestDispatcher("UsuarioJapyld/JuegoNuevo.jsp");
                 view.forward(request, response);
                 break;
+            case "change":
+                Integer idOferta = Integer.parseInt(request.getParameter("id"));
+                BigDecimal precioAdmin = new BigDecimal(request.getParameter("p"));
+                request.setAttribute("idOferta", idOferta);
+                request.setAttribute("precioAdmin", precioAdmin);
+                view = request.getRequestDispatcher("UsuarioJapyld/CambiarPrecio.jsp");
+                view.forward(request, response);
+                break;
         }
 
     }
@@ -54,17 +62,33 @@ public class VentaJuegosServlet extends HttpServlet {
         VentaJuegosDao ventaJuegosDao = new VentaJuegosDao();
         String action = request.getParameter("act");
 
-        VentaJuegosGeneral ofertaJuego = setOferta(request, action);
+        VentaJuegosGeneral ofertaJuego;
+        int idVenta;
 
         switch (action) {
             case "new":
+                ofertaJuego = setOferta(request, action);
                 Part imageGamePart = request.getPart("imagenJuego");
                 InputStream imageGameContent = imageGamePart.getInputStream();
                 ofertaJuego.setImagenNueva(imageGameContent);
                 ventaJuegosDao.registrarOferta(ofertaJuego, "nuevo");
                 break;
             case "exist":
+                ofertaJuego = setOferta(request, action);
                 ventaJuegosDao.registrarOferta(ofertaJuego, "existente");
+                break;
+            case "change":
+                idVenta = Integer.parseInt(request.getParameter("id"));
+                BigDecimal precioNuevo = new BigDecimal(request.getParameter("precioNuevo"));
+                ventaJuegosDao.changeOfferPrice(idVenta, precioNuevo);
+                break;
+            case "retire":
+                idVenta = Integer.parseInt(request.getParameter("id"));
+                ventaJuegosDao.retireOffer(idVenta);
+                break;
+            case "delete":
+                idVenta = Integer.parseInt(request.getParameter("id"));
+                ventaJuegosDao.deleteOffer(idVenta);
                 break;
         }
         response.sendRedirect(request.getContextPath() + "/TusVentas");
