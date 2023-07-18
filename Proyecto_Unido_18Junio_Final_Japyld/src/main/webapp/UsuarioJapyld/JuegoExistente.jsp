@@ -1,13 +1,44 @@
 <%@ page import="com.example.proyecto_final_base_japyld.BeansGenerales.Juegos" %>
 <%@ page import="com.example.proyecto_final_base_japyld.BeansGenerales.Consola" %>
+<%@ page import="com.example.proyecto_final_base_japyld.UsuarioJapyld.ModelsJ.DtoJ.ImagenPerfilDto" %>
+<%@ page import="java.util.ArrayList" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<jsp:useBean id="textoBusqueda" scope="request" type="java.lang.String" class="java.lang.String"/>
 <jsp:useBean id="listaJuegos" type="java.util.ArrayList<com.example.proyecto_final_base_japyld.BeansGenerales.Juegos>" scope="request"/>
 <jsp:useBean id="consolas" type="java.util.ArrayList<com.example.proyecto_final_base_japyld.BeansGenerales.Consola>" scope="request"/>
 <jsp:useBean id="personaSession" type="com.example.proyecto_final_base_japyld.BeansGenerales.Personas" scope="session" class="com.example.proyecto_final_base_japyld.BeansGenerales.Personas"/>
-
+<% ArrayList<ImagenPerfilDto> listaFotoPerfil = (ArrayList<ImagenPerfilDto>) request.getAttribute("listaFotoPerfil"); %>
 <html>
 <head>
+    <style>
+        .img_juego_grande {
+            width: 275px;
+            height: 340px;
+        }
 
+        .img-gaga {
+            display: inline-block; /* Hacemos que el contenedor sea inline-block para que solo ocupe el tamaño de la imagen */
+            width: 50px; /* Ajusta el tamaño del círculo según tus necesidades */
+            height: 50px;
+            border-radius: 50%; /* Convertimos el cuadro en un círculo */
+            background-size: cover; /* Ajustamos la imagen para que cubra el círculo */
+            background-position: center center; /* Centramos la imagen dentro del círculo horizontal y verticalmente */
+            background-repeat: no-repeat; /* Evitamos que la imagen se repita */
+            margin: 0; /* Quitamos cualquier margen */
+            padding: 0; /* Quitamos cualquier relleno */
+            border: none; /* Quitamos cualquier borde */
+        }
+
+
+        .nav-link.dropdown-toggle {
+            align-items: center;
+            padding: 1px 5px; /* Ajustamos el padding horizontal y vertical */
+        }
+        .user-name {
+            color: #333; /* Color del nombre de usuario */
+            font-size: 14px; /* Tamaño del texto del nombre de usuario */
+        }
+    </style>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -46,9 +77,51 @@
         <div id="content">
 
             <!-- Topbar -->
-            <jsp:include page="/Includes/UsuarioJapyld/navbarUsuarioDemasPaginas.jsp">
-                <jsp:param name="title" value="Mas detalles"/>
-            </jsp:include>
+            <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                <!-- Sidebar Toggle (Topbar) -->
+                <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                    <i class="fa fa-bars"></i>
+                </button>
+
+                <!-- Topbar Search -->
+
+                <!-- Topbar Navbar -->
+                <ul class="navbar-nav ml-auto"> <!-- Eliminamos "mr-auto" y "ml-auto" -->
+                    <!-- Nav Item - Search Dropdown (Visible Only XS) -->
+                    <!-- Nav Item - Alerts -->
+                    <!-- Nav Item - Messages -->
+                    <div class="topbar-divider d-none d-sm-block"></div>
+
+                    <!-- Nav Item - User Information -->
+                    <li class="nav-item dropdown no-arrow">
+                        <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="userDropdown" role="button"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="mr-2 d-none d-lg-inline text-gray-600 small user-name"><%=personaSession.getNombre()%></span>
+                            <% for (ImagenPerfilDto fotoperfil : listaFotoPerfil) { %>
+                            <% if (personaSession.getIdPersona() == fotoperfil.getIdPersona()) { %>
+                            <img class="img-gaga"
+                                 src="<%=fotoperfil.getDireccion_archivo()%>"
+                                 alt="Avatar">
+                            <% } %>
+                            <% } %>
+                        </a>
+                        <!-- Dropdown - User Information -->
+                        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                             aria-labelledby="userDropdown">
+                            <a class="dropdown-item" href="<%=request.getContextPath()%>/PerfilUsuarioServlet">
+                                <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                Profile
+                            </a>
+
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="<%=request.getContextPath()%>/LoginServlet?action=logout" data-toggle="modal" data-target="#logoutModal">
+                                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                Logout
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
             <!-- End of Topbar -->
 
             <!-- Begin Page Content -->

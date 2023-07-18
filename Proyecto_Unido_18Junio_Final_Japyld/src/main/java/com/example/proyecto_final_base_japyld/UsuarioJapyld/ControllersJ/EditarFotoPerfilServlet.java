@@ -18,8 +18,8 @@ public class EditarFotoPerfilServlet extends HttpServlet {
 
         PerfilDao perfildao = new PerfilDao();
         request.setAttribute("listaImagenPerfil",perfildao.listarImagenesPerfil());
+        request.setAttribute("listaFotoPerfil",perfildao.listarFotoPerfil());
         request.getRequestDispatcher("UsuarioJapyld/EditarFotoPerfil.jsp").forward(request,response);
-
 
     }
 

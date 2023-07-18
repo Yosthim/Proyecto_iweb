@@ -3,6 +3,7 @@ package com.example.proyecto_final_base_japyld.UsuarioJapyld.ControllersJ;
 import com.example.proyecto_final_base_japyld.BeansGenerales.Comentarios;
 import com.example.proyecto_final_base_japyld.BeansGenerales.Personas;
 import com.example.proyecto_final_base_japyld.UsuarioJapyld.ModelsJ.DaosJ.ComentariosDao;
+import com.example.proyecto_final_base_japyld.UsuarioJapyld.ModelsJ.DaosJ.PerfilDao;
 import com.example.proyecto_final_base_japyld.UsuarioJapyld.ModelsJ.DaosJ.TusJuegosDao;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -22,6 +23,7 @@ public class JuegosComResServlet extends HttpServlet {
 
         TusJuegosDao tusJuegosDao = new TusJuegosDao();
         Personas usuario = (Personas) request.getSession().getAttribute("personaSession");
+        PerfilDao perfilDao1 = new PerfilDao();
 
         String categoria = tusJuegosDao.categoriaMasComprada(usuario.getIdPersona());
         //En caso el usuario no haya comprado retornará nulo, entonces obtenemos su categoria preferida (pedida en el registro)
@@ -33,6 +35,7 @@ public class JuegosComResServlet extends HttpServlet {
         request.setAttribute("categoriaPreferida", categoria);
         request.setAttribute("listaJuegos", tusJuegosDao.listarJuegos(usuario.getIdPersona()));
         request.setAttribute("juegosRecomendados", tusJuegosDao.listarJuegosRecomendados(categoria));
+        request.setAttribute("listaFotoPerfil",perfilDao1.listarFotoPerfil());
         view = request.getRequestDispatcher("UsuarioJapyld/TusJuegos.jsp");
         view.forward(request, response);
     }
