@@ -92,6 +92,7 @@ public class VentaJuegosServlet extends HttpServlet {
                             if (ventaJuegosDao.registrarOferta(ofertaJuego, "nuevo")) {
                                 correoDao.sendNewOfferEmail(ofertaJuego.getUsuario(), ofertaJuego.getAdministrador().getIdPersona());
                                 request.getSession().setAttribute("exito", "Oferta publicada con éxito");
+                                response.sendRedirect(request.getContextPath() + "/TusVentas");
                             }else {
                                 throw new Exception();
                             }
@@ -110,6 +111,7 @@ public class VentaJuegosServlet extends HttpServlet {
                         if (ventaJuegosDao.registrarOferta(ofertaJuego, "existente")) {
                             correoDao.sendNewOfferEmail(ofertaJuego.getUsuario(), ofertaJuego.getAdministrador().getIdPersona());
                             request.getSession().setAttribute("exito", "Oferta publicada con éxito");
+                            response.sendRedirect(request.getContextPath() + "/TusVentas");
                         } else {
                             throw new Exception();
                         }
@@ -125,12 +127,14 @@ public class VentaJuegosServlet extends HttpServlet {
                         InfoVentaDto info = ventaJuegosDao.getOfferInfo(idVenta);
                         correoDao.sendChangeOfferEmail(info);
                         request.getSession().setAttribute("exito", "El precio de la oferta se modificó con éxito");
+                        response.sendRedirect(request.getContextPath() + "/TusVentas");
                     }
                     break;
                 case "retire":
                     idVenta = Integer.parseInt(request.getParameter("id"));
                     if (ventaJuegosDao.retireOffer(idVenta)) {
                         request.getSession().setAttribute("exito", "Oferta retirada exitosamente");
+                        response.sendRedirect(request.getContextPath() + "/TusVentas");
                     }
                     break;
                 case "delete":
@@ -138,13 +142,14 @@ public class VentaJuegosServlet extends HttpServlet {
                     boolean resultado = ventaJuegosDao.deleteOffer(idVenta);
                     if (resultado) {
                         request.getSession().setAttribute("exito", "Oferta eliminada de la lista exitosamente");
+                        response.sendRedirect(request.getContextPath() + "/TusVentas");
                     }
                     break;
             }
         } catch (Exception e) {
             request.getSession().setAttribute("error", "Ocurrió un error. Intente otra vez");
+            response.sendRedirect(request.getContextPath() + "/TusVentas");
         }
-        response.sendRedirect(request.getContextPath() + "/TusVentas");
     }
 
     public VentaJuegosGeneral setOferta(HttpServletRequest request, String action) throws RegisterException {
@@ -166,8 +171,12 @@ public class VentaJuegosServlet extends HttpServlet {
             } else {
                 throw new Exception();
             }
-            ofertaJuego.setCantidad(Integer.parseInt(request.getParameter("stock")));
-
+            int stock = Integer.parseInt(request.getParameter("stock"));
+            if (stock > 0) {
+                ofertaJuego.setCantidad(stock);
+            } else {
+                throw new Exception();
+            }
             switch (action) {
                 case "new":
                     if (ventaJuegosDao.validateIfNameExist(request.getParameter("nombreJuego").trim())) {
