@@ -239,7 +239,7 @@
                             <br>
                             <br>
                             <br>
-                            <h1 class="h3 mb-2 text-gray-800 text-left">JUEGOS PROPUESTOS COMPRADOS</h1>
+                            <h1 class="h3 mb-2 text-gray-800 text-left">JUEGOS COMPRADOS</h1>
                             <br>
 
                             <div class="row">
@@ -280,7 +280,7 @@
                             <br>
                             <br>
                             <br>
-                            <h1 class="h3 mb-2 text-gray-800 text-left">JUEGOS PROPUESTOS VENDIDOS</h1>
+                            <h1 class="h3 mb-2 text-gray-800 text-left">JUEGOS VENDIDOS</h1>
                             <br>
 
                             <div class="row">

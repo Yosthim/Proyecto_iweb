@@ -36,6 +36,9 @@ public class CorreoAdminServlet extends HttpServlet {
 
         CorreoAdminDao correoAdminDao = new CorreoAdminDao();
         correoAdminDao.correo(correoDestino, asunto, contenido);
+
+        request.getSession().setAttribute("ale","Mensaje Enviado");
+
         response.sendRedirect(request.getContextPath()+"/ModuloAdminServlet");
     }
 
