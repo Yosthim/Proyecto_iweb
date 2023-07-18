@@ -9,37 +9,53 @@ import com.example.proyecto_final_base_japyld.ManagerJapyld.ModelsJ.DtoJ.JuegosM
 import java.sql.*;
 import java.util.ArrayList;
 
-public class ManagerDao extends BaseDao {
+public class EstadisticasDao extends BaseDao {
 
-    public ArrayList<JuegosManager> resumenComentarios(){
+    public int VentaPorMes(String mes){
 
-        ArrayList <JuegosManager> ultimosJuegosComentados = new ArrayList<>();
+        String sql = "SELECT \n" +
+                "    id_juego, \n" +
+                "    direccion_archivo, \n" +
+                "    nombreJuegos, \n" +
+                "    precio,\n" +
+                "    MONTHNAME(fechaCompraJuego) AS mes_compra,\n" +
+                "    COUNT(jc.id_juego) AS ventas,\n" +
+                "    precio * COUNT(*) AS precioPeli,\n" +
+                "    total.total_venta\n" +
+                "FROM juegoscompradosreservados jc\n" +
+                "INNER JOIN juegos j ON j.idJuegos = jc.id_juego\n" +
+                "LEFT JOIN imagenes i ON i.idImagenes = j.id_imagen\n" +
+                "CROSS JOIN (\n" +
+                "    SELECT SUM(precio * ventaCount) AS total_venta \n" +
+                "    FROM (\n" +
+                "        SELECT precio, COUNT(*) AS ventaCount\n" +
+                "        FROM juegoscompradosreservados jcr\n" +
+                "        INNER JOIN juegos j ON jcr.id_juego = j.idJuegos\n" +
+                "        INNER JOIN personas p ON jcr.id_usuario = p.idPersona\n" +
+                "        WHERE jcr.estadoCompraJuego = 'Comprado' AND p.id_roles = \"USR\" AND MONTHNAME(jcr.fechaCompraJuego) = ?\n" +
+                "        GROUP BY id_juego\n" +
+                "    ) AS ventasTotales\n" +
+                ") AS total\n" +
+                "WHERE jc.estadoCompraJuego = 'Comprado' AND MONTHNAME(fechaCompraJuego) = ?\n" +
+                "GROUP BY id_juego, direccion_archivo, nombreJuegos, precio, mes_compra, total.total_venta\n" +
+                "LIMIT 1;";
 
-        String sql = "SELECT j.idJuegos, j.nombreJuegos, j.id_imagen, i.direccion_archivo, MAX(c.fecha_comentario) AS fecha_comentario\n" +
-                "FROM juegos j\n" +
-                "JOIN comentarios c ON j.idJuegos = c.Juegos_idJuegos\n" +
-                "JOIN categorias ca ON j.id_categoria = ca.idCategorias\n" +
-                "JOIN imagenes i ON j.id_imagen = i.idImagenes\n" +
-                "GROUP BY j.idJuegos\n" +
-                "ORDER BY fecha_comentario DESC\n" +
-                "LIMIT 3;";
-
+        int ventaMes = 0;
         try (Connection connection = this.getConnection();
-             Statement smt = connection.createStatement();
-             ResultSet resultSet = smt.executeQuery(sql)) {
-
-            while(resultSet.next()){
-                JuegosManager comentarioJuegoReciente = new JuegosManager();
-                comentarioJuegoReciente.setIdJuegos(resultSet.getInt(1));
-                comentarioJuegoReciente.setNombreJuegos(resultSet.getString(2));
-                comentarioJuegoReciente.setDireccion_imagen(resultSet.getString(4));
-                ultimosJuegosComentados.add(comentarioJuegoReciente);
+             PreparedStatement ptsmtJuego = connection.prepareStatement(sql)) {
+            ptsmtJuego.setString(1, mes);
+            ptsmtJuego.setString(2, mes);
+            try (ResultSet rs = ptsmtJuego.executeQuery()){
+                while(rs.next()){
+                    ventaMes = rs.getInt(8);
+                }
             }
-        }catch (SQLException e){
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return ultimosJuegosComentados;
+        return ventaMes;
     }
+
 
     public ArrayList<JuegosManager> comentarioPorJuego(int idjuego){
 

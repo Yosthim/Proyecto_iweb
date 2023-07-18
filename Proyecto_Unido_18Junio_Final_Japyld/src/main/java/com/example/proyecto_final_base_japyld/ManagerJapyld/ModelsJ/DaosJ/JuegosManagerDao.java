@@ -1,8 +1,9 @@
 package com.example.proyecto_final_base_japyld.ManagerJapyld.ModelsJ.DaosJ;
 
 import com.example.proyecto_final_base_japyld.BaseDao;
-import com.example.proyecto_final_base_japyld.BeansGenerales.Objetivos;
+import com.example.proyecto_final_base_japyld.BeansGenerales.Juegos;
 import com.example.proyecto_final_base_japyld.ManagerJapyld.ModelsJ.DtoJ.JuegosManager;
+import com.example.proyecto_final_base_japyld.UsuarioJapyld.ModelsJ.DtoJ.ConsolasDetallesDto;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -107,10 +108,11 @@ public class JuegosManagerDao extends BaseDao {
 
         ArrayList<JuegosManager> listaTodosJuegos = new ArrayList<>();
 
-        String sql = "SELECT idJuegos,nombreJuegos,precio,direccion_archivo\n" +
-                "FROM juegos j \n" +
-                "INNER JOIN imagenes i ON j.id_imagen = i.idImagenes\n" +
-                "WHERE j.estadoJuego = \"Activo\" or j.estadoJuego = \"Oferta\";";
+        String sql = "SELECT idJuegos, nombreJuegos, precio,direccion_archivo, COALESCE(d.precio_nuevo, 0) AS precio_nuevo\n" +
+                    "FROM juegos j\n" +
+                    "LEFT JOIN descuentos d ON j.idJuegos = d.id_juego\n" +
+                    "INNER JOIN imagenes i ON j.id_imagen = i.idImagenes\n" +
+                    "WHERE j.estadoJuego = \"Activo\" OR j.estadoJuego = \"Oferta\";";
 
         try (Connection connection = this.getConnection();
              Statement stmt = connection.createStatement();
@@ -122,7 +124,7 @@ public class JuegosManagerDao extends BaseDao {
                 listaJuegos.setNombreJuegos(resultSet.getString(2));
                 listaJuegos.setPrecio(resultSet.getInt(3));
                 listaJuegos.setDireccion_imagen(resultSet.getString(4));
-
+                listaJuegos.setPrecio_nuevo(resultSet.getInt(5));
                 listaTodosJuegos.add(listaJuegos);
             }
 
@@ -146,6 +148,58 @@ public class JuegosManagerDao extends BaseDao {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public ArrayList<ConsolasDetallesDto> listarConsolasPorJuego(int idjuego){
+        ArrayList<ConsolasDetallesDto> listaConsolaPorJuego = new ArrayList<>();
+
+        String sql = "SELECT id_juego,\n" +
+                "       GROUP_CONCAT(CASE WHEN id_consola IN ('PS5') THEN id_consola END) AS consola_1,\n" +
+                "       GROUP_CONCAT(CASE WHEN id_consola IN ('PS4') THEN id_consola END) AS consola_2,\n" +
+                "       GROUP_CONCAT(CASE WHEN id_consola IN ('XB3') THEN id_consola END) AS consola_3,\n" +
+                "       GROUP_CONCAT(CASE WHEN id_consola IN ('XBO') THEN id_consola END) AS consola_4,\n" +
+                "       GROUP_CONCAT(CASE WHEN id_consola IN ('SWI') THEN id_consola END) AS consola_5,\n" +
+                "       GROUP_CONCAT(CASE WHEN id_consola IN ('WIU') THEN id_consola END) AS consola_6\n" +
+                "FROM (\n" +
+                "    SELECT t1.id_juego, t1.id_consola, t2.nombre AS consola\n" +
+                "    FROM juegos_por_consolas t1\n" +
+                "    INNER JOIN consolas t2 ON t1.id_consola = t2.idConsolas\n" +
+                ") AS subquery\n" +
+                "WHERE id_juego = ? \n" +
+                "GROUP BY id_juego\n" +
+                "ORDER BY id_juego;\n";
+
+
+        try (Connection connection = this.getConnection();
+             PreparedStatement ptsmtConsola = connection.prepareStatement(sql)) {
+
+            ptsmtConsola.setInt(1,idjuego);
+            try (ResultSet rs = ptsmtConsola.executeQuery()){
+                while(rs.next()){
+
+                    ConsolasDetallesDto consoladetalles = new ConsolasDetallesDto();
+
+                    Juegos juego = new Juegos();
+                    juego.setIdJuegos(rs.getInt(1));
+
+                    consoladetalles.setJuego(juego);
+                    consoladetalles.setConsola1(rs.getString(2));
+                    consoladetalles.setConsola2(rs.getString(3));
+                    consoladetalles.setConsola3(rs.getString(4));
+                    consoladetalles.setConsola4(rs.getString(5));
+                    consoladetalles.setConsola5(rs.getString(6));
+                    consoladetalles.setConsola6(rs.getString(7));
+
+                    listaConsolaPorJuego.add(consoladetalles);
+                }
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return listaConsolaPorJuego;
+
     }
 
 }

@@ -1,94 +1,89 @@
 package com.example.proyecto_final_base_japyld.ManagerJapyld.ModelsJ.DaosJ;
 
+import com.example.proyecto_final_base_japyld.BaseDao;
 import com.example.proyecto_final_base_japyld.ManagerJapyld.ModelsJ.DtoJ.ProductosVendidos;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class ProductosVendidosDao {
-    public ArrayList<ProductosVendidos> listarJuegosMasVendidos(){
+public class ProductosVendidosDao extends BaseDao {
+    public ArrayList<ProductosVendidos> listarJuegosMasVendidos(String mes) throws SQLException {
         ArrayList<ProductosVendidos> listaMasVendidos = new ArrayList<>();
 
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        String sql = "SELECT id_juego, COUNT(*) AS total_ventas, direccion_archivo, nombreJuegos, precio\n" +
+        String sql = "SELECT id_juego, direccion_archivo, nombreJuegos, precio, \n" +
+                "       MONTHNAME(fechaCompraJuego) AS mes_compra, COUNT(*) AS ventas\n" +
                 "FROM juegoscompradosreservados jc\n" +
-                "inner join juegos j on j.idJuegos = jc.id_juego\n" +
-                "left join imagenes i on i.idImagenes = j.id_imagen\n" +
-                "WHERE jc.estadoCompraJuego= 'comprado'\n" +
-                "GROUP BY jc.id_juego, i.direccion_archivo, j.nombreJuegos, j.precio\n" +
-                "ORDER BY total_ventas desc\n" +
-                "LIMIT 4;";
+                "INNER JOIN juegos j ON j.idJuegos = jc.id_juego\n" +
+                "LEFT JOIN imagenes i ON i.idImagenes = j.id_imagen\n" +
+                "WHERE jc.estadoCompraJuego = 'Comprado' AND MONTHNAME(fechaCompraJuego) = ?\n" +
+                "GROUP BY id_juego, direccion_archivo, nombreJuegos, precio, mes_compra\n" +
+                "ORDER BY ventas DESC\n" +
+                "LIMIT 1;";
 
-        String url = "jdbc:mysql://localhost:3306/japyld";
+        try (Connection connection = this.getConnection();
+             PreparedStatement ptsmtConsola = connection.prepareStatement(sql)) {
 
-        try (Connection connection = DriverManager.getConnection(url, "root", "root");
-             Statement stmt = connection.createStatement();
-             ResultSet resultSet = stmt.executeQuery(sql)) {
+            ptsmtConsola.setString(1, mes);
 
-            while(resultSet.next()){
-                ProductosVendidos loMasVendido = new ProductosVendidos();
-                loMasVendido.setId_juego(resultSet.getInt(1));
-                loMasVendido.setVentas(resultSet.getInt(2));
-                loMasVendido.setDireccion_archivo(resultSet.getString(3));
-                loMasVendido.setNombreJuego(resultSet.getString(4));
-                loMasVendido.setPrecio(resultSet.getInt(5));
+            try (ResultSet rs = ptsmtConsola.executeQuery()) {
 
-                listaMasVendidos.add(loMasVendido);
+                while (rs.next()) {
+                    ProductosVendidos loMasVendido = new ProductosVendidos();
+                    loMasVendido.setId_juego(rs.getInt(1));
+                    loMasVendido.setDireccion_archivo(rs.getString(2));
+                    loMasVendido.setNombreJuego(rs.getString(3));
+                    loMasVendido.setPrecio(rs.getInt(4));
+                    loMasVendido.setMes(rs.getString(5));
+                    loMasVendido.setVentas(rs.getInt(6));
+                    listaMasVendidos.add(loMasVendido);
+                }
+
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
             }
 
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+            return listaMasVendidos;
+
         }
-
-        return listaMasVendidos;
-
     }
 
-    public ArrayList<ProductosVendidos> listarJuegosMenosVendidos(){
+    public ArrayList<ProductosVendidos> listarJuegosMenosVendidos(String mes) throws SQLException {
         ArrayList<ProductosVendidos> listaMenosVendidos = new ArrayList<>();
 
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        String sql = "SELECT id_juego, COUNT(*) AS total_ventas, direccion_archivo, nombreJuegos, precio\n" +
+        String sql = "SELECT id_juego, direccion_archivo, nombreJuegos, precio, \n" +
+                "       MONTHNAME(fechaCompraJuego) AS mes_compra, COUNT(*) AS ventas\n" +
                 "FROM juegoscompradosreservados jc\n" +
-                "inner join juegos j on j.idJuegos = jc.id_juego\n" +
-                "left join imagenes i on i.idImagenes = j.id_imagen\n" +
-                "WHERE jc.estadoCompraJuego= 'comprado'\n" +
-                "GROUP BY jc.id_juego, i.direccion_archivo, j.nombreJuegos, j.precio\n" +
-                "ORDER BY total_ventas ASC\n" +
-                "LIMIT 4;";
+                "INNER JOIN juegos j ON j.idJuegos = jc.id_juego\n" +
+                "LEFT JOIN imagenes i ON i.idImagenes = j.id_imagen\n" +
+                "WHERE jc.estadoCompraJuego = 'Comprado' AND MONTHNAME(fechaCompraJuego) = ?\n" +
+                "GROUP BY id_juego, direccion_archivo, nombreJuegos, precio, mes_compra\n" +
+                "ORDER BY ventas ASC\n" +
+                "LIMIT 1;";
 
-        String url = "jdbc:mysql://localhost:3306/japyld";
+        try (Connection connection = this.getConnection();
+             PreparedStatement ptsmtConsola = connection.prepareStatement(sql)) {
 
-        try (Connection connection = DriverManager.getConnection(url, "root", "root");
-             Statement stmt = connection.createStatement();
-             ResultSet resultSet = stmt.executeQuery(sql)) {
+            ptsmtConsola.setString(1, mes);
 
-            while(resultSet.next()){
-                ProductosVendidos lomenosVendido = new ProductosVendidos();
-                lomenosVendido.setId_juego(resultSet.getInt(1));
-                lomenosVendido.setVentas(resultSet.getInt(2));
-                lomenosVendido.setDireccion_archivo(resultSet.getString(3));
-                lomenosVendido.setNombreJuego(resultSet.getString(4));
-                lomenosVendido.setPrecio(resultSet.getInt(5));
+            try (ResultSet rs = ptsmtConsola.executeQuery()) {
 
-                listaMenosVendidos.add(lomenosVendido);
+                while (rs.next()) {
+                    ProductosVendidos lomenosVendido = new ProductosVendidos();
+                    lomenosVendido.setId_juego(rs.getInt(1));
+                    lomenosVendido.setDireccion_archivo(rs.getString(2));
+                    lomenosVendido.setNombreJuego(rs.getString(3));
+                    lomenosVendido.setPrecio(rs.getInt(4));
+                    lomenosVendido.setMes(rs.getString(5));
+                    lomenosVendido.setVentas(rs.getInt(6));
+                    listaMenosVendidos.add(lomenosVendido);
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
             }
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+            return listaMenosVendidos;
         }
-
-        return listaMenosVendidos;
-
     }
 }

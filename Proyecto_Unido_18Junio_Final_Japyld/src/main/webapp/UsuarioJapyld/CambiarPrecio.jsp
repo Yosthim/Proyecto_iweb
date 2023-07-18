@@ -58,7 +58,7 @@
                             </div>
                             <div class="card-body">
                                 El administrador no aceptó su oferta inicial porque considera que el precio
-                                <br/>no es adecuado. Asimismo, le propone el siguiente precio: <strong>S/<%=precioAdmin%></strong>
+                                no es adecuado; por lo que, le sugiere que cambie el precio a: <strong>S/<%=precioAdmin%></strong>
                                 <div class="form-group">
                                     <label for="precioNuevo" class="text-gray-900">Ingrese el nuevo precio:</label>
                                     <div class="input-group">
@@ -69,9 +69,12 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="card-footer">
+                            <div class="card-footer justify-content-center">
                                 <a href="<%=request.getContextPath()%>/TusVentas" class="btn btn-danger">Cancelar</a>
-                                <button type="submit" class="btn btn-success">Cambiar oferta</button>
+                                <button type="submit" class="btn btn-success"
+                                        onclick="return confirm('¿Está seguro de modificar su oferta?')">
+                                    Cambiar oferta
+                                </button>
                             </div>
                         </form>
                     </div>

@@ -1,7 +1,6 @@
 package com.example.proyecto_final_base_japyld.ManagerJapyld.ModelsJ.DaosJ;
 
 import com.example.proyecto_final_base_japyld.ManagerJapyld.ModelsJ.DtoJ.DetalleAdmin;
-import com.example.proyecto_final_base_japyld.ManagerJapyld.ModelsJ.DtoJ.ModuloAdmin;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -166,7 +165,7 @@ public class DetalleAdminDao {
 
     public int obtenerAdminMenosEntregas(){
 
-       int id=0;
+        int id=0;
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");

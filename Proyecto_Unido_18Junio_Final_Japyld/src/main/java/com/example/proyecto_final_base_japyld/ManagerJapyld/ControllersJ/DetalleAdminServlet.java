@@ -3,7 +3,6 @@ package com.example.proyecto_final_base_japyld.ManagerJapyld.ControllersJ;
 import com.example.proyecto_final_base_japyld.ManagerJapyld.ModelsJ.DaosJ.DetalleAdminDao;
 import com.example.proyecto_final_base_japyld.ManagerJapyld.ModelsJ.DaosJ.ModuloAdminDao;
 import com.example.proyecto_final_base_japyld.ManagerJapyld.ModelsJ.DtoJ.DetalleAdmin;
-import com.example.proyecto_final_base_japyld.ManagerJapyld.ModelsJ.DtoJ.DetalleUsuario;
 import com.example.proyecto_final_base_japyld.ManagerJapyld.ModelsJ.DtoJ.ModuloAdmin;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -118,7 +117,6 @@ public class DetalleAdminServlet extends HttpServlet {
                 for (DetalleAdmin juego2 : listaVendidos) {
                     writer.println(juego2.getNombreJuegos() + "," + juego2.getPrecioVenta());
                 }
-                writer.println();
 
                 writer.println("Ganancia Total");
                 writer.println("Ganancia");
