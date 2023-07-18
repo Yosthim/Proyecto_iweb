@@ -71,6 +71,7 @@ public class OfertasDao extends BaseDao {
                     ventaJuegosGeneral.setIdVenta(rs.getInt(1));
                     ventaJuegosGeneral.setPrecioUsuario(rs.getBigDecimal(5));
                     ventaJuegosGeneral.setCantidad(rs.getInt(15));
+                    ventaJuegosGeneral.setRazonRechazo(rs.getString(3));
 
                     juegos = new Juegos();
                     juegos.setIdJuegos(rs.getInt(10));
@@ -126,7 +127,11 @@ public class OfertasDao extends BaseDao {
         try(Connection connection = this.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(sql)){
 
-            preparedStatement.setString(1,ventaJuegosGeneral.getRazonRechazo());
+            String firstLetter1 = ventaJuegosGeneral.getRazonRechazo().substring(0, 1).toUpperCase();
+            String restOfSentence1 = ventaJuegosGeneral.getRazonRechazo().substring(1).toLowerCase();
+            String descripcion1  = firstLetter1 + restOfSentence1;
+
+            preparedStatement.setString(1,descripcion1);
             preparedStatement.setInt(2,ventaJuegosGeneral.getIdVenta());
             preparedStatement.executeUpdate();
 
@@ -150,7 +155,10 @@ public class OfertasDao extends BaseDao {
         try(Connection connection = this.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(sql)){
 
-            preparedStatement.setString(1,ventaJuegosGeneral.getRazonRechazo());
+            String firstLetter1 = ventaJuegosGeneral.getRazonRechazo().toLowerCase();
+            String descripcion1  = firstLetter1 ;
+
+            preparedStatement.setString(1,descripcion1);
             preparedStatement.setBigDecimal(2,ventaJuegosGeneral.getPrecioAdmi());
             preparedStatement.setInt(3,ventaJuegosGeneral.getIdVenta());
             preparedStatement.executeUpdate();
@@ -228,6 +236,7 @@ public class OfertasDao extends BaseDao {
                     ventaJuegosGeneral.setNombreNuevo(rs.getString(13));
                     // aqui se llama a lo blob de la base de datos?
                     ventaJuegosGeneral.setImagenNueva(rs.getBinaryStream(14));
+                    ventaJuegosGeneral.setRazonRechazo(rs.getString(3));
 
                     usaurio = new Personas();
                     usaurio.setIdPersona(rs.getInt(8));
@@ -272,9 +281,18 @@ public class OfertasDao extends BaseDao {
         try (Connection connection = this.getConnection();
              PreparedStatement pstmt = connection.prepareStatement(sql)) {
 
-            pstmt.setString(1,ventaJuegosGeneral.getNombreNuevo());
+            String firstLetter1 = ventaJuegosGeneral.getNombreNuevo().substring(0, 1).toUpperCase();
+            String restOfSentence1 = ventaJuegosGeneral.getNombreNuevo().substring(1).toLowerCase();
+            String descripcion1  = firstLetter1 + restOfSentence1;
+
+            pstmt.setString(1,descripcion1);
             pstmt.setInt(2,ventaJuegosGeneral.getCantidad());
             pstmt.setBigDecimal(3,ventaJuegosGeneral.getPrecioUsuario());
+
+            String firstLetter = ventaJuegosGeneral.getDescripcionNueva().substring(0, 1).toUpperCase();
+            String restOfSentence = ventaJuegosGeneral.getDescripcionNueva().substring(1).toLowerCase();
+            String descripcion  = firstLetter + restOfSentence;
+
             pstmt.setString(4,ventaJuegosGeneral.getDescripcionNueva());
             // error?
             Imagen imagen = new Imagen();

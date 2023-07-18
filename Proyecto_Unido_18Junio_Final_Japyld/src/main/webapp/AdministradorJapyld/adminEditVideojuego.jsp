@@ -279,12 +279,14 @@
                                         <span><%=juego.getDescripcion()%></span>
                                     </div>
                                     <div class="card-body text-center">
-                                        <span>Precio: <%=juego.getPrecio()%></span>
+                                        <span>Estado : <%=juego.getEstadoJuego()%></span>
+                                    </div>
+                                    <div class="card-body text-center">
+                                        <span>Precio real: <%=juego.getPrecio()%></span>
                                     </div>
                                     <div class="card-body text-center">
                                         <span>Categoria: <%=juego.getCategoria().getNombre()%></span>
                                     </div>
-
                                 </div>
                             </div>
                             <div class="col-xl-6 col-lg-8">

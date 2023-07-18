@@ -272,7 +272,8 @@ public class AdminDao extends BaseDao {
                 "left join personas p on c.id_usuario = p.idPersona\n" +
                 "left join juegos j on c.id_juego = j.idJuegos\n" +
                 "WHERE c.estadoVenta = 'Aceptado' and c.id_administrador =? \n" +
-                "ORDER BY c.fechaPublicacion DESC;";
+                "ORDER BY c.fechaPublicacion DESC \n" +
+                "limit 10;";
 
         try(Connection connection = this.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(sql)){
@@ -317,7 +318,7 @@ public class AdminDao extends BaseDao {
                 "                left join personas p on c.id_usuario = p.idPersona\n" +
                                 "left join juegos j on c.id_juego = j.idJuegos\n" +
                 "                WHERE c.estadoVenta = 'Pendiente' and c.disponibilidad = 'Habilitado' and c.id_administrador =? \n" +
-                "                ORDER BY c.fechaPublicacion DESC;";
+                "                ORDER BY c.fechaPublicacion ;";
         try(Connection connection = this.getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(sql)){
 
@@ -360,7 +361,7 @@ public class AdminDao extends BaseDao {
                 "                left join personas p on c.id_usuario = p.idPersona\n" +
                 "                   left join juegos j on c.id_juego = j.idJuegos\n" +
                 "                WHERE c.estadoVenta = 'Pendiente' and c.disponibilidad = 'Nuevo' and c.id_administrador =? \n" +
-                "                ORDER BY c.fechaPublicacion DESC;";
+                "                ORDER BY c.fechaPublicacion ;";
 
         try(Connection connection = this.getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(sql)){
@@ -542,7 +543,12 @@ public class AdminDao extends BaseDao {
 
         try (Connection conn = this.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1,descripcion);
+
+            String firstLetter1 = descripcion.substring(0, 1).toUpperCase();
+            String restOfSentence1 = descripcion.substring(1).toLowerCase();
+            String descripcion1  = firstLetter1 + restOfSentence1;
+
+            pstmt.setString(1,descripcion1);
             pstmt.setInt(2, id_juego);
 
             pstmt.executeUpdate();

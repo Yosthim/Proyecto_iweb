@@ -79,11 +79,11 @@ public class DescuentoServlet extends HttpServlet {
                        request.getSession().setAttribute("info","Descuento publicado exitosamente");
                        response.sendRedirect("AdminTodosJuegos");
                    }else{
-                       request.getSession().setAttribute("info","Descuento no publicado, verifique que se ingrese un valor de dias correcto");
+                       request.getSession().setAttribute("err","Descuento no publicado, verifique que se ingrese un valor de dias correcto");
                        response.sendRedirect("AdminTodosJuegos");
                    }
                }else{
-                   request.getSession().setAttribute("info","Descuento no publicado, verifique que se ingrese un valor de precio valido");
+                   request.getSession().setAttribute("err","Descuento no publicado, verifique que se ingrese un valor de precio valido");
                    response.sendRedirect("AdminTodosJuegos");
                }
 
