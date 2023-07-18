@@ -164,7 +164,7 @@ public class ModuloAdminServlet extends HttpServlet {
     }
 
     public static String determinarGeneroPorNombre(String nombre) {
-        String[] sufijosFemeninos = {"a", "ia", "ana", "ina", "ela", "ella", "ara", "ita", "ena", "la", "ra", "ma"};
+        String[] sufijosFemeninos = {"a", "ia", "ana", "ina", "ela", "ella", "ara", "ita", "ena", "la", "ra", "ma", "na", "ta"};
         String sufijoNombre = nombre.toLowerCase().substring(nombre.length() - 1);
 
         for (String sufijo : sufijosFemeninos) {

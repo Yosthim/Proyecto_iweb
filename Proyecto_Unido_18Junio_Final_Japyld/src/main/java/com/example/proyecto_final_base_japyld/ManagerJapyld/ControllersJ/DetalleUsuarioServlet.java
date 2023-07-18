@@ -76,14 +76,14 @@ public class DetalleUsuarioServlet extends HttpServlet {
                 writer.println("Juegos Comprados");
                 writer.println("NombreJuego;PrecioCompra");
                 for (DetalleUsuario juego1 : listaJuegosComprados) {
-                    writer.println(juego1.getNombreJuegos() + "," + juego1.getPrecio());
+                    writer.println(juego1.getNombreJuegos() + ";" + juego1.getPrecio());
                 }
                 writer.println();
 
                 writer.println("Juegos Vendidos");
                 writer.println("NombreJuego;PrecioVenta");
                 for (DetalleUsuario juego2 : listaJuegosVendidos) {
-                    writer.println(juego2.getNombreJuegos() + "," + juego2.getPrecio_admin());
+                    writer.println(juego2.getNombreJuegos() + ";" + juego2.getPrecio_admin());
                 }
 
                 writer.close();
