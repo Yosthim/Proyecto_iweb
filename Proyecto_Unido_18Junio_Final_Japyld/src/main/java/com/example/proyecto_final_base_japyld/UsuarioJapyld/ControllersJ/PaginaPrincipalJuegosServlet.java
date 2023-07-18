@@ -36,12 +36,14 @@ public class PaginaPrincipalJuegosServlet extends HttpServlet {
         CategoriaDao categoriadao = new CategoriaDao();
         PaginaPrincipalDao buscarjuegosdao = new PaginaPrincipalDao();
         PerfilDao perfilDao1 = new PerfilDao();
+
         String textoBuscar = request.getParameter("textoBuscar");
         if (textoBuscar == null) {
             response.sendRedirect("EmployeeServlet");
         } else {
             request.setAttribute("textoBusqueda", textoBuscar);
             request.setAttribute("listaJuegos", buscarjuegosdao.buscarJuegoPorNombre(textoBuscar));
+
             request.setAttribute("categorias",categoriadao.listaCategoria());
             request.setAttribute("listaFotoPerfil",perfilDao1.listarFotoPerfil());
             RequestDispatcher view = request.getRequestDispatcher("UsuarioJapyld/PaginaPrincipal.jsp");
