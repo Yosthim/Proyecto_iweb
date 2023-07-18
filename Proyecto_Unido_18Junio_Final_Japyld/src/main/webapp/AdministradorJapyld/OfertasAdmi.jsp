@@ -240,7 +240,7 @@
 
       <% if (session.getAttribute("info") != null) {
         //if (request.getParameter("msg") != null) {%>
-      <div id="mensaje" class="alert alert-success" role="alert">
+      <div id="mensaje" class="alert alert-success show-notification" role="alert">
         <%=session.getAttribute("info")%>
       </div>
       <%
@@ -249,7 +249,7 @@
       %>
       <% if (session.getAttribute("err") != null) {
         //if (request.getParameter("msg") != null) {%>
-      <div id="mensajeError" class="alert alert-danger" role="alert">
+      <div id="mensajeError" class="alert alert-danger show-notification" role="alert">
         <%=session.getAttribute("err")%>
       </div>
       <%
@@ -472,6 +472,23 @@
     </div>
   </div>
 </div>
+<script>
+
+  // Función para mostrar el mensaje de éxito y ocultarlo después de 10 segundos
+  function showNotification() {
+    const notification = document.getElementById("info");
+    notification.style.display = "block";
+
+    setTimeout(function () {
+      notification.style.display = "none";
+    }, 5000);
+  }
+
+  // Llama a la función cuando se cargue la página
+  window.onload = function () {
+    showNotification();
+  };
+</script>
 
 <!-- Bootstrap core JavaScript-->
 <script src="recursos/vendor/jquery/jquery.min.js"></script>
