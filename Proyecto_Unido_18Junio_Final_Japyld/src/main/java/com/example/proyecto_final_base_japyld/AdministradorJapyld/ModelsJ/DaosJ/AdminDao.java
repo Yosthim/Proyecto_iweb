@@ -440,7 +440,7 @@ public class AdminDao extends BaseDao {
         return tjuegos;
     }
     //Buscar
-    public ArrayList<TodosJuegosDto> buscarJuegoPorNombre(String name) {
+    public ArrayList<TodosJuegosDto> buscarJuegoPorNombre2(String name) {
 
         ArrayList<TodosJuegosDto> tjuegos = new ArrayList<>();
 

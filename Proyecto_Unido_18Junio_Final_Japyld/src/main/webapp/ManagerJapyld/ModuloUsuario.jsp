@@ -70,7 +70,7 @@
                                     <tr>
                                         <th class="text-center">Usuarios</th>
                                         <th class="text-center">Correo Electronico</th>
-                                        <th class="text-center">Numero De Juegos</th>
+                                        <th class="text-center">Juegos Comprados/Reservados</th>
                                         <th class="text-center">Fecha De Registro</th>
                                     </tr>
                                     </thead>

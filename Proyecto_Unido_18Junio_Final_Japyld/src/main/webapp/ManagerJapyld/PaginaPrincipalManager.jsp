@@ -77,10 +77,11 @@
 
         <!-- Main Content -->
         <div id="content">
-
+          <!-- Topbar -->
           <jsp:include page="/Includes/ManagerJapyld/topbarManager.jsp">
             <jsp:param name="title" value="Mas detalles"/>
           </jsp:include>
+          <!-- End of Topbar -->
 
           <!-- Begin Page Content -->
           <div class="container-fluid" id="resumen">

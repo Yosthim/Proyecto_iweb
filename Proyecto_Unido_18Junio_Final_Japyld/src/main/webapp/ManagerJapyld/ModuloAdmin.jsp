@@ -36,7 +36,6 @@
 </head>
 
 <body id="page-top">
-
 <!-- Page Wrapper -->
 <div id="wrapper">
 
@@ -59,10 +58,28 @@
       <!-- Begin Page Content -->
 
       <div class="container-fluid">
+
         <!-- Account page navigation-->
         <br>
 
         <div class="col-xl-12">
+
+          <% if (session.getAttribute("info") != null) { %>
+          <div class="alert alert-success d-flex align-items-center justify-content-center" role="alert">
+            <%= session.getAttribute("info") %>
+          </div>
+          <% session.setAttribute("info", null); %>
+          <% } %>
+
+          <% if (session.getAttribute("ale") != null) { %>
+          <div class="alert alert-success d-flex align-items-center justify-content-center" role="alert">
+            <%= session.getAttribute("ale") %>
+          </div>
+          <% session.setAttribute("ale", null); %>
+          <% } %>
+
+          <br>
+
           <!-- Profile picture card-->
           <div class="card mb-4 mb-xl-0">
 
