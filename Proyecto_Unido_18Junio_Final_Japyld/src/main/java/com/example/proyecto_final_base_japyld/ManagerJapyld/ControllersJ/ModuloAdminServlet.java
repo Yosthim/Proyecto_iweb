@@ -33,6 +33,7 @@ public class ModuloAdminServlet extends HttpServlet {
             case "lista":
 
                 ArrayList<ModuloAdmin> listarAdminActivos = adminModuloDao.listarAdmin();
+                ArrayList<Integer> idsConResultadoMenorCero = new ArrayList<>();
 
                 double maxResultado = Double.NEGATIVE_INFINITY;
 
@@ -57,10 +58,16 @@ public class ModuloAdminServlet extends HttpServlet {
                         maxResultado = resultado;
                         idMaxResultado = a.getId();
                     }
+
+                    if (resultado < 0) {
+                        idsConResultadoMenorCero.add(a.getId());
+                    }
                 }
+
                 request.setAttribute("idMax", idMaxResultado);
                 request.setAttribute("listarAdminActivos", adminModuloDao.listarAdmin());
                 request.setAttribute("listarAdminInactivo", adminModuloDao.listarAdminInactivos());
+                request.setAttribute("perdidas", idsConResultadoMenorCero);
 
                 requestDispatcher = request.getRequestDispatcher("ManagerJapyld/ModuloAdmin.jsp");
                 requestDispatcher.forward(request,response);
