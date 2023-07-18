@@ -221,7 +221,7 @@
                                             <% for (DetalleUsuario juegosVendidos : lista1) { %>
                                             <tr>
                                                 <td><%=juegosVendidos.getNombreJuegos() %></td>
-                                                <td><%=juegosVendidos.getPrecio_admin()%></td>
+                                                <td>S/. <%=juegosVendidos.getPrecio_admin()%></td>
                                             </tr>
                                             <% } %>
                                             </tbody>
@@ -250,7 +250,7 @@
                                             <% for (DetalleUsuario juegosComprados : lista2) { %>
                                             <tr>
                                                 <td><%=juegosComprados.getNombreJuegos() %></td>
-                                                <td><%=juegosComprados.getPrecio()%></td>
+                                                <td>S/. <%=juegosComprados.getPrecio()%></td>
                                             </tr>
                                             <% } %>
 
