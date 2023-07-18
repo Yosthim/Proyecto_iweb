@@ -66,6 +66,17 @@
             <jsp:include page="/Includes/ManagerJapyld/topbarManager.jsp">
                 <jsp:param name="title" value="Mas detalles"/>
             </jsp:include>
+
+            <% if (session.getAttribute("info") != null) {
+                //if (request.getParameter("msg") != null) {%>
+            <div id="mensaje" class="alert alert-success" role="alert">
+                <%=session.getAttribute("info")%>
+            </div>
+            <%
+                    session.setAttribute("info", null);
+                }
+            %>
+
             <!-- Begin Page Content -->
             <div class="container-xl px-4 mt-4">
                 <!-- Account page navigation-->
@@ -85,23 +96,26 @@
                                         <!-- Destinatario -->
                                         <br>
                                         <h6 class="text-primary" style="color:#31a290;">Destinatario</h6>
+
                                         <div class="d-flex">
-                                            <div id="texto-editable" contenteditable="true" class="flex-grow-1 pr-3 custom-textbox" oninput="updateDestinoField()"></div>
+                                            <div id="texto-editable" contenteditable="true" class="flex-grow-1 pr-3 custom-textbox message-input" oninput="updateDestinoField()"></div>
                                             <input type="hidden" name="destino" id="asuntoInput">
                                         </div>
+
                                         <br>
                                         <!-- Asunto -->
                                         <h6 class="text-primary" style="color:#31a290;">Asunto</h6>
 
                                         <div class="d-flex">
-                                            <div id="texto-editable2" contenteditable="true" class="flex-grow-1 pr-3 custom-textbox" oninput="updateAsuntoField()"></div>
+                                            <div id="texto-editable2" contenteditable="true" class="flex-grow-1 pr-3 custom-textbox message-input" oninput="updateAsuntoField()"></div>
                                             <input type="hidden" name="asunto" id="asuntoInput2">
                                         </div>
 
                                         <br>
                                         <h6 class="text-primary" style="color:#31a290;">Mensaje</h6>
+
                                         <div class="d-flex">
-                                            <div id="texto-editable3" contenteditable="true" class="flex-grow-1 pr-3 custom-textbox" oninput="updateMensajeField()"></div>
+                                            <div id="texto-editable3" contenteditable="true" class="flex-grow-1 pr-3 custom-textbox message-input1" oninput="updateMensajeField()"></div>
                                             <input type="hidden" name="mensaje" id="asuntoInput3">
                                         </div>
 
@@ -124,6 +138,28 @@
                                                 mensajeInput.value = textoEditable3.innerText.trim();
                                             }
                                         </script>
+
+                                        <style>
+                                            .message-input {
+                                                width: 100%;
+                                                min-height: 50px;
+                                                max-height: 300px;
+                                                overflow-y: auto;
+                                                border: 1px solid #ccc;
+                                                padding: 10px;
+                                                resize: none;
+                                            }
+
+                                            .message-input1 {
+                                                width: 100%;
+                                                min-height: 150px;
+                                                max-height: 300px;
+                                                overflow-y: auto;
+                                                border: 1px solid #ccc;
+                                                padding: 10px;
+                                                resize: none;
+                                            }
+                                        </style>
 
                                     </div>
                                     <!-- Resto del código del formulario -->

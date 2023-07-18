@@ -151,6 +151,7 @@ public class ModuloAdminServlet extends HttpServlet {
                     response.sendRedirect(request.getContextPath()+"/ModuloAdminServlet?action=crear");
                 }else {
                     adminModuloDao.crearAdmin(admin);
+                    request.getSession().setAttribute("info","Administrador Creado Correctamente");
                     response.sendRedirect(request.getContextPath()+"/ModuloAdminServlet");
                 }
                 break;
