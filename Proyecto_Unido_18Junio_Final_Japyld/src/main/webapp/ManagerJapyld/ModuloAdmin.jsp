@@ -67,14 +67,16 @@
 
             <div class="card-header font-weight-bold text-primary">TABLA DE ADMINISTRADORES ACTIVOS</div>
             <div class="card-body text">
-
+              <!--
               <div class="col-12 col-xl-auto mb-3">
+
                 <div class="d-flex justify-content-lg-end">
                   <a href="BuzonMensaje.html">
                     <button class="btn btn-info" type="button">Enviar Mensaje</button>
                   </a>
                 </div>
               </div>
+              -->
               <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
