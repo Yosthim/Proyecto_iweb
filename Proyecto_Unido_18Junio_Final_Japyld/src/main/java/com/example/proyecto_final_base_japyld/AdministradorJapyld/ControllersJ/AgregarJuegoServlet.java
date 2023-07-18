@@ -83,12 +83,19 @@ public class AgregarJuegoServlet extends HttpServlet {
                                             Part imageGamePart = request.getPart("imagenJuego");
 
                                             InputStream imageGameContent = imageGamePart.getInputStream();
-                                            juegos.getImagen().setImagem(imageGameContent);
-                                            agregarDao.registrarJuego(juegos);
-                                            agregarDao.registrarJuegoXCategoria(juegosXConsola);
-                                            request.getSession().setAttribute("info","Juego agregado correctamente");
-                                            response.sendRedirect("AdminTodosJuegos");
-                                            break;
+
+                                            if(imageGameContent.available() >0){
+                                                juegos.getImagen().setImagem(imageGameContent);
+                                                agregarDao.registrarJuego(juegos);
+                                                agregarDao.registrarJuegoXCategoria(juegosXConsola);
+                                                request.getSession().setAttribute("info","Juego agregado correctamente");
+                                                response.sendRedirect("AdminTodosJuegos");
+                                                break;
+                                            }else{
+                                                request.getSession().setAttribute("err","Juego no agregado, ingrese una imagen");
+                                                response.sendRedirect("AdminTodosJuegos");
+                                            }
+
 
                                     }
                                 }

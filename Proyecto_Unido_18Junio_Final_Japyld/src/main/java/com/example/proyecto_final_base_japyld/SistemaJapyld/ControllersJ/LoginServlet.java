@@ -2,6 +2,8 @@ package com.example.proyecto_final_base_japyld.SistemaJapyld.ControllersJ;
 
 
 import com.example.proyecto_final_base_japyld.AdministradorJapyld.ModelsJ.DaosJ.DescuentoDao;
+import com.example.proyecto_final_base_japyld.AdministradorJapyld.ModelsJ.DaosJ.JuegosReservadosDaos;
+import com.example.proyecto_final_base_japyld.BeansGenerales.JuegosCompradosReservados;
 import com.example.proyecto_final_base_japyld.BeansGenerales.Personas;
 import com.example.proyecto_final_base_japyld.SistemaJapyld.ModelsJ.DaosJ.CorreoDao;
 import com.example.proyecto_final_base_japyld.SistemaJapyld.ModelsJ.DaosJ.PersonaDao;
@@ -64,6 +66,8 @@ public class LoginServlet extends HttpServlet {
 
         DescuentoDao descuentoDao = new DescuentoDao();
 
+        JuegosReservadosDaos juegosReservadosDaos = new JuegosReservadosDaos();
+
         String username = request.getParameter("inputEmail");
         String password = request.getParameter("inputPassword");
         Personas persona= personadao.validarUsuarioPassword(username,password);
@@ -79,10 +83,12 @@ public class LoginServlet extends HttpServlet {
                 if (rol.equals("USR")){
                     response.sendRedirect(request.getContextPath()+"/PaginaPrincipal");
                     descuentoDao.actualizarEstadoJuego();
+
                 }
                 if (rol.equals("ADM")){
                     response.sendRedirect(request.getContextPath()+"/AdminServlet");
                     descuentoDao.actualizarEstadoJuego();
+                    juegosReservadosDaos.notifiacion(persona.getIdPersona());
                 }
                 if (rol.equals("MNG")){
                     response.sendRedirect(request.getContextPath()+"/ManagerServlet");
