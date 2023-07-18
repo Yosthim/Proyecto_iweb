@@ -383,14 +383,22 @@
 
                                         <BR>
 
-
-                                        <div class="row justify-content-center">
-                                            <a href="<%=request.getContextPath()%>/DescuentoServlet?action=descuento&id=<%=juego.getIdJuegos()%>" class="btn btn-success mr-5">Descuento</a>
-                                            <div class="col-auto">
-                                                <a onclick="return confirm('Estas seguro de borrar')" class="btn btn-danger"
-                                                   href="<%=request.getContextPath()%>/AdminServlet?action=borrar&id=<%=juego.getIdJuegos()%>">Borrar</a>
-                                            </div>
+                                        <div class="container text-center">
+                                            <a href="<%=request.getContextPath()%>/DescuentoServlet?action=descuento&id=<%=juego.getIdJuegos()%>" class="btn btn-primary mr-5">Agregar una nueva imagen</a>
                                         </div>
+
+                                        <BR>
+
+                                        <div class="container text-center">
+                                            <a href="<%=request.getContextPath()%>/DescuentoServlet?action=descuento&id=<%=juego.getIdJuegos()%>" class="btn btn-success mr-5">Descuento</a>
+                                        </div>
+
+                                        <BR>
+
+
+                                        <div class="container text-center">
+                                            <a onclick="return confirm('Estas seguro de borrar')" class="btn btn-danger  mr-5" href="<%=request.getContextPath()%>/AdminServlet?action=borrar&id=<%=juego.getIdJuegos()%>" >Borrar</a>
+                                         </div>
 
                                     </div>
                                 </div>

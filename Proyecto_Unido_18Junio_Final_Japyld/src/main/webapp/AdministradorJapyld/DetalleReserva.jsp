@@ -316,7 +316,7 @@
               </div>
               <div class="card-body">
                 <div id="address-container">
-                  <input type="text" id="address" name="Direccion" value="<%=juegosCompradosReservados.getDireccion_compra()%>" class="form-control">
+                  <input type="hidden" id="address" name="Direccion" value="<%=juegosCompradosReservados.getDireccion_compra()%>" class="form-control">
                 </div>
                 <hr>
                 <div id="map" style="height: 400px;"></div>
