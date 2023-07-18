@@ -55,7 +55,28 @@
             color: #333; /* Color del nombre de usuario */
             font-size: 14px; /* Tamaño del texto del nombre de usuario */
         }
+
+        /* Estilo para ocultar el mensaje de éxito por defecto */
+        #CompraExitosa {
+            display: none;
+        }
+
+        /* Estilo para mostrar el mensaje de éxito con una animación */
+        .show-notification {
+            animation: fadeOut 5s;
+        }
+
+        /* Animación de desvanecimiento */
+        @keyframes fadeOut {
+            0% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+            }
+        }
     </style>
+
 </head>
 
 <body id="page-top">
@@ -122,7 +143,12 @@
                 </ul>
             </nav>
             <!-- End of Topbar -->
-
+            <% if (session.getAttribute("exitoPerfil") != null) { %>
+            <div id="CompraExitosa" class="alert alert-success show-notification" role="alert">
+                <%= session.getAttribute("exitoPerfil") %>
+            </div>
+            <% session.removeAttribute("exitoPerfil"); %>
+            <% } %>
             <!-- Begin Page Content -->
 
             <div class="container-fluid">
@@ -254,7 +280,22 @@
         </div>
     </div>
 </div>
+<script>
+    // Función para mostrar el mensaje de éxito y ocultarlo después de 10 segundos
+    function showNotification() {
+        const notification = document.getElementById("CompraExitosa");
+        notification.style.display = "block";
 
+        setTimeout(function () {
+            notification.style.display = "none";
+        }, 5000);
+    }
+
+    // Llama a la función cuando se cargue la página
+    window.onload = function () {
+        showNotification();
+    };
+</script>
 <!-- Bootstrap core JavaScript-->
 <script src="recursos/vendor/jquery/jquery.min.js"></script>
 <script src="recursos/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
