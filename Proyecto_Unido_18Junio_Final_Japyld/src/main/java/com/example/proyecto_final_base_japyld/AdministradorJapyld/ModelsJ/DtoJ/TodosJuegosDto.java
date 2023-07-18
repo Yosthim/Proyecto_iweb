@@ -7,6 +7,12 @@ public class TodosJuegosDto {
     private String nombreJuegos;
 
     private int precio;
+    private Imagen imagen;
+
+    private int stock;
+
+    private String estado_juego;
+    private int precio_nuevo;
 
     public int getPrecio_nuevo() {
         return precio_nuevo;
@@ -16,7 +22,6 @@ public class TodosJuegosDto {
         this.precio_nuevo = precio_nuevo;
     }
 
-    private int precio_nuevo;
 
     public Imagen getImagen() {
         return imagen;
@@ -25,12 +30,6 @@ public class TodosJuegosDto {
     public void setImagen(Imagen imagen) {
         this.imagen = imagen;
     }
-
-    private Imagen imagen;
-
-    private int stock;
-
-    private String estado_juego;
 
     public int getIdJuegos() {
         return idJuegos;

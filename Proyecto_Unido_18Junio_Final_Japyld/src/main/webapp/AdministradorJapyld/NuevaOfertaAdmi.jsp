@@ -238,14 +238,6 @@
                 <img src="<%=request.getContextPath()%>/Image?act=venta&id=<%=ventaJuegosGeneral.getIdVenta()%>" class="img-fluid img_juego" alt="Imagen">
 
                 <div class="mt-3">
-                  <h5 class="mb-0">Rating:</h5>
-                  <div class="rating">
-                    <span class="star">&#9733;</span>
-                    <span class="star">&#9733;</span>
-                    <span class="star">&#9733;</span>
-                    <span class="star">&#9733;</span>
-                    <span class="star">&#9733;</span>
-                  </div>
                   <h5>Género: <%=ventaJuegosGeneral.getJuego().getCategoria().getNombre()%></h5>
                 </div>
               </div>

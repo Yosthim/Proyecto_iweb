@@ -61,9 +61,14 @@
 
     <script>
         $(document).ready(function(){
-            $("#mensaje").delay(2000).hide(2000);
+            $("mensaje").delay(2000).hide(2000);
         });
     </script>
+    <script>
+    $(document).ready(function(){
+        $("mensajeError").delay(2000).hide(2000);
+    });
+</script>
 
 </head>
 
@@ -286,7 +291,7 @@
                                             <div class="mt-3">
                                                 <p class="mt-2">Stock: <%= j.getStock() %></p>
                                                 <p class="mt-2">Estado de juego: <%= j.getEstado_juego() %></p>
-                                                <% if (j.getPrecio_nuevo() != 0) { %>
+                                                <% if (j.getPrecio_nuevo() != 0 && j.getEstado_juego().equals("Oferta")) { %>
                                                 <p class="mt-2">Precio: S/. <%= j.getPrecio_nuevo() %></p>
                                                 <% } else { %>
                                                 <p class="mt-2">Precio: S/. <%= j.getPrecio() %></p>

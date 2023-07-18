@@ -2,6 +2,7 @@ package com.example.proyecto_final_base_japyld.AdministradorJapyld.ControllersJ;
 
 import com.example.proyecto_final_base_japyld.AdministradorJapyld.ModelsJ.DaosJ.OfertasDao;
 import com.example.proyecto_final_base_japyld.BeansGenerales.*;
+import com.example.proyecto_final_base_japyld.SistemaJapyld.ModelsJ.DaosJ.CorreoDao;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
@@ -20,6 +21,7 @@ public class JuegosNuevosServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         OfertasDao ofertasDao = new OfertasDao();
+        CorreoDao correoDao = new CorreoDao();
         RequestDispatcher view;
         String action = request.getParameter("action") == null ? "lista" :request.getParameter("action");
 
@@ -76,6 +78,7 @@ public class JuegosNuevosServlet extends HttpServlet {
                     if(ventaJuegosGeneral != null){
                         ofertasDao.borrar(ventaJuegosGeneral);
                         ofertasDao.aceptarVenta(ventaJuegosGeneral);
+                        correoDao.correo(ventaJuegosGeneral.getUsuario().getCorreo(),"Estado de Oferta","Le informamos que su oferta del juego "+ ventaJuegosGeneral.getNombreNuevo()+" ha sido aceptada.");
                         request.getSession().setAttribute("info","Compra realizada exitosamente");
                         response.sendRedirect(request.getContextPath() + "/AdminServlet?action=listaPaginaOfertas");
 
@@ -156,6 +159,7 @@ public class JuegosNuevosServlet extends HttpServlet {
 
         String action = request.getParameter("action") == null ? "lista" :request.getParameter("action");
         OfertasDao ofertasDao = new OfertasDao();
+        CorreoDao correoDao = new CorreoDao();
 
         switch (action){
             case "actualizar":
@@ -165,6 +169,8 @@ public class JuegosNuevosServlet extends HttpServlet {
                     VentaJuegosGeneral ventaJuegosGeneral = setVenta(request);
                     ventaJuegosGeneral.setIdVenta(Integer.parseInt(request.getParameter("id_venta").trim()));
                     ofertasDao.editarVenta(ventaJuegosGeneral);
+                    VentaJuegosGeneral ventaJuegosGeneral1 = ofertasDao.obtenerVenta(Integer.parseInt(request.getParameter("id_venta")));
+                    correoDao.correo(ventaJuegosGeneral1.getUsuario().getCorreo(),"Estado de Oferta","Lamentablemente su oferta del juego "+ ventaJuegosGeneral1.getNombreNuevo()+" ha sido rechazada.Verifique la razón propuesta por el admistrador en su pagina de ofertas");
                     request.getSession().setAttribute("info","Mensaje de rechazo enviado exitosamente");
                     response.sendRedirect("AdminServlet?action=listaPaginaOfertas");
                 }else {
@@ -182,6 +188,8 @@ public class JuegosNuevosServlet extends HttpServlet {
                         VentaJuegosGeneral ventaJuegosGeneralC = setVentaC(request);
                         ventaJuegosGeneralC.setIdVenta(Integer.parseInt(request.getParameter("id_venta")));
                         ofertasDao.editarVentaC(ventaJuegosGeneralC);
+                        VentaJuegosGeneral ventaJuegosGeneral1 = ofertasDao.obtenerVenta(Integer.parseInt(request.getParameter("id_venta")));
+                        correoDao.correo(ventaJuegosGeneral1.getUsuario().getCorreo(),"Estado de Oferta","Lamentablemente su oferta del juego "+ ventaJuegosGeneral1.getNombreNuevo()+" ha sido rechazada, pero recibio una oferta de compra. Verifiquelo en su pagina de ofertas");
                         request.getSession().setAttribute("info","Contraoferta enviada exitosamente");
                         response.sendRedirect("AdminServlet?action=listaPaginaOfertas");
                     }else{

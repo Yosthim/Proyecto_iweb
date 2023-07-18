@@ -5,6 +5,7 @@ import com.example.proyecto_final_base_japyld.AdministradorJapyld.ModelsJ.DaosJ.
 import com.example.proyecto_final_base_japyld.BeansGenerales.Juegos;
 import com.example.proyecto_final_base_japyld.BeansGenerales.JuegosCompradosReservados;
 import com.example.proyecto_final_base_japyld.BeansGenerales.VentaJuegosGeneral;
+import com.example.proyecto_final_base_japyld.SistemaJapyld.ModelsJ.DaosJ.CorreoDao;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
@@ -17,6 +18,7 @@ public class DetalleReservaServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         JuegosReservadosDaos juegosReservadosDaos  = new JuegosReservadosDaos();
+        CorreoDao correoDao = new CorreoDao();
         RequestDispatcher view;
         String action = request.getParameter("action") == null ? "lista" :request.getParameter("action");
 
@@ -66,6 +68,7 @@ public class DetalleReservaServlet extends HttpServlet {
 
                     if(juegosCompradosReservados != null){
                         juegosReservadosDaos.cambiarEstado(juegosCompradosReservados);
+                        correoDao.correo(juegosCompradosReservados.getUsuario().getCorreo(),"Juego Recibido","Su compra del juego " + juegosCompradosReservados.getJuego().getNombreJuegos() + " ha culminado exitosamente, esperamos que esta experiencia halla sido grata para usted. Disfrute de su compra.");
                         request.getSession().setAttribute("info","Actualizacion de informacion realizada correctamente");
                         response.sendRedirect(request.getContextPath() + "/JuegosReservadosServlet");
 

@@ -240,14 +240,6 @@
                     <img src="<%=request.getContextPath()%>/Image?act=juego&id=<%=juego.getImagen().getIdImagenes()%>" alt="Imagen" class="img-fluid">
 
                     <div class="mt-3">
-                      <h5 class="mb-0">Rating:</h5>
-                      <div class="rating">
-                        <span class="star">&#9733;</span>
-                        <span class="star">&#9733;</span>
-                        <span class="star">&#9733;</span>
-                        <span class="star">&#9733;</span>
-                        <span class="star">&#9733;</span>
-                      </div>
                       <h5>Género: <%=juego.getCategoria().getNombre()%></h5>
                     </div>
                   </div>
@@ -263,7 +255,6 @@
 
                     <p class="text-justify"><%=juego.getDescripcion()%></p>
                     <div class="d-flex align-items-center mb-3">
-                      <h6 class="mr-3">Consola: </h6>
                     </div>
                     <hr>
                     <div class="d-flex justify-content-between align-items-center mb-3">

@@ -316,7 +316,7 @@
 
 
                                         <div class="container">
-                                            <button class="btn btn-primary container" type="button" onclick="enviarFormulario2()">Agregar una nueva categoria</button>
+                                            <button class="btn btn-primary container" type="button" onclick="enviarFormulario2()">Cambiar de categoria</button>
                                             <BR>
                                             <form id="categoria" style="display: none;" action="<%=request.getContextPath()%>/AdminServlet?action=agrergarCategoria" method="post">
                                                 <input type="hidden" name="id_venta" value="<%=juego.getIdJuegos()%>"/>

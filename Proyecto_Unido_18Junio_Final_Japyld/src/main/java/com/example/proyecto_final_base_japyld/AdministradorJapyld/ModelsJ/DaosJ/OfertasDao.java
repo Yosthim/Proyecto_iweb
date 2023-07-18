@@ -92,6 +92,7 @@ public class OfertasDao extends BaseDao {
 
                     usaurio = new Personas();
                     usaurio.setIdPersona(rs.getInt(8));
+                    usaurio.setCorreo(rs.getString(33));
 
                     ventaJuegosGeneral.setUsuario(usaurio);
 
@@ -230,6 +231,7 @@ public class OfertasDao extends BaseDao {
 
                     usaurio = new Personas();
                     usaurio.setIdPersona(rs.getInt(8));
+                    usaurio.setCorreo(rs.getString(19));
 
                     ventaJuegosGeneral.setUsuario(usaurio);
 

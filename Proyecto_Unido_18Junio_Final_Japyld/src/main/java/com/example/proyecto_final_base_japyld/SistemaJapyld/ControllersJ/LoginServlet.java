@@ -63,7 +63,6 @@ public class LoginServlet extends HttpServlet {
         PersonaDao personadao = new PersonaDao();
 
         DescuentoDao descuentoDao = new DescuentoDao();
-        CorreoDao correoDao = new CorreoDao();
 
         String username = request.getParameter("inputEmail");
         String password = request.getParameter("inputPassword");
