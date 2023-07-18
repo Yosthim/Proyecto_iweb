@@ -57,26 +57,26 @@
 
       <!-- Begin Page Content -->
 
+      <% if (session.getAttribute("info") != null) { %>
+      <div class="alert alert-success d-flex align-items-center justify-content-center" role="alert">
+        <%= session.getAttribute("info") %>
+      </div>
+      <% session.setAttribute("info", null); %>
+      <% } %>
+
+      <% if (session.getAttribute("ale") != null) { %>
+      <div class="alert alert-success d-flex align-items-center justify-content-center" role="alert">
+        <%= session.getAttribute("ale") %>
+      </div>
+      <% session.setAttribute("ale", null); %>
+      <% } %>
+
       <div class="container-fluid">
 
         <!-- Account page navigation-->
         <br>
 
         <div class="col-xl-12">
-
-          <% if (session.getAttribute("info") != null) { %>
-          <div class="alert alert-success d-flex align-items-center justify-content-center" role="alert">
-            <%= session.getAttribute("info") %>
-          </div>
-          <% session.setAttribute("info", null); %>
-          <% } %>
-
-          <% if (session.getAttribute("ale") != null) { %>
-          <div class="alert alert-success d-flex align-items-center justify-content-center" role="alert">
-            <%= session.getAttribute("ale") %>
-          </div>
-          <% session.setAttribute("ale", null); %>
-          <% } %>
 
           <br>
 
@@ -108,7 +108,7 @@
                     <% for (ModuloAdmin um : listarAdminActivos) {
                       boolean esPerdida = adminPerdidas.contains(um.getId());
                     %>
-                    <tr <%= um.getId() == (Integer)request.getAttribute("idMax") ? "style='background-color: rgba(255, 215, 0, 0.5);'" : (esPerdida ? "style='background-color: rgba(255, 25, 25, 0.7);'" : "") %>>
+                    <tr <%= um.getId() == (Integer)request.getAttribute("idMax") ? "style='background-color: rgba(255, 215, 0, 0.5);'" : (esPerdida ? "style='background-color: rgba(255, 107, 83, 0.7);'" : "") %>>
                       <td>
                         <div class="d-flex align-items-center">
 
