@@ -85,7 +85,7 @@ public class CompraServlet extends HttpServlet {
             juegoxconsola = crearJuegoCompradoReservadoDao.obtenerJuegoXConsola(idConsolaActualizar,idJuegosActualizado);
             //Aqui le paso esa linea y actualizo, falta pasarle juegosconsola
             crearJuegoCompradoReservadoDao.actualizarStockJuegosConsola(juegoxconsola,idConsolaActualizar,idJuegosActualizado);
-
+            request.getSession().setAttribute("exitoCompra","La reserva de tu juego fue exitosa. Gracias por Comprar!");
             response.sendRedirect(request.getContextPath() + "/TusJuegos");
         }else{
             if(validacion1 != 1){

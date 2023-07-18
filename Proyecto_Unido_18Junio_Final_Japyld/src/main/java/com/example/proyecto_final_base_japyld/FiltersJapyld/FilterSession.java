@@ -10,11 +10,12 @@ import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebFilter(filterName = "FiltroSesion",
-        servletNames = {"PaginaPrincipalJuegosServlet","CompraServlet","JuegosComResServlet","JuegosXCategoriaServlet","MasDetallesServlet",
-                "OfertaServlet","PerfilUsuarioServlet","VentaJuegosServlet","AdminServlet","DescuentoServlet",
-                "JuegosNuevosServlet","JuegosReservadosServlet","OfertasServlet","PerfilAdmiServlet","DetalleAdminServlet",
-                "DetalleUsuarioServlet","EditarJuegosServlet","ManServlet","MasDetallesJuegosServlet","ModuloAdminServlet","ModuloUsuarioServlet",
-                "PerfilManagerServlet","PorCategoriaJuegoServlet","PorConsolaJuegoServlet","Top5MasVendidosServlet","Top5MenosVendidosServlet"})
+        servletNames = {"CompraServlet","EditarFotoPerfilServlet","JuegosComResServlet","JuegosXCategoriaServlet","MasDetallesServlet","OfertaServlet",
+                        "PaginaPrincipalJuegosServlet","PerfilUsuarioServlet","VentaJuegosServlet","AdminServlet","AdminTodosJuegosServlet","AgregarJuegoServlet",
+                        "DescuentoServlet","DetalleReservaServlet","editarImagenServlet","EditarPerfilServlet","JuegosNuevosServlet","JuegosReservadosServlet",
+                        "OfertasServlet","PerfilAdmiServlet","CorreoAdminServlet","DetalleAdminServlet","DetalleUsuarioServlet","EditarJuegosServlet","ManServlet",
+                        "MasDetallesJuegosServlet","ModuloAdminServlet","ModuloUsuarioServlet","PerfilManagerServlet","PorCategoriaJuegoServlet","PorConsolaJuegoServlet",
+                            "Top5MasVendidosServlet","Top5MenosVendidosServlet"})
 public class FilterSession implements Filter {
     @Override
     public void doFilter(ServletRequest req,ServletResponse resp,FilterChain chain)

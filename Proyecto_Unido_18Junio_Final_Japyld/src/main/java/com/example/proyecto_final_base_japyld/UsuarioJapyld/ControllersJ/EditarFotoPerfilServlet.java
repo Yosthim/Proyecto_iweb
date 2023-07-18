@@ -36,7 +36,7 @@ public class EditarFotoPerfilServlet extends HttpServlet {
         int idUsuarioPerfil = Integer.parseInt(idUsuario);
 
         actualizarFotoDao.actualizarFotoPerfil(idFotoPerfil,idUsuarioPerfil);
-
+        request.getSession().setAttribute("exitoPerfil","Tu foto de perfil se ha actualizado.");
         response.sendRedirect(request.getContextPath() + "/PerfilUsuarioServlet");
 
     }
