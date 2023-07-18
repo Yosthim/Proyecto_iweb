@@ -177,6 +177,8 @@ public class CompraServlet extends HttpServlet {
                 }else{
                     juegosCompradosReservados.setPrecio_compra(PrecioNuevo1);
                 }
+
+                juegosCompradosReservados.setDireccion_compra(Direccion);
                 return juegosCompradosReservados;
             }catch (ParseException p){
 
