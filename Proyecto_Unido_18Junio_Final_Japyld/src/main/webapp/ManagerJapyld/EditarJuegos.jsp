@@ -41,6 +41,14 @@
                 width: 275px;
                 height: 280px;
             }
+
+            .alert-container {
+                display: flex;
+                justify-content: center; /* Centra horizontalmente */
+                align-items: center; /* Centra verticalmente */
+                max-width: 600px; /* Ajusta el ancho máximo de la alerta */
+                margin: 8px auto; /* Márgenes superior e inferior para separar de otros elementos */
+            }
         </style>
 
     </head>
@@ -68,6 +76,14 @@
 
                     <!-- Begin Page Content -->
 
+                    <% if (session.getAttribute("info") != null) { %>
+                    <div class="alert-container">
+                        <div class="alert alert-success d-flex align-items-center align-content-center" role="alert">
+                            <%= session.getAttribute("info") %>
+                        </div>
+                    </div>
+                    <% session.setAttribute("info", null); %>
+                    <% } %>
 
                     <div class="container-fluid">
                         <br>
