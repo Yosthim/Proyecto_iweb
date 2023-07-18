@@ -3,6 +3,7 @@ package com.example.proyecto_final_base_japyld.UsuarioJapyld.ModelsJ.DaosJ;
 import com.example.proyecto_final_base_japyld.BaseDao;
 import com.example.proyecto_final_base_japyld.BeansGenerales.*;
 
+import java.math.BigDecimal;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -195,5 +196,54 @@ public class VentaJuegosDao extends BaseDao {
         int index = (int) adminAleatorio;
 
         return idAdmins.get(index);
+    }
+
+    public void changeOfferPrice(int idVenta, BigDecimal precioNuevo) {
+
+        String sql = "UPDATE ventajuegosgeneral SET precio_usuario = ?, estadoVenta = 'Pendiente' WHERE idVenta = ?";
+
+        try(Connection connection = this.getConnection();
+            PreparedStatement psmt = connection.prepareStatement(sql)){
+
+            psmt.setBigDecimal(1, precioNuevo);
+            psmt.setInt(2, idVenta);
+
+            psmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void retireOffer(int idVenta) {
+
+        String sql = "UPDATE ventajuegosgeneral SET estadoVenta = 'Retirado' WHERE idVenta = ?";
+
+        try(Connection connection = this.getConnection();
+            PreparedStatement psmt = connection.prepareStatement(sql)){
+
+            psmt.setInt(1, idVenta);
+
+            psmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void deleteOffer(int idVenta) {
+
+        String sql = "UPDATE ventajuegosgeneral SET visibilidad = 'Deshabilitado' WHERE idventa = ?";
+
+        try(Connection connection = this.getConnection();
+            PreparedStatement psmt = connection.prepareStatement(sql)){
+
+            psmt.setInt(1, idVenta);
+
+            psmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

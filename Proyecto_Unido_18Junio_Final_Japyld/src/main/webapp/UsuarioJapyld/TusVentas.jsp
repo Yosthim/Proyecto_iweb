@@ -107,7 +107,7 @@
                                                     break;
                                             }
                                         %>
-
+                                        <%if (oferta.getVisibilidad().equals("Habilitado")) {%>
                                         <tr>
                                             <td>
                                                 <div class="row align-items-center">
@@ -149,23 +149,30 @@
                                                 <%
                                                 switch (oferta.getEstadoVenta()) {
                                                     case "Retirado":%>
-                                                        <button type="button" class="btn btn-outline-dark" data-toggle="modal" data-target="#confirmarEliminacion"
-                                                                data-whatever="<%=oferta.getIdVenta()%>">
-                                                            Eliminar de la lista
-                                                        </button>
+                                                        <form method="POST" action="<%=request.getContextPath()%>/TusVentas?act=delete&id=<%=oferta.getIdVenta()%>">
+                                                            <button type="submit" class="btn btn-outline-dark" id="retirado"
+                                                                    onclick="return confirm('¿Está seguro que quiere eliminar la oferta de la lista?')">
+                                                                Eliminar de la lista
+                                                            </button>
+                                                        </form>
                                                         <%break;
                                                     case "Aceptado":%>
-                                                        <button type="button" class="btn btn-outline-dark" data-toggle="modal" data-target="#confirmarEliminacion"
-                                                                data-whatever="<%=oferta.getIdVenta()%>">
-                                                            Eliminar de la lista
-                                                        </button>
+                                                        <form method="POST" action="<%=request.getContextPath()%>/TusVentas?act=delete&id=<%=oferta.getIdVenta()%>">
+                                                            <button type="submit" class="btn btn-outline-dark" id="aceptado"
+                                                                    onclick="return confirm('¿Está seguro que quiere eliminar la oferta de la lista?')">
+                                                                Eliminar de la lista
+                                                            </button>
+                                                        </form>
                                                         <%break;
                                                     case "Pendiente":%>
                                                         <div class="row justify-content-center">
-                                                            <button type="button" class="btn btn-outline-dark" data-toggle="modal" data-target="#retirarOferta"
-                                                                    data-whatever="<%=oferta.getIdVenta()%>">
-                                                                Retirar oferta
-                                                            </button>
+                                                            <form method="POST" action="<%=request.getContextPath()%>/TusVentas?act=retire&id=<%=oferta.getIdVenta()%>">
+                                                                <button type="submit" class="btn btn-outline-dark"
+                                                                        onclick="return confirm('Un administrador podria revisar su oferta pronto\n' +
+                                                                         '¿Está seguro que quiere retirar su oferta?')">
+                                                                    Retirar oferta
+                                                                </button>
+                                                            </form>
                                                         </div>
                                                         <%break;
                                                     case "Rechazado":%>
@@ -183,30 +190,36 @@
                                                             </div>
                                                         </div>
                                                         <div class="row justify-content-center">
-                                                            <button type="button" class="btn btn-outline-dark" data-toggle="modal" data-target="#confirmarEliminacion"
-                                                                    data-whatever="<%=oferta.getIdVenta()%>">
-                                                                Eliminar de la lista
-                                                            </button>
+                                                            <form method="POST" action="<%=request.getContextPath()%>/TusVentas?act=delete&id=<%=oferta.getIdVenta()%>">
+                                                                <button type="submit" class="btn btn-outline-dark" id="rechazado"
+                                                                        onclick="return confirm('¿Está seguro que quiere eliminar la oferta de la lista?')">
+                                                                    Eliminar de la lista
+                                                                </button>
+                                                            </form>
                                                         </div>
                                                         <%break;
                                                     case "No Aceptado":%>
                                                         <div class="row justify-content-center mb-3">
-                                                            <button type="button" class="btn btn-outline-dark" data-toggle="modal" data-target="#NoAcceptModal"
-                                                                    data-whatever1="<%=oferta.getIdVenta()%>" data-whatever2="<%=oferta.getPrecioAdmi()%>">
+                                                            <a href="<%=request.getContextPath()%>/TusVentas?act=change&id=<%=oferta.getIdVenta()%>&p=<%=oferta.getPrecioAdmi()%>"
+                                                               class="btn btn-outline-dark">
                                                                 Cambiar oferta
-                                                            </button>
+                                                            </a>
                                                         </div>
                                                         <div class="row justify-content-center">
-                                                            <button type="button" class="btn btn-outline-dark" data-toggle="modal" data-target="#retirarOferta"
-                                                                    data-whatever="<%=oferta.getIdVenta()%>">
-                                                                Retirar oferta
-                                                            </button>
+                                                            <form method="POST" action="<%=request.getContextPath()%>/TusVentas?act=retire&id=<%=oferta.getIdVenta()%>">
+                                                                <button type="submit" class="btn btn-outline-dark"
+                                                                        onclick="return confirm('Un administrador podria revisar su oferta pronto\n' +
+                                                                         '¿Está seguro que quiere retirar su oferta?')">
+                                                                    Retirar oferta
+                                                                </button>
+                                                            </form>
                                                         </div>
                                                         <%break;
                                                 }
                                                 %>
                                             </td>
                                         </tr>
+                                        <%}%>
                                     <% } %>
                                     </tbody>
                                 </table>
