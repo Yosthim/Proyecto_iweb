@@ -130,6 +130,15 @@
                 <!-- Page Heading -->
                 <h1 class="h3 mb-2 text-gray-800">Nueva oferta</h1>
 
+                <!-- Mensajes de error -->
+                <%if (session.getAttribute("failRegister") != null) {%>
+                    <div class="alert alert-danger">
+                        <%=session.getAttribute("failRegister")%>
+                    </div>
+                    <%
+                    session.setAttribute("failRegister", null);
+                    %>
+                <%} %>
                 <!-- Content Row -->
                 <div class="row justify-content-center">
 

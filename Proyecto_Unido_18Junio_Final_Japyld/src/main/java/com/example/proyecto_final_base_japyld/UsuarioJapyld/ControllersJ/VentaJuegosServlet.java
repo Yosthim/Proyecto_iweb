@@ -1,8 +1,11 @@
 package com.example.proyecto_final_base_japyld.UsuarioJapyld.ControllersJ;
 
 import com.example.proyecto_final_base_japyld.BeansGenerales.*;
+import com.example.proyecto_final_base_japyld.SistemaJapyld.Exceptions.RegisterException;
+import com.example.proyecto_final_base_japyld.SistemaJapyld.ModelsJ.DaosJ.CorreoDao;
 import com.example.proyecto_final_base_japyld.UsuarioJapyld.ModelsJ.DaosJ.PerfilDao;
 import com.example.proyecto_final_base_japyld.UsuarioJapyld.ModelsJ.DaosJ.VentaJuegosDao;
+import com.example.proyecto_final_base_japyld.UsuarioJapyld.ModelsJ.DtoJ.InfoVentaDto;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
@@ -70,7 +73,8 @@ public class VentaJuegosServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
 
-        VentaJuegosDao ventaJuegosDao = new VentaJuegosDao();
+        VentaJuegosDao ventaJuegosDao = new VentaJuegosDao(); //Para las partes relacionadas a la tabla de ventas
+        CorreoDao correoDao = new CorreoDao(); //Para enviar los correos correspondientes
         String action = request.getParameter("act");
 
         VentaJuegosGeneral ofertaJuego;
@@ -79,28 +83,62 @@ public class VentaJuegosServlet extends HttpServlet {
         try {
             switch (action) {
                 case "new":
-                    ofertaJuego = setOferta(request, action);
-                    Part imageGamePart = request.getPart("imagenJuego");
-                    InputStream imageGameContent = imageGamePart.getInputStream();
-                    ofertaJuego.setImagenNueva(imageGameContent);
-                    ventaJuegosDao.registrarOferta(ofertaJuego, "nuevo");
+                    try {
+                        ofertaJuego = setOferta(request, action);
+                        Part imageGamePart = request.getPart("imagenJuego");
+                        InputStream imageGameContent = imageGamePart.getInputStream();
+                        if (imageGameContent.available() > 0) {//Se verfica que se halla subido una imagen
+                            ofertaJuego.setImagenNueva(imageGameContent);
+                            if (ventaJuegosDao.registrarOferta(ofertaJuego, "nuevo")) {
+                                correoDao.sendNewOfferEmail(ofertaJuego.getUsuario(), ofertaJuego.getAdministrador().getIdPersona());
+                                request.getSession().setAttribute("exito", "Oferta publicada con éxito");
+                            }else {
+                                throw new Exception();
+                            }
+                        } else {
+                            request.getSession().setAttribute("failRegister", "Imagen obligatoria. El tamaño no debe superar los 2 Mb");
+                            response.sendRedirect(request.getContextPath() + "/TusVentas?act=new");
+                        }
+                    } catch (RegisterException e) {
+                        request.getSession().setAttribute("failRegister", e.mensajeError(1));
+                        response.sendRedirect(request.getContextPath() + "/TusVentas?act=new");
+                    }
                     break;
                 case "exist":
-                    ofertaJuego = setOferta(request, action);
-                    ventaJuegosDao.registrarOferta(ofertaJuego, "existente");
+                    try {
+                        ofertaJuego = setOferta(request, action);
+                        if (ventaJuegosDao.registrarOferta(ofertaJuego, "existente")) {
+                            correoDao.sendNewOfferEmail(ofertaJuego.getUsuario(), ofertaJuego.getAdministrador().getIdPersona());
+                            request.getSession().setAttribute("exito", "Oferta publicada con éxito");
+                        } else {
+                            throw new Exception();
+                        }
+                    } catch (RegisterException e) {
+                        request.getSession().setAttribute("failRegister", e.mensajeError(2));
+                        response.sendRedirect(request.getContextPath() + "/TusVentas?act=exist");
+                    }
                     break;
                 case "change":
                     idVenta = Integer.parseInt(request.getParameter("id"));
                     BigDecimal precioNuevo = new BigDecimal(request.getParameter("precioNuevo"));
-                    ventaJuegosDao.changeOfferPrice(idVenta, precioNuevo);
+                    if (ventaJuegosDao.changeOfferPrice(idVenta, precioNuevo)) {
+                        InfoVentaDto info = ventaJuegosDao.getOfferInfo(idVenta);
+                        correoDao.sendChangeOfferEmail(info);
+                        request.getSession().setAttribute("exito", "El precio de la oferta se modificó con éxito");
+                    }
                     break;
                 case "retire":
                     idVenta = Integer.parseInt(request.getParameter("id"));
-                    ventaJuegosDao.retireOffer(idVenta);
+                    if (ventaJuegosDao.retireOffer(idVenta)) {
+                        request.getSession().setAttribute("exito", "Oferta retirada exitosamente");
+                    }
                     break;
                 case "delete":
                     idVenta = Integer.parseInt(request.getParameter("id"));
-                    ventaJuegosDao.deleteOffer(idVenta);
+                    boolean resultado = ventaJuegosDao.deleteOffer(idVenta);
+                    if (resultado) {
+                        request.getSession().setAttribute("exito", "Oferta eliminada de la lista exitosamente");
+                    }
                     break;
             }
         } catch (Exception e) {
@@ -109,38 +147,49 @@ public class VentaJuegosServlet extends HttpServlet {
         response.sendRedirect(request.getContextPath() + "/TusVentas");
     }
 
-    public VentaJuegosGeneral setOferta(HttpServletRequest request, String action) {
+    public VentaJuegosGeneral setOferta(HttpServletRequest request, String action) throws RegisterException {
         VentaJuegosGeneral ofertaJuego = new VentaJuegosGeneral();
         VentaJuegosDao ventaJuegosDao = new VentaJuegosDao();
-        Personas admin = new Personas();
-        Personas usuario = (Personas) request.getSession().getAttribute("personaSession");
-        admin.setIdPersona(ventaJuegosDao.getRandomIdAdmin());
-        ofertaJuego.setAdministrador(admin);
-        ofertaJuego.setUsuario(usuario);
+        try {
+            Personas admin = new Personas();
+            Personas usuario = (Personas) request.getSession().getAttribute("personaSession");
+            admin.setIdPersona(ventaJuegosDao.getRandomIdAdmin());
+            ofertaJuego.setAdministrador(admin);
+            ofertaJuego.setUsuario(usuario);
 
-        Consola consola = new Consola();
-        consola.setIdConsola(request.getParameter("idConsola"));
-        ofertaJuego.setConsola(consola);
+            Consola consola = new Consola();
+            consola.setIdConsola(request.getParameter("idConsola"));
+            ofertaJuego.setConsola(consola);
+            double precio = Double.parseDouble(request.getParameter("precio"));
+            if (precio > 0) {
+                ofertaJuego.setPrecioUsuario(BigDecimal.valueOf(precio));
+            } else {
+                throw new Exception();
+            }
+            ofertaJuego.setCantidad(Integer.parseInt(request.getParameter("stock")));
 
-        ofertaJuego.setPrecioUsuario(new BigDecimal(request.getParameter("precio")));
-        ofertaJuego.setCantidad(Integer.parseInt(request.getParameter("stock")));
+            switch (action) {
+                case "new":
+                    if (ventaJuegosDao.validateIfNameExist(request.getParameter("nombreJuego").trim())) {
+                        ofertaJuego.setNombreNuevo(request.getParameter("nombreJuego").trim());
+                    } else {
+                        throw new Exception();
+                    }
+                    ofertaJuego.setDescripcionNueva(request.getParameter("descripcion").trim());
 
-        switch (action) {
-            case "new":
-                ofertaJuego.setNombreNuevo(request.getParameter("nombreJuego").trim());
-                ofertaJuego.setDescripcionNueva(request.getParameter("descripcion").trim());
-
-                Categoria categoria = new Categoria();
-                categoria.setIdCategorias(request.getParameter("idCategoria"));
-                ofertaJuego.setCategoria(categoria);
-                break;
-            case "exist":
-                Juegos juego = new Juegos();
-                juego.setIdJuegos(Integer.parseInt(request.getParameter("idJuego")));
-                ofertaJuego.setJuego(juego);
-                break;
+                    Categoria categoria = new Categoria();
+                    categoria.setIdCategorias(request.getParameter("idCategoria"));
+                    ofertaJuego.setCategoria(categoria);
+                    break;
+                case "exist":
+                    Juegos juego = new Juegos();
+                    juego.setIdJuegos(Integer.parseInt(request.getParameter("idJuego")));
+                    ofertaJuego.setJuego(juego);
+                    break;
+            }
+        }catch (Exception e) {
+            throw new RegisterException();
         }
-
         return ofertaJuego;
     }
 }
