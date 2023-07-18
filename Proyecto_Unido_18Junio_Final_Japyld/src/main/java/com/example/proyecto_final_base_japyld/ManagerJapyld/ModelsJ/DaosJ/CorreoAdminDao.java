@@ -1,12 +1,14 @@
-package com.example.proyecto_final_base_japyld.SistemaJapyld.ModelsJ.DaosJ;
+package com.example.proyecto_final_base_japyld.ManagerJapyld.ModelsJ.DaosJ;
 
-import javax.mail.*;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Properties;
 
-public class CorreoDao {
-
+public class CorreoAdminDao {
     public void correo(String correoDestino , String asunto, String contenido){
         String correo = "japyld.6@gmail.com";
         String contra = "ulctzppylyslvagd";
@@ -27,7 +29,7 @@ public class CorreoDao {
             mensaje.setRecipient(Message.RecipientType.TO, new InternetAddress(correoDestino));
             mensaje.setSubject(asunto);
             mensaje.setText(contenido);
-            mensaje.setText(contenido + "\n\nGracias por su preferencia\n"
+            mensaje.setText(contenido + "\n" + "Gracias por su preferencia\n"
                     +"Atentamente,\n" +
                     "Japyld\n");
             Transport mTransport = s.getTransport("smtp");
@@ -40,5 +42,4 @@ public class CorreoDao {
         }
 
     }
-
 }

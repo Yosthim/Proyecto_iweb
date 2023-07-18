@@ -260,7 +260,7 @@
                                                                 <br>
                                                                 <h3 class="m-0 font-weight-bold text-info">Precio Compra</h3>
                                                                 <br>
-                                                                <h5><%=detalleAdmin.getPrecioCompra()%></h5>
+                                                                <h5>S/. <%=detalleAdmin.getPrecioCompra()%></h5>
                                                                 <br>
                                                             </ul>
                                                         </div>
@@ -302,7 +302,7 @@
                                                                 <br>
                                                                 <h3 class="m-0 font-weight-bold text-info">Precio Venta</h3>
                                                                 <br>
-                                                                <h5><%=detalleAdmin2.getPrecioVenta()%></h5>
+                                                                <h5>S/. <%=detalleAdmin2.getPrecioVenta()%></h5>
                                                             </ul>
                                                         </div>
                                                     </div>
@@ -327,7 +327,7 @@
                         <% for (ModuloAdmin b : (ArrayList<ModuloAdmin>) request.getAttribute("adminActivos")) { %>
                         <% if (b.getId() == a.getId()) { %>
                         <div style="background-color: #e1f0ff; width: 200px; height: 100px; margin: 0 auto;">
-                            <p style="text-align: center; line-height: 100px; font-size: 18px;">GANANCIA: <%= b.getDineroTotal() != null ? b.getDineroTotal() : 0 %></p>
+                            <p style="text-align: center; line-height: 100px; font-size: 18px;">GANANCIA: S/. <%= b.getDineroTotal() != null ? b.getDineroTotal() : 0 %></p>
                         </div>
                         <% } %>
                         <% } %>

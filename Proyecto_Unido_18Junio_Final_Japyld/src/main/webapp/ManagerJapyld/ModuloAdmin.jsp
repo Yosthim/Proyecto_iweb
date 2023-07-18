@@ -68,16 +68,15 @@
 
             <div class="card-header font-weight-bold text-primary">TABLA DE ADMINISTRADORES ACTIVOS</div>
             <div class="card-body text">
-              <!--
-              <div class="col-12 col-xl-auto mb-3">
 
+              <div class="col-12 col-xl-auto mb-3">
                 <div class="d-flex justify-content-lg-end">
-                  <a href="BuzonMensaje.html">
+                  <a href="<%=request.getContextPath()%>/CorreoAdminServlet">
                     <button class="btn btn-info" type="button">Enviar Mensaje</button>
                   </a>
                 </div>
               </div>
-              -->
+
               <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
@@ -106,7 +105,7 @@
                       </td>
                       <td class="text-center"><%=um.getJuegoPorEntregar() %></td>
                       <td class="text-center"><%=um.getJuegoComprados()%></td>
-                      <td class="text-center"><%=um.getDineroGastoTotal() != null ? um.getDineroGastoTotal() : "0" %></td>
+                      <td class="text-center"><%=um.getDineroGastoTotal() != null ? "S/. " + um.getDineroGastoTotal() : "S/. 0" %></td>
                     </tr>
                     <% } %>
                   </tbody>
@@ -158,7 +157,7 @@
                       </td>
                       <td class="text-center"><%=um.getJuegoPorEntregar() %></td>
                       <td class="text-center"><%=um.getJuegoComprados()%></td>
-                      <td class="text-center"><%=um.getDineroGastoTotal() != null ? um.getDineroGastoTotal() : "0" %></td>
+                      <td class="text-center"><%=um.getDineroGastoTotal() != null ? "S/. " + um.getDineroGastoTotal() : "S/. 0" %></td>
                     </tr>
                     <% } %>
                   </tbody>
