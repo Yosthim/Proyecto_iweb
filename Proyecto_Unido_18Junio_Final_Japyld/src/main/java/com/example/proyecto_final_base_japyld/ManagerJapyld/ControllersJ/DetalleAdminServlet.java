@@ -86,37 +86,38 @@ public class DetalleAdminServlet extends HttpServlet {
                 DetalleAdmin admin = perfilAdminDao.detallesAdmin(Integer.parseInt(id));
 
                 response.setContentType("text/csv");
-                response.setHeader("Content-Disposition", "attachment; filename=\"informacion_administrador.csv\"");
+                response.setHeader("Content-Disposition", "attachment; filename=\"Administrador.csv\"");
 
                 PrintWriter writer = response.getWriter();
 
 
                 writer.println("Información del Administrador");
-                writer.println("Id:," + admin.getId());
-                writer.println("Nombre:," + admin.getNombre());
-                writer.println("Apellido:," + admin.getApellido());
-                writer.println("Correo:," + admin.getCorreo());
-                writer.println("Nacimiento:," + admin.getFechaDeNacimiento());
-                writer.println("Dni:," + admin.getDni());
-                writer.println("Genero:," + admin.getGenero());
-                writer.println("Categoria Preferida:," + admin.getCategoriaJuegoPreferida());
-                writer.println("Registro:," + admin.getFechaRegistro());
-                writer.println("Estado:," + admin.getEstado());
+                writer.println("Id:;" + admin.getId());
+                writer.println("Nombre:;" + admin.getNombre());
+                writer.println("Apellido:;" + admin.getApellido());
+                writer.println("Correo:;" + admin.getCorreo());
+                writer.println("Nacimiento:;" + admin.getFechaDeNacimiento());
+                writer.println("Dni:;" + admin.getDni());
+                writer.println("Genero:;" + admin.getGenero());
+                writer.println("Categoria Preferida:;" + admin.getCategoriaJuegoPreferida());
+                writer.println("Registro:;" + admin.getFechaRegistro());
+                writer.println("Estado:;" + admin.getEstado());
                 writer.println();
 
 
                 writer.println("Juegos Propuestos Comprados");
-                writer.println("NombreJuego,PrecioCompra");
+                writer.println("NombreJuego;PrecioCompra");
                 for (DetalleAdmin juego1 : listaComprados) {
-                    writer.println(juego1.getNombreJuegos() + "," + juego1.getPrecioCompra());
+                    writer.println(juego1.getNombreJuegos() + ";" + juego1.getPrecioCompra());
                 }
                 writer.println();
 
                 writer.println("Juegos Propuestos Vendidos");
-                writer.println("NombreJuego,PrecioVenta");
+                writer.println("NombreJuego;PrecioVenta");
                 for (DetalleAdmin juego2 : listaVendidos) {
-                    writer.println(juego2.getNombreJuegos() + "," + juego2.getPrecioVenta());
+                    writer.println(juego2.getNombreJuegos() + ";" + juego2.getPrecioVenta());
                 }
+                writer.println();
 
                 writer.println("Ganancia Total");
                 writer.println("Ganancia");
