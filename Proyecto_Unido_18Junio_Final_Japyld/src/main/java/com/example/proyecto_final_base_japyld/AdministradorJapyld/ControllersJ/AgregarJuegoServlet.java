@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -52,7 +53,7 @@ public class AgregarJuegoServlet extends HttpServlet {
 
         if (validar_texto(request.getParameter("nombreJuego").trim()) == true){
 
-            if (validar(request.getParameter("nombre").trim(),adminDao.quintaTabla())){
+            if (validar(request.getParameter("nombreJuego").trim(),adminDao.quintaTabla())){
 
                 if (validar_texto(request.getParameter("descripcion").trim()) == true){
 
@@ -60,20 +61,37 @@ public class AgregarJuegoServlet extends HttpServlet {
 
                         if (validarPrecio(request.getParameter("stock").trim()) == true){
 
-                            Juegos juegos = setJuego(request);
+                            if (request.getParameter("idConsola").equals("Consolas")){
 
-                            JuegosXConsola juegosXConsola = setConsola(request);
+                                request.getSession().setAttribute("err","Debe seleccionar una consola");
+                                response.sendRedirect("AdminTodosJuegos");
 
-                            switch (action){
-                                case "new":
-                                    Part imageGamePart = request.getPart("imagenJuego");
-                                    InputStream imageGameContent = imageGamePart.getInputStream();
-                                    juegos.getImagen().setImagem(imageGameContent);
-                                    agregarDao.registrarJuego(juegos);
-                                    agregarDao.registrarJuegoXCategoria(juegosXConsola);
-                                    request.getSession().setAttribute("info","Juego agregado correctamente");
+                            }else{
+
+                                if (request.getParameter("idCategoria").equals("Categorias")){
+                                    request.getSession().setAttribute("err","Debe seleccionar una categoria");
                                     response.sendRedirect("AdminTodosJuegos");
-                                    break;
+                                }else {
+
+
+                                    Juegos juegos = setJuego(request);
+
+                                    JuegosXConsola juegosXConsola = setConsola(request);
+
+                                    switch (action){
+                                        case "new":
+                                            Part imageGamePart = request.getPart("imagenJuego");
+
+                                            InputStream imageGameContent = imageGamePart.getInputStream();
+                                            juegos.getImagen().setImagem(imageGameContent);
+                                            agregarDao.registrarJuego(juegos);
+                                            agregarDao.registrarJuegoXCategoria(juegosXConsola);
+                                            request.getSession().setAttribute("info","Juego agregado correctamente");
+                                            response.sendRedirect("AdminTodosJuegos");
+                                            break;
+
+                                    }
+                                }
                             }
 
                         }else{

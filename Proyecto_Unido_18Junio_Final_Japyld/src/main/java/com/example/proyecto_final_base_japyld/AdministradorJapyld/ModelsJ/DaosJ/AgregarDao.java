@@ -65,10 +65,19 @@ public class AgregarDao extends BaseDao {
         try(Connection connection = this.getConnection();
             PreparedStatement psmt = connection.prepareStatement(sql)){
 
-            psmt.setString(1,juegos.getNombreJuegos());
+            String firstLetter = juegos.getNombreJuegos().substring(0, 1).toUpperCase();
+            String restOfSentence = juegos.getNombreJuegos().substring(1);
+            String nombre  = firstLetter + restOfSentence;
+
+            psmt.setString(1,nombre);
             psmt.setInt(2,juegos.getStock());
             psmt.setBigDecimal(3,juegos.getPrecio());
-            psmt.setString(4,juegos.getDescripcion());
+
+            String firstLetter1 = juegos.getDescripcion().substring(0, 1).toUpperCase();
+            String restOfSentence1 = juegos.getDescripcion().substring(1);
+            String descripcion  = firstLetter1 + restOfSentence1;
+
+            psmt.setString(4,descripcion);
             psmt.setInt(5,id);
             psmt.setString(6,juegos.getCategoria().getIdCategorias());
 
@@ -158,6 +167,55 @@ public class AgregarDao extends BaseDao {
 
                 id= resultSet.getInt(1);
 
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return id;
+
+    }
+
+    // se actualiza una imagen en blob
+
+    public void actaualizarImagen(Juegos juegos) {
+
+
+        String sql = "UPDATE imagenes SET imagen = ?\n" +
+                "WHERE idImagenes =?; ";
+
+        try(Connection connection = this.getConnection();
+            PreparedStatement psmt = connection.prepareStatement(sql)){
+
+            psmt.setBinaryStream(1,juegos.getImagen().getImagem());
+            psmt.setInt(2,idImagen(juegos));
+
+            psmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    public int idImagen(Juegos juegos){
+
+        int id=0;
+
+        String sql = "select  id_imagen\n" +
+                "from  juegos\n" +
+                "WHERE idJuegos = ?;";
+
+        try(Connection connection = this.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql)){
+
+            preparedStatement.setInt(1,juegos.getIdJuegos());
+
+            try(ResultSet resultSet = preparedStatement.executeQuery()){
+                if(resultSet.next()){
+                    id = resultSet.getInt(1);
+
+                }
             }
 
         } catch (SQLException e) {

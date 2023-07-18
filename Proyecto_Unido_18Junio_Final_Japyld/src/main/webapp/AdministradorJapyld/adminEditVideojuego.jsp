@@ -382,15 +382,13 @@
                                         </div>
 
                                         <BR>
-
                                         <div class="container text-center">
-                                            <a href="<%=request.getContextPath()%>/DescuentoServlet?action=descuento&id=<%=juego.getIdJuegos()%>" class="btn btn-primary mr-5">Agregar una nueva imagen</a>
+                                            <a href="<%=request.getContextPath()%>/editarImagenServlet?act=vista&id=<%=juego.getIdJuegos()%>" class="btn btn-success mr-5">Agregar una nueva imagen</a>
                                         </div>
 
                                         <BR>
-
                                         <div class="container text-center">
-                                            <a href="<%=request.getContextPath()%>/DescuentoServlet?action=descuento&id=<%=juego.getIdJuegos()%>" class="btn btn-success mr-5">Descuento</a>
+                                            <a href="<%=request.getContextPath()%>/DescuentoServlet?action=descuento&id=<%=juego.getIdJuegos()%>" class="btn btn-primary mr-5">Descuento</a>
                                         </div>
 
                                         <BR>

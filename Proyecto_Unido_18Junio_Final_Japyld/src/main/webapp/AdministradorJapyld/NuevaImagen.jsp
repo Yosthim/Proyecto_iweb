@@ -2,7 +2,8 @@
 <%@ page import="com.example.proyecto_final_base_japyld.BeansGenerales.Categoria" %>
 <%@ page import="com.example.proyecto_final_base_japyld.BeansGenerales.Consola" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="com.example.proyecto_final_base_japyld.UsuarioJapyld.ModelsJ.DtoJ.ImagenPerfilDto" %><%--
+<%@ page import="com.example.proyecto_final_base_japyld.UsuarioJapyld.ModelsJ.DtoJ.ImagenPerfilDto" %>
+<%@ page import="com.example.proyecto_final_base_japyld.BeansGenerales.Juegos" %><%--
   Created by IntelliJ IDEA.
   User: jossr
   Date: 5/06/2023
@@ -11,9 +12,10 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:useBean id="personaSession" type="com.example.proyecto_final_base_japyld.BeansGenerales.Personas" scope="session" class="com.example.proyecto_final_base_japyld.BeansGenerales.Personas"/>
-<jsp:useBean id="categorias" type="java.util.ArrayList<com.example.proyecto_final_base_japyld.BeansGenerales.Categoria>" scope="request"/>
-<jsp:useBean id="consolas" type="java.util.ArrayList<com.example.proyecto_final_base_japyld.BeansGenerales.Consola>" scope="request"/>
 <% ArrayList<ImagenPerfilDto> listaFotoPerfil = (ArrayList<ImagenPerfilDto>) request.getAttribute("listaFotoPerfil"); %>
+<%
+    Juegos juego = (Juegos) request.getAttribute("juego");
+%>
 <html lang="en">
 
 <head>
@@ -24,7 +26,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Nuevo Juego</title>
+    <title>Nueva Imagen</title>
 
 
     <style>
@@ -264,56 +266,24 @@
                     <div class="card shadow mb-4 border-left-primary col-9">
                         <div class="card-header">
                             <h4 class="mb-0 font-weight-bold text-primary">
-                                Juego Nuevo
+                                Nueva imagen
                             </h4>
                         </div>
                         <div class="card-body justify-content-center">
-                            <form method="POST" action="<%=request.getContextPath()%>/AgregarJuegoServlet?act=new" enctype="multipart/form-data">
-                                <div class="form-group">
-                                    <label class="text-gray-900" for="nombre">Ingrese el nombre del Juego:</label>
-                                    <input type="text" class="form-control" id="nombre" name="nombreJuego" placeholder="Nombre del Juego">
+                            <div class="text-center">
+                                <span><b>Imagen actual</b></span>
+                                <BR>
+                                <BR>
+                                <div>
+                                    <img src="<%=request.getContextPath()%>/Image?act=juego&id=<%=juego.getImagen().getIdImagenes()%>" class="img-fluid img_juego" alt="Imagen">
                                 </div>
-                                <div class="form-group">
-                                    <label class="text-gray-900" for="desc">Ingrese la Descripción del Juego:</label>
-                                    <textarea class="form-control" id="desc" name="descripcion" rows="5"></textarea>
-                                </div>
-                                <div class="form-row">
-                                    <div class="form-group col-md-4">
-                                        <label class="text-gray-900" for="categorias">Seleccione la Categoría:</label>
-                                        <select class="form-control" id="categorias" name="idCategoria">
-                                            <option selected>Categorias</option>
-                                            <% for(Categoria categoria: categorias) { %>
-                                            <option value="<%=categoria.getIdCategorias()%>">
-                                                <%=categoria.getNombre()%>
-                                            </option>
-                                            <% } %>
-                                        </select>
-                                    </div>
-                                    <div class="form-group col-md-4">
-                                        <label class="text-gray-900" for="consolas">Seleccione la consola:</label>
-                                        <select class="form-control" id="consolas" name="idConsola" required>
-                                            <option selected>Consolas</option>
-                                            <% for(Consola consola: consolas) { %>
-                                            <option value="<%=consola.getIdConsola()%>">
-                                                <%=consola.getNombre()%>
-                                            </option>
-                                            <% } %>
-                                        </select>
-                                    </div>
-                                    <div class="form-group col-md-2">
-                                        <label class="text-gray-900" for="precioInput">Precio:</label>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">S/</span>
-                                            </div>
-                                            <input class="form-control" type="number" id="precioInput" name="precio" placeholder="0.00"/>
-                                        </div>
-                                    </div>
-                                    <div class="form-group col-md-2">
-                                        <label class="text-gray-900" for="cantidad">Cantidad:</label>
-                                        <input type="number" class="form-control" id="cantidad" name="stock" placeholder="0"/>
-                                    </div>
-                                </div>
+
+                            </div>
+
+                            <BR>
+
+                            <form method="POST" action="<%=request.getContextPath()%>/editarImagenServlet?act=new" enctype="multipart/form-data">
+                                <input type="hidden" name="id_juego" value="<%=juego.getIdJuegos()%>"/>
                                 <div class="form-group">
                                     <label class="text-gray-900" for="imageFile">Suba la imagen del Juego</label>
                                     <div class="text-center mt-2 mb-3">
@@ -326,7 +296,7 @@
                                     </div>
                                 </div>
                                 <div class="d-flex justify-content-center">
-                                    <a class="btn btn-danger mx-2" href="<%=request.getContextPath()%>/AdminTodosJuegos">Cancelar</a>
+                                    <a class="btn btn-danger mx-2" href="<%=request.getContextPath()%>/AdminServlet?action=editar&id=<%=juego.getIdJuegos()%>">Cancelar</a>
                                     <button class="btn btn-success mx-2" type="submit">Publicar</button>
                                 </div>
                             </form>
