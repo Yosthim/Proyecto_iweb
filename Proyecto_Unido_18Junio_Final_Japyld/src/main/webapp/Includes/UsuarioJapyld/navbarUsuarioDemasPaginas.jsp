@@ -12,8 +12,8 @@
     <style>
         .img-gaga {
             display: inline-block; /* Hacemos que el contenedor sea inline-block para que solo ocupe el tamaño de la imagen */
-            width: 75px; /* Ajusta el tamaño del círculo según tus necesidades */
-            height: 75px;
+            width: 50px; /* Ajusta el tamaño del círculo según tus necesidades */
+            height: 50px;
             border-radius: 50%; /* Convertimos el cuadro en un círculo */
             background-size: cover; /* Ajustamos la imagen para que cubra el círculo */
             background-position: center center; /* Centramos la imagen dentro del círculo horizontal y verticalmente */

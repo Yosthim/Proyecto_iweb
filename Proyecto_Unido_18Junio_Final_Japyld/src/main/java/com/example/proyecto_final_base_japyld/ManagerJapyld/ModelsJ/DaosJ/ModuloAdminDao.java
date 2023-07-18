@@ -7,7 +7,6 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class ModuloAdminDao {
-
     public ArrayList<ImagenesAdmin> listaImagenes(){
         ArrayList<ImagenesAdmin> imagenes = new ArrayList<>();
         try {
@@ -143,7 +142,7 @@ public class ModuloAdminDao {
         }
 
         String sql2 = "INSERT INTO imagenes (idImagenes, tipo, direccion_archivo) VALUES (?, ?,?)";
-        String sql3 = "INSERT INTO personas (idPersona,correo, contrasenia, nombre, apellido, fechaDeNacimiento,fechaRegistro, estado, categoriaJuegoPreferida ,dni, genero, id_roles, id_perfil) VALUES (?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
+        String sql3 = "INSERT INTO personas (idPersona,correo, contrasenia, nombre, apellido, fechaDeNacimiento,fechaRegistro, estado, categoriaJuegoPreferida ,dni, genero, id_roles, id_perfil) VALUES (?,?, SHA2(?,256), ?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
 
         String url = "jdbc:mysql://localhost:3306/japyld";
 

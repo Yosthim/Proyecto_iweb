@@ -16,8 +16,7 @@ public class ComentariosDao extends BaseDao {
                 "INNER JOIN juegos j ON c.Juegos_idJuegos = j.idJuegos\n" +
                 "LEFT JOIN personas p ON c.Persona_idPersona = p.idPersona\n" +
                 "WHERE j.idJuegos = ?\n" +
-                "ORDER BY fecha_comentario DESC\n" +
-                "limit 3;";
+                "ORDER BY fecha_comentario DESC;";
 
         try (Connection connection = this.getConnection();
              PreparedStatement ptsmt = connection.prepareStatement(sql)) {
@@ -29,7 +28,7 @@ public class ComentariosDao extends BaseDao {
                     Comentarios comentario = new Comentarios();
                     comentario.setIdComentario(rs.getInt(1));
                     comentario.setComentario(rs.getString(2));
-                    comentario.setFecha_comentario(rs.getString(3));
+                    comentario.setFecha_comentario1(rs.getTimestamp(3));
                     comentario.setRatingComentario(rs.getInt(4));
 
                     Juegos juego = new Juegos();
@@ -57,14 +56,12 @@ public class ComentariosDao extends BaseDao {
         try (Connection conn = this.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)){
 
-             pstmt.setString(1,comentario.getComentario());
-             long Fecha_comentario = comentario.getFecha_comentario1().getTime();
-             java.sql.Date sqlDateFecha_comentario = new java.sql.Date(Fecha_comentario);
-             pstmt.setDate(2,sqlDateFecha_comentario);
-             pstmt.setInt(3,comentario.getJuegoComentario().getIdJuegos());
-             pstmt.setInt(4,comentario.getPersonaComentario().getIdPersona());
+            pstmt.setString(1,comentario.getComentario());
+            pstmt.setTimestamp(2,comentario.getFecha_comentario1());
+            pstmt.setInt(3,comentario.getJuegoComentario().getIdJuegos());
+            pstmt.setInt(4,comentario.getPersonaComentario().getIdPersona());
 
-             pstmt.executeUpdate();
+            pstmt.executeUpdate();
 
         }catch (SQLException e){
             throw new RuntimeException(e);

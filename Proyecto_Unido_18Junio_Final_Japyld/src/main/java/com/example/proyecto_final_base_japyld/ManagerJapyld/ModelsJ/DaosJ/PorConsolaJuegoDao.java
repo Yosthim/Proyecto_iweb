@@ -3,7 +3,10 @@ package com.example.proyecto_final_base_japyld.ManagerJapyld.ModelsJ.DaosJ;
 import com.example.proyecto_final_base_japyld.BaseDao;
 import com.example.proyecto_final_base_japyld.ManagerJapyld.ModelsJ.DtoJ.PorConsolaJuego;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 public class PorConsolaJuegoDao extends BaseDao {
@@ -12,8 +15,8 @@ public class PorConsolaJuegoDao extends BaseDao {
         ArrayList<PorConsolaJuego> listaConsolaJuego = new ArrayList<>();
 
         String sql = "SELECT jcr.id_consola, count(jpc.id_consola)\n" +
-                "FROM juegoscompradosreservados jcr, juegos_por_consolas jpc\n" +
-                "WHERE jcr.id_consola = jpc.id_consola and jcr.estadoCompraJuego = 'Comprado'\n" +
+                "FROM juegoscompradosreservados jcr, juegos_por_consolas jpc, juegos j, personas p\n" +
+                "WHERE jcr.id_consola = jpc.id_consola and jcr.id_juego = jpc.id_juego and jcr.estadoCompraJuego = 'Comprado' and jcr.id_juego = j.idJuegos and jcr.id_usuario = p.idPersona and p.id_roles = \"USR\"\n" +
                 "GROUP BY jcr.id_consola\n" +
                 "ORDER BY count(jpc.id_consola) DESC;";
 

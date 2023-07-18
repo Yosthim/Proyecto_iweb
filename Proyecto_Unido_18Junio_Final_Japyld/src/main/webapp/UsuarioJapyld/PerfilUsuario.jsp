@@ -28,7 +28,12 @@
 
     <!-- Custom styles for this template-->
     <link href="recursos/css/sb-admin-2.min.css" rel="stylesheet">
-
+    <style>
+        .img-perfil-principal {
+            width: 300px; /* Ajusta el tamaño del círculo según tus necesidades */
+            height: 300px;
+        }
+    </style>
 </head>
 
 <body id="page-top">
@@ -68,12 +73,14 @@
                     <div class="col-lg-4">
                         <div class="card border-left-primary shadow h-100 py-2">
                             <div class="card-body">
-                                <%for (ImagenPerfilDto fotoperfil : listaFotoPerfil){%>
-                                    <%if(personaSession.getIdPersona() == fotoperfil.getIdPersona()){%>
-                                        <img src="<%=fotoperfil.getDireccion_archivo()%>" class="img-fluid"/>
-                                    <%}%>
-                                <%}%>
-                                <hr/>
+                                <div class="d-flex justify-content-center align-items-center" style="height: 100%">
+                                    <% for (ImagenPerfilDto fotoperfil : listaFotoPerfil) { %>
+                                    <% if (personaSession.getIdPersona() == fotoperfil.getIdPersona()) { %>
+                                    <img src="<%=fotoperfil.getDireccion_archivo()%>" class="img-perfil-principal" />
+                                    <% } %>
+                                    <% } %>
+                                </div>
+                                <hr>
                                 <div class="d-flex justify-content-center">
                                     <a class="btn btn-info" href="<%=request.getContextPath()%>/EditarPerfil">
                                         Editar foto <i class="fas fa-edit"></i>

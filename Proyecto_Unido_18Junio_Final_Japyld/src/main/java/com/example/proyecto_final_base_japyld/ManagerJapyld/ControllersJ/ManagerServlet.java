@@ -1,23 +1,19 @@
 package com.example.proyecto_final_base_japyld.ManagerJapyld.ControllersJ;
 
 import com.example.proyecto_final_base_japyld.BeansGenerales.Objetivos;
+import com.example.proyecto_final_base_japyld.ManagerJapyld.ModelsJ.DaosJ.EstadisticasDao;
 import com.example.proyecto_final_base_japyld.ManagerJapyld.ModelsJ.DaosJ.JuegosManagerDao;
 import com.example.proyecto_final_base_japyld.ManagerJapyld.ModelsJ.DaosJ.ManagerDao;
 import com.example.proyecto_final_base_japyld.ManagerJapyld.ModelsJ.DaosJ.ProductosVendidosDao;
-import com.example.proyecto_final_base_japyld.ManagerJapyld.ModelsJ.DtoJ.JuegosManager;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import java.io.IOException;
-import java.math.BigDecimal;
-import java.util.Date;
+import java.sql.Timestamp;
+import java.time.format.DateTimeFormatter;
 
 @WebServlet(name = "ManServlet", value = "/ManagerServlet")
 public class ManagerServlet extends HttpServlet {
@@ -26,6 +22,7 @@ public class ManagerServlet extends HttpServlet {
         ManagerDao managerDao = new ManagerDao();
         JuegosManagerDao juegosManagerDao = new JuegosManagerDao();
         ProductosVendidosDao productosVendidosDao = new ProductosVendidosDao();
+        EstadisticasDao estadisticasDao = new EstadisticasDao();
 
         String action = request.getParameter("a") == null ? "resumen" :request.getParameter("a");
 
@@ -37,8 +34,6 @@ public class ManagerServlet extends HttpServlet {
                 break;
 
             case "productos":
-                request.setAttribute("listaMasVendidos", productosVendidosDao.listarJuegosMasVendidos());
-                request.setAttribute("listaMenosVendidos", productosVendidosDao.listarJuegosMenosVendidos());
                 request.getRequestDispatcher("ManagerJapyld/PagPrin_Productos.jsp").forward(request, response);
                 break;
 
@@ -48,8 +43,19 @@ public class ManagerServlet extends HttpServlet {
                 request.getRequestDispatcher("ManagerJapyld/PagPrin_Metas.jsp").forward(request, response);
                 break;
 
-            case "estadisticas":
-                request.getRequestDispatcher("ManagerJapyld/PagPrin_Estadisticas.jsp").forward(request, response);
+            case "estadisticasVentas":
+
+                request.getRequestDispatcher("ManagerJapyld/PagPrin_EstadisticasVentas.jsp").forward(request, response);
+                break;
+
+            case "estadisticasCompras":
+                request.getRequestDispatcher("ManagerJapyld/PagPrin_EstadisticasCompras.jsp").forward(request, response);
+                break;
+            case "estadisticasIngresos":
+                request.getRequestDispatcher("ManagerJapyld/PagPrin_EstadisticasIngresos.jsp").forward(request, response);
+                break;
+            case "estadisticasUsuarios":
+                request.getRequestDispatcher("ManagerJapyld/PagPrin_EstadisticasUsuarios.jsp").forward(request, response);
                 break;
 
             case "actualizarObjetivos":
@@ -77,8 +83,9 @@ public class ManagerServlet extends HttpServlet {
                 String objComprasStr = request.getParameter("compras");
                 String objUsuariosStr = request.getParameter("usuarios");
                 String objFechaStr = request.getParameter("fecha");
-                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
+                Timestamp objFecha = Timestamp.valueOf(objFechaStr);
 
                 if(objVentasStr.isEmpty() || objComprasStr.isEmpty() || objUsuariosStr.isEmpty() || !esNumero(objVentasStr) || !esNumero(objComprasStr) || !esNumero(objUsuariosStr)) {
                     response.sendRedirect(request.getContextPath() + "/ManagerServlet?a=actualizarObjetivos");
@@ -97,18 +104,13 @@ public class ManagerServlet extends HttpServlet {
                     return;
                 }
 
-                try {
-                    Date objFecha = dateFormat.parse(objFechaStr);
-                    objetivos.setVentasPorMesJuego(objVentas);
-                    objetivos.setGastosPorMesJuego(objCompras);
-                    objetivos.setUsuarioPorMes(objUsuarios);
-                    objetivos.setFecha(objFecha);
-                    managerDao.actualizarObjetivos(objetivos);
+                objetivos.setVentasPorMesJuego(objVentas);
+                objetivos.setGastosPorMesJuego(objCompras);
+                objetivos.setUsuarioPorMes(objUsuarios);
+                objetivos.setFecha(objFecha);
+                managerDao.actualizarObjetivos(objetivos);
 
-                    response.sendRedirect(request.getContextPath() + "/ManagerServlet?a=metas");
-                } catch (ParseException e) {
-                    throw new RuntimeException(e);
-                }
+                response.sendRedirect(request.getContextPath() + "/ManagerServlet?a=metas");
 
                 break;
         }

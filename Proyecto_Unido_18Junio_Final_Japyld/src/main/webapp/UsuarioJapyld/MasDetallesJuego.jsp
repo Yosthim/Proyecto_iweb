@@ -3,6 +3,10 @@
 <%@ page import="com.example.proyecto_final_base_japyld.BeansGenerales.Comentarios" %>
 <%@ page import="com.example.proyecto_final_base_japyld.UsuarioJapyld.ModelsJ.DtoJ.ConsolasDetallesDto" %>
 <%@ page import="com.example.proyecto_final_base_japyld.BeansGenerales.JuegosCompradosReservados" %>
+<%@ page import="java.sql.Timestamp" %>
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="java.time.LocalDateTime" %>
+<%@ page import="java.time.format.DateTimeFormatter" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <% ArrayList<Comentarios> listaComentarios = (ArrayList<Comentarios>) request.getAttribute("listaComentarios"); %>
@@ -248,7 +252,10 @@
                   <div class="media-body">
                     <div class="d-flex justify-content-between">
                       <h6 class="mt-0 text-gray-900"><%= listaComentarios.get(0).getPersonaComentario().getNombre() %></h6>
-                      <h6 class="mt-0"><%= listaComentarios.get(0).getFecha_comentario() %></h6>
+                      <%Timestamp time1 = listaComentarios.get(0).getFecha_comentario1();%>
+                      <%SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");%>
+                      <%String formattedTimestamp1 = sdf1.format(time1);%>
+                      <h6 class="mt-0"><%= formattedTimestamp1 %></h6>
                     </div>
                     <p class="text-justify"><%= listaComentarios.get(0).getComentario() %></p>
                   </div>
@@ -262,7 +269,10 @@
                       <hr>
                       <div class="d-flex justify-content-between">
                         <h6 class="mt-0 text-gray-900"><%= comentario.getPersonaComentario().getNombre() %></h6>
-                        <h6 class="mt-0"><%= comentario.getFecha_comentario() %></h6>
+                        <%Timestamp time = comentario.getFecha_comentario1();%>
+                        <%SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");%>
+                        <%String formattedTimestamp = sdf.format(time);%>
+                        <h6 class="mt-0"><%= formattedTimestamp %></h6>
                       </div>
                       <p class="text-justify"><%= comentario.getComentario() %></p>
                     </div>
@@ -291,7 +301,15 @@
               <form class="user" method="POST" action="<%=request.getContextPath()%>/MasDetallesJuego?idjuego=<%=juego.getIdJuegos()%>&idpersona=<%=personaSession.getIdPersona()%>">
                 <div class="form-group">
                   <textarea class="form-control" name="Comentario" rows="3" placeholder="Ingresa tu comentario"></textarea>
+
+                  <%
+                    LocalDateTime fechaActual = LocalDateTime.now();
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                    String fechaActualStr = fechaActual.format(formatter);
+                  %>
+                  <input type="hidden" class="form-control" name="fecha" value="<%= fechaActualStr %>">
                 </div>
+
                 <button type="submit" class="btn btn-primary">Enviar comentario</button>
               </form>
             </div>
@@ -327,6 +345,13 @@
             <form class="user" method="POST" action="<%=request.getContextPath()%>/MasDetallesJuego?idjuego=<%=juego.getIdJuegos()%>&idpersona=<%=personaSession.getIdPersona()%>">
               <div class="form-group">
                 <textarea class="form-control" name="Comentario" rows="3" placeholder="Ingresa tu comentario"></textarea>
+
+                <%
+                  LocalDateTime fechaActual = LocalDateTime.now();
+                  DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                  String fechaActualStr = fechaActual.format(formatter);
+                %>
+                <input type="hidden" class="form-control" name="fecha" value="<%= fechaActualStr %>">
               </div>
               <button type="submit" class="btn btn-primary">Enviar comentario</button>
             </form>
