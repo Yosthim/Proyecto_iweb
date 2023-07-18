@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.sql.Timestamp;
 import java.time.format.DateTimeFormatter;
 
-@WebServlet(name = "ManagerServlet", value = "/ManagerServlet")
+@WebServlet(name = "ManServlet", value = "/ManagerServlet")
 public class ManagerServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
