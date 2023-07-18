@@ -56,150 +56,57 @@ public class EstadisticasDao extends BaseDao {
         return ventaMes;
     }
 
+    public int CompraPorMes(String mes){
 
-    public ArrayList<JuegosManager> comentarioPorJuego(int idjuego){
+        String sql = "SELECT SUM(precioUser) AS sumaPrecioUser\n" +
+                "FROM ( SELECT id_juego, direccion_archivo, nombreJuegos, precio_usuario,\n" +
+                "       MONTHNAME(fechaPublicacion) AS mes_compra, \n" +
+                "       COUNT(vjg.id_juego) AS ventas,\n" +
+                "       precio_usuario * COUNT(*) AS precioUser\n" +
+                "FROM ventajuegosgeneral vjg\n" +
+                "INNER JOIN juegos j ON j.idJuegos = vjg.id_juego\n" +
+                "INNER JOIN personas p ON vjg.id_administrador = p.idPersona\n" +
+                "LEFT JOIN imagenes i ON i.idImagenes = j.id_imagen\n" +
+                "WHERE vjg.estadoVenta = 'Aceptado' AND MONTHNAME(fechaPublicacion) = ? AND p.id_roles = \"ADM\"\n" +
+                "GROUP BY id_juego, direccion_archivo, nombreJuegos, precio_usuario, mes_compra) AS subconsulta;";
 
-        ArrayList<JuegosManager> comentarioPorJuego = new ArrayList<>();
-
-        String sql = "SELECT j.idJuegos, j.nombreJuegos, p.nombre, p.apellido, c.fecha_comentario, c.comentario FROM juegos j, comentarios c, personas p\n" +
-                "WHERE j.idJuegos = ? and p.idPersona = c.Persona_idPersona and c.Juegos_idJuegos = j.idJuegos\n" +
-                "ORDER BY c.fecha_comentario DESC\n" +
-                "LIMIT 3;";
-
+        int compraMes = 0;
         try (Connection connection = this.getConnection();
              PreparedStatement ptsmtJuego = connection.prepareStatement(sql)) {
-
-            ptsmtJuego.setInt(1,idjuego);
+            ptsmtJuego.setString(1, mes);
             try (ResultSet rs = ptsmtJuego.executeQuery()){
                 while(rs.next()){
-                    JuegosManager comentarioJuego = new JuegosManager();
-                    Personas personas = new Personas();
-                    Comentarios comentarios = new Comentarios();
-                    comentarioJuego.setIdJuegos(rs.getInt(1));
-                    comentarioJuego.setNombreJuegos(rs.getString(2));
-                    personas.setNombre(rs.getString(3));
-                    personas.setApellido(rs.getString(4));
-                    comentarios.setFecha_comentario1(rs.getTimestamp(5));
-                    comentarios.setComentario(rs.getString(6));
-                    comentarioJuego.setPersonas(personas);
-                    comentarioJuego.setComentarios(comentarios);
-                    comentarioPorJuego.add(comentarioJuego);
+                    compraMes = rs.getInt(1);
                 }
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return comentarioPorJuego;
+        return compraMes;
     }
 
-    public ArrayList<JuegosManager> catologoReciente(){
 
-        ArrayList<JuegosManager> nuevoIngreso = new ArrayList<>();
+    public int UsuariosPorMes(String mes){
 
-        String sql = "SELECT j.idJuegos, j.nombreJuegos, c.nombre, j.precio, i.direccion_archivo, vjg.id_administrador, p.nombre, p.apellido  FROM juegos j, ventajuegosgeneral vjg, categorias c, imagenes i, personas p\n" +
-                "WHERE j.idJuegos = vjg.id_juego and j.id_categoria = c.idCategorias and vjg.estadoVenta = 'Aceptado' and j.id_imagen = i.idImagenes and p.idPersona = vjg.id_administrador\n" +
-                "ORDER BY vjg.fechaPublicacion DESC\n" +
-                "LIMIT 4;";
+        String sql = "SELECT COUNT(idPersona) AS usuarios\n" +
+                "FROM personas\n" +
+                "WHERE id_roles = \"USR\" and MONTHNAME(fechaRegistro) = ?" +
+                "GROUP BY id_roles;";
 
+        int usuariosMes = 0;
         try (Connection connection = this.getConnection();
-             Statement smt = connection.createStatement();
-             ResultSet resultSet = smt.executeQuery(sql)) {
-
-            while(resultSet.next()){
-                JuegosManager nuevoJuego = new JuegosManager();
-                nuevoJuego.setIdJuegos(resultSet.getInt(1));
-                nuevoJuego.setNombreJuegos(resultSet.getString(2));
-                nuevoJuego.setCategoria(resultSet.getString(3));
-                nuevoJuego.setPrecio(resultSet.getInt(4));
-                nuevoJuego.setDireccion_imagen(resultSet.getString(5));
-                Personas personas = new Personas();
-                personas.setNombre(resultSet.getString(7));
-                personas.setApellido(resultSet.getString(8));
-                nuevoJuego.setPersonas(personas);
-                nuevoIngreso.add(nuevoJuego);
+             PreparedStatement ptsmtJuego = connection.prepareStatement(sql)) {
+            ptsmtJuego.setString(1, mes);
+            try (ResultSet rs = ptsmtJuego.executeQuery()){
+                while(rs.next()){
+                    usuariosMes = rs.getInt(1);
+                }
             }
-        }catch (SQLException e){
-            throw new RuntimeException(e);
-        }
-        return nuevoIngreso;
-
-    }
-
-
-    public ArrayList<Objetivos> Objetivos(){
-
-        ArrayList<Objetivos> objetivos= new ArrayList<>();
-
-        String sql = "SELECT * FROM objetivosmanager\n" +
-                "ORDER BY fecha desc\n" +
-                "LIMIT 1;";
-
-        try(Connection connection = this.getConnection();
-            Statement stmt = connection.createStatement();
-            ResultSet resultSet = stmt.executeQuery(sql)){
-
-            while (resultSet.next()){
-
-                Objetivos objetivos1 = new Objetivos();
-
-                objetivos1.setIdObjetivos(resultSet.getInt(1));
-                objetivos1.setVentasPorMesJuego(resultSet.getInt(2));
-                objetivos1.setGastosPorMesJuego(resultSet.getInt(3));
-                objetivos1.setUsuarioPorMes(resultSet.getInt(4));
-
-                objetivos.add(objetivos1);
-
-            }
-
-        }catch (SQLException e){
-            throw new RuntimeException(e);
-        }
-
-        return objetivos;
-    }
-
-    public void actualizarObjetivos(Objetivos objetivos) {
-        String sql = "INSERT INTO objetivosmanager (ventasPorMesJuego,gastosPorMesJuego,usariosPorMes,id_manager,fecha) VALUES (?,?,?,10,?);";
-        try (Connection connection = this.getConnection();
-             PreparedStatement pstmt = connection.prepareStatement(sql)) {
-
-            pstmt.setInt(1, objetivos.getVentasPorMesJuego());
-            pstmt.setInt(2, objetivos.getGastosPorMesJuego());
-            pstmt.setInt(3, objetivos.getUsuarioPorMes());
-            pstmt.setTimestamp(4, objetivos.getFecha());
-
-            pstmt.executeUpdate();
-
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        return usuariosMes;
     }
 
-    public ArrayList<Objetivos> listarObjetivosPasados(){
 
-        ArrayList <Objetivos> recordObjetivos = new ArrayList<>();
-
-        String sql = "SELECT *" +
-                "FROM objetivosmanager\n" +
-                "WHERE id_objetivo NOT IN (SELECT MAX(id_objetivo)\n" +
-                "FROM objetivosmanager) ORDER BY fecha DESC;";
-
-        try (Connection connection = this.getConnection();
-             Statement smt = connection.createStatement();
-             ResultSet resultSet = smt.executeQuery(sql)) {
-
-            while(resultSet.next()){
-                Objetivos objetivos = new Objetivos();
-                objetivos.setIdObjetivos(resultSet.getInt(1));
-                objetivos.setVentasPorMesJuego(resultSet.getInt(2));
-                objetivos.setGastosPorMesJuego(resultSet.getInt(3));
-                objetivos.setUsuarioPorMes(resultSet.getInt(4));
-                objetivos.setFecha(resultSet.getTimestamp(6));
-                recordObjetivos.add(objetivos);
-            }
-        }catch (SQLException e){
-            throw new RuntimeException(e);
-        }
-        return recordObjetivos;
-    }
 }

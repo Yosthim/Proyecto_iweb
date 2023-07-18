@@ -119,18 +119,22 @@
                           <div class="container">
                             <canvas id="barChart"></canvas>
                           </div>
-
+                          <% EstadisticasDao estadisticasDao = new EstadisticasDao();%>
                           <script>
                             var ctx = document.getElementById('barChart').getContext('2d');
                             var barChart = new Chart(ctx, {
                               type: 'bar',
                               data: {
-
-                                labels: ['Abril', 'Mayo', 'Junio', 'Julio', 'Agosto'],
+                                labels: ['Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Setiembre','Octubre', 'Noviembre', 'Diciembre'],
                                 datasets: [{
                                   labels: ' Ventas por mes ',
-                                  data: [10, 34, 23, 31, 10],
+                                  data: [<%=estadisticasDao.CompraPorMes("March") %>, <%=estadisticasDao.CompraPorMes("April") %>, <%=estadisticasDao.CompraPorMes("May") %>, <%=estadisticasDao.CompraPorMes("June") %>, <%=estadisticasDao.CompraPorMes("July") %>, <%=estadisticasDao.CompraPorMes("August") %>, <%=estadisticasDao.CompraPorMes("September") %>, <%=estadisticasDao.CompraPorMes("October") %>, <%=estadisticasDao.CompraPorMes("November")%>, <%=estadisticasDao.CompraPorMes("December")%>],
                                   backgroundColor: [
+                                    'rgba(76, 175, 80, 0.5)', // Verde
+                                    'rgba(33, 150, 243, 0.5)', // Azul
+                                    'rgba(255, 193, 7, 0.5)', // Amarillo
+                                    'rgba(156, 39, 176, 0.5)', // Morado
+                                    'rgba(244, 67, 54, 0.5)', // Rojo
                                     'rgba(76, 175, 80, 0.5)', // Verde
                                     'rgba(33, 150, 243, 0.5)', // Azul
                                     'rgba(255, 193, 7, 0.5)', // Amarillo
@@ -138,6 +142,11 @@
                                     'rgba(244, 67, 54, 0.5)' // Rojo
                                   ],
                                   borderColor: [
+                                    'rgba(76, 175, 80, 1)', // Verde
+                                    'rgba(33, 150, 243, 1)', // Azul
+                                    'rgba(255, 193, 7, 1)', // Amarillo
+                                    'rgba(156, 39, 176, 1)', // Morado
+                                    'rgba(244, 67, 54, 1)' , // Rojo
                                     'rgba(76, 175, 80, 1)', // Verde
                                     'rgba(33, 150, 243, 1)', // Azul
                                     'rgba(255, 193, 7, 1)', // Amarillo
@@ -150,7 +159,17 @@
                               options: {
                                 scales: {
                                   y: {
-                                    beginAtZero: true
+                                    beginAtZero: true,
+                                    title: {
+                                      display: true,
+                                      text: 'Compras'
+                                    }
+                                  },
+                                  x: {
+                                    title: {
+                                      display: true,
+                                      text: 'Meses del año'
+                                    }
                                   }
                                 },
                                 plugins: {
@@ -163,7 +182,7 @@
                           </script>
                           <br>
                         </div>
-                        <h5 class="card-title mb-4">Choose when you want to receive email notifications</h5>
+
                       </div>
                     </div>
                   </div>

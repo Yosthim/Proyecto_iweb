@@ -120,7 +120,7 @@
                       <%SimpleDateFormat sdf2 = new SimpleDateFormat("HH:mm:ss");%>
                       <%String fecha = sdf1.format(time);%>
                       <%String hora = sdf2.format(time);%>
-                      <p class="text-info mb-1"><b> <%= "Por " + comentarios.getPersonas().getNombre() + " " + comentarios.getPersonas().getApellido() + " el " + fecha + " a las " + hora %></b></p>
+                      <p class="text-primary mb-1"> <%= "Por " + comentarios.getPersonas().getNombre() + " " + comentarios.getPersonas().getApellido() + " el " + fecha + " a las " + hora %></p>
                       <p class="p-2 bg-gray-200">➤ <%= comentarios.getComentarios().getComentario() %></p>
                     </div>
                     <% } %>
