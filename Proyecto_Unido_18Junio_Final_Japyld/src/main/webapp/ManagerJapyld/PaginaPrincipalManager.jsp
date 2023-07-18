@@ -2,7 +2,9 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.example.proyecto_final_base_japyld.ManagerJapyld.ModelsJ.DtoJ.JuegosManager" %>
 <%@ page import="com.example.proyecto_final_base_japyld.ManagerJapyld.ModelsJ.DaosJ.JuegosManagerDao" %>
-<%@ page import="com.example.proyecto_final_base_japyld.ManagerJapyld.ModelsJ.DaosJ.ManagerDao" %><%--
+<%@ page import="com.example.proyecto_final_base_japyld.ManagerJapyld.ModelsJ.DaosJ.ManagerDao" %>
+<%@ page import="java.sql.Timestamp" %>
+<%@ page import="java.text.SimpleDateFormat" %><%--
   Created by IntelliJ IDEA.
   User: milene
   Date: 14/06/2023
@@ -43,6 +45,20 @@
     <!-- Custom styles for this template-->
     <link href="recursos/css/sb-admin-2.min.css" rel="stylesheet">
 
+    <style>
+      .img_juego_grande {
+        width: 275px;
+        height: 340px;
+      }
+    </style>
+
+    <style>
+      .img_juego {
+        width: 275px;
+        height: 280px;
+      }
+    </style>
+
   </head>
 
   <body id="page-top">
@@ -51,90 +67,9 @@
     <div id="wrapper">
 
       <!-- Sidebar -->
-      <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-
-        <!-- Sidebar - Brand -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<%=request.getContextPath()%>/ManagerServlet">
-          <div class="sidebar-brand-icon rotate-n-15">
-            <i class="fas fa-laugh-wink"></i>
-          </div>
-          <div class="sidebar-brand-text mx-3">JAPYLD <sup>TM</sup></div>
-        </a>
-
-        <!-- Divider -->
-        <hr class="sidebar-divider my-0">
-        <!-- Nav Item - Pages Collapse Menu -->
-        <li class="nav-item active">
-          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-             aria-expanded="true" aria-controls="collapseTwo">
-            <i class="fas fa-home"></i>
-            <span>Panel Principal</span></a>
-          </a>
-          <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-              <h6 class="collapse-header">Detalles de JAPYLD:</h6>
-              <a class="collapse-item" href="<%=request.getContextPath()%>/ManagerServlet?a=resumen">Resumen</a>
-              <a class="collapse-item" href="<%=request.getContextPath()%>/ManagerServlet?a=productos">Productos</a>
-              <a class="collapse-item" href="<%=request.getContextPath()%>/ManagerServlet?a=metas">Metas Mensuales</a>
-              <a class="collapse-item" href="<%=request.getContextPath()%>/ManagerServlet?a=estadisticas">Estadísticas</a>
-            </div>
-          </div>
-        </li>
-
-        <!-- Divider -->
-        <hr class="sidebar-divider">
-
-        <!-- Heading -->
-        <div class="sidebar-heading">
-          MÓDULOS
-        </div>
-
-        <!-- Nav Item - Pages Collapse Menu -->
-        <li class="nav-item">
-          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-             aria-expanded="true" aria-controls="collapsePages">
-            <i class="fas fa-gamepad"></i>
-            <span>JUEGOS</span>
-          </a>
-          <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-              <h6 class="collapse-header">Estadísticas:</h6>
-              <a class="collapse-item" href="<%=request.getContextPath()%>/PorCategoriaJuegoServlet">Por categoría de Juego</a>
-              <a class="collapse-item" href="<%=request.getContextPath()%>/PorConsolaJuegoServlet">Por consola de Juego</a>
-              <h6 class="collapse-header">TOP 5:</h6>
-              <a class="collapse-item" href="<%=request.getContextPath()%>/Top5MasVendidosServlet">Más vendidos</a>
-              <a class="collapse-item" href="<%=request.getContextPath()%>/Top5MenosVendidosServlet">Menos vendidos</a>
-              <div class="collapse-divider"></div>
-              <h6 class="collapse-header">Más opciones:</h6>
-              <a class="collapse-item" href="<%=request.getContextPath()%>/EditarJuegosServlet?a=l">Editar Juegos</a>
-            </div>
-          </div>
-        </li>
-
-        <!-- Nav Item - Charts -->
-        <li class="nav-item">
-          <a class="nav-link" href="<%=request.getContextPath()%>/ModuloAdminServlet">
-            <i class="fas fa-user-shield"></i>
-            <span>ADMINISTRADOR</span></a>
-        </li>
-
-        <!-- Nav Item - Tables -->
-        <li class="nav-item">
-          <a class="nav-link" href="<%=request.getContextPath()%>/ModuloUsuarioServlet">
-            <i class="fas fa-user"></i>
-            <span>USUARIO</span></a>
-        </li>
-
-        <!-- Divider -->
-        <hr class="sidebar-divider d-none d-md-block">
-        <br>
-
-        <!-- Sidebar Toggler (Sidebar) -->
-        <div class="text-center d-none d-md-inline">
-          <button class="rounded-circle border-0" id="sidebarToggle"></button>
-        </div>
-
-      </ul>
+      <jsp:include page="/Includes/ManagerJapyld/SideBarManager.jsp">
+        <jsp:param name="title" value="SideBar General"/>
+      </jsp:include>
       <!-- End of Sidebar -->
 
       <!-- Content Wrapper -->
@@ -143,45 +78,9 @@
         <!-- Main Content -->
         <div id="content">
 
-          <!-- Topbar -->
-          <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-
-            <!-- Sidebar Toggle (Topbar) -->
-            <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-              <i class="fa fa-bars"></i>
-            </button>
-
-
-            <!-- Topbar Navbar -->
-            <ul class="navbar-nav ml-auto">
-
-              <!-- Nav Item - User Information -->
-              <li class="nav-item dropdown no-arrow">
-                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <span class="mr-2 d-none d-lg-inline text-gray-600 small"><%=personaSession.getNombre() + " " + personaSession.getApellido()%></span>
-                  <img class="img-profile rounded-circle"
-                       src="recursos/img/undraw_profile.svg">
-                </a>
-                <!-- Dropdown - User Information -->
-                <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                     aria-labelledby="userDropdown">
-                  <a class="dropdown-item" href="<%=request.getContextPath()%>/ManagerServlet?a=perfilManager">
-                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                    Profile
-                  </a>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="<%=request.getContextPath()%>/LoginServlet?action=logout" data-toggle="modal" data-target="#logoutModal">
-                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                    Logout
-                  </a>
-                </div>
-              </li>
-
-            </ul>
-
-          </nav>
-          <!-- End of Topbar -->
+          <jsp:include page="/Includes/ManagerJapyld/topbarManager.jsp">
+            <jsp:param name="title" value="Mas detalles"/>
+          </jsp:include>
 
           <!-- Begin Page Content -->
           <div class="container-fluid" id="resumen">
@@ -192,51 +91,65 @@
             <br>
             <!-- Content Row -->
             <div class="row">
-
               <!-- First Column -->
-              <% for (JuegosManager ultimosComentados : juegosRecienComentados) {%>
-              <div class="col-lg-4">
-                <!-- Custom Text Color Utilities -->
+              <% for (JuegosManager ultimosComentados : juegosRecienComentados) { %>
+              <div class="col-xl-4 col-lg-4">
+                <!-- Donut Chart -->
+                <div class="card shadow mb-4 border-left-primary">
+                  <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary"><%= ultimosComentados.getNombreJuegos() %></h6>
+                  </div>
+                  <div class="card-body text-center">
+                    <img src="<%= ultimosComentados.getDireccion_imagen() %>" class="img-fluid img_juego_grande" alt="Imagen">
+                  </div>
+                </div>
+              </div>
+              <div class="col-xl-8 col-lg-8">
+                <!-- Area Chart -->
                 <div class="card shadow mb-4">
                   <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary"><%=ultimosComentados.getNombreJuegos()%></h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Comentarios</h6>
                   </div>
-                  <% ManagerDao comentarioJuego = new ManagerDao();%>
-                  <% ArrayList<JuegosManager> comentariosPorJuego = comentarioJuego.comentarioPorJuego(ultimosComentados.getIdJuegos()) ;%>
-                  <% for (JuegosManager comentarios : comentariosPorJuego) {%>
                   <div class="card-body">
-                    <p class="p-3 bg-gray-200">➤ <%=comentarios.getComentarios()%></p>
+                    <% ManagerDao comentarioJuego = new ManagerDao(); %>
+                    <% ArrayList<JuegosManager> comentariosPorJuego = comentarioJuego.comentarioPorJuego(ultimosComentados.getIdJuegos()); %>
+                    <% for (JuegosManager comentarios : comentariosPorJuego) { %>
+                    <div class="card-body p-2">
+                      <%Timestamp time = comentarios.getComentarios().getFecha_comentario1();%>
+                      <%SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");%>
+                      <%SimpleDateFormat sdf2 = new SimpleDateFormat("HH:mm:ss");%>
+                      <%String fecha = sdf1.format(time);%>
+                      <%String hora = sdf2.format(time);%>
+                      <p class="text-info mb-1"><b> <%= "Por " + comentarios.getPersonas().getNombre() + " " + comentarios.getPersonas().getApellido() + " el " + fecha + " a las " + hora %></b></p>
+                      <p class="p-2 bg-gray-200">➤ <%= comentarios.getComentarios().getComentario() %></p>
+                    </div>
+                    <% } %>
                   </div>
-                  <% } %>
                 </div>
               </div>
               <% } %>
-
             </div>
 
+            <br>
             <br>
 
             <h4 class="h5 mb-1 text-gray-800">CATÁLOGO RECIENTE</h4>
             <br>
-            <!-- Content Row -->
-            <!-- Content Row -->
-
             <div class="row">
 
               <% for (JuegosManager nuevosIngresos : catalogoReciente) {%>
               <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-left-info shadow h-100 py-2">
+                <div class="card border-left-primary shadow h-100 py-2">
                   <div class="card-body">
                     <div class="row no-gutters align-items-center">
                       <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                          <h5><b><%=nuevosIngresos.getNombreJuegos()%></b></h5>
-                          <br>
-                          <div class="h6 mb-0 font-weight-bold text-gray-800 justify-content-center">Nuevo de <%=nuevosIngresos.getCategoria()%></div>
+                          <h6><%=nuevosIngresos.getNombreJuegos()%></h6>
                         </div>
-                        <img src="<%=nuevosIngresos.getDireccion_imagen()%>" class="img-fluid" alt="Imagen">
+                        <img src="<%=nuevosIngresos.getDireccion_imagen()%>" class="img-fluid img_juego" alt="Imagen">
                         <div class="mt-3">
-                          <div class="h5 mb-0 font-weight-bold text-gray-800">Precio: S/. <%=nuevosIngresos.getPrecio()%></div>
+                          <p class="mt-2">Precio: S/. <%=nuevosIngresos.getPrecio()%></p>
+                          <p class="text-gray-500 text-right mb-1"><b> <%= "Admin: " + nuevosIngresos.getPersonas().getNombre() + " " + nuevosIngresos.getPersonas().getApellido()%></b></p>
                         </div>
                       </div>
                     </div>
@@ -272,46 +185,9 @@
     <!-- End of Page Wrapper -->
 
     <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-      <i class="fas fa-angle-up"></i>
-    </a>
-
-    <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-         aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Cerrar sesión</h5>
-            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">×</span>
-            </button>
-          </div>
-          <div class="modal-body">Seleccione "Confirmar" si desea salir de su cuenta.</div>
-          <div class="modal-footer">
-            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-            <a class="btn btn-primary" href="<%=request.getContextPath()%>/LoginServlet?action=logout">Salir</a>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Bootstrap core JavaScript-->
-    <script src="recursos/vendor/jquery/jquery.min.js"></script>
-    <script src="recursos/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Core plugin JavaScript-->
-    <script src="recursos/vendor/jquery-easing/jquery.easing.min.js"></script>
-
-    <!-- Custom scripts for all pages-->
-    <script src="recursos/js/sb-admin-2.min.js"></script>
-
-    <!-- Page level plugins -->
-    <script src="recursos/vendor/chart.js/Chart.min.js"></script>
-
-    <!-- Page level custom scripts -->
-    <script src="recursos/js/demo/chart-area-demo.js"></script>
-    <script src="recursos/js/demo/chart-pie-demo.js"></script>
+    <jsp:include page="/Includes/ManagerJapyld/Adicionales.jsp">
+      <jsp:param name="title" value="Adicionales"/>
+    </jsp:include>
 
   </body>
 

@@ -1,6 +1,7 @@
 package com.example.proyecto_final_base_japyld.BeansGenerales;
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.Date;
 
 public class Objetivos {
@@ -36,11 +37,11 @@ public class Objetivos {
         this.usuarioPorMes = usuarioPorMes;
     }
 
-    public Date getFecha() {
+    public Timestamp getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(Timestamp fecha) {
         this.fecha = fecha;
     }
 
@@ -49,7 +50,7 @@ public class Objetivos {
     private int gastosPorMesJuego;
     private int usuarioPorMes;
     private Personas personaManager;
-    private Date fecha;
+    private Timestamp fecha;
 
     public Personas getPersonaManager() {
         return personaManager;

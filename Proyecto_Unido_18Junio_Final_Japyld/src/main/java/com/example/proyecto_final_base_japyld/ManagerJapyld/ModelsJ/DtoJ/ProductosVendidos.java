@@ -10,6 +10,15 @@ public class ProductosVendidos {
     private String nombreJuego;
 
     private int precio;
+    private String mes;
+
+    public String getMes() {
+        return mes;
+    }
+
+    public void setMes(String mes) {
+        this.mes = mes;
+    }
 
     public int getId_juego() {
         return id_juego;

@@ -7,7 +7,6 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class ModuloAdminDao {
-
     public ArrayList<ImagenesAdmin> listaImagenes(){
         ArrayList<ImagenesAdmin> imagenes = new ArrayList<>();
         try {
