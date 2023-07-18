@@ -444,11 +444,11 @@ public class AdminDao extends BaseDao {
 
         ArrayList<TodosJuegosDto> tjuegos = new ArrayList<>();
 
-        String sql = "SELECT idJuegos, nombreJuegos, precio,direccion_archivo, stock, estadoJuego,i.idImagenes\n" +
-                "                FROM juegos j\n" +
-                "                LEFT JOIN descuentos d ON j.idJuegos = d.id_juego\n" +
-                "                INNER JOIN imagenes i ON j.id_imagen = i.idImagenes\n" +
-                "                WHERE j.nombreJuegos LIKE ?;";
+        String sql = "SELECT idJuegos, nombreJuegos, precio,COALESCE(d.precio_nuevo, 0), stock, estadoJuego,i.idImagenes\n" +
+                "FROM juegos j\n" +
+                "LEFT JOIN descuentos d ON j.idJuegos = d.id_juego\n" +
+                "INNER JOIN imagenes i ON j.id_imagen = i.idImagenes\n" +
+                "WHERE (j.estadoJuego = 'Activo' OR j.estadoJuego = 'Oferta') AND (j.nombreJuegos LIKE ?);";
 
 
         try (Connection conn = this.getConnection();
@@ -463,11 +463,12 @@ public class AdminDao extends BaseDao {
                     juego.setIdJuegos(rs.getInt(1));
                     juego.setNombreJuegos(rs.getString(2));
                     juego.setPrecio(rs.getInt(3));
+                    juego.setPrecio_nuevo(rs.getInt(4));
                     juego.setStock(rs.getInt(5));
                     juego.setEstado_juego(rs.getString(6));
-
                     Imagen imagen = new Imagen();
                     imagen.setIdImagenes(rs.getInt(7));
+                    juego.setImagen(imagen);
                     tjuegos.add(juego);
                 }
             }

@@ -22,6 +22,7 @@ public class AdminTodosJuegos extends HttpServlet {
         AdminDao tjuegosDao = new AdminDao();
         CategoriaDao categoriadao = new CategoriaDao();
         PerfilDao perfilDao1 = new PerfilDao();
+
         request.setAttribute("listaFotoPerfil",perfilDao1.listarFotoPerfil());
         request.setAttribute("tjuegos",tjuegosDao.todosJuegos());
         request.setAttribute("categorias",categoriadao.listaCategoria());

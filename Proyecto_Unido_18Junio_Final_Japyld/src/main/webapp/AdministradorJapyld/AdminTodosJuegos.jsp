@@ -30,7 +30,7 @@
             border-color: #29B6A5;
             box-shadow: 0 0 0 3px rgba(41, 182, 165, 0.2);
         }
-        .img_juego {
+            .img_juego {
             width: 275px;
             height: 280px;
         }
