@@ -128,6 +128,22 @@
 
                 <!-- Page Heading -->
                 <h1 class="h3 mb-3 text-gray-700">Tus Ventas</h1>
+                <!-- Mensajes de error o éxito -->
+                <%if (session.getAttribute("exito") != null) {%>
+                    <div id="exito" class="alert alert-success">
+                        <%=session.getAttribute("exito")%>
+                    </div>
+                    <%
+                    session.setAttribute("exito", null);
+                    %>
+                <%} else if (session.getAttribute("error") != null) {%>
+                    <div id="error" class="alert alert-danger">
+                        <%=session.getAttribute("error")%>
+                    </div>
+                    <%
+                    session.setAttribute("error", null);
+                    %>
+                <%} %>
                 <!-- Content row -->
                 <div class="container-fluid">
                     <div class="card shadow mb-5">

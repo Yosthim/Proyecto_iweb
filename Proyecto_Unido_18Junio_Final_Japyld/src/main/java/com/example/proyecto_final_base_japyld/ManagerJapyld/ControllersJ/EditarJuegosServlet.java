@@ -28,6 +28,7 @@ public class EditarJuegosServlet extends HttpServlet {
                 String id_juegoStr = request.getParameter("idjuego");
                 int id_juego = Integer.parseInt(id_juegoStr);
                 juegosManagerDao.borrarJuego(id_juego);
+                request.getSession().setAttribute("info","Juego borrado correctamente");
                 response.sendRedirect(request.getContextPath() + "/EditarJuegosServlet?a=l");
                 break;
         }

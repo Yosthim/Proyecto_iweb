@@ -41,6 +41,14 @@
                 width: 275px;
                 height: 280px;
             }
+
+            .alert-container {
+                display: flex;
+                justify-content: center; /* Centra horizontalmente */
+                align-items: center; /* Centra verticalmente */
+                max-width: 600px; /* Ajusta el ancho máximo de la alerta */
+                margin: 8px auto; /* Márgenes superior e inferior para separar de otros elementos */
+            }
         </style>
 
     </head>
@@ -68,6 +76,14 @@
 
                     <!-- Begin Page Content -->
 
+                    <% if (session.getAttribute("info") != null) { %>
+                    <div class="alert-container">
+                        <div class="alert alert-success d-flex align-items-center align-content-center" role="alert">
+                            <%= session.getAttribute("info") %>
+                        </div>
+                    </div>
+                    <% session.setAttribute("info", null); %>
+                    <% } %>
 
                     <div class="container-fluid">
                         <br>
@@ -95,9 +111,9 @@
                                                     <%}else{%>
                                                     <p class="mt-2">Precio: S/. <%=juegosTodos.getPrecio_nuevo()%></p>
                                                     <%}%>
-                                                    <div class="center">
-                                                        <a onclick="return confirm('Estas seguro de borrar :( ?')" class="btn btn-danger"
-                                                           href="<%=request.getContextPath()%>/EditarJuegosServlet?a=b&idjuego=<%=juegosTodos.getIdJuegos()%>">Borrar</a>
+                                                    <div class="center justify-content-center">
+                                                        <a onclick="return confirm('Estas seguro de borrar :( ?')" class="btn alert-danger"
+                                                           href="<%=request.getContextPath()%>/EditarJuegosServlet?a=b&idjuego=<%=juegosTodos.getIdJuegos()%>">BORRAR</a>
                                                     </div>
                                                 </div>
                                             </div>

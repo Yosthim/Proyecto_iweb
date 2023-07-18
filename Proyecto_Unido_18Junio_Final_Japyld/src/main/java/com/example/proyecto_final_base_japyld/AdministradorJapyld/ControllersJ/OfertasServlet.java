@@ -202,7 +202,7 @@ public class OfertasServlet extends HttpServlet {
 
                         ventaJuegosGeneralC.setIdVenta(Integer.parseInt(request.getParameter("id_venta")));
                         ofertasDao.editarVentaC(ventaJuegosGeneralC);
-                        correoDao.correo(ofertasDao.obtenerJuego(Integer.parseInt(request.getParameter("id_venta").trim())).getUsuario().getCorreo(),"Estado de Oferta","Lamentablemente su oferta del juego "+ ofertasDao.obtenerJuego(Integer.parseInt(request.getParameter("id_venta").trim())).getJuego().getNombreJuegos()+" ha sido rechazada, pero recibio una propuesta de compra. Verifiquelo en su pagina de ofertas");
+                        correoDao.correo(ofertasDao.obtenerJuego(Integer.parseInt(request.getParameter("id_venta").trim())).getUsuario().getCorreo(),"Estado de Oferta","Lamentablemente su oferta del juego "+ ofertasDao.obtenerJuego(Integer.parseInt(request.getParameter("id_venta").trim())).getJuego().getNombreJuegos()+" ha sido rechazada porque " + ofertasDao.obtenerJuego(Integer.parseInt(request.getParameter("id_venta").trim())).getRazonRechazo()+ ", pero recibio una propuesta de compra. Verifiquelo en su pagina de ofertas");
                         request.getSession().setAttribute("info","Contraoferta enviada exitosamente");
                         response.sendRedirect("AdminServlet?action=listaPaginaOfertas");
                     }else{

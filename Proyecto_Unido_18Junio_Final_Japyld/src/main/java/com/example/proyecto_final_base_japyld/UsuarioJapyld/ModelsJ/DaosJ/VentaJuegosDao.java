@@ -2,6 +2,7 @@ package com.example.proyecto_final_base_japyld.UsuarioJapyld.ModelsJ.DaosJ;
 
 import com.example.proyecto_final_base_japyld.BaseDao;
 import com.example.proyecto_final_base_japyld.BeansGenerales.*;
+import com.example.proyecto_final_base_japyld.UsuarioJapyld.ModelsJ.DtoJ.InfoVentaDto;
 
 import java.math.BigDecimal;
 import java.sql.*;
@@ -124,7 +125,7 @@ public class VentaJuegosDao extends BaseDao {
         return consolas;
     }
 
-    public void registrarOferta(VentaJuegosGeneral ofertaJuego, String ofertType) {
+    public boolean registrarOferta(VentaJuegosGeneral ofertaJuego, String ofertType) {
         if (ofertType.equals("nuevo")) {
             String sql = "INSERT INTO ventajuegosgeneral (estadoVenta, fechaPublicacion, precio_usuario, disponibilidad, " +
                         "id_usuario, id_administrador, id_consola, descripcion_nueva, nombre_nuevo, imagen, cantidad, idCategoria, " +
@@ -147,6 +148,8 @@ public class VentaJuegosDao extends BaseDao {
                 psmt.setString(12, "Habilitado");
 
                 psmt.executeUpdate();
+
+                return true;
 
             } catch (SQLException e) {
                 throw new RuntimeException(e);
@@ -171,10 +174,13 @@ public class VentaJuegosDao extends BaseDao {
 
                 psmt.executeUpdate();
 
+                return true;
+
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
         }
+        return false;
     }
 
     public int getRandomIdAdmin() {
@@ -198,7 +204,7 @@ public class VentaJuegosDao extends BaseDao {
         return idAdmins.get(index);
     }
 
-    public void changeOfferPrice(int idVenta, BigDecimal precioNuevo) {
+    public boolean changeOfferPrice(int idVenta, BigDecimal precioNuevo) {
 
         String sql = "UPDATE ventajuegosgeneral SET precio_usuario = ?, estadoVenta = 'Pendiente' WHERE idVenta = ?";
 
@@ -210,12 +216,14 @@ public class VentaJuegosDao extends BaseDao {
 
             psmt.executeUpdate();
 
+            return true;
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public void retireOffer(int idVenta) {
+    public boolean retireOffer(int idVenta) {
 
         String sql = "UPDATE ventajuegosgeneral SET estadoVenta = 'Retirado' WHERE idVenta = ?";
 
@@ -226,12 +234,14 @@ public class VentaJuegosDao extends BaseDao {
 
             psmt.executeUpdate();
 
+            return true;
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public void deleteOffer(int idVenta) {
+    public boolean deleteOffer(int idVenta) {
 
         String sql = "UPDATE ventajuegosgeneral SET visibilidad = 'Deshabilitado' WHERE idventa = ?";
 
@@ -242,8 +252,47 @@ public class VentaJuegosDao extends BaseDao {
 
             psmt.executeUpdate();
 
+            return true;
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public InfoVentaDto getOfferInfo(int idVenta) {
+        InfoVentaDto information = new InfoVentaDto();
+        String sql = "SELECT idVenta, concat(nombre,' ',apellido), id_administrador, nombre_nuevo, nombreJuegos FROM ventajuegosgeneral v\n" +
+                "LEFT JOIN personas p ON v.id_usuario = p.idPersona\n" +
+                "LEFT JOIN juegos j ON v.id_juego = j.idJuegos\n" +
+                "WHERE v.idVenta = " + idVenta;
+        try(Connection connection = this.getConnection();
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(sql)){
+
+            if (rs.next()) {
+                information.setOfferId(rs.getInt(1));
+                information.setUserName(rs.getString(2));
+                information.setIdAdmin(rs.getInt(3));
+                if (rs.getString(4) != null) {
+                    information.setGameName(rs.getString(4));
+                }else {
+                    information.setGameName(rs.getString(5));
+                }
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return information;
+    }
+
+    public boolean validateIfNameExist(String nombre) {
+        ArrayList<Juegos> juegosDisponibles = this.listarNombreJuegos();
+        for (Juegos juego : juegosDisponibles) {
+            if (juego.getNombreJuegos().equals(nombre)) {
+                return false;
+            }
+        }
+        return true;
     }
 }
