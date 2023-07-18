@@ -1,18 +1,33 @@
+<%@ page import="com.example.proyecto_final_base_japyld.BeansGenerales.VentaJuegosGeneral" %>
+<%@ page import="com.example.proyecto_final_base_japyld.BeansGenerales.Categoria" %>
+<%@ page import="com.example.proyecto_final_base_japyld.BeansGenerales.Consola" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="com.example.proyecto_final_base_japyld.AdministradorJapyld.ModelsJ.DtoJ.TodosJuegosDto" %>
 <%@ page import="com.example.proyecto_final_base_japyld.UsuarioJapyld.ModelsJ.DtoJ.ImagenPerfilDto" %>
+<%@ page import="com.example.proyecto_final_base_japyld.BeansGenerales.Juegos" %><%--
+  Created by IntelliJ IDEA.
+  User: jossr
+  Date: 5/06/2023
+  Time: 16:48
+  To change this template use File | Settings | File Templates.
+--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:useBean id="personaSession" type="com.example.proyecto_final_base_japyld.BeansGenerales.Personas" scope="session" class="com.example.proyecto_final_base_japyld.BeansGenerales.Personas"/>
-<jsp:useBean id="textoBusqueda" scope="request" type="java.lang.String" class="java.lang.String"/>
-
-<%
-    ArrayList<TodosJuegosDto> tjuegos  =(ArrayList<TodosJuegosDto>) request.getAttribute("tjuegos");
-%>
 <% ArrayList<ImagenPerfilDto> listaFotoPerfil = (ArrayList<ImagenPerfilDto>) request.getAttribute("listaFotoPerfil"); %>
-
+<%
+    Juegos juego = (Juegos) request.getAttribute("juego");
+%>
 <html lang="en">
 
 <head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Nueva Imagen</title>
+
 
     <style>
         /* Estilos personalizados */
@@ -30,21 +45,8 @@
             border-color: #29B6A5;
             box-shadow: 0 0 0 3px rgba(41, 182, 165, 0.2);
         }
-        .img_juego {
-            width: 275px;
-            height: 280px;
-        }
     </style>
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>Página Principal Manager</title>
-
-    <title>Gráfico de Barras con Bootstrap 4</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -84,18 +86,6 @@
             font-size: 14px; /* Tamaño del texto del nombre de usuario */
         }
     </style>
-
-    <script>
-        $(document).ready(function(){
-            $("mensaje").delay(2000).hide(2000);
-        });
-    </script>
-    <script>
-    $(document).ready(function(){
-        $("mensajeError").delay(2000).hide(2000);
-    });
-</script>
-
 </head>
 
 <body id="page-top">
@@ -178,20 +168,7 @@
                 </button>
 
                 <!-- Topbar Search -->
-                <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" method="POST" action="<%=request.getContextPath()%>/AdminTodosJuegos">
-                    <div class="input-group">
-                        <input type="text" class="form-control bg-light border-0 small" placeholder="Busca el juego que desees en nuestro catálogo"
-                               aria-label="Search" aria-describedby="basic-addon2" name = "textoBuscar" value = "<%=textoBusqueda%>"/>
-                        <div class="input-group-append">
-                            <button class="btn btn-primary" type="submit">
-                                <i class="fas fa-search fa-sm"></i>
-                            </button>
-                            <a class="btn btn-danger" href="<%=request.getContextPath()%>/AdminTodosJuegos">
-                                <i class="fas fa-window-close fa-sm"></i>
-                            </a>
-                        </div>
-                    </div>
-                </form>
+
                 <!-- Topbar Navbar -->
                 <ul class="navbar-nav ml-auto">
 
@@ -255,9 +232,7 @@
 
                 </ul>
 
-
             </nav>
-
             <% if (session.getAttribute("info") != null) {
                 //if (request.getParameter("msg") != null) {%>
             <div id="mensaje" class="alert alert-success" role="alert">
@@ -276,94 +251,67 @@
                     session.setAttribute("err", null);
                 }
             %>
-
             <!-- End of Topbar -->
 
             <!-- Begin Page Content -->
+
             <div class="container-fluid">
-                <BR>
 
                 <!-- Page Heading -->
-                <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                    <h1 class="h3 mb-0 text-gray-700">Todos Los Juegos</h1>
-                <div class="card mb-4 mb-xl-0 ">
-                    <div class="card-header ">
-                        <div class="input-group ">
-                            <div class="input-group-append container">
-                                <a class="btn btn-primary container" href="<%=request.getContextPath()%>/AgregarJuegoServlet?act=agregar">
-                                    Agregar un juego Nuevo
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                </div>
-                <BR>
 
                 <!-- Content Row -->
-                <div class="row">
+                <div class="row justify-content-center">
 
+                    <!-- Form card -->
+                    <div class="card shadow mb-4 border-left-primary col-9">
+                        <div class="card-header">
+                            <h4 class="mb-0 font-weight-bold text-primary">
+                                Nueva imagen
+                            </h4>
+                        </div>
+                        <div class="card-body justify-content-center">
+                            <div class="text-center">
+                                <span><b>Imagen actual</b></span>
+                                <BR>
+                                <BR>
+                                <div>
+                                    <img src="<%=request.getContextPath()%>/Image?act=juego&id=<%=juego.getImagen().getIdImagenes()%>" class="img-fluid img_juego" alt="Imagen">
+                                </div>
 
-                    <!-- Earnings (Monthly) Card Example -->
-                    <% for (TodosJuegosDto j : tjuegos) { %>
-                    <div class="col-xl-3 col-md-6 mb-4">
-                        <% if (j.getStock() == 0) { %>
-                        <div class="card border-left-danger shadow h-100 py-2">
-                            <% } else { %>
-                            <div class="card border-left-primary shadow h-100 py-2">
-                                <% } %>
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                <h6><%= j.getNombreJuegos() %></h6>
-                                            </div>
-                                            <img src="<%=request.getContextPath()%>/Image?act=juego&id=<%=j.getImagen().getIdImagenes()%>" class="img-fluid img_juego" alt="Imagen">
-                                            <div class="mt-3">
-                                                <p class="mt-2">Stock: <%= j.getStock() %></p>
-                                                <p class="mt-2">Estado de juego: <%= j.getEstado_juego() %></p>
-                                                <% if (j.getPrecio_nuevo() != 0 && j.getEstado_juego().equals("Oferta")) { %>
-                                                <p class="mt-2">Precio: S/. <%= j.getPrecio_nuevo() %></p>
-                                                <% } else { %>
-                                                <p class="mt-2">Precio: S/. <%= j.getPrecio() %></p>
-                                                <% } %>
-                                                <% if (j.getStock() == 0) { %>
-                                                <a class="btn btn-danger" href="<%= request.getContextPath() %>/AdminServlet?action=editar&id=<%= j.getIdJuegos() %>">Editar</a>
-                                                <% } else { %>
-                                                <a class="btn btn-success" href="<%= request.getContextPath() %>/AdminServlet?action=editar&id=<%= j.getIdJuegos() %>">Editar</a>
-                                                <% } %>
-                                            </div>
-                                        </div>
+                            </div>
+
+                            <BR>
+
+                            <form method="POST" action="<%=request.getContextPath()%>/editarImagenServlet?act=new" enctype="multipart/form-data">
+                                <input type="hidden" name="id_juego" value="<%=juego.getIdJuegos()%>"/>
+                                <div class="form-group">
+                                    <label class="text-gray-900" for="imageFile">Suba la imagen del Juego</label>
+                                    <div class="text-center mt-2 mb-3">
+                                        <img src="https://dummyimage.com/150x150/dee2e6/6c757d.jpg" class="img-thumbnail"
+                                             id="imagePreview" height="150px" width="150px" alt="Imagen del juego"/>
+                                    </div>
+                                    <div class="mb-3">
+                                        <input class="form-control-file" type="file" id="imageFile" name="imagenJuego"
+                                               accept="image/png, image/jpeg" onchange="readURL(this);"/>
                                     </div>
                                 </div>
-                            </div>
+                                <div class="d-flex justify-content-center">
+                                    <a class="btn btn-danger mx-2" href="<%=request.getContextPath()%>/AdminServlet?action=editar&id=<%=juego.getIdJuegos()%>">Cancelar</a>
+                                    <button class="btn btn-success mx-2" type="submit">Publicar</button>
+                                </div>
+                            </form>
                         </div>
-                        <% } %>
-
-                        <!-- Pending Requests Card Example -->
-                </div>
-                <!-- Content Row -->
-
-                <div class="row">
-                </div>
-
-                <!-- Content Row -->
-                <div class="row">
-
-                    <!-- Content Column -->
-                    <div class="col-lg-6 mb-4">
                     </div>
 
-                    <div class="col-lg-6 mb-4">
-                    </div>
+                    <!-- /Form card -->
                 </div>
 
             </div>
+
         </div>
         <!-- End of Main Content -->
 
         <!-- Footer -->
-        <br>
         <footer class="sticky-footer bg-white">
             <div class="container my-auto">
                 <div class="copyright text-center my-auto">
@@ -375,7 +323,6 @@
 
     </div>
     <!-- End of Content Wrapper -->
-    </div>
 
 </div>
 <!-- End of Page Wrapper -->
@@ -421,6 +368,31 @@
 <!-- Page level custom scripts -->
 <script src="recursos/js/demo/chart-area-demo.js"></script>
 <script src="recursos/js/demo/chart-pie-demo.js"></script>
+<!-- Script para ver un preview de la imagen -->
+<script>
+    function readURL(input) {
+        if(input.files[0].size > 2097152){
+            alert("El archivo es muy grande");
+            input.value = "";
+            $('#imagePreview')
+                .attr('src', "https://dummyimage.com/200x200/dee2e6/6c757d.jpg")
+                .width(100)
+                .height(100);
+        }
+        else if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#imagePreview')
+                    .attr('src', e.target.result)
+                    .width(200)
+                    .height(200);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
 
 </body>
 

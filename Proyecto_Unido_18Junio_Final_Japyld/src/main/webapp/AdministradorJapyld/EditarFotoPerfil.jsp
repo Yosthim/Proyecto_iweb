@@ -23,6 +23,27 @@
 
     <title>Editar Perfil</title>
 
+    <style>
+        /* Estilos personalizados */
+        .custom-textbox {
+            border: 2px solid #ffffff;
+            border-radius: 10px;
+            padding: 10px;
+            font-size: 18px;
+            color: #333;
+            background-color: #F1F7F6;
+            outline: none;
+        }
+
+        .custom-textbox:focus {
+            border-color: #29B6A5;
+            box-shadow: 0 0 0 3px rgba(41, 182, 165, 0.2);
+        }
+    </style>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <!-- Custom fonts for this template-->
     <link href="recursos/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
@@ -68,9 +89,63 @@
 <div id="wrapper">
 
     <!-- Sidebar -->
-    <jsp:include page="/Includes/UsuarioJapyld/SidebarGeneral.jsp">
-        <jsp:param name="title" value="Pagina Principal"/>
-    </jsp:include>
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+        <!-- Sidebar - Brand -->
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<%=request.getContextPath()%>/AdminServlet?action=lista">
+            <div class="sidebar-brand-icon rotate-n-15">
+                <i class="fas fa-laugh-wink"></i>
+            </div>
+            <div class="sidebar-brand-text mx-3">JAPYLD <sup>TM</sup></div>
+        </a>
+
+        <!-- Divider -->
+
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+
+        <!-- Heading -->
+        <div class="sidebar-heading">
+            MÓDULOS
+        </div>
+
+        <!-- Nav Item - Pages Collapse Menu -->
+        <li class="nav-item">
+            <a class="nav-link" href="<%=request.getContextPath()%>/AdminServlet?action=lista">
+                <i class="fas fa-home"></i>
+                <span>Inicio</span></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="<%=request.getContextPath()%>/AdminServlet?action=listasPaginaVideojuegos">
+                <i class="fas fa-gamepad"></i>
+                <span>Videojuegos</span>
+            </a>
+
+        </li>
+        <!-- Nav Item - Charts -->
+        <li class="nav-item">
+            <a class="nav-link" href="<%=request.getContextPath()%>/AdminServlet?action=listaPaginaOfertas">
+                <i class="far fa-money-bill-alt"></i>
+                <span>Ofertas</span></a>
+        </li>
+
+        <!-- Nav Item - Tables -->
+        <li class="nav-item">
+            <a class="nav-link" href="<%=request.getContextPath()%>/JuegosReservadosServlet">
+                <i class="fas fa-box-open"></i>
+                <span>Reservas</span></a>
+        </li>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider d-none d-md-block">
+        <br>
+
+        <!-- Sidebar Toggler (Sidebar) -->
+        <div class="text-center d-none d-md-inline">
+            <button class="rounded-circle border-0" id="sidebarToggle"></button>
+        </div>
+
+    </ul>
     <!-- End of Sidebar -->
 
     <!-- Content Wrapper -->
@@ -125,6 +200,24 @@
                     </li>
                 </ul>
             </nav>
+            <% if (session.getAttribute("info") != null) {
+                //if (request.getParameter("msg") != null) {%>
+            <div id="mensaje" class="alert alert-success" role="alert">
+                <%=session.getAttribute("info")%>
+            </div>
+            <%
+                    session.setAttribute("info", null);
+                }
+            %>
+            <% if (session.getAttribute("err") != null) {
+                //if (request.getParameter("msg") != null) {%>
+            <div id="mensajeError" class="alert alert-danger" role="alert">
+                <%=session.getAttribute("err")%>
+            </div>
+            <%
+                    session.setAttribute("err", null);
+                }
+            %>
             <!-- End of Topbar -->
 
             <!-- Begin Page Content -->
@@ -144,7 +237,7 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <form method="POST" action="<%=request.getContextPath()%>/EditarPerfil">
+                        <form method="POST" action="<%=request.getContextPath()%>/EditarPerfilServlet">
                             <div class="form-group row p-3">
                                 <%for (Imagen perfil : listaFotoPerfil) {%>
                                 <div class="col-lg-3 p-4 mb-3 mb-sm-0">
@@ -173,7 +266,7 @@
         <footer class="sticky-footer bg-white">
             <div class="container my-auto">
                 <div class="copyright text-center my-auto">
-                    <span>Copyright &copy; Your Website 2020</span>
+                    <span>Japyld</span>
                 </div>
             </div>
         </footer>
@@ -196,15 +289,15 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Cerrar sesión</h5>
                 <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
-            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+            <div class="modal-body">Seleccione "Confirmar" si desea salir de su cuenta</div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                <a class="btn btn-primary" href="login.html">Logout</a>
+                <a class="btn btn-primary" href="<%=request.getContextPath()%>/LoginServlet?action=logout">Confirmar</a>
             </div>
         </div>
     </div>

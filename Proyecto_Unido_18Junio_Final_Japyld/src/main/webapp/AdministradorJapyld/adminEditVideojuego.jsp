@@ -1,6 +1,7 @@
     <%@ page import="com.example.proyecto_final_base_japyld.BeansGenerales.Categoria" %>
     <%@ page import="java.util.ArrayList" %>
-    <%@ page import="com.example.proyecto_final_base_japyld.BeansGenerales.Juegos" %><%--
+    <%@ page import="com.example.proyecto_final_base_japyld.BeansGenerales.Juegos" %>
+    <%@ page import="com.example.proyecto_final_base_japyld.UsuarioJapyld.ModelsJ.DtoJ.ImagenPerfilDto" %><%--
       Created by IntelliJ IDEA.
       User: jossr
       Date: 4/06/2023
@@ -15,6 +16,7 @@
     <%
         ArrayList<Categoria> categorias = (ArrayList<Categoria>) request.getAttribute("categorias");
     %>
+    <% ArrayList<ImagenPerfilDto> listaFotoPerfil = (ArrayList<ImagenPerfilDto>) request.getAttribute("listaFotoPerfil"); %>
     <html lang="en">
 
     <head>
@@ -56,7 +58,34 @@
 
         <!-- Custom styles for this template-->
         <link href="recursos/css/sb-admin-2.min.css" rel="stylesheet">
+        <style>
+            .img-perfil-principal {
+                width: 300px; /* Ajusta el tamaño del círculo según tus necesidades */
+                height: 300px;
+            }
+            .img-gaga {
+                display: inline-block; /* Hacemos que el contenedor sea inline-block para que solo ocupe el tamaño de la imagen */
+                width: 50px; /* Ajusta el tamaño del círculo según tus necesidades */
+                height: 50px;
+                border-radius: 50%; /* Convertimos el cuadro en un círculo */
+                background-size: cover; /* Ajustamos la imagen para que cubra el círculo */
+                background-position: center center; /* Centramos la imagen dentro del círculo horizontal y verticalmente */
+                background-repeat: no-repeat; /* Evitamos que la imagen se repita */
+                margin: 0; /* Quitamos cualquier margen */
+                padding: 0; /* Quitamos cualquier relleno */
+                border: none; /* Quitamos cualquier borde */
+            }
 
+
+            .nav-link.dropdown-toggle {
+                align-items: center;
+                padding: 1px 5px; /* Ajustamos el padding horizontal y vertical */
+            }
+            .user-name {
+                color: #333; /* Color del nombre de usuario */
+                font-size: 14px; /* Tamaño del texto del nombre de usuario */
+            }
+        </style>
     </head>
 
     <body id="page-top">
@@ -179,8 +208,13 @@
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small"><%=personaSession.getNombre()%></span>
-                                <img class="img-profile rounded-circle"
-                                     src="recursos/img/undraw_profile.svg">
+                                <% for (ImagenPerfilDto fotoperfil : listaFotoPerfil) { %>
+                                <% if (personaSession.getIdPersona() == fotoperfil.getIdPersona()) { %>
+                                <img class="img-gaga"
+                                     src="<%=fotoperfil.getDireccion_archivo()%>"
+                                     alt="Avatar">
+                                <% } %>
+                                <% } %>
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -316,7 +350,7 @@
 
 
                                         <div class="container">
-                                            <button class="btn btn-primary container" type="button" onclick="enviarFormulario2()">Agregar una nueva categoria</button>
+                                            <button class="btn btn-primary container" type="button" onclick="enviarFormulario2()">Cambiar de categoria</button>
                                             <BR>
                                             <form id="categoria" style="display: none;" action="<%=request.getContextPath()%>/AdminServlet?action=agrergarCategoria" method="post">
                                                 <input type="hidden" name="id_venta" value="<%=juego.getIdJuegos()%>"/>
@@ -348,15 +382,21 @@
                                         </div>
 
                                         <BR>
-
-
-                                        <div class="row justify-content-center">
-                                            <a href="<%=request.getContextPath()%>/DescuentoServlet?action=descuento&id=<%=juego.getIdJuegos()%>" class="btn btn-success mr-5">Descuento</a>
-                                            <div class="col-auto">
-                                                <a onclick="return confirm('Estas seguro de borrar')" class="btn btn-danger"
-                                                   href="<%=request.getContextPath()%>/AdminServlet?action=borrar&id=<%=juego.getIdJuegos()%>">Borrar</a>
-                                            </div>
+                                        <div class="container text-center">
+                                            <a href="<%=request.getContextPath()%>/editarImagenServlet?act=vista&id=<%=juego.getIdJuegos()%>" class="btn btn-success mr-5">Agregar una nueva imagen</a>
                                         </div>
+
+                                        <BR>
+                                        <div class="container text-center">
+                                            <a href="<%=request.getContextPath()%>/DescuentoServlet?action=descuento&id=<%=juego.getIdJuegos()%>" class="btn btn-primary mr-5">Descuento</a>
+                                        </div>
+
+                                        <BR>
+
+
+                                        <div class="container text-center">
+                                            <a onclick="return confirm('Estas seguro de borrar')" class="btn btn-danger  mr-5" href="<%=request.getContextPath()%>/AdminServlet?action=borrar&id=<%=juego.getIdJuegos()%>" >Borrar</a>
+                                         </div>
 
                                     </div>
                                 </div>

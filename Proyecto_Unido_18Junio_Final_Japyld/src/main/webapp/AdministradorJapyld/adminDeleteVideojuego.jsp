@@ -1,5 +1,6 @@
 <%@ page import="com.example.proyecto_final_base_japyld.BeansGenerales.Juegos" %>
-<%@ page import="java.util.ArrayList" %><%--
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="com.example.proyecto_final_base_japyld.UsuarioJapyld.ModelsJ.DtoJ.ImagenPerfilDto" %><%--
   Created by IntelliJ IDEA.
   User: jossr
   Date: 4/06/2023
@@ -8,7 +9,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:useBean id="personaSession" type="com.example.proyecto_final_base_japyld.BeansGenerales.Personas" scope="session" class="com.example.proyecto_final_base_japyld.BeansGenerales.Personas"/>
-
+<% ArrayList<ImagenPerfilDto> listaFotoPerfil = (ArrayList<ImagenPerfilDto>) request.getAttribute("listaFotoPerfil"); %>
 <html lang="en">
 
 <head>
@@ -50,7 +51,34 @@
 
   <!-- Custom styles for this template-->
   <link href="recursos/css/sb-admin-2.min.css" rel="stylesheet">
+  <style>
+    .img-perfil-principal {
+      width: 300px; /* Ajusta el tamaño del círculo según tus necesidades */
+      height: 300px;
+    }
+    .img-gaga {
+      display: inline-block; /* Hacemos que el contenedor sea inline-block para que solo ocupe el tamaño de la imagen */
+      width: 50px; /* Ajusta el tamaño del círculo según tus necesidades */
+      height: 50px;
+      border-radius: 50%; /* Convertimos el cuadro en un círculo */
+      background-size: cover; /* Ajustamos la imagen para que cubra el círculo */
+      background-position: center center; /* Centramos la imagen dentro del círculo horizontal y verticalmente */
+      background-repeat: no-repeat; /* Evitamos que la imagen se repita */
+      margin: 0; /* Quitamos cualquier margen */
+      padding: 0; /* Quitamos cualquier relleno */
+      border: none; /* Quitamos cualquier borde */
+    }
 
+
+    .nav-link.dropdown-toggle {
+      align-items: center;
+      padding: 1px 5px; /* Ajustamos el padding horizontal y vertical */
+    }
+    .user-name {
+      color: #333; /* Color del nombre de usuario */
+      font-size: 14px; /* Tamaño del texto del nombre de usuario */
+    }
+  </style>
 </head>
 
 <body id="page-top">

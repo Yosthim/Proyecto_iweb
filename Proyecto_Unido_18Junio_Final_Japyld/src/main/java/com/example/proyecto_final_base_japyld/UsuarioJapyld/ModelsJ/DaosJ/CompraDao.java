@@ -63,7 +63,7 @@ public class CompraDao extends BaseDao{
 
     public void guardarJuegoComprado(JuegosCompradosReservados juegoCompradoReservado){
 
-        String sql = "INSERT INTO juegoscompradosreservados(fechaCompraJuego,estadoCompraJuego,id_usuario,id_administrador,id_juego,id_consola,precio_compra) values(?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO juegoscompradosreservados(fechaCompraJuego,estadoCompraJuego,id_usuario,id_administrador,id_juego,id_consola,precio_compra,direccion_compra) values(?,?,?,?,?,?,?,?)";
 
         try (Connection conn = this.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)){
@@ -78,6 +78,7 @@ public class CompraDao extends BaseDao{
              pstmt.setInt(5,juegoCompradoReservado.getJuego().getIdJuegos());
              pstmt.setString(6,juegoCompradoReservado.getConsola().getIdConsola());
              pstmt.setInt(7,juegoCompradoReservado.getPrecio_compra());
+             pstmt.setString(8,juegoCompradoReservado.getDireccion_compra());
 
              pstmt.executeUpdate();
 

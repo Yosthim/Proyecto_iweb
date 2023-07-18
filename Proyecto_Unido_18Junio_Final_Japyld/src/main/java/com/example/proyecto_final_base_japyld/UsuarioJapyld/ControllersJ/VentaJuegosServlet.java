@@ -1,6 +1,7 @@
 package com.example.proyecto_final_base_japyld.UsuarioJapyld.ControllersJ;
 
 import com.example.proyecto_final_base_japyld.BeansGenerales.*;
+import com.example.proyecto_final_base_japyld.UsuarioJapyld.ModelsJ.DaosJ.PerfilDao;
 import com.example.proyecto_final_base_japyld.UsuarioJapyld.ModelsJ.DaosJ.VentaJuegosDao;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -22,23 +23,27 @@ public class VentaJuegosServlet extends HttpServlet {
 
         String action = request.getParameter("act") == null ? "listar" : request.getParameter("act");
         VentaJuegosDao ventaJuegosDao = new VentaJuegosDao();
+        PerfilDao perfilDao1 = new PerfilDao();
 
         switch (action) {
             case "listar":
                 Personas usuario = (Personas) request.getSession().getAttribute("personaSession");
                 request.setAttribute("listaOfertas", ventaJuegosDao.listarOfertas(usuario.getIdPersona()));
+                request.setAttribute("listaFotoPerfil",perfilDao1.listarFotoPerfil());
                 view = request.getRequestDispatcher("UsuarioJapyld/TusVentas.jsp");
                 view.forward(request, response);
                 break;
             case "exist":
                 request.setAttribute("listaJuegos", ventaJuegosDao.listarNombreJuegos());
                 request.setAttribute("consolas", ventaJuegosDao.listarConsolas());
+                request.setAttribute("listaFotoPerfil",perfilDao1.listarFotoPerfil());
                 view = request.getRequestDispatcher("UsuarioJapyld/JuegoExistente.jsp");
                 view.forward(request, response);
                 break;
             case "new":
                 request.setAttribute("categorias", ventaJuegosDao.listarCategorias());
                 request.setAttribute("consolas", ventaJuegosDao.listarConsolas());
+                request.setAttribute("listaFotoPerfil",perfilDao1.listarFotoPerfil());
                 view = request.getRequestDispatcher("UsuarioJapyld/JuegoNuevo.jsp");
                 view.forward(request, response);
                 break;
@@ -48,6 +53,7 @@ public class VentaJuegosServlet extends HttpServlet {
                     BigDecimal precioAdmin = new BigDecimal(request.getParameter("p"));
                     request.setAttribute("idOferta", idOferta);
                     request.setAttribute("precioAdmin", precioAdmin);
+                    request.setAttribute("listaFotoPerfil",perfilDao1.listarFotoPerfil());
                     view = request.getRequestDispatcher("UsuarioJapyld/CambiarPrecio.jsp");
                     view.forward(request, response);
                 }catch (Exception e) {

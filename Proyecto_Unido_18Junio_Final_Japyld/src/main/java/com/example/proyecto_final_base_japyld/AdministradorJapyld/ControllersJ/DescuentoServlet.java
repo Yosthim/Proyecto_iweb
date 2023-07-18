@@ -2,6 +2,7 @@ package com.example.proyecto_final_base_japyld.AdministradorJapyld.ControllersJ;
 
 import com.example.proyecto_final_base_japyld.AdministradorJapyld.ModelsJ.DaosJ.DescuentoDao;
 import com.example.proyecto_final_base_japyld.BeansGenerales.*;
+import com.example.proyecto_final_base_japyld.UsuarioJapyld.ModelsJ.DaosJ.PerfilDao;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
@@ -15,6 +16,7 @@ public class DescuentoServlet extends HttpServlet {
 
         String action = request.getParameter("action") == null ? "lista" :request.getParameter("action");
         DescuentoDao descuentoDao = new DescuentoDao();
+        PerfilDao perfilDao1 = new PerfilDao();
         RequestDispatcher view;
 
         switch (action){
@@ -33,7 +35,7 @@ public class DescuentoServlet extends HttpServlet {
                     Juegos juego = descuentoDao.obtenerJuego(id_juego_int);
 
                     if(juego != null){
-
+                        request.setAttribute("listaFotoPerfil",perfilDao1.listarFotoPerfil());
                         request.setAttribute("juego",juego);
                         view = request.getRequestDispatcher("AdministradorJapyld/descuentoAdmin.jsp");
                         view.forward(request,response);
@@ -42,6 +44,7 @@ public class DescuentoServlet extends HttpServlet {
                     }
 
                 }else{
+                    request.setAttribute("listaFotoPerfil",perfilDao1.listarFotoPerfil());
                     response.sendRedirect("OfertasServlet");
                 }
 

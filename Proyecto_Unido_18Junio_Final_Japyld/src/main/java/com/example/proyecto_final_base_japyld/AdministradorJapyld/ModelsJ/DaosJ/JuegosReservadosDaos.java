@@ -143,7 +143,7 @@ public class JuegosReservadosDaos extends BaseDao {
                     "                    left join personas p on r.id_usuario = p.idPersona\n" +
                     "                    left join personas a on r.id_administrador = a.idPersona\n" +
                     "                    left join consolas c on r.id_consola = c.idConsolas\n" +
-                    "\t\t\tWHERE  r.idJuegosCompradosReservados =?;")){
+                    "                    WHERE  r.idJuegosCompradosReservados =?;")){
 
             psmt.setInt(1,id_venta);
 
@@ -178,6 +178,7 @@ public class JuegosReservadosDaos extends BaseDao {
 
                     usaurio = new Personas();
                     usaurio.setIdPersona(rs.getInt(25));
+                    usaurio.setCorreo(rs.getString(26));
 
                     juegosCompradosReservados.setUsuario(usaurio);
 

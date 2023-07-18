@@ -6,6 +6,8 @@ import com.example.proyecto_final_base_japyld.BeansGenerales.Imagen;
 import com.example.proyecto_final_base_japyld.BeansGenerales.Juegos;
 import com.example.proyecto_final_base_japyld.BeansGenerales.Personas;
 import com.example.proyecto_final_base_japyld.BeansGenerales.VentaJuegosGeneral;
+import com.example.proyecto_final_base_japyld.SistemaJapyld.ModelsJ.DaosJ.CorreoDao;
+import com.example.proyecto_final_base_japyld.UsuarioJapyld.ModelsJ.DaosJ.PerfilDao;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -25,6 +27,8 @@ public class OfertasServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         OfertasDao ofertasDao = new OfertasDao();
+        CorreoDao correoDao = new CorreoDao();
+        PerfilDao perfilDao1 = new PerfilDao();
         RequestDispatcher view;
         String action = request.getParameter("action") == null ? "lista" :request.getParameter("action");
         switch (action){
@@ -34,6 +38,7 @@ public class OfertasServlet extends HttpServlet {
                 int id_veta_int = Integer.parseInt(id_venta);
                 request.setAttribute("venta_3_meses",ofertasDao.venta_3_meses(id_veta_int));
                 request.setAttribute("ventaJuegosGeneral", ofertasDao.obtenerJuego(id_veta_int));
+                request.setAttribute("listaFotoPerfil",perfilDao1.listarFotoPerfil());
                 request.getRequestDispatcher("AdministradorJapyld/NuevaOfertaAdmi.jsp").forward(request,response);
                 break;
 
@@ -53,6 +58,7 @@ public class OfertasServlet extends HttpServlet {
                     if(ventaJuegosGeneral != null){
 
                         request.setAttribute("ventaJuegosGeneral",ventaJuegosGeneral);
+                        request.setAttribute("listaFotoPerfil",perfilDao1.listarFotoPerfil());
                         view = request.getRequestDispatcher("AdministradorJapyld/AceptarOfertaAdmi.jsp");
                         view.forward(request,response);
                     }else{
@@ -81,6 +87,8 @@ public class OfertasServlet extends HttpServlet {
                     if(ventaJuegosGeneral != null){
                         ofertasDao.actualizarStock(ventaJuegosGeneral);
                         ofertasDao.borrar(ventaJuegosGeneral);
+                        request.setAttribute("listaFotoPerfil",perfilDao1.listarFotoPerfil());
+                        correoDao.correo(ventaJuegosGeneral.getUsuario().getCorreo(),"Estado de Oferta","Le enformamos que su oferta del juego "+ ventaJuegosGeneral.getJuego().getNombreJuegos()+" ha sido aceptada");
                         request.getSession().setAttribute("info","Compra realizada exitosamente");
                         response.sendRedirect(request.getContextPath() + "/AdminServlet?action=listaPaginaOfertas");
 
@@ -110,6 +118,7 @@ public class OfertasServlet extends HttpServlet {
                     if(ventaJuegosGeneral != null){
 
                         request.setAttribute("ventaJuegosGeneral",ventaJuegosGeneral);
+                        request.setAttribute("listaFotoPerfil",perfilDao1.listarFotoPerfil());
                         view = request.getRequestDispatcher("AdministradorJapyld/RechazarOferta.jsp");
                         view.forward(request,response);
                     }else{
@@ -138,6 +147,7 @@ public class OfertasServlet extends HttpServlet {
                     if(ventaJuegosGeneral != null){
 
                         request.setAttribute("ventaJuegosGeneral",ventaJuegosGeneral);
+                        request.setAttribute("listaFotoPerfil",perfilDao1.listarFotoPerfil());
                         view = request.getRequestDispatcher("AdministradorJapyld/ContraofertaAdmi.jsp");
                         view.forward(request,response);
                     }else{
@@ -160,6 +170,7 @@ public class OfertasServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action") == null ? "lista" :request.getParameter("action");
         OfertasDao ofertasDao = new OfertasDao();
+        CorreoDao correoDao = new CorreoDao();
 
 
         switch (action){
@@ -171,6 +182,8 @@ public class OfertasServlet extends HttpServlet {
                     VentaJuegosGeneral ventaJuegosGeneral = setVenta(request);
                     ventaJuegosGeneral.setIdVenta(Integer.parseInt(request.getParameter("id_venta").trim()));
                     ofertasDao.editarVenta(ventaJuegosGeneral);
+                    VentaJuegosGeneral ventaJuegosGeneral1 = ofertasDao.obtenerJuego(Integer.parseInt(request.getParameter("id_venta")));
+                    correoDao.correo(ventaJuegosGeneral1.getUsuario().getCorreo(),"Estado de Oferta","Lamentablemente su oferta del juego "+ ventaJuegosGeneral1.getJuego().getNombreJuegos()+" ha sido rechazada.Verifique la razón propuesta por el admistrador en su pagina de ofertas");
                     request.getSession().setAttribute("info","Mensaje de rechazo enviado exitosamente");
                     response.sendRedirect("AdminServlet?action=listaPaginaOfertas");
                 }else {
@@ -189,6 +202,7 @@ public class OfertasServlet extends HttpServlet {
 
                         ventaJuegosGeneralC.setIdVenta(Integer.parseInt(request.getParameter("id_venta")));
                         ofertasDao.editarVentaC(ventaJuegosGeneralC);
+                        correoDao.correo(ofertasDao.obtenerJuego(Integer.parseInt(request.getParameter("id_venta").trim())).getUsuario().getCorreo(),"Estado de Oferta","Lamentablemente su oferta del juego "+ ofertasDao.obtenerJuego(Integer.parseInt(request.getParameter("id_venta").trim())).getJuego().getNombreJuegos()+" ha sido rechazada, pero recibio una propuesta de compra. Verifiquelo en su pagina de ofertas");
                         request.getSession().setAttribute("info","Contraoferta enviada exitosamente");
                         response.sendRedirect("AdminServlet?action=listaPaginaOfertas");
                     }else{
@@ -229,8 +243,6 @@ public class OfertasServlet extends HttpServlet {
     }
 
     private VentaJuegosGeneral setVentaC(HttpServletRequest request){
-
-
 
         VentaJuegosGeneral ventaJuegosGeneral = new VentaJuegosGeneral();
         ventaJuegosGeneral.setPrecioUsuario(new BigDecimal(request.getParameter("precio").trim()));

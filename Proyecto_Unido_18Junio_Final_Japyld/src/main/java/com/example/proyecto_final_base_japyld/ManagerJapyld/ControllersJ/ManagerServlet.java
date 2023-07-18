@@ -5,6 +5,7 @@ import com.example.proyecto_final_base_japyld.ManagerJapyld.ModelsJ.DaosJ.Estadi
 import com.example.proyecto_final_base_japyld.ManagerJapyld.ModelsJ.DaosJ.JuegosManagerDao;
 import com.example.proyecto_final_base_japyld.ManagerJapyld.ModelsJ.DaosJ.ManagerDao;
 import com.example.proyecto_final_base_japyld.ManagerJapyld.ModelsJ.DaosJ.ProductosVendidosDao;
+import com.example.proyecto_final_base_japyld.UsuarioJapyld.ModelsJ.DaosJ.PerfilDao;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -63,9 +64,6 @@ public class ManagerServlet extends HttpServlet {
                 request.getRequestDispatcher("ManagerJapyld/PagPrin_ActualizarMetas.jsp").forward(request, response);
 
                 break;
-
-            case "perfilManager":
-                request.getRequestDispatcher("ManagerJapyld/perfilManager.jsp").forward(request,response);
 
         }
     }

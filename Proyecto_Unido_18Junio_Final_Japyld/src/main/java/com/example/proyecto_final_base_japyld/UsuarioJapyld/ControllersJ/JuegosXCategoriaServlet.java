@@ -3,6 +3,7 @@ package com.example.proyecto_final_base_japyld.UsuarioJapyld.ControllersJ;
 import com.example.proyecto_final_base_japyld.AdministradorJapyld.ModelsJ.DaosJ.CategoriaDao;
 import com.example.proyecto_final_base_japyld.UsuarioJapyld.ModelsJ.DaosJ.JuegosXCategoriaDao;
 import com.example.proyecto_final_base_japyld.UsuarioJapyld.ModelsJ.DaosJ.PaginaPrincipalDao;
+import com.example.proyecto_final_base_japyld.UsuarioJapyld.ModelsJ.DaosJ.PerfilDao;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -18,10 +19,12 @@ public class JuegosXCategoriaServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         CategoriaDao categoriadao1 = new CategoriaDao();
         JuegosXCategoriaDao categoriadao = new JuegosXCategoriaDao();
+        PerfilDao perfilDao1 = new PerfilDao();
 
         String idcategoria = request.getParameter("idcategoria");
         request.setAttribute("listaJuegosXcategoria", categoriadao.listarJuegosXcategoria(idcategoria));
         request.setAttribute("categorias",categoriadao1.listaCategoria());
+        request.setAttribute("listaFotoPerfil",perfilDao1.listarFotoPerfil());
         RequestDispatcher view = request.getRequestDispatcher("UsuarioJapyld/JuegosXCategoria.jsp");
         view.forward(request,response);
     }

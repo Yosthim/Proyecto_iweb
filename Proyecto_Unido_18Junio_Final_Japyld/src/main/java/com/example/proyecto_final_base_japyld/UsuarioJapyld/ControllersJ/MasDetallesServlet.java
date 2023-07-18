@@ -4,6 +4,7 @@ import com.example.proyecto_final_base_japyld.BeansGenerales.*;
 import com.example.proyecto_final_base_japyld.UsuarioJapyld.ModelsJ.DaosJ.ComentariosDao;
 import com.example.proyecto_final_base_japyld.UsuarioJapyld.ModelsJ.DaosJ.MasDetallesDao;
 
+import com.example.proyecto_final_base_japyld.UsuarioJapyld.ModelsJ.DaosJ.PerfilDao;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -25,6 +26,7 @@ public class MasDetallesServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ComentariosDao comentariosDao = new ComentariosDao();
         MasDetallesDao masdetallesdao = new MasDetallesDao();
+        PerfilDao perfilDao1 = new PerfilDao();
 
         int idjuego = Integer.parseInt(request.getParameter("idjuego"));
 
@@ -32,6 +34,7 @@ public class MasDetallesServlet extends HttpServlet {
         request.setAttribute("listaComentarios",comentariosDao.listarComentarios(idjuego));
         request.setAttribute("listaConsolaPorJuego",masdetallesdao.listarConsolasPorJuego(idjuego));
         request.setAttribute("listaRating",masdetallesdao.listarRating(idjuego));
+        request.setAttribute("listaFotoPerfil",perfilDao1.listarFotoPerfil());
         RequestDispatcher view = request.getRequestDispatcher("UsuarioJapyld/MasDetallesJuego.jsp");
         view.forward(request,response);
     }

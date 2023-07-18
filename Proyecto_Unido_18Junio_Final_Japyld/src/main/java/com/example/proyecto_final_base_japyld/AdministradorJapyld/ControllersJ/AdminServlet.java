@@ -5,6 +5,7 @@ import com.example.proyecto_final_base_japyld.AdministradorJapyld.ModelsJ.DaosJ.
 import com.example.proyecto_final_base_japyld.AdministradorJapyld.ModelsJ.DaosJ.CrudDao;
 import com.example.proyecto_final_base_japyld.AdministradorJapyld.ModelsJ.DtoJ.BarrasAdminDao;
 import com.example.proyecto_final_base_japyld.BeansGenerales.*;
+import com.example.proyecto_final_base_japyld.UsuarioJapyld.ModelsJ.DaosJ.PerfilDao;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -32,6 +33,7 @@ public class AdminServlet extends HttpServlet {
         CrudDao crudDao = new CrudDao();
         CategoriaDao categoriaDao = new CategoriaDao();
         BarrasAdminDao barrasAdminDao = new BarrasAdminDao();
+        PerfilDao perfilDao1 = new PerfilDao();
 
         HttpSession session = request.getSession();
         Personas administrador= (Personas)session.getAttribute("personaSession");
@@ -41,18 +43,21 @@ public class AdminServlet extends HttpServlet {
                 request.setAttribute("ultimasCompras",adminDao.primeraTabla());
                 request.setAttribute("ventas",adminDao.segundaTabla());
                 request.setAttribute("listaBarras", barrasAdminDao.Barras());
+                request.setAttribute("listaFotoPerfil",perfilDao1.listarFotoPerfil());
                 request.getRequestDispatcher("AdministradorJapyld/adminPaginaInicio.jsp").forward(request,response);
                 break;
             case "listasPaginaVideojuegos":
                 request.setAttribute("lista",adminDao.terceraTabla());
                 request.setAttribute("popCategoria",adminDao.tablaPopularesxCategotia());
                 request.setAttribute("juegos",adminDao.quintaTabla());
+                request.setAttribute("listaFotoPerfil",perfilDao1.listarFotoPerfil());
                 request.getRequestDispatcher("AdministradorJapyld/adminVideojuegos.jsp").forward(request,response);
                 break;
             case "listaPaginaOfertas":
                 request.setAttribute("ventas",adminDao.sextaTabla(administrador.getIdPersona()));
                 request.setAttribute("nuevosJuegos",adminDao.octavaTabla(administrador.getIdPersona()));
                 request.setAttribute("nuevosOfertas", adminDao.setimaTabla(administrador.getIdPersona()));
+                request.setAttribute("listaFotoPerfil",perfilDao1.listarFotoPerfil());
                 request.getRequestDispatcher("AdministradorJapyld/OfertasAdmi.jsp").forward(request,response);
                 break;
             case "editar":
@@ -72,6 +77,7 @@ public class AdminServlet extends HttpServlet {
 
                         request.setAttribute("juego", juego);
                         request.setAttribute("categorias",categoriaDao.listaCategoria());
+                        request.setAttribute("listaFotoPerfil",perfilDao1.listarFotoPerfil());
                         view = request.getRequestDispatcher("AdministradorJapyld/adminEditVideojuego.jsp");
                         view.forward(request,response);
                     }else{
@@ -97,6 +103,7 @@ public class AdminServlet extends HttpServlet {
                     if (jg != null) {
                         try {
                             adminDao.borrarjuego(idJuegos);
+                            request.setAttribute("listaFotoPerfil",perfilDao1.listarFotoPerfil());
                             request.getSession().setAttribute("info","Juego borrado exitosamente");
                             response.sendRedirect("AdminTodosJuegos");
                         } catch (SQLException e) {
@@ -105,6 +112,7 @@ public class AdminServlet extends HttpServlet {
                         }
                     }
                 } else {
+                    request.setAttribute("listaFotoPerfil",perfilDao1.listarFotoPerfil());
                     request.getSession().setAttribute("err","Error al borrar el juego");
                     response.sendRedirect("AdminTodosJuegos");
                 }

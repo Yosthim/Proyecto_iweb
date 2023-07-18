@@ -5,6 +5,7 @@ import com.example.proyecto_final_base_japyld.ManagerJapyld.ModelsJ.DaosJ.Modulo
 import com.example.proyecto_final_base_japyld.ManagerJapyld.ModelsJ.DtoJ.ModuloAdmin;
 import com.example.proyecto_final_base_japyld.UsuarioJapyld.ModelsJ.DaosJ.CompraDao;
 
+import com.example.proyecto_final_base_japyld.UsuarioJapyld.ModelsJ.DaosJ.PerfilDao;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -24,11 +25,13 @@ public class CompraServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         CompraDao comprajuego = new CompraDao();
+        PerfilDao perfilDao1 = new PerfilDao();
 
         int idjuego = Integer.parseInt(request.getParameter("idjuego"));
         String consola = request.getParameter("consola");
 
         request.setAttribute("listaDetallesCompra", comprajuego.listarDetallesCompra(idjuego,consola));
+        request.setAttribute("listaFotoPerfil",perfilDao1.listarFotoPerfil());
         RequestDispatcher view = request.getRequestDispatcher("UsuarioJapyld/PaginaCompra.jsp");
         view.forward(request,response);
     }
@@ -174,6 +177,8 @@ public class CompraServlet extends HttpServlet {
                 }else{
                     juegosCompradosReservados.setPrecio_compra(PrecioNuevo1);
                 }
+
+                juegosCompradosReservados.setDireccion_compra(Direccion);
                 return juegosCompradosReservados;
             }catch (ParseException p){
 

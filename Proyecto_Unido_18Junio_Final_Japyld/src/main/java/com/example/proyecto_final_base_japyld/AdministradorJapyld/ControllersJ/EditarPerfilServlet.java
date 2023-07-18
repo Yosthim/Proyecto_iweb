@@ -1,31 +1,26 @@
-package com.example.proyecto_final_base_japyld.UsuarioJapyld.ControllersJ;
+package com.example.proyecto_final_base_japyld.AdministradorJapyld.ControllersJ;
 
-import com.example.proyecto_final_base_japyld.AdministradorJapyld.ModelsJ.DaosJ.AdminDao;
 import com.example.proyecto_final_base_japyld.UsuarioJapyld.ModelsJ.DaosJ.PerfilDao;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.*;
+import jakarta.servlet.http.*;
+import jakarta.servlet.annotation.*;
 
 import java.io.IOException;
 
-@WebServlet(name = "EditarFotoPerfilServlet", value = "/EditarPerfil")
-public class EditarFotoPerfilServlet extends HttpServlet {
+@WebServlet(name = "EditarPerfilServlet", value = "/EditarPerfilServlet")
+public class EditarPerfilServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         PerfilDao perfildao = new PerfilDao();
         request.setAttribute("listaImagenPerfil",perfildao.listarImagenesPerfil());
         request.setAttribute("listaFotoPerfil",perfildao.listarFotoPerfil());
-        request.getRequestDispatcher("UsuarioJapyld/EditarFotoPerfil.jsp").forward(request,response);
+        request.getRequestDispatcher("AdministradorJapyld/EditarFotoPerfil.jsp").forward(request,response);
 
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
 
         PerfilDao actualizarFotoDao = new PerfilDao();
 
@@ -37,7 +32,7 @@ public class EditarFotoPerfilServlet extends HttpServlet {
 
         actualizarFotoDao.actualizarFotoPerfil(idFotoPerfil,idUsuarioPerfil);
 
-        response.sendRedirect(request.getContextPath() + "/PerfilUsuarioServlet");
+        response.sendRedirect(request.getContextPath() + "/PerfilAdmiServlet");
 
     }
 }

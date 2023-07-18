@@ -125,11 +125,16 @@
                             var barChart = new Chart(ctx, {
                               type: 'bar',
                               data: {
-                                labels: ['Marzo', 'Abril', 'Mayo', 'Junio', 'Julio'],
+                                labels: ['Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Setiembre','Octubre', 'Noviembre', 'Diciembre'],
                                 datasets: [{
                                   labels: ' Ventas por mes ',
-                                  data: [<%=estadisticasDao.VentaPorMes("March") %>, <%=estadisticasDao.VentaPorMes("April") %>, <%=estadisticasDao.VentaPorMes("May") %>, <%=estadisticasDao.VentaPorMes("June") %>, <%=estadisticasDao.VentaPorMes("July") %>],
+                                  data: [<%=estadisticasDao.VentaPorMes("March") %>, <%=estadisticasDao.VentaPorMes("April") %>, <%=estadisticasDao.VentaPorMes("May") %>, <%=estadisticasDao.VentaPorMes("June") %>, <%=estadisticasDao.VentaPorMes("July") %>, <%=estadisticasDao.VentaPorMes("August") %>, <%=estadisticasDao.VentaPorMes("September") %>, <%=estadisticasDao.VentaPorMes("October") %>, <%=estadisticasDao.VentaPorMes("November")%>, <%=estadisticasDao.VentaPorMes("December")%>],
                                   backgroundColor: [
+                                    'rgba(76, 175, 80, 0.5)', // Verde
+                                    'rgba(33, 150, 243, 0.5)', // Azul
+                                    'rgba(255, 193, 7, 0.5)', // Amarillo
+                                    'rgba(156, 39, 176, 0.5)', // Morado
+                                    'rgba(244, 67, 54, 0.5)', // Rojo
                                     'rgba(76, 175, 80, 0.5)', // Verde
                                     'rgba(33, 150, 243, 0.5)', // Azul
                                     'rgba(255, 193, 7, 0.5)', // Amarillo
@@ -137,6 +142,11 @@
                                     'rgba(244, 67, 54, 0.5)' // Rojo
                                   ],
                                   borderColor: [
+                                    'rgba(76, 175, 80, 1)', // Verde
+                                    'rgba(33, 150, 243, 1)', // Azul
+                                    'rgba(255, 193, 7, 1)', // Amarillo
+                                    'rgba(156, 39, 176, 1)', // Morado
+                                    'rgba(244, 67, 54, 1)' , // Rojo
                                     'rgba(76, 175, 80, 1)', // Verde
                                     'rgba(33, 150, 243, 1)', // Azul
                                     'rgba(255, 193, 7, 1)', // Amarillo

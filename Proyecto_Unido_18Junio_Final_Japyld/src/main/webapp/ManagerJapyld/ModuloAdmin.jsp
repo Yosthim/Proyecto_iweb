@@ -3,6 +3,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <% ArrayList<ModuloAdmin> listarAdminActivos = (ArrayList<ModuloAdmin>) request.getAttribute("listarAdminActivos"); %>
 <% ArrayList<ModuloAdmin> listarAdminInactivo = (ArrayList<ModuloAdmin>) request.getAttribute("listarAdminInactivo"); %>
+<% ArrayList<ModuloAdmin> adminPerdidas = (ArrayList<ModuloAdmin>) request.getAttribute("perdidas"); %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:useBean id="personaSession" type="com.example.proyecto_final_base_japyld.BeansGenerales.Personas" scope="session" class="com.example.proyecto_final_base_japyld.BeansGenerales.Personas"/>
 
@@ -88,8 +89,10 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <% for (ModuloAdmin um : listarAdminActivos) { %>
-                    <tr <%= um.getId() == (Integer)request.getAttribute("idMax") ? "style='background-color: rgba(255, 215, 0, 0.5);'" : "" %>>
+                    <% for (ModuloAdmin um : listarAdminActivos) {
+                      boolean esPerdida = adminPerdidas.contains(um.getId());
+                    %>
+                    <tr <%= um.getId() == (Integer)request.getAttribute("idMax") ? "style='background-color: rgba(255, 215, 0, 0.5);'" : (esPerdida ? "style='background-color: rgba(255, 25, 25, 0.7);'" : "") %>>
                       <td>
                         <div class="d-flex align-items-center">
 

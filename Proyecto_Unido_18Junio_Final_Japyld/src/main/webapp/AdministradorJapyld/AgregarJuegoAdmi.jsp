@@ -1,6 +1,7 @@
 
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="com.example.proyecto_final_base_japyld.BeansGenerales.Juegos" %><%--
+<%@ page import="com.example.proyecto_final_base_japyld.BeansGenerales.Juegos" %>
+<%@ page import="com.example.proyecto_final_base_japyld.UsuarioJapyld.ModelsJ.DtoJ.ImagenPerfilDto" %><%--
   Created by IntelliJ IDEA.
   User: jossr
   Date: 5/06/2023
@@ -13,6 +14,7 @@
 <%
     ArrayList<Juegos> juegos = (ArrayList<Juegos>) request.getAttribute("juegos");
 %>
+<% ArrayList<ImagenPerfilDto> listaFotoPerfil = (ArrayList<ImagenPerfilDto>) request.getAttribute("listaFotoPerfil"); %>
 <head>
 
     <meta charset="utf-8">
@@ -54,7 +56,34 @@
 
     <!-- Custom styles for this template-->
     <link href="recursos/css/sb-admin-2.min.css" rel="stylesheet">
+    <style>
+        .img-perfil-principal {
+            width: 300px; /* Ajusta el tamaño del círculo según tus necesidades */
+            height: 300px;
+        }
+        .img-gaga {
+            display: inline-block; /* Hacemos que el contenedor sea inline-block para que solo ocupe el tamaño de la imagen */
+            width: 50px; /* Ajusta el tamaño del círculo según tus necesidades */
+            height: 50px;
+            border-radius: 50%; /* Convertimos el cuadro en un círculo */
+            background-size: cover; /* Ajustamos la imagen para que cubra el círculo */
+            background-position: center center; /* Centramos la imagen dentro del círculo horizontal y verticalmente */
+            background-repeat: no-repeat; /* Evitamos que la imagen se repita */
+            margin: 0; /* Quitamos cualquier margen */
+            padding: 0; /* Quitamos cualquier relleno */
+            border: none; /* Quitamos cualquier borde */
+        }
 
+
+        .nav-link.dropdown-toggle {
+            align-items: center;
+            padding: 1px 5px; /* Ajustamos el padding horizontal y vertical */
+        }
+        .user-name {
+            color: #333; /* Color del nombre de usuario */
+            font-size: 14px; /* Tamaño del texto del nombre de usuario */
+        }
+    </style>
 </head>
 
 <body id="page-top">
@@ -238,14 +267,6 @@
                                 <img src="<%=request.getContextPath()%>/Image?act=juego&id=<%=j.getImagen().getIdImagenes()%>" class="img-fluid img_juego" alt="Imagen">
 
                                 <div class="mt-3">
-                                    <h5 class="mb-0">Rating:</h5>
-                                    <div class="rating">
-                                        <span class="star">&#9733;</span>
-                                        <span class="star">&#9733;</span>
-                                        <span class="star">&#9733;</span>
-                                        <span class="star">&#9733;</span>
-                                        <span class="star">&#9733;</span>
-                                    </div>
                                     <h5>Género: <%=j.getCategoria().getNombre()%></h5>
                                 </div>
                             </div>

@@ -5,10 +5,12 @@
       <map>
         <entry key="file://$PROJECT_DIR$/src/main/webapp/AdministradorJapyld/AceptarOfertaAdmi.jsp" value="file://$PROJECT_DIR$/src/main/webapp/AdministradorJapyld" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/AdministradorJapyld/AdminTodosJuegos.jsp" value="file://$PROJECT_DIR$/src/main/webapp/AdministradorJapyld" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/AdministradorJapyld/NuevaImagen.jsp" value="file://$PROJECT_DIR$/src/main/webapp/AdministradorJapyld" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/AdministradorJapyld/adminDeleteVideojuego.jsp" value="file://$PROJECT_DIR$/src/main/webapp/AdministradorJapyld" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/AdministradorJapyld/adminEditVideojuego.jsp" value="file://$PROJECT_DIR$/src/main/webapp/AdministradorJapyld" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/AdministradorJapyld/adminVideojuegos.jsp" value="file://$PROJECT_DIR$/src/main/webapp/AdministradorJapyld" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/AdministradorJapyld/ht.html" value="file://$PROJECT_DIR$/src/main/webapp/AdministradorJapyld" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/ManagerJapyld/ModuloAdmin.jsp" value="file://$PROJECT_DIR$/src/main/webapp/ManagerJapyld" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/ManagerJapyld/PaginaPrincipalManager.jsp" value="file://$PROJECT_DIR$/src/main/webapp/ManagerJapyld" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/ManagerJapyld/crearAdmin.jsp" value="file://$PROJECT_DIR$/src/main/webapp/ManagerJapyld" />
       </map>
