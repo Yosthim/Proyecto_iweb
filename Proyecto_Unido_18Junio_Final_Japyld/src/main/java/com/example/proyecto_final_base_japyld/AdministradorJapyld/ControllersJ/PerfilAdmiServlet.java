@@ -1,6 +1,7 @@
 package com.example.proyecto_final_base_japyld.AdministradorJapyld.ControllersJ;
 
 import com.example.proyecto_final_base_japyld.AdministradorJapyld.ModelsJ.DaosJ.AdminDao;
+import com.example.proyecto_final_base_japyld.UsuarioJapyld.ModelsJ.DaosJ.PerfilDao;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -13,8 +14,10 @@ import java.io.IOException;
 public class PerfilAdmiServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        PerfilDao perfilDao1 = new PerfilDao();
 
-        request.getRequestDispatcher("AdministradorJapyld/perfilAdmi.jsp").forward(request,response);
+        request.setAttribute("listaFotoPerfil",perfilDao1.listarFotoPerfil());
+        request.getRequestDispatcher("AdministradorJapyld/perdilAdmi.jsp").forward(request,response);
 
 
     }

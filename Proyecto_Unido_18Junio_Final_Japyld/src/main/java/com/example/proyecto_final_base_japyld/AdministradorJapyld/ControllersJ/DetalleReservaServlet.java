@@ -6,6 +6,7 @@ import com.example.proyecto_final_base_japyld.BeansGenerales.Juegos;
 import com.example.proyecto_final_base_japyld.BeansGenerales.JuegosCompradosReservados;
 import com.example.proyecto_final_base_japyld.BeansGenerales.VentaJuegosGeneral;
 import com.example.proyecto_final_base_japyld.SistemaJapyld.ModelsJ.DaosJ.CorreoDao;
+import com.example.proyecto_final_base_japyld.UsuarioJapyld.ModelsJ.DaosJ.PerfilDao;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
@@ -19,6 +20,7 @@ public class DetalleReservaServlet extends HttpServlet {
 
         JuegosReservadosDaos juegosReservadosDaos  = new JuegosReservadosDaos();
         CorreoDao correoDao = new CorreoDao();
+        PerfilDao perfilDao1 = new PerfilDao();
         RequestDispatcher view;
         String action = request.getParameter("action") == null ? "lista" :request.getParameter("action");
 
@@ -39,7 +41,7 @@ public class DetalleReservaServlet extends HttpServlet {
                     JuegosCompradosReservados juegosCompradosReservados = juegosReservadosDaos.obtenerReserva(id_veta_int1);
 
                     if(juegosCompradosReservados != null){
-
+                        request.setAttribute("listaFotoPerfil",perfilDao1.listarFotoPerfil());
                         request.setAttribute("juegosCompradosReservados",juegosCompradosReservados);
                         view = request.getRequestDispatcher("AdministradorJapyld/DetalleReserva.jsp");
                         view.forward(request,response);
@@ -68,6 +70,7 @@ public class DetalleReservaServlet extends HttpServlet {
 
                     if(juegosCompradosReservados != null){
                         juegosReservadosDaos.cambiarEstado(juegosCompradosReservados);
+                        request.setAttribute("listaFotoPerfil",perfilDao1.listarFotoPerfil());
                         correoDao.correo(juegosCompradosReservados.getUsuario().getCorreo(),"Juego Recibido","Su compra del juego " + juegosCompradosReservados.getJuego().getNombreJuegos() + " ha culminado exitosamente, esperamos que esta experiencia halla sido grata para usted. Disfrute de su compra.");
                         request.getSession().setAttribute("info","Actualizacion de informacion realizada correctamente");
                         response.sendRedirect(request.getContextPath() + "/JuegosReservadosServlet");

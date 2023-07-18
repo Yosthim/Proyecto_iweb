@@ -3,6 +3,7 @@ package com.example.proyecto_final_base_japyld.AdministradorJapyld.ControllersJ;
 import com.example.proyecto_final_base_japyld.AdministradorJapyld.ModelsJ.DaosJ.AdminDao;
 import com.example.proyecto_final_base_japyld.AdministradorJapyld.ModelsJ.DaosJ.AgregarDao;
 import com.example.proyecto_final_base_japyld.BeansGenerales.*;
+import com.example.proyecto_final_base_japyld.UsuarioJapyld.ModelsJ.DaosJ.PerfilDao;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
@@ -23,13 +24,14 @@ public class AgregarJuegoServlet extends HttpServlet {
 
         response.setContentType("text/html");
         RequestDispatcher view;
+        PerfilDao perfilDao1 = new PerfilDao();
 
         String action = request.getParameter("act") == null ? "listar" : request.getParameter("act");
         AgregarDao agregarDao = new AgregarDao();
 
         switch (action){
             case "agregar":
-
+                request.setAttribute("listaFotoPerfil",perfilDao1.listarFotoPerfil());
                 request.setAttribute("categorias",agregarDao.listarCategorias());
                 request.setAttribute("consolas",agregarDao.listarConsolas());
                 view = request.getRequestDispatcher("AdministradorJapyld/NuevoJuego.jsp");

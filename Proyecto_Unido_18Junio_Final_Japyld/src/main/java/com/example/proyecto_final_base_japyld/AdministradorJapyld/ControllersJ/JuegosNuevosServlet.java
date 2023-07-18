@@ -3,6 +3,7 @@ package com.example.proyecto_final_base_japyld.AdministradorJapyld.ControllersJ;
 import com.example.proyecto_final_base_japyld.AdministradorJapyld.ModelsJ.DaosJ.OfertasDao;
 import com.example.proyecto_final_base_japyld.BeansGenerales.*;
 import com.example.proyecto_final_base_japyld.SistemaJapyld.ModelsJ.DaosJ.CorreoDao;
+import com.example.proyecto_final_base_japyld.UsuarioJapyld.ModelsJ.DaosJ.PerfilDao;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
@@ -20,6 +21,7 @@ import jakarta.servlet.annotation.WebServlet;
 public class JuegosNuevosServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        PerfilDao perfilDao1 = new PerfilDao();
         OfertasDao ofertasDao = new OfertasDao();
         CorreoDao correoDao = new CorreoDao();
         RequestDispatcher view;
@@ -31,6 +33,7 @@ public class JuegosNuevosServlet extends HttpServlet {
                 int id_veta_int = Integer.parseInt(id_venta);
                 request.setAttribute("venta_3_meses",ofertasDao.venta_3_meses(id_veta_int));
                 request.setAttribute("ventaJuegosGeneral", ofertasDao.obtenerVenta(id_veta_int));
+                request.setAttribute("listaFotoPerfil",perfilDao1.listarFotoPerfil());
                 request.getRequestDispatcher("AdministradorJapyld/NuevaOfertaAdmiJuegoNuevo.jsp").forward(request,response);
                 break;
 
@@ -50,6 +53,7 @@ public class JuegosNuevosServlet extends HttpServlet {
                     if(ventaJuegosGeneral != null){
 
                         request.setAttribute("ventaJuegosGeneral",ventaJuegosGeneral);
+                        request.setAttribute("listaFotoPerfil",perfilDao1.listarFotoPerfil());
                         view = request.getRequestDispatcher("AdministradorJapyld/AceptarOfertaAdmiNuevo.jsp");
                         view.forward(request,response);
                     }else{
@@ -78,6 +82,7 @@ public class JuegosNuevosServlet extends HttpServlet {
                     if(ventaJuegosGeneral != null){
                         ofertasDao.borrar(ventaJuegosGeneral);
                         ofertasDao.aceptarVenta(ventaJuegosGeneral);
+                        request.setAttribute("listaFotoPerfil",perfilDao1.listarFotoPerfil());
                         correoDao.correo(ventaJuegosGeneral.getUsuario().getCorreo(),"Estado de Oferta","Le informamos que su oferta del juego "+ ventaJuegosGeneral.getNombreNuevo()+" ha sido aceptada.");
                         request.getSession().setAttribute("info","Compra realizada exitosamente");
                         response.sendRedirect(request.getContextPath() + "/AdminServlet?action=listaPaginaOfertas");
@@ -108,6 +113,7 @@ public class JuegosNuevosServlet extends HttpServlet {
                     if(ventaJuegosGeneral != null){
 
                         request.setAttribute("ventaJuegosGeneral",ventaJuegosGeneral);
+                        request.setAttribute("listaFotoPerfil",perfilDao1.listarFotoPerfil());
                         view = request.getRequestDispatcher("AdministradorJapyld/RechazarOfertaNuevo.jsp");
                         view.forward(request,response);
                     }else{
@@ -136,6 +142,7 @@ public class JuegosNuevosServlet extends HttpServlet {
                     if(ventaJuegosGeneral != null){
 
                         request.setAttribute("ventaJuegosGeneral",ventaJuegosGeneral);
+                        request.setAttribute("listaFotoPerfil",perfilDao1.listarFotoPerfil());
                         view = request.getRequestDispatcher("AdministradorJapyld/ContraofertaAdmiNuevo.jsp");
                         view.forward(request,response);
                     }else{
