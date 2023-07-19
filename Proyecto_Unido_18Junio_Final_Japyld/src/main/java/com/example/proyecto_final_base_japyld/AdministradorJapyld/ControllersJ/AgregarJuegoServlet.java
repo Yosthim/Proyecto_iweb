@@ -51,11 +51,8 @@ public class AgregarJuegoServlet extends HttpServlet {
         AdminDao adminDao = new AdminDao();
         String action = request.getParameter("act");
 
-        if (validar_texto(request.getParameter("nombreJuego").trim()) == true){
 
             if (validar(request.getParameter("nombreJuego").trim(),adminDao.quintaTabla())){
-
-                if (validar_texto(request.getParameter("descripcion").trim()) == true){
 
                     if (validarPrecio(request.getParameter("precio").trim()) == true){
 
@@ -111,19 +108,11 @@ public class AgregarJuegoServlet extends HttpServlet {
                         response.sendRedirect("AdminTodosJuegos");
                     }
 
-                }else{
-                    request.getSession().setAttribute("err","Juego no agregado, ingrese una descripcion valida");
-                    response.sendRedirect("AdminTodosJuegos");
-                }
             }else{
                 request.getSession().setAttribute("err","Juego no agregado, ya existe ");
                 response.sendRedirect("AdminTodosJuegos");
             }
 
-        }else{
-            request.getSession().setAttribute("err","Juego no agregado, ingrese un nombre valido");
-            response.sendRedirect("AdminTodosJuegos");
-        }
 
     }
 

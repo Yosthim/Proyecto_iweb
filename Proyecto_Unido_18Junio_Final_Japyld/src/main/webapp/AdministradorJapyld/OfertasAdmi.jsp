@@ -49,20 +49,6 @@
       border-color: #29B6A5;
       box-shadow: 0 0 0 3px rgba(41, 182, 165, 0.2);
     }
-  </style>
-
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-  <!-- Custom fonts for this template-->
-  <link href="recursos/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-  <link
-          href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-          rel="stylesheet">
-
-  <!-- Custom styles for this template-->
-  <link href="recursos/css/sb-admin-2.min.css" rel="stylesheet">
-  <style>
     .img-perfil-principal {
       width: 300px; /* Ajusta el tamaño del círculo según tus necesidades */
       height: 300px;
@@ -89,7 +75,40 @@
       color: #333; /* Color del nombre de usuario */
       font-size: 14px; /* Tamaño del texto del nombre de usuario */
     }
+
+    /* Estilo para ocultar el mensaje de éxito por defecto */
+    #CompraExitosa {
+      display: none;
+    }
+
+    /* Estilo para mostrar el mensaje de éxito con una animación */
+    .show-notification {
+      animation: fadeOut 5s;
+    }
+
+    /* Animación de desvanecimiento */
+    @keyframes fadeOut {
+      0% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 0;
+      }
+    }
   </style>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- Custom fonts for this template-->
+  <link href="recursos/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link
+          href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+          rel="stylesheet">
+
+  <!-- Custom styles for this template-->
+  <link href="recursos/css/sb-admin-2.min.css" rel="stylesheet">
+
 </head>
 
 <body id="page-top">
@@ -238,25 +257,19 @@
 
       </nav>
 
-      <% if (session.getAttribute("info") != null) {
-        //if (request.getParameter("msg") != null) {%>
-      <div id="mensaje" class="alert alert-success" role="alert">
+      <% if (session.getAttribute("info") != null) { %>
+      <div id="mensaje" class="alert alert-success show-notification" role="alert">
         <%=session.getAttribute("info")%>
       </div>
-      <%
-          session.setAttribute("info", null);
-        }
-      %>
-      <% if (session.getAttribute("err") != null) {
-        //if (request.getParameter("msg") != null) {%>
-      <div id="mensajeError" class="alert alert-danger" role="alert">
+      <% session.removeAttribute("info");%>
+      <%}%>
+
+      <% if (session.getAttribute("err") != null) { %>
+      <div id="mensajeError" class="alert alert-success show-notification" role="alert">
         <%=session.getAttribute("err")%>
       </div>
-      <%
-          session.setAttribute("err", null);
-        }
-      %>
-
+      <% session.removeAttribute("err");%>
+      <%}%>
       <!-- End of Topbar -->
 
       <!-- Begin Page Content -->
@@ -472,7 +485,22 @@
     </div>
   </div>
 </div>
+<script>
+  // Función para mostrar el mensaje de éxito y ocultarlo después de 10 segundos
+  function showNotification() {
+    const notification = document.getElementById("CompraExitosa");
+    notification.style.display = "block";
 
+    setTimeout(function () {
+      notification.style.display = "none";
+    }, 5000);
+  }
+
+  // Llama a la función cuando se cargue la página
+  window.onload = function () {
+    showNotification();
+  };
+</script>
 <!-- Bootstrap core JavaScript-->
 <script src="recursos/vendor/jquery/jquery.min.js"></script>
 <script src="recursos/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

@@ -171,7 +171,7 @@ public class JuegosNuevosServlet extends HttpServlet {
         switch (action){
             case "actualizar":
 
-                if(validar_texto(request.getParameter("rechazo").trim()) == true){
+
 
                     VentaJuegosGeneral ventaJuegosGeneral = setVenta(request);
                     ventaJuegosGeneral.setIdVenta(Integer.parseInt(request.getParameter("id_venta").trim()));
@@ -180,23 +180,18 @@ public class JuegosNuevosServlet extends HttpServlet {
                     correoDao.correo(ventaJuegosGeneral1.getUsuario().getCorreo(),"Estado de Oferta","Lamentablemente su oferta del juego "+ ventaJuegosGeneral1.getNombreNuevo()+" ha sido rechazada.Verifique la razón propuesta por el admistrador en su pagina de ofertas");
                     request.getSession().setAttribute("info","Mensaje de rechazo enviado exitosamente");
                     response.sendRedirect("AdminServlet?action=listaPaginaOfertas");
-                }else {
-                    request.getSession().setAttribute("err","Mensaje no enviado, verifique que se ingrese una contraoferta valida");
-                    response.sendRedirect("AdminServlet?action=listaPaginaOfertas");
-                }
+
 
                 break;
             case "actualizarC":
-
-                if(validar_texto(request.getParameter("rechazo").trim()) == true) {
 
                     if(valida_precio(request.getParameter("precioAdmi").trim())==true){
 
                         VentaJuegosGeneral ventaJuegosGeneralC = setVentaC(request);
                         ventaJuegosGeneralC.setIdVenta(Integer.parseInt(request.getParameter("id_venta")));
                         ofertasDao.editarVentaC(ventaJuegosGeneralC);
-                        VentaJuegosGeneral ventaJuegosGeneral1 = ofertasDao.obtenerVenta(Integer.parseInt(request.getParameter("id_venta")));
-                        correoDao.correo(ventaJuegosGeneral1.getUsuario().getCorreo(),"Estado de Oferta","Lamentablemente su oferta del juego "+ ventaJuegosGeneral1.getNombreNuevo()+" ha sido rechazada porque " + ventaJuegosGeneral1.getRazonRechazo()+", pero recibio una oferta de compra. Verifiquelo en su pagina de ofertas");
+                        VentaJuegosGeneral ventaJuegosGeneral2 = ofertasDao.obtenerVenta(Integer.parseInt(request.getParameter("id_venta")));
+                        correoDao.correo(ventaJuegosGeneral2.getUsuario().getCorreo(),"Estado de Oferta","Lamentablemente su oferta del juego "+ ventaJuegosGeneral2.getNombreNuevo()+" ha sido rechazada porque " + ventaJuegosGeneral2.getRazonRechazo()+", pero recibio una oferta de compra. Verifiquelo en su pagina de ofertas");
                         request.getSession().setAttribute("info","Contraoferta enviada exitosamente");
                         response.sendRedirect("AdminServlet?action=listaPaginaOfertas");
                     }else{
@@ -204,10 +199,6 @@ public class JuegosNuevosServlet extends HttpServlet {
                         response.sendRedirect("AdminServlet?action=listaPaginaOfertas");
                     }
 
-                }else{
-                    request.getSession().setAttribute("err","Contraoferta no enviada, verifique que se ingrese un razon de rechazo valida");
-                    response.sendRedirect("AdminServlet?action=listaPaginaOfertas");
-                }
 
                 break;
 

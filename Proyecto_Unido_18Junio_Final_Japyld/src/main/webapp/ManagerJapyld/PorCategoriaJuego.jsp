@@ -134,15 +134,20 @@
                                             <canvas id="barChart4"></canvas>
                                         </div>
 
+
                                         <script>
                                             var ctx = document.getElementById('barChart4').getContext('2d');
                                             var barChart4 = new Chart(ctx, {
                                                 type: 'bar',
                                                 data: {
-                                                    labels: ['<%= nombreCategoria[0] %>', '<%= nombreCategoria[1] %>', '<%= nombreCategoria[2] %>', '<%= nombreCategoria[3] %>', '<%= nombreCategoria[4] %>','<%= nombreCategoria[5] %>'],
+                                                    labels: [<% for (int i = 0; i < nombreCategoria.length; i++) { %>
+                                                        '<%= nombreCategoria[i] %>',
+                                                        <% } %>],
                                                     datasets: [{
-                                                        labels: ' ',
-                                                        data: [<%= cantUsuarios[0] %>, <%= cantUsuarios[1] %>, <%= cantUsuarios[2] %>, <%= cantUsuarios[3] %>, <%= cantUsuarios[4] %>,<%= cantUsuarios[5] %>],
+                                                        label: ' ',
+                                                        data: [<% for (int j = 0; j < cantUsuarios.length; j++) { %>
+                                                            <%= cantUsuarios[j] %>,
+                                                            <% } %>],
                                                         backgroundColor: [
                                                             'rgba(76, 175, 80, 0.5)', // Verde
                                                             'rgba(33, 150, 243, 0.5)', // Azul

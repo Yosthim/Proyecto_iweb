@@ -177,8 +177,6 @@ public class OfertasServlet extends HttpServlet {
 
             case"actualizar":
 
-                if(validar_texto(request.getParameter("rechazo").trim()) == true){
-
                     VentaJuegosGeneral ventaJuegosGeneral = setVenta(request);
                     ventaJuegosGeneral.setIdVenta(Integer.parseInt(request.getParameter("id_venta").trim()));
                     ofertasDao.editarVenta(ventaJuegosGeneral);
@@ -186,16 +184,13 @@ public class OfertasServlet extends HttpServlet {
                     correoDao.correo(ventaJuegosGeneral1.getUsuario().getCorreo(),"Estado de Oferta","Lamentablemente su oferta del juego "+ ventaJuegosGeneral1.getJuego().getNombreJuegos()+" ha sido rechazada.Verifique la razón propuesta por el admistrador en su pagina de ofertas");
                     request.getSession().setAttribute("info","Mensaje de rechazo enviado exitosamente");
                     response.sendRedirect("AdminServlet?action=listaPaginaOfertas");
-                }else {
-                    request.getSession().setAttribute("err","Mensaje no enviado, verifique que se ingrese solo letras");
-                    response.sendRedirect("AdminServlet?action=listaPaginaOfertas");
-                }
+
 
 
                 break;
             case "actualizarC":
 
-                if(validar_texto(request.getParameter("rechazo").trim()) == true) {
+
 
                     if(valida_precio(request.getParameter("precioAdmi").trim())==true){
                         VentaJuegosGeneral ventaJuegosGeneralC = setVentaC(request);
@@ -209,11 +204,6 @@ public class OfertasServlet extends HttpServlet {
                         request.getSession().setAttribute("err","Contraoferta no enviada, ingrese un valor de precio valido");
                         response.sendRedirect("AdminServlet?action=listaPaginaOfertas");
                     }
-
-                }else{
-                    request.getSession().setAttribute("err","Contraoferta no enviada, verifique que se ingrese solo letras en la razon de rechazo");
-                    response.sendRedirect("AdminServlet?action=listaPaginaOfertas");
-                }
 
                 break;
 
