@@ -18,7 +18,7 @@ public class ProductosVendidosDao extends BaseDao {
                 "FROM juegoscompradosreservados jc\n" +
                 "INNER JOIN juegos j ON j.idJuegos = jc.id_juego\n" +
                 "LEFT JOIN imagenes i ON i.idImagenes = j.id_imagen\n" +
-                "WHERE jc.estadoCompraJuego = 'Comprado' AND MONTHNAME(fechaCompraJuego) = ?\n" +
+                "WHERE MONTHNAME(fechaCompraJuego) = ?\n" +
                 "GROUP BY id_juego, direccion_archivo, nombreJuegos, precio, mes_compra\n" +
                 "ORDER BY ventas DESC\n" +
                 "LIMIT 1;";
@@ -59,7 +59,7 @@ public class ProductosVendidosDao extends BaseDao {
                 "FROM juegoscompradosreservados jc\n" +
                 "INNER JOIN juegos j ON j.idJuegos = jc.id_juego\n" +
                 "LEFT JOIN imagenes i ON i.idImagenes = j.id_imagen\n" +
-                "WHERE jc.estadoCompraJuego = 'Comprado' AND MONTHNAME(fechaCompraJuego) = ?\n" +
+                "WHERE MONTHNAME(fechaCompraJuego) = ?\n" +
                 "GROUP BY id_juego, direccion_archivo, nombreJuegos, precio, mes_compra\n" +
                 "ORDER BY ventas ASC\n" +
                 "LIMIT 1;";

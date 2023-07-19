@@ -20,7 +20,7 @@ public class PorCategoriaJuegoDao extends BaseDao {
                 "INNER JOIN juegos j ON jcr.id_juego = j.idJuegos\n" +
                 "INNER JOIN personas p ON jcr.id_usuario = p.idPersona\n" +
                 "INNER JOIN categorias c ON j.id_categoria = c.idCategorias\n" +
-                "WHERE jcr.estadoCompraJuego = 'Comprado' AND p.id_roles = \"USR\"\n" +
+                "WHERE p.id_roles = \"USR\"\n" +
                 "GROUP BY c.nombre\n" +
                 "ORDER BY COUNT(j.id_categoria) DESC;";
 
