@@ -50,7 +50,7 @@ public class TusJuegosDao extends BaseDao {
 
         ArrayList<Juegos> juegosRecomendados = new ArrayList<>();
         String sql = "SELECT idJuegos, nombreJuegos, id_imagen, nombre FROM juegos j INNER JOIN categorias c on j.id_categoria = c.idCategorias\n" +
-                "WHERE c.nombre = '" + categoria + "'";
+                "WHERE c.nombre = '" + categoria + "'" + " and j.estadoJuego = 'Activo'";
 
         try(Connection connection = this.getConnection();
             Statement stmt = connection.createStatement();
