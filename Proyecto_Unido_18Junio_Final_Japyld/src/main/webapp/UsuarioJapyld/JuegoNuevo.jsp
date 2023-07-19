@@ -17,7 +17,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Dashboard1</title>
+    <title>Nueva Publicación</title>
 
 
     <!-- Custom fonts for this template-->

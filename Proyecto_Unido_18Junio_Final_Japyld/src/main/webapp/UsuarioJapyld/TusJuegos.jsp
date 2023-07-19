@@ -18,7 +18,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Dashboard1</title>
+    <title>Tus Juegos</title>
 
 
     <!-- Custom fonts for this template-->
