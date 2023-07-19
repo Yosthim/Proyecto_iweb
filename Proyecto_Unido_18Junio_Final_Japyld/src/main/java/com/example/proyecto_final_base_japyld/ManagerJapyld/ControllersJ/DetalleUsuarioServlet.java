@@ -1,5 +1,6 @@
 package com.example.proyecto_final_base_japyld.ManagerJapyld.ControllersJ;
 
+import com.example.proyecto_final_base_japyld.ManagerJapyld.ModelsJ.DaosJ.CorreoAdminDao;
 import com.example.proyecto_final_base_japyld.ManagerJapyld.ModelsJ.DaosJ.DetalleUsuarioDao;
 import com.example.proyecto_final_base_japyld.ManagerJapyld.ModelsJ.DaosJ.ModuloAdminDao;
 import com.example.proyecto_final_base_japyld.ManagerJapyld.ModelsJ.DtoJ.DetalleUsuario;
@@ -22,8 +23,11 @@ public class DetalleUsuarioServlet extends HttpServlet {
         String action = request.getParameter("action") == null ? "lista" : request.getParameter("action");
         DetalleUsuarioDao perfilUsuarioDao = new DetalleUsuarioDao();
         ModuloAdminDao adminModuloDao = new ModuloAdminDao();
+        CorreoAdminDao correoAdminDao = new CorreoAdminDao();
 
         String id = request.getParameter("nm");
+        String correoUser= request.getParameter("dst");
+        String correDesban = request.getParameter("desti");
 
         switch (action) {
             case "lista":
@@ -37,6 +41,9 @@ public class DetalleUsuarioServlet extends HttpServlet {
             case "editar":
 
                 perfilUsuarioDao.editarUser(Integer.parseInt(id));
+
+                correoAdminDao.correo(correoUser, "Baneo de Cuenta", "Usted Ha Sido Baneado");
+
                 response.sendRedirect(request.getContextPath() + "/ModuloUsuarioServlet");
                 break;
 
@@ -44,6 +51,8 @@ public class DetalleUsuarioServlet extends HttpServlet {
                 String idStr = request.getParameter("idUser");
                 int id2 = Integer.parseInt(idStr);
                 perfilUsuarioDao.desbanearUser(id2);
+                correoAdminDao.correo(correDesban, "Desbaneo de Cuenta", "Usted Ha Sido Desbaneado");
+
                 response.sendRedirect(request.getContextPath() + "/ModuloUsuarioServlet");
                 break;
 
