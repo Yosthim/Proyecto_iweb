@@ -115,12 +115,13 @@ public class ModuloAdminServlet extends HttpServlet {
                 String genero = determinarGeneroPorNombre(request.getParameter("nombre"));
                 admin.setGenero(genero);
                 admin.setId_rol("ADM");
-                admin.setTipo("Predeterminado");
+                admin.setTipo("predeterminado");
                 admin.setCategoriaJuegoPreferida(categoriaAleatorio.getNombreCategoria());
                 admin.setFechaRegistro(new Date(System.currentTimeMillis()));
 
                 admin.setIdImagen(indiceAleatorio);
                 int contador2=adminModuloDao.contarPersonas();
+
                 admin.setId(contador2);
 
                 int centinela2=0;

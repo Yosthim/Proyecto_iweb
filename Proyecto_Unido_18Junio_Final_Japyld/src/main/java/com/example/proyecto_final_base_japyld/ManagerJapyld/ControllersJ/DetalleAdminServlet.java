@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Random;
 
 @WebServlet(name="DetalleAdminServlet", value = "/DetalleAdminServlet")
 public class DetalleAdminServlet extends HttpServlet {
@@ -72,9 +73,20 @@ public class DetalleAdminServlet extends HttpServlet {
 
                 perfilAdminDao.editarAdmin(Integer.parseInt(id));
 
-                int idEntregaMenos =perfilAdminDao.obtenerAdminMenosEntregas();
+                ArrayList<ModuloAdmin> listaAdmins = adminModuloDao.listarAdmin();
+                ArrayList<Integer> idsAdmin = new ArrayList<>();
 
-                perfilAdminDao.cambiarEntregas(Integer.parseInt(id),idEntregaMenos);
+                for (ModuloAdmin u:listaAdmins){
+                    int idAdmin = u.getId();
+                    idsAdmin.add(idAdmin);
+                }
+
+                Random random = new Random();
+                int randomIndex = random.nextInt(idsAdmin.size());
+                int randomId = idsAdmin.get(randomIndex);
+
+
+                perfilAdminDao.cambiarEntregas(Integer.parseInt(id),randomId);
 
                 response.sendRedirect(request.getContextPath() + "/ModuloAdminServlet");
                 break;
