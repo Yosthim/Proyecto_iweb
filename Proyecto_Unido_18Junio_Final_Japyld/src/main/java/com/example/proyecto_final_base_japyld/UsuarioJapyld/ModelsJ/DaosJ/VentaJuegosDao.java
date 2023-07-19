@@ -185,7 +185,7 @@ public class VentaJuegosDao extends BaseDao {
 
     public int getRandomIdAdmin() {
         ArrayList<Integer> idAdmins = new ArrayList<>();
-        String sql = "SELECT idPersona FROM personas WHERE id_roles = 'ADM'";
+        String sql = "SELECT idPersona FROM personas WHERE id_roles = 'ADM' AND estado = 'Activo'";
 
         try(Connection connection = this.getConnection();
             Statement stmt = connection.createStatement();

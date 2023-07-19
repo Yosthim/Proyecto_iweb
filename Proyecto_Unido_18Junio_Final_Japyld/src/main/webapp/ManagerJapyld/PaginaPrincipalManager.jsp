@@ -145,17 +145,12 @@
                     <div class="row no-gutters align-items-center">
                       <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                          <p class="mt-2 text-center h6 text-secondary"><b>¡NUEVO DE <%=nuevosIngresos.getCategoria()%>!</b></p>
                           <h6><%=nuevosIngresos.getNombreJuegos()%></h6>
                         </div>
                         <img src="<%=nuevosIngresos.getDireccion_imagen()%>" class="img-fluid img_juego" alt="Imagen">
                         <div class="mt-3">
-                          <% if(nuevosIngresos.getPrecio_nuevo() == 0){%>
                           <p class="mt-2">Precio: S/. <%=nuevosIngresos.getPrecio()%></p>
-                          <p class="text-gray-500 text-right mb-1"><b> <%= "Admin: " + nuevosIngresos.getPersonas().getNombre() + " " + nuevosIngresos.getPersonas().getApellido()%></b></p>
-                          <%}else{%>
-                          <p class="mt-2">Precio: S/. <%=nuevosIngresos.getPrecio_nuevo()%></p>
-                          <p class="text-gray-500 text-right mb-1"><b> <%= "Admin: " + nuevosIngresos.getPersonas().getNombre() + " " + nuevosIngresos.getPersonas().getApellido()%></b></p>
-                          <%}%>
                         </div>
                       </div>
                     </div>

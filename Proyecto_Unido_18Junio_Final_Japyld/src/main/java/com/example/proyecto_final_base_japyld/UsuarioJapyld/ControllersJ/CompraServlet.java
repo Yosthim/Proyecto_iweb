@@ -3,6 +3,7 @@ package com.example.proyecto_final_base_japyld.UsuarioJapyld.ControllersJ;
 import com.example.proyecto_final_base_japyld.BeansGenerales.*;
 import com.example.proyecto_final_base_japyld.ManagerJapyld.ModelsJ.DaosJ.ModuloAdminDao;
 import com.example.proyecto_final_base_japyld.ManagerJapyld.ModelsJ.DtoJ.ModuloAdmin;
+import com.example.proyecto_final_base_japyld.SistemaJapyld.ModelsJ.DaosJ.CorreoDao;
 import com.example.proyecto_final_base_japyld.UsuarioJapyld.ModelsJ.DaosJ.CompraDao;
 
 import com.example.proyecto_final_base_japyld.UsuarioJapyld.ModelsJ.DaosJ.PerfilDao;
@@ -42,6 +43,7 @@ public class CompraServlet extends HttpServlet {
         Juegos juego = new Juegos();
         JuegosXConsola juegoxconsola = new JuegosXConsola();
         CompraDao crearJuegoCompradoReservadoDao = new CompraDao();
+        CorreoDao correoDao = new CorreoDao();
 
         //1era validacion Direccion de entrega
         String direccion = request.getParameter("Direccion");
@@ -86,6 +88,7 @@ public class CompraServlet extends HttpServlet {
             //Aqui le paso esa linea y actualizo, falta pasarle juegosconsola
             crearJuegoCompradoReservadoDao.actualizarStockJuegosConsola(juegoxconsola,idConsolaActualizar,idJuegosActualizado);
             request.getSession().setAttribute("exitoCompra","La reserva de tu juego fue exitosa. Gracias por Comprar!");
+            correoDao.sendGameReservationEmail(juegoCompradoReservado);
             response.sendRedirect(request.getContextPath() + "/TusJuegos");
         }else{
             if(validacion1 != 1){

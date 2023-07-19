@@ -206,6 +206,124 @@ public class OfertasDao extends BaseDao {
 
     }
 
+    // se verifica si existe o no la relacion entre el juego de la oferta y la consola
+
+    public int validaExistenciaConsola(VentaJuegosGeneral ventaJuegosGeneral){
+
+        String sql = "Select count(*)  \n" +
+                "from juegos_por_consolas \n" +
+                "where id_juego = ? and id_consola = ?;";
+
+        VentaJuegosGeneral ventaJuegosGeneral1 = null;
+
+        try(Connection connection = this.getConnection();
+            PreparedStatement psmt =connection.prepareStatement(sql)){
+
+            psmt.setInt(1,ventaJuegosGeneral.getJuego().getIdJuegos());
+            psmt.setString(2,ventaJuegosGeneral.getConsola().getIdConsola());
+
+            try(ResultSet rs = psmt.executeQuery()){
+
+                if(rs.next()){
+
+                    ventaJuegosGeneral1 = new VentaJuegosGeneral();
+
+                    ventaJuegosGeneral1.setIdVenta(1);
+
+                }
+
+            }
+
+
+        }catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+        System.out.println("resultado 0 si no hay relacion " + ventaJuegosGeneral1.getIdVenta());
+        return ventaJuegosGeneral1.getIdVenta();
+
+    }
+    // se actualiza el stock de la tabla juegos por consola si hay una relacion
+    public void actualizarStockConsola(VentaJuegosGeneral ventaJuegosGeneral){
+
+        JuegosXConsola juegosXConsola = hallarjuegoXconsola(ventaJuegosGeneral);
+
+
+        String sql = "UPDATE juegos_por_consolas SET stock_consola = ?\n" +
+                "                 WHERE id_juego = ? and id_consola = ?;";
+
+        try (Connection connection = this.getConnection();
+             PreparedStatement pstmt = connection.prepareStatement(sql)) {
+
+
+            int nuevo =juegosXConsola.getStockXConsola()+ventaJuegosGeneral.getCantidad();
+            System.out.println("el valor actualizado del stock " + nuevo);
+            pstmt.setInt(1,nuevo);
+            pstmt.setInt(2, ventaJuegosGeneral.getJuego().getIdJuegos());
+            System.out.println("el valor del id del juego" + ventaJuegosGeneral.getJuego().getIdJuegos());
+            pstmt.setString(3,ventaJuegosGeneral.getConsola().getIdConsola());
+            System.out.println("el valor del id de la categoria" + ventaJuegosGeneral.getConsola().getIdConsola());
+            pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+    // se obtiene el valor del stock de la relacion
+    public JuegosXConsola hallarjuegoXconsola(VentaJuegosGeneral ventaJuegosGeneral){
+
+        String sql = "Select * \n" +
+                "from juegos_por_consolas \n" +
+                "where id_juego = ? and id_consola = ?;";
+
+        JuegosXConsola juegosXConsola =null;
+
+        try (Connection connection = this.getConnection();
+             PreparedStatement pstmt = connection.prepareStatement(sql)) {
+
+            pstmt.setInt(1,ventaJuegosGeneral.getJuego().getIdJuegos());
+            pstmt.setString(2, ventaJuegosGeneral.getConsola().getIdConsola());
+
+            try(ResultSet rs = pstmt.executeQuery()){
+
+                if(rs.next()){
+
+                    juegosXConsola = new JuegosXConsola();
+
+                    juegosXConsola.setStockXConsola(rs.getInt(3));
+                    System.out.println("valor del stock anterior"+juegosXConsola.getStockXConsola());
+
+                }
+
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return juegosXConsola;
+    }
+    // en el caso que la ralacion no exista se agrega dicah relacion y con el stock en valor 1
+    public void agregarJuegoXconsola(VentaJuegosGeneral ventaJuegosGeneral ){
+
+
+
+        String sql = "INSERT INTO juegos_por_consolas (id_juego, id_consola,stock_consola)" +
+                " VALUES (?,?,?)";
+
+        try (Connection connection = this.getConnection();
+             PreparedStatement pstmt = connection.prepareStatement(sql)) {
+
+            pstmt.setInt(1, ventaJuegosGeneral.getJuego().getIdJuegos());
+            pstmt.setString(2,ventaJuegosGeneral.getConsola().getIdConsola());
+            pstmt.setInt(3,1);
+            pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
     //------------------------------------------------------------------------------------------------------------------------
     // PARA JUEGOS QUE NOOOOO ESTAN EN LA BASE DE DATOS
 
@@ -269,6 +387,7 @@ public class OfertasDao extends BaseDao {
     }
 
 
+
     // Agrega un juego a la base de datos
 
     public void aceptarVenta(VentaJuegosGeneral ventaJuegosGeneral){
@@ -293,8 +412,7 @@ public class OfertasDao extends BaseDao {
             String restOfSentence = ventaJuegosGeneral.getDescripcionNueva().substring(1).toLowerCase();
             String descripcion  = firstLetter + restOfSentence;
 
-            pstmt.setString(4,ventaJuegosGeneral.getDescripcionNueva());
-            // error?
+            pstmt.setString(4,descripcion);
             Imagen imagen = new Imagen();
             imagen.setImagem(ventaJuegosGeneral.getImagenNueva());
             agregar_imagen(imagen);
@@ -377,6 +495,26 @@ public class OfertasDao extends BaseDao {
 
     }
 
+    public void actualizarVenta(VentaJuegosGeneral ventaJuegosGeneral){
+
+        int id=id_juego();
+
+        String sql = "UPDATE ventajuegosgeneral SET id_juego = ?\n" +
+                "                 WHERE idVenta = ?;";
+
+        try (Connection connection = this.getConnection();
+             PreparedStatement pstmt = connection.prepareStatement(sql)) {
+
+            pstmt.setInt(1,id);
+            pstmt.setInt(2,ventaJuegosGeneral.getIdVenta());
+            pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
 
     public int id_juego(){
 
@@ -400,5 +538,7 @@ public class OfertasDao extends BaseDao {
         return id;
 
     }
+
+
 
 }

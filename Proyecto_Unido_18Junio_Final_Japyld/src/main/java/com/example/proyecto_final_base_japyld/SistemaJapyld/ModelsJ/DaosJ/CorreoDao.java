@@ -1,6 +1,7 @@
 package com.example.proyecto_final_base_japyld.SistemaJapyld.ModelsJ.DaosJ;
 
 import com.example.proyecto_final_base_japyld.BaseDao;
+import com.example.proyecto_final_base_japyld.BeansGenerales.JuegosCompradosReservados;
 import com.example.proyecto_final_base_japyld.BeansGenerales.Personas;
 import com.example.proyecto_final_base_japyld.UsuarioJapyld.ModelsJ.DtoJ.InfoVentaDto;
 
@@ -35,9 +36,7 @@ public class CorreoDao extends BaseDao {
             mensaje.setRecipient(Message.RecipientType.TO, new InternetAddress(correoDestino));
             mensaje.setSubject(asunto);
             mensaje.setText(contenido);
-            mensaje.setText(contenido + "\n\nGracias por su preferencia\n"
-                    +"Atentamente,\n" +
-                    "Japyld\n");
+            mensaje.setText(contenido);
             Transport mTransport = s.getTransport("smtp");
             mTransport.connect(correo, contra);
             mTransport.sendMessage(mensaje, mensaje.getRecipients(Message.RecipientType.TO));
@@ -87,6 +86,26 @@ public class CorreoDao extends BaseDao {
                 "Los detalles de la oferta lo puede observar en su página de ofertas.\n\nGracias por su atención,\n\nJapyld Solutions";
         //Se envia el correo
         this.correo(this.getEmail(idAdmin), asunto, contenido);
+    }
+
+    public void sendGameReservationEmail(JuegosCompradosReservados infoCompra) {
+        PersonaDao personaDao = new PersonaDao();//Para obtener los datos del usuario
+        SistemaDao sistemaDao = new SistemaDao();//Para obtener los datos de la compra
+        Personas usuario = personaDao.obtenerPersona(infoCompra.getUsuario().getIdPersona());
+        String asunto = "Nueva reserva de juego";
+        String contenido =
+                "Estimado(a) administrador(a):\n\n" +
+                "Le informamos que se le ha asignado una nueva reserva con los siguientes detalles:\n" +
+                "   Usuario: " + usuario.getNombre() + " " + usuario.getApellido() + "\n" +
+                "   Juego: " + sistemaDao.obtenerNombreJuego(infoCompra.getJuego().getIdJuegos()) + "\n" +
+                "   Consola: " + sistemaDao.obtenerNombreConsola(infoCompra.getConsola().getIdConsola()) + "\n" +
+                "   Precio de la compra: " + infoCompra.getPrecio_compra() + "\n" +
+                "   Dirección de entrega: " +  infoCompra.getDireccion_compra() + "\n" +
+                "   Fecha de compra: " + infoCompra.getFechaCompraJuego() + "\n\n" +
+                "Gracias por su atención,\n" +
+                "Japyld Solutions";
+        //Se envia el correo
+        this.correo(this.getEmail(infoCompra.getAdministrador().getIdPersona()), asunto, contenido);
     }
 
 }

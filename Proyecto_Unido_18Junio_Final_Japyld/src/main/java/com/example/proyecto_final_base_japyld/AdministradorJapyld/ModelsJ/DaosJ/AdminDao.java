@@ -317,7 +317,7 @@ public class AdminDao extends BaseDao {
         String sql = "SELECT * FROM ventajuegosgeneral c\n" +
                 "                left join personas p on c.id_usuario = p.idPersona\n" +
                                 "left join juegos j on c.id_juego = j.idJuegos\n" +
-                "                WHERE c.estadoVenta = 'Pendiente' and c.disponibilidad = 'Habilitado' and c.id_administrador =? \n" +
+                "                WHERE c.estadoVenta = 'Pendiente' and c.disponibilidad = 'Existente' and c.id_administrador =? \n" +
                 "                ORDER BY c.fechaPublicacion ;";
         try(Connection connection = this.getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(sql)){
