@@ -289,10 +289,18 @@
                 </div>
                 <hr>
                 <div class="d-flex justify-content-between align-items-center mb-3">
+
                   <div class="d-flex">
                     <span>Precio: S/. <%=ventaJuegosGeneral.getPrecioUsuario()%></span>
                   </div>
                 </div>
+                <div class="d-flex justify-content-between align-items-center mb-3">
+
+                  <div class="d-flex">
+                    <span>Cantidad de copias: <%=ventaJuegosGeneral.getCantidad()%></span>
+                  </div>
+                </div>
+
               </div>
             </div>
 

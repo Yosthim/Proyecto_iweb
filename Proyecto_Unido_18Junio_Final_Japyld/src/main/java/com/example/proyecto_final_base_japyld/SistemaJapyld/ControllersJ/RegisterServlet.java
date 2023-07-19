@@ -6,6 +6,7 @@ import java.lang.*;
 import com.example.proyecto_final_base_japyld.BeansGenerales.Imagen;
 import com.example.proyecto_final_base_japyld.BeansGenerales.Personas;
 import com.example.proyecto_final_base_japyld.BeansGenerales.Roles;
+import com.example.proyecto_final_base_japyld.SistemaJapyld.ModelsJ.DaosJ.CorreoDao;
 import com.example.proyecto_final_base_japyld.SistemaJapyld.ModelsJ.DaosJ.PersonaDao;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -55,6 +56,7 @@ public class RegisterServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        CorreoDao correoDao =   new CorreoDao();
         PersonaDao crearUsuarioDao = new PersonaDao();
         //Inicio de las Validaciones
 
@@ -126,7 +128,13 @@ public class RegisterServlet extends HttpServlet {
         if((validacion1==1) && (validacion2==1) && (validacion3==1) && (validacion4==1) && (validacion5==1) && (validacion6==1) && (validacion7 ==1) && (validacion8==1)) {
             Personas persona = parsePersona(request);
             crearUsuarioDao.guardarUsuario(persona);
-            response.sendRedirect(request.getContextPath()+ "/LoginServlet?success");
+            correoDao.correo(persona.getCorreo(),"Bienvenida",  "!Hola "+ persona.getNombre() +"!" +"Gracias por unirte a la comunidad JAPYLD, es un placer tenerte entre nosotros. \n" +
+                    "Ahora perteneces a la comunidad de venta y compra de videojuegos mas grande del Perú impulasda por nuestros usuario.\n" +
+                    "Nos alegra que estés aqui y puedas disfrutar de todas las funcionalidades que te ofrecemos. \n"+
+                    "\n\nGracias por su preferencia\n"
+                    +"Atentamente,\n" +
+                    "Japyld\n");
+            response.sendRedirect(request.getContextPath()+ "/LoginServlet");
         }else{
             if (validacion1 != 1){
                 response.sendRedirect(request.getContextPath()+"/RegisterServlet?error1");
