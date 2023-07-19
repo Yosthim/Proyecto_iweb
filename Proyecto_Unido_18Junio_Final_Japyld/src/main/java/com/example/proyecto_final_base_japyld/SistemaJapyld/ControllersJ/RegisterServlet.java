@@ -126,7 +126,7 @@ public class RegisterServlet extends HttpServlet {
         if((validacion1==1) && (validacion2==1) && (validacion3==1) && (validacion4==1) && (validacion5==1) && (validacion6==1) && (validacion7 ==1) && (validacion8==1)) {
             Personas persona = parsePersona(request);
             crearUsuarioDao.guardarUsuario(persona);
-            response.sendRedirect(request.getContextPath()+ "/LoginServlet");
+            response.sendRedirect(request.getContextPath()+ "/LoginServlet?success");
         }else{
             if (validacion1 != 1){
                 response.sendRedirect(request.getContextPath()+"/RegisterServlet?error1");

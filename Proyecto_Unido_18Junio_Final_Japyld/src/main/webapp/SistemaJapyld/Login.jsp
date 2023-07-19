@@ -57,6 +57,9 @@
                                         <input type="password" class="form-control" name ="inputPassword"
                                                placeholder="Contraseña" autofocus="">
                                     </div>
+                                    <% if (request.getParameter("success") != null) { %>
+                                    <div class = "text-success">Cuenta creada correctamente. Bienvenido, inicia sesión.</div>
+                                    <% } %>
                                     <% if (request.getParameter("error") != null) { %>
                                     <div class = "text-danger">Error en usuario o contraseña.</div>
                                     <% } %>
