@@ -365,7 +365,7 @@
                                   for(VentaJuegosGeneral j :nuevosOfertas){
                                 %>
                                 <tr>
-                                  <td class="text-center"><a href="<%=request.getContextPath()%>/OfertasServlet?action=ofertas&id=<%=j.getIdVenta()%>"><%=j.getJuego().getNombreJuegos()%></a>.</td>
+                                  <td class="text-center"><a href="<%=request.getContextPath()%>/OfertasServlet?action=ofertas&id=<%=j.getIdVenta()%>"><%=j.getJuego().getNombreJuegos()%></a></td>
 
                                   <td class="text-center"><%=j.getUsuario().getNombre()%></td>
                                   <td class="text-center"><%=j.getPrecioUsuario()%></td>
@@ -417,7 +417,7 @@
                                 for(VentaJuegosGeneral j :nuevosJuegos){
                               %>
                               <tr>
-                                <td class="text-center"><a href="<%=request.getContextPath()%>/JuegosNuevosServlet?action=ofertas&id=<%=j.getIdVenta()%>"><%=j.getNombreNuevo()%></a>.</td>
+                                <td class="text-center"><a href="<%=request.getContextPath()%>/JuegosNuevosServlet?action=ofertas&id=<%=j.getIdVenta()%>"><%=j.getNombreNuevo()%></a></td>
 
                                 <td class="text-center"><%=j.getUsuario().getNombre()%></td>
                                 <td class="text-center"><%=j.getPrecioUsuario()%></td>

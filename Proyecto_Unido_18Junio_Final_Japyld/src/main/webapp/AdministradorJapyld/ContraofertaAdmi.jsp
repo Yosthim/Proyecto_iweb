@@ -273,7 +273,7 @@
                 <h6 class="m-0 font-weight-bold text-primary"><%=ventaJuegosGeneral.getJuego().getNombreJuegos()%></h6>
               </div>
               <div class="card-body text-center">
-                <img src="<%=request.getContextPath()%>/Image?act=venta&id=<%=ventaJuegosGeneral.getIdVenta()%>" class="img-fluid img_juego" alt="Imagen">
+                <img src="<%=request.getContextPath()%>/Image?act=juego&id=<%=ventaJuegosGeneral.getJuego().getImagen().getIdImagenes()%>" alt="Imagen" class="img-fluid">
 
                 <div class="mt-3">
                   <h5>Género: <%=ventaJuegosGeneral.getJuego().getCategoria().getNombre()%></h5>
@@ -291,18 +291,7 @@
 
                 <p class="text-justify"><%=ventaJuegosGeneral.getJuego().getDescripcion()%></p>
                 <div class="d-flex align-items-center mb-3">
-                  <h6 class="mr-3">Consola:</h6>
-                  <div class="row">
-                    <div class="col-sm-1">
-                      <img src="recursos/img/kisspng-playstation-2-logo-playstation-logo-5b2a2f6c44a1e2.0330864515294913082811.png" class="img-fluid" alt="PlayStation">
-                    </div>
-                    <div class="col-sm-1">
-                      <img src="recursos/img/kisspng-black-xbox-360-xbox-one-logo-xbox-5abe7f19c6db83.0322681315224338178145.png" class="img-fluid" alt="XBOX">
-                    </div>
-                    <div class="col-sm-1">
-                      <img src="recursos/img/nintendo_logo.png" class="img-fluid" alt="Nintendo">
-                    </div>
-                  </div>
+                  <h6 class="mr-3">Consola: <%=ventaJuegosGeneral.getConsola().getNombre()%></h6>
                 </div>
                 <hr>
                 <div class="d-flex justify-content-between align-items-center mb-3">
@@ -336,7 +325,7 @@
             <BR>
 
             <div class="text-center d-flex justify-content-center">
-              <button type="submit" class="btn btn-danger" form="actualizarC" >Enviar</button>
+              <button type="submit" class="btn btn-success" form="actualizarC" >Enviar</button>
             </div>
 
             <BR>

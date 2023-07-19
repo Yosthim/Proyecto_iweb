@@ -269,7 +269,7 @@
                 <h6 class="m-0 font-weight-bold text-primary"><%=ventaJuegosGeneral.getJuego().getNombreJuegos()%> </h6>
               </div>
               <div class="card-body text-center">
-                <img src="<%=request.getContextPath()%>/Image?act=venta&id=<%=ventaJuegosGeneral.getIdVenta()%>" class="img-fluid img_juego" alt="Imagen">
+                <img src="<%=request.getContextPath()%>/Image?act=juego&id=<%=ventaJuegosGeneral.getJuego().getImagen().getIdImagenes()%>" alt="Imagen" class="img-fluid">
 
                 <div class="mt-3">
                   <h5>Género: <%=ventaJuegosGeneral.getJuego().getCategoria().getNombre()%></h5>
