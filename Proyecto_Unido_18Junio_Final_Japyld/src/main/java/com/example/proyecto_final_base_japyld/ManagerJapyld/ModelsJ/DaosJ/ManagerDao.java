@@ -80,15 +80,9 @@ public class ManagerDao extends BaseDao {
 
         ArrayList<JuegosManager> nuevoIngreso = new ArrayList<>();
 
-        String sql = "SELECT idJuegos, nombreJuegos, c.nombre, precio,direccion_archivo, COALESCE(d.precio_nuevo, 0) AS precio_nuevo, vjg.id_administrador, p.nombre, p.apellido \n" +
-                "FROM juegos j\n" +
-                "LEFT JOIN ventajuegosgeneral vjg ON j.idJuegos = vjg.id_juego\n" +
-                "LEFT JOIN categorias c ON j.id_categoria = c.idCategorias\n" +
-                "LEFT JOIN descuentos d ON j.idJuegos = d.id_juego\n" +
-                "LEFT JOIN personas p ON p.idPersona = vjg.id_administrador\n" +
-                "INNER JOIN imagenes i ON j.id_imagen = i.idImagenes\n" +
-                "WHERE j.estadoJuego = \"Activo\" OR j.estadoJuego = \"Oferta\"\n" +
-                "ORDER BY vjg.fechaPublicacion DESC\n" +
+        String sql = "SELECT * FROM juegos j, categorias c, imagenes i\n" +
+                "WHERE j.id_categoria = c.idCategorias and (j.estadoJuego = \"Activo\" or j.estadoJuego = \"Oferta\") and j.id_imagen = i.idImagenes\n" +
+                "ORDER BY idJuegos DESC\n" +
                 "LIMIT 4;";
 
         try (Connection connection = this.getConnection();
@@ -99,15 +93,9 @@ public class ManagerDao extends BaseDao {
                 JuegosManager nuevoJuego = new JuegosManager();
                 nuevoJuego.setIdJuegos(resultSet.getInt(1));
                 nuevoJuego.setNombreJuegos(resultSet.getString(2));
-                nuevoJuego.setCategoria(resultSet.getString(3));
                 nuevoJuego.setPrecio(resultSet.getInt(4));
-                nuevoJuego.setDireccion_imagen(resultSet.getString(5));
-                nuevoJuego.setPrecio_nuevo(resultSet.getInt(6));
-                Personas personas = new Personas();
-                personas.setIdPersona(resultSet.getInt(7));
-                personas.setNombre(resultSet.getString(8));
-                personas.setApellido(resultSet.getString(9));
-                nuevoJuego.setPersonas(personas);
+                nuevoJuego.setCategoria(resultSet.getString(10));
+                nuevoJuego.setDireccion_imagen(resultSet.getString(14));
                 nuevoIngreso.add(nuevoJuego);
             }
         }catch (SQLException e){
