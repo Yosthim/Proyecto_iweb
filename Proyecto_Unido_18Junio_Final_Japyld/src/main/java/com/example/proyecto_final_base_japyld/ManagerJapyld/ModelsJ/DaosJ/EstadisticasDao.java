@@ -58,17 +58,12 @@ public class EstadisticasDao extends BaseDao {
 
     public int CompraPorMes(String mes){
 
-        String sql = "SELECT SUM(precioUser) AS sumaPrecioUser\n" +
-                "FROM ( SELECT id_juego, direccion_archivo, nombreJuegos, precio_usuario,\n" +
-                "       MONTHNAME(fechaPublicacion) AS mes_compra, \n" +
-                "       COUNT(vjg.id_juego) AS ventas,\n" +
-                "       precio_usuario * COUNT(*) AS precioUser\n" +
-                "FROM ventajuegosgeneral vjg\n" +
-                "INNER JOIN juegos j ON j.idJuegos = vjg.id_juego\n" +
-                "INNER JOIN personas p ON vjg.id_administrador = p.idPersona\n" +
-                "LEFT JOIN imagenes i ON i.idImagenes = j.id_imagen\n" +
-                "WHERE vjg.estadoVenta = 'Aceptado' AND MONTHNAME(fechaPublicacion) = ? AND p.id_roles = \"ADM\"\n" +
-                "GROUP BY id_juego, direccion_archivo, nombreJuegos, precio_usuario, mes_compra) AS subconsulta;";
+        String sql = "SELECT SUM(precio_final) AS suma_precio_final\n" +
+                "FROM (\n" +
+                "  SELECT IF(precio_admin IS NULL, precio_usuario, precio_admin) AS precio_final\n" +
+                "  FROM ventajuegosgeneral\n" +
+                "  WHERE MONTHNAME(fechaPublicacion) = ? AND estadoVenta = \"Aceptado\"\n" +
+                ") AS subconsulta;";
 
         int compraMes = 0;
         try (Connection connection = this.getConnection();

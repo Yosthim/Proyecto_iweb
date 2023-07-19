@@ -85,10 +85,15 @@ public class ManagerServlet extends HttpServlet {
 
                 Timestamp objFecha = Timestamp.valueOf(objFechaStr);
 
-                if(objVentasStr.isEmpty() || objComprasStr.isEmpty() || objUsuariosStr.isEmpty() || !esNumero(objVentasStr) || !esNumero(objComprasStr) || !esNumero(objUsuariosStr)) {
-                    response.sendRedirect(request.getContextPath() + "/ManagerServlet?a=actualizarObjetivos");
+                if(objVentasStr.isEmpty() || objComprasStr.isEmpty() || objUsuariosStr.isEmpty()) {
+                    response.sendRedirect(request.getContextPath() + "/ManagerServlet?a=actualizarObjetivos&error2");
                     return;
                 }
+                if(!esNumero(objVentasStr) || !esNumero(objComprasStr) || !esNumero(objUsuariosStr)) {
+                    response.sendRedirect(request.getContextPath() + "/ManagerServlet?a=actualizarObjetivos&error1");
+                    return;
+                }
+
                 int objVentas;
                 int objCompras;
                 int objUsuarios;
@@ -98,7 +103,7 @@ public class ManagerServlet extends HttpServlet {
                     objCompras = Integer.parseInt(objComprasStr);
                     objUsuarios = Integer.parseInt(objUsuariosStr);
                 } catch (NumberFormatException e) {
-                    response.sendRedirect(request.getContextPath() + "/ManagerServlet?a=actualizarObjetivos");
+                    response.sendRedirect(request.getContextPath() + "/ManagerServlet?a=actualizarObjetivos&error1");
                     return;
                 }
 
