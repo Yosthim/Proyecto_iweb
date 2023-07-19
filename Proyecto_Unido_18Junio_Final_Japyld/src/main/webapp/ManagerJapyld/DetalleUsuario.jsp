@@ -180,7 +180,7 @@
                                 <div class="col-12 col-xl-auto mb-3">
                                     <div class="d-flex justify-content-end">
                                         <% if (e.getEstado().equals("Activo")) { %>
-                                        <a href="<%= request.getContextPath()%>/DetalleUsuarioServlet?action=editar&nm=<%=e.getId()%>" class="btn btn-danger">
+                                        <a href="<%= request.getContextPath()%>/DetalleUsuarioServlet?action=editar&nm=<%=e.getId()%>&dst=<%=e.getCorreo()%>" class="btn btn-danger">
                                             Ban
                                         </a>
                                         <% } else { %>
