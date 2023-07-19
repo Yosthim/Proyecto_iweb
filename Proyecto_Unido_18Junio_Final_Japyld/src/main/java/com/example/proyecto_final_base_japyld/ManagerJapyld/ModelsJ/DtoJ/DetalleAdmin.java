@@ -24,6 +24,7 @@ public class DetalleAdmin {
     private BigDecimal DineroTotal;
 
     private String direccion_imagen;
+    private int idImagen;
 
     public int getId() {
         return id;
@@ -151,5 +152,13 @@ public class DetalleAdmin {
 
     public void setDireccion_imagen(String direccion_imagen) {
         this.direccion_imagen = direccion_imagen;
+    }
+
+    public int getIdImagen() {
+        return idImagen;
+    }
+
+    public void setIdImagen(int idImagen) {
+        this.idImagen = idImagen;
     }
 }

@@ -63,7 +63,7 @@ public class DetalleAdminDao {
             e.printStackTrace();
         }
 
-        String sql = "SELECT p.idPersona,p.nombre,j.nombreJuegos, jcr.precio_compra, i.direccion_archivo FROM juegoscompradosreservados jcr\n" +
+        String sql = "SELECT p.idPersona,p.nombre,j.nombreJuegos, jcr.precio_compra, i.direccion_archivo, i.idImagenes FROM juegoscompradosreservados jcr\n" +
                 "                                                left join personas p on jcr.id_administrador = p.idPersona\n" +
                 "                                                left join juegos_por_consolas jpc on jcr.id_consola = jpc.id_consola and jcr.id_juego=jpc.id_juego\n" +
                 "                                                left join juegos j on jpc.id_juego = j.idJuegos\n" +
@@ -85,6 +85,7 @@ public class DetalleAdminDao {
                     juegoPropuestos.setNombreJuegos(resultSet.getString(3)); // Establece el valor del nombre ingresado en el método
                     juegoPropuestos.setPrecioVenta(resultSet.getBigDecimal(4));
                     juegoPropuestos.setDireccion_imagen(resultSet.getString(5));
+                    juegoPropuestos.setIdImagen(resultSet.getInt(6));
 
                     listaJuegosComprados.add(juegoPropuestos);
                 }
@@ -107,7 +108,7 @@ public class DetalleAdminDao {
             e.printStackTrace();
         }
 
-        String sql = "SELECT p.idPersona,p.nombre,j.nombreJuegos, vjg.precio_usuario, i.direccion_archivo FROM ventajuegosgeneral vjg\n" +
+        String sql = "SELECT p.idPersona,p.nombre,j.nombreJuegos, vjg.precio_usuario, i.direccion_archivo, i.idImagenes FROM ventajuegosgeneral vjg\n" +
                 "                                                left join personas p on vjg.id_administrador = p.idPersona\n" +
                 "                                                left join juegos_por_consolas jpc on vjg.id_consola = jpc.id_consola and vjg.id_juego=jpc.id_juego\n" +
                 "                                                left join juegos j on jpc.id_juego = j.idJuegos\n" +
@@ -129,6 +130,7 @@ public class DetalleAdminDao {
                     juegoPropuestos.setNombreJuegos(resultSet.getString(3));
                     juegoPropuestos.setPrecioCompra(resultSet.getBigDecimal(4));
                     juegoPropuestos.setDireccion_imagen(resultSet.getString(5));
+                    juegoPropuestos.setIdImagen(resultSet.getInt(6));
 
                     listaJuegosAceptados.add(juegoPropuestos);
                 }
