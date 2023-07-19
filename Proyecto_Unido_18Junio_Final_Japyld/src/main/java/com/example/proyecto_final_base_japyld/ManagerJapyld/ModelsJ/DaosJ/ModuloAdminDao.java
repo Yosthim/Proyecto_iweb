@@ -348,4 +348,40 @@ public class ModuloAdminDao {
 
         return categorias;
     }
+
+
+    public ArrayList<ModuloAdmin> listarAdminMenosReservas(){
+
+        ArrayList <ModuloAdmin> listaMenosReservas = new ArrayList<>();
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e){
+            e.printStackTrace();
+        }
+
+        String sql = "SELECT count(id_administrador) as 'NReservas',id_administrador\n" +
+                "from juegoscompradosreservados\n" +
+                "where estadoCompraJuego = 'Reservado'\n" +
+                "group by id_administrador\n" +
+                "order by NReservas asc\n" +
+                "limit 1;";
+        String url = "jdbc:mysql://localhost:3306/japyld";
+
+        try (Connection connection = DriverManager.getConnection(url, "root", "root");
+             Statement smt = connection.createStatement();
+             ResultSet resultSet = smt.executeQuery(sql)) {
+
+            while(resultSet.next()){
+                ModuloAdmin adminModulo = new ModuloAdmin();
+                adminModulo.setId(resultSet.getInt(2));
+
+                listaMenosReservas.add(adminModulo);
+            }
+        }catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+
+        return listaMenosReservas;
+    }
 }
