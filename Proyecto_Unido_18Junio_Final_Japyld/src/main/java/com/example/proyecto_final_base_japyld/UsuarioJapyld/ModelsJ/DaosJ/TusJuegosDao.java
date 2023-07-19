@@ -14,7 +14,7 @@ public class TusJuegosDao extends BaseDao {
         String sql = "SELECT jr.id_juego, j.nombreJuegos, jr.estadoCompraJuego, j.id_imagen,jr.id_consola,jr.idJuegosCompradosReservados FROM juegoscompradosreservados jr left join juegos j on jr.id_juego = j.idJuegos\n" +
                 "                left join imagenes i on j.id_imagen = i.idImagenes\n" +
                 "                where jr.id_usuario = "+idUsuario+"\n" +
-                "                order by jr.id_juego;";
+                "                order by jr.estadoCompraJuego desc;";
 
         try(Connection connection = this.getConnection();
             Statement stmt = connection.createStatement();
