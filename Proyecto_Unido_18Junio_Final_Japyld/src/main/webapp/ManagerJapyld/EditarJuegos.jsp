@@ -104,7 +104,7 @@
                                                 <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                                     <h6><%=juegosTodos.getNombreJuegos()%></h6>
                                                 </div>
-                                                <img src="<%=juegosTodos.getDireccion_imagen()%>" class="img-fluid img_juego" alt="Imagen">
+                                                <img src="<%=request.getContextPath()%>/Image?act=juego&id=<%=juegosTodos.getId_imagen()%>" class="img-fluid img_juego" alt="Imagen">
                                                 <div class="mt-3">
                                                     <% if(juegosTodos.getPrecio_nuevo() == 0){%>
                                                     <p class="mt-2">Precio: S/. <%=juegosTodos.getPrecio()%></p>

@@ -32,6 +32,7 @@ public class ManagerDao extends BaseDao {
                 JuegosManager comentarioJuegoReciente = new JuegosManager();
                 comentarioJuegoReciente.setIdJuegos(resultSet.getInt(1));
                 comentarioJuegoReciente.setNombreJuegos(resultSet.getString(2));
+                comentarioJuegoReciente.setId_imagen(resultSet.getInt(3));
                 comentarioJuegoReciente.setDireccion_imagen(resultSet.getString(4));
                 ultimosJuegosComentados.add(comentarioJuegoReciente);
             }
@@ -94,6 +95,7 @@ public class ManagerDao extends BaseDao {
                 nuevoJuego.setIdJuegos(resultSet.getInt(1));
                 nuevoJuego.setNombreJuegos(resultSet.getString(2));
                 nuevoJuego.setPrecio(resultSet.getInt(4));
+                nuevoJuego.setId_imagen(resultSet.getInt(7));
                 nuevoJuego.setCategoria(resultSet.getString(10));
                 nuevoJuego.setDireccion_imagen(resultSet.getString(14));
                 nuevoIngreso.add(nuevoJuego);

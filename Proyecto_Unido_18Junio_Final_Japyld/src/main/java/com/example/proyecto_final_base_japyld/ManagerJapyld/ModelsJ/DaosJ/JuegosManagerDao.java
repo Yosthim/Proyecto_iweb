@@ -74,7 +74,7 @@ public class JuegosManagerDao extends BaseDao {
 
         ArrayList<JuegosManager> listaMasDetallesJuego = new ArrayList<>();
 
-        String sql = "SELECT idJuegos, nombreJuegos, precio,direccion_archivo, COALESCE(d.precio_nuevo, 0) AS precio_nuevo,c.nombre,j.descripcion\n" +
+        String sql = "SELECT idJuegos, nombreJuegos, precio, i.idImagenes, i.direccion_archivo, COALESCE(d.precio_nuevo, 0) AS precio_nuevo,c.nombre,j.descripcion\n" +
                 "                FROM juegos j\n" +
                 "                LEFT JOIN descuentos d ON j.idJuegos = d.id_juego\n" +
                 "                LEFT JOIN categorias c ON j.id_categoria = c.idCategorias\n" +
@@ -91,10 +91,11 @@ public class JuegosManagerDao extends BaseDao {
                     juegodetalles.setIdJuegos(rs.getInt(1));
                     juegodetalles.setNombreJuegos(rs.getString(2));
                     juegodetalles.setPrecio(rs.getInt(3));
-                    juegodetalles.setDireccion_imagen(rs.getString(4));
-                    juegodetalles.setPrecio_nuevo(rs.getInt(5));
-                    juegodetalles.setCategoria(rs.getString(6));
-                    juegodetalles.setDescripcion_juego(rs.getString(7));
+                    juegodetalles.setId_imagen(rs.getInt(4));
+                    juegodetalles.setDireccion_imagen(rs.getString(5));
+                    juegodetalles.setPrecio_nuevo(rs.getInt(6));
+                    juegodetalles.setCategoria(rs.getString(7));
+                    juegodetalles.setDescripcion_juego(rs.getString(8));
 
                     listaMasDetallesJuego.add(juegodetalles);
                 }
@@ -109,7 +110,7 @@ public class JuegosManagerDao extends BaseDao {
 
         ArrayList<JuegosManager> listaTodosJuegos = new ArrayList<>();
 
-        String sql = "SELECT idJuegos, nombreJuegos, precio,direccion_archivo, COALESCE(d.precio_nuevo, 0) AS precio_nuevo\n" +
+        String sql = "SELECT idJuegos, nombreJuegos, precio,i.idImagenes, COALESCE(d.precio_nuevo, 0) AS precio_nuevo\n" +
                     "FROM juegos j\n" +
                     "LEFT JOIN descuentos d ON j.idJuegos = d.id_juego\n" +
                     "INNER JOIN imagenes i ON j.id_imagen = i.idImagenes\n" +
@@ -124,7 +125,7 @@ public class JuegosManagerDao extends BaseDao {
                 listaJuegos.setIdJuegos(resultSet.getInt(1));
                 listaJuegos.setNombreJuegos(resultSet.getString(2));
                 listaJuegos.setPrecio(resultSet.getInt(3));
-                listaJuegos.setDireccion_imagen(resultSet.getString(4));
+                listaJuegos.setId_imagen(resultSet.getInt(4));
                 listaJuegos.setPrecio_nuevo(resultSet.getInt(5));
                 listaTodosJuegos.add(listaJuegos);
             }

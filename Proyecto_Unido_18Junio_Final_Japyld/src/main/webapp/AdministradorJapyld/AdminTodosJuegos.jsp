@@ -212,7 +212,7 @@
                                         <button class="btn btn-primary" type="submit">
                                             <i class="fas fa-search fa-sm"></i>
                                         </button>
-                                        <a class="btn btn-danger" href="<%=request.getContextPath()%>/PaginaPrincipal">
+                                        <a class="btn btn-danger" href="<%=request.getContextPath()%>/AdminTodosJuegos">
                                             <i class="fas fa-window-close fa-sm"></i>
                                         </a>
                                     </div>

@@ -101,7 +101,7 @@
                     <h6 class="m-0 font-weight-bold text-primary"><%= ultimosComentados.getNombreJuegos() %></h6>
                   </div>
                   <div class="card-body text-center">
-                    <img src="<%= ultimosComentados.getDireccion_imagen() %>" class="img-fluid img_juego_grande" alt="Imagen">
+                    <img src="<%=request.getContextPath()%>/Image?act=juego&id=<%=ultimosComentados.getId_imagen()%>" class="img-fluid img_juego" alt="Imagen">
                   </div>
                 </div>
               </div>
@@ -148,7 +148,7 @@
                           <p class="mt-2 text-center h6 text-secondary"><b>¡NUEVO DE <%=nuevosIngresos.getCategoria()%>!</b></p>
                           <h6><%=nuevosIngresos.getNombreJuegos()%></h6>
                         </div>
-                        <img src="<%=nuevosIngresos.getDireccion_imagen()%>" class="img-fluid img_juego" alt="Imagen">
+                        <img src="<%=request.getContextPath()%>/Image?act=juego&id=<%=nuevosIngresos.getId_imagen()%>" class="img-fluid img_juego" alt="Imagen">
                         <div class="mt-3">
                           <p class="mt-2">Precio: S/. <%=nuevosIngresos.getPrecio()%></p>
                         </div>

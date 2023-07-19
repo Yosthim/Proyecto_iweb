@@ -4,6 +4,7 @@ public class ProductosVendidos {
     private int id_juego;
 
     private int ventas;
+    private int id_imagen;
 
     private String direccion_archivo;
 
@@ -11,6 +12,14 @@ public class ProductosVendidos {
 
     private int precio;
     private String mes;
+
+    public int getId_imagen() {
+        return id_imagen;
+    }
+
+    public void setId_imagen(int id_imagen) {
+        this.id_imagen = id_imagen;
+    }
 
     public String getMes() {
         return mes;

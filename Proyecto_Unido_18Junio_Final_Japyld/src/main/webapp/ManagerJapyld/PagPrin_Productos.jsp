@@ -113,7 +113,7 @@
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                               <h6><%=vendidosMes.getNombreJuego()%></h6>
                             </div>
-                            <img src="<%=vendidosMes.getDireccion_archivo()%>" class="img-fluid img_juego" alt="Imagen">
+                            <img src="<%=request.getContextPath()%>/Image?act=juego&id=<%=vendidosMes.getId_imagen()%>" class="img-fluid img_juego" alt="Imagen">
                             <div class="mt-3">
                               <p class="mt-2">Precio: S/. <%=vendidosMes.getPrecio()%></p>
                               <p class="text-gray-500 text-right mb-1"><b> <%= "Ventas: " + vendidosMes.getVentas()%></b></p>
@@ -165,7 +165,7 @@
                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                           <h6><%=vendidosMesM.getNombreJuego()%></h6>
                         </div>
-                        <img src="<%=vendidosMesM.getDireccion_archivo()%>" class="img-fluid img_juego" alt="Imagen">
+                        <img src="<%=request.getContextPath()%>/Image?act=juego&id=<%=vendidosMesM.getId_imagen()%>" class="img-fluid img_juego" alt="Imagen">
                         <div class="mt-3">
                           <p class="mt-2">Precio: S/. <%=vendidosMesM.getPrecio()%></p>
                           <p class="text-gray-500 text-right mb-1"><b> <%= "Ventas: " + vendidosMesM.getVentas()%></b></p>

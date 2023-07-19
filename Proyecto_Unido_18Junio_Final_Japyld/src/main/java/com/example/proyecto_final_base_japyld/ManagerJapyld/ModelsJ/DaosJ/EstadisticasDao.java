@@ -32,11 +32,11 @@ public class EstadisticasDao extends BaseDao {
                 "        FROM juegoscompradosreservados jcr\n" +
                 "        INNER JOIN juegos j ON jcr.id_juego = j.idJuegos\n" +
                 "        INNER JOIN personas p ON jcr.id_usuario = p.idPersona\n" +
-                "        WHERE jcr.estadoCompraJuego = 'Comprado' AND p.id_roles = \"USR\" AND MONTHNAME(jcr.fechaCompraJuego) = ?\n" +
+                "        WHERE p.id_roles = \"USR\" AND MONTHNAME(jcr.fechaCompraJuego) = ?\n" +
                 "        GROUP BY id_juego\n" +
                 "    ) AS ventasTotales\n" +
                 ") AS total\n" +
-                "WHERE jc.estadoCompraJuego = 'Comprado' AND MONTHNAME(fechaCompraJuego) = ?\n" +
+                "WHERE MONTHNAME(fechaCompraJuego) = ?\n" +
                 "GROUP BY id_juego, direccion_archivo, nombreJuegos, precio, mes_compra, total.total_venta\n" +
                 "LIMIT 1;";
 

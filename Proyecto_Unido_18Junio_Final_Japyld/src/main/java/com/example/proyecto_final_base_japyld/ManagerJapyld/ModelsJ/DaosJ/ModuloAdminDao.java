@@ -384,4 +384,114 @@ public class ModuloAdminDao {
 
         return listaMenosReservas;
     }
+
+    public ArrayList<ModuloAdmin> listarAdminMes(){
+
+        ArrayList <ModuloAdmin> listaMes = new ArrayList<>();
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e){
+            e.printStackTrace();
+        }
+
+        String sql = "SELECT\n" +
+                "    p.idPersona,\n" +
+                "    p.nombre,\n" +
+                "    p.apellido,\n" +
+                "    p.correo,\n" +
+                "    jcr_contador.contador AS contador_juegos,\n" +
+                "    vg_contador.contador AS contador_ventas,\n" +
+                "    vg_suma_precios.suma_precios_ventas,\n" +
+                "    jcr_suma_precios.suma_precios_compras,\n" +
+                "    i.direccion_archivo,\n" +
+                "    p.dni\n" +
+                "FROM\n" +
+                "    personas p\n" +
+                "LEFT JOIN imagenes i ON p.id_perfil = i.idImagenes\n" +
+                "LEFT JOIN (\n" +
+                "    SELECT\n" +
+                "        id_administrador,\n" +
+                "        COUNT(*) AS contador\n" +
+                "    FROM\n" +
+                "        juegoscompradosreservados jcr\n" +
+                "    WHERE\n" +
+                "        jcr.estadoCompraJuego = 'Reservado'\n" +
+                "        AND MONTH(jcr.fechaComprajuego) = MONTH(DATE_SUB(CURRENT_DATE(), INTERVAL 1 MONTH))\n" +
+                "        AND YEAR(jcr.fechaComprajuego) = YEAR(DATE_SUB(CURRENT_DATE(), INTERVAL 1 MONTH))\n" +
+                "    GROUP BY\n" +
+                "        id_administrador\n" +
+                ") jcr_contador ON p.idPersona = jcr_contador.id_administrador\n" +
+                "LEFT JOIN (\n" +
+                "    SELECT\n" +
+                "        id_administrador,\n" +
+                "        COUNT(*) AS contador\n" +
+                "    FROM\n" +
+                "        ventajuegosgeneral vg\n" +
+                "    WHERE\n" +
+                "        vg.estadoVenta = 'Aceptado'\n" +
+                "        AND MONTH(vg.fechaPublicacion) = MONTH(DATE_SUB(CURRENT_DATE(), INTERVAL 1 MONTH))\n" +
+                "        AND YEAR(vg.fechaPublicacion) = YEAR(DATE_SUB(CURRENT_DATE(), INTERVAL 1 MONTH))\n" +
+                "    GROUP BY\n" +
+                "        id_administrador\n" +
+                ") vg_contador ON p.idPersona = vg_contador.id_administrador\n" +
+                "LEFT JOIN (\n" +
+                "    SELECT\n" +
+                "        id_administrador,\n" +
+                "        SUM(vg.precio_usuario) AS suma_precios_ventas\n" +
+                "    FROM\n" +
+                "        ventajuegosgeneral vg\n" +
+                "    LEFT JOIN juegos_por_consolas jpc ON vg.id_juego = jpc.id_juego AND vg.id_consola = jpc.id_consola\n" +
+                "    LEFT JOIN juegos j ON jpc.id_juego = j.idJuegos\n" +
+                "    WHERE\n" +
+                "        vg.estadoVenta = 'Aceptado'\n" +
+                "        AND MONTH(vg.fechaPublicacion) = MONTH(DATE_SUB(CURRENT_DATE(), INTERVAL 1 MONTH))\n" +
+                "        AND YEAR(vg.fechaPublicacion) = YEAR(DATE_SUB(CURRENT_DATE(), INTERVAL 1 MONTH))\n" +
+                "    GROUP BY\n" +
+                "        id_administrador\n" +
+                ") vg_suma_precios ON p.idPersona = vg_suma_precios.id_administrador\n" +
+                "LEFT JOIN (\n" +
+                "    SELECT\n" +
+                "        id_administrador,\n" +
+                "        SUM(jcr.precio_compra) AS suma_precios_compras\n" +
+                "    FROM\n" +
+                "        juegoscompradosreservados jcr\n" +
+                "    LEFT JOIN juegos_por_consolas jpc ON jcr.id_juego = jpc.id_juego AND jcr.id_consola = jpc.id_consola\n" +
+                "    LEFT JOIN juegos j ON jpc.id_juego = j.idJuegos\n" +
+                "    WHERE\n" +
+                "        jcr.estadoCompraJuego = 'Comprado'\n" +
+                "        AND MONTH(jcr.fechaComprajuego) = MONTH(DATE_SUB(CURRENT_DATE(), INTERVAL 1 MONTH))\n" +
+                "        AND YEAR(jcr.fechaComprajuego) = YEAR(DATE_SUB(CURRENT_DATE(), INTERVAL 1 MONTH))\n" +
+                "    GROUP BY\n" +
+                "        id_administrador\n" +
+                ") jcr_suma_precios ON p.idPersona = jcr_suma_precios.id_administrador\n" +
+                "WHERE\n" +
+                "    p.id_roles = 'ADM' AND p.estado = 'Activo';";
+        String url = "jdbc:mysql://localhost:3306/japyld";
+
+        try (Connection connection = DriverManager.getConnection(url, "root", "root");
+             Statement smt = connection.createStatement();
+             ResultSet resultSet = smt.executeQuery(sql)) {
+
+            while(resultSet.next()){
+                ModuloAdmin adminModulo = new ModuloAdmin();
+                adminModulo.setNombre(resultSet.getString(2));
+                adminModulo.setApellido(resultSet.getString(3));
+                adminModulo.setCorreo(resultSet.getString(4));
+                adminModulo.setJuegoComprados(resultSet.getInt(6));
+                adminModulo.setJuegoPorEntregar(resultSet.getInt(5));
+                adminModulo.setId(resultSet.getInt(1));
+                adminModulo.setDineroGastoTotal(resultSet.getBigDecimal(7));
+                adminModulo.setDineroCompraTotal(resultSet.getBigDecimal(8));
+                adminModulo.setImagen(resultSet.getString(9));
+                adminModulo.setDni(resultSet.getInt(10));
+
+                listaMes.add(adminModulo);
+            }
+        }catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+
+        return listaMes;
+    }
 }
