@@ -224,12 +224,12 @@
                  aria-labelledby="userDropdown">
               <a class="dropdown-item" href="<%=request.getContextPath()%>/PerfilAdmiServlet">
                 <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                Profile
+                Ver Perfil
               </a>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                 <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                Logout
+                Salir
               </a>
             </div>
           </li>
@@ -425,7 +425,7 @@
     <footer class="sticky-footer bg-white">
       <div class="container my-auto">
         <div class="copyright text-center my-auto">
-          <span>Japyld</span>
+          <span>Copyright © Japyld Solutions 2023</span>
         </div>
       </div>
     </footer>

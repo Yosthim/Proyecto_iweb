@@ -116,8 +116,10 @@
                         <h5 class="text-primary text-center">INGRESOS NETOS DE LA PÁGINA</h5>
                         <div class="card-body text">
                           <br>
-                          <div class="container">
-                            <canvas id="barChart"></canvas>
+                          <div style="width: 100%; overflow-x: auto;">
+                            <div class="container" style="width: 800px;">
+                              <canvas id="barChart"></canvas>
+                            </div>
                           </div>
                           <% EstadisticasDao estadisticasDao = new EstadisticasDao();%>
                           <script>
@@ -208,7 +210,7 @@
         <footer class="sticky-footer bg-white">
           <div class="container my-auto">
             <div class="copyright text-center my-auto">
-              <span>Copyright &copy; Your Website 2021</span>
+              <span>Copyright &copy; JAPYLD Solutions 2023</span>
             </div>
           </div>
         </footer>

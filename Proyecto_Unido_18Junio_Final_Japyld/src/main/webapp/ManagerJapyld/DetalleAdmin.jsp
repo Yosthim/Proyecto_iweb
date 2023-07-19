@@ -348,7 +348,7 @@
                         <div class="copyright text-center my-auto">
                             <br>
                             <br>
-                            <span>Copyright &copy; Your Website 2021</span>
+                            <span>Copyright &copy; JAPYLD Solutions 2023</span>
                         </div>
                     </div>
                 </footer>
