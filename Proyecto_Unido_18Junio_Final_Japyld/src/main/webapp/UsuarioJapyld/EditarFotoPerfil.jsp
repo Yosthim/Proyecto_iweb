@@ -113,13 +113,13 @@
                              aria-labelledby="userDropdown">
                             <a class="dropdown-item" href="<%=request.getContextPath()%>/PerfilUsuarioServlet">
                                 <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Profile
+                                Ver Perfil
                             </a>
 
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="<%=request.getContextPath()%>/LoginServlet?action=logout" data-toggle="modal" data-target="#logoutModal">
                                 <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Logout
+                                Salir
                             </a>
                         </div>
                     </li>
