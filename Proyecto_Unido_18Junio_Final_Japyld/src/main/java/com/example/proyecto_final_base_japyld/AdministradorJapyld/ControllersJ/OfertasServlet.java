@@ -85,12 +85,30 @@ public class OfertasServlet extends HttpServlet {
                     VentaJuegosGeneral ventaJuegosGeneral = ofertasDao.obtenerJuego(id_veta_int1);
 
                     if(ventaJuegosGeneral != null){
+
                         ofertasDao.actualizarStock(ventaJuegosGeneral);
                         ofertasDao.borrar(ventaJuegosGeneral);
-                        request.setAttribute("listaFotoPerfil",perfilDao1.listarFotoPerfil());
-                        correoDao.correo(ventaJuegosGeneral.getUsuario().getCorreo(),"Estado de Oferta","Le enformamos que su oferta del juego "+ ventaJuegosGeneral.getJuego().getNombreJuegos()+" ha sido aceptada");
-                        request.getSession().setAttribute("info","Compra realizada exitosamente");
-                        response.sendRedirect(request.getContextPath() + "/AdminServlet?action=listaPaginaOfertas");
+
+                        if (ofertasDao.validaExistenciaConsola(ventaJuegosGeneral) != 0){
+
+                            // se debe actualizar el stock en la tabla de juegos por consolas
+                            ofertasDao.actualizarStockConsola(ventaJuegosGeneral);
+                            request.setAttribute("listaFotoPerfil",perfilDao1.listarFotoPerfil());
+                            correoDao.correo(ventaJuegosGeneral.getUsuario().getCorreo(),"Estado de Oferta","Le enformamos que su oferta del juego "+ ventaJuegosGeneral.getJuego().getNombreJuegos()+" ha sido aceptada" + "\n\nGracias por su preferencia\n"
+                                    +"Atentamente,\n" +
+                                    "Japyld\n");
+                            request.getSession().setAttribute("info","Compra realizada exitosamente");
+                            response.sendRedirect(request.getContextPath() + "/AdminServlet?action=listaPaginaOfertas");
+
+                        }else{
+                            // se debe agregar ala tabla esa relacion en JUEGOSXCONSOLA
+                            ofertasDao.agregarJuegoXconsola(ventaJuegosGeneral);
+                            request.setAttribute("listaFotoPerfil",perfilDao1.listarFotoPerfil());
+                            correoDao.correo(ventaJuegosGeneral.getUsuario().getCorreo(),"Estado de Oferta","Le enformamos que su oferta del juego "+ ventaJuegosGeneral.getJuego().getNombreJuegos()+" ha sido aceptada");
+                            request.getSession().setAttribute("info","Compra realizada exitosamente");
+                            response.sendRedirect(request.getContextPath() + "/AdminServlet?action=listaPaginaOfertas");
+                        }
+
 
                     }else{
                         response.sendRedirect("OfertasServlet");
@@ -181,7 +199,9 @@ public class OfertasServlet extends HttpServlet {
                     ventaJuegosGeneral.setIdVenta(Integer.parseInt(request.getParameter("id_venta").trim()));
                     ofertasDao.editarVenta(ventaJuegosGeneral);
                     VentaJuegosGeneral ventaJuegosGeneral1 = ofertasDao.obtenerJuego(Integer.parseInt(request.getParameter("id_venta")));
-                    correoDao.correo(ventaJuegosGeneral1.getUsuario().getCorreo(),"Estado de Oferta","Lamentablemente su oferta del juego "+ ventaJuegosGeneral1.getJuego().getNombreJuegos()+" ha sido rechazada.Verifique la razón propuesta por el admistrador en su pagina de ofertas");
+                    correoDao.correo(ventaJuegosGeneral1.getUsuario().getCorreo(),"Estado de Oferta","Lamentablemente su oferta del juego "+ ventaJuegosGeneral1.getJuego().getNombreJuegos()+" ha sido rechazada.Verifique la razón propuesta por el admistrador en su pagina de ofertas" + "\n\nGracias por su preferencia\n"
+                            +"Atentamente,\n" +
+                            "Japyld\n");
                     request.getSession().setAttribute("info","Mensaje de rechazo enviado exitosamente");
                     response.sendRedirect("AdminServlet?action=listaPaginaOfertas");
 
@@ -197,7 +217,9 @@ public class OfertasServlet extends HttpServlet {
 
                         ventaJuegosGeneralC.setIdVenta(Integer.parseInt(request.getParameter("id_venta")));
                         ofertasDao.editarVentaC(ventaJuegosGeneralC);
-                        correoDao.correo(ofertasDao.obtenerJuego(Integer.parseInt(request.getParameter("id_venta").trim())).getUsuario().getCorreo(),"Estado de Oferta","Lamentablemente su oferta del juego "+ ofertasDao.obtenerJuego(Integer.parseInt(request.getParameter("id_venta").trim())).getJuego().getNombreJuegos()+" ha sido rechazada porque " + ofertasDao.obtenerJuego(Integer.parseInt(request.getParameter("id_venta").trim())).getRazonRechazo()+ ", pero recibio una propuesta de compra. Verifiquelo en su pagina de ofertas");
+                        correoDao.correo(ofertasDao.obtenerJuego(Integer.parseInt(request.getParameter("id_venta").trim())).getUsuario().getCorreo(),"Estado de Oferta","Lamentablemente su oferta del juego "+ ofertasDao.obtenerJuego(Integer.parseInt(request.getParameter("id_venta").trim())).getJuego().getNombreJuegos()+" ha sido rechazada porque " + ofertasDao.obtenerJuego(Integer.parseInt(request.getParameter("id_venta").trim())).getRazonRechazo()+ ", pero recibio una propuesta de compra. Verifiquelo en su pagina de ofertas"+ "\n\nGracias por su preferencia\n"
+                                +"Atentamente,\n" +
+                                "Japyld\n");
                         request.getSession().setAttribute("info","Contraoferta enviada exitosamente");
                         response.sendRedirect("AdminServlet?action=listaPaginaOfertas");
                     }else{

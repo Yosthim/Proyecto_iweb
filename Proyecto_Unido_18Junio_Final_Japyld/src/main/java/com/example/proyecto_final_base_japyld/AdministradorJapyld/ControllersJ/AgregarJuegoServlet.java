@@ -82,11 +82,16 @@ public class AgregarJuegoServlet extends HttpServlet {
                                             InputStream imageGameContent = imageGamePart.getInputStream();
 
                                             if(imageGameContent.available() >0){
+
                                                 juegos.getImagen().setImagem(imageGameContent);
                                                 agregarDao.registrarJuego(juegos);
+                                                if(0==0){
+                                                    // se debe actualizar el stock en la tabla de
+                                                }
                                                 agregarDao.registrarJuegoXCategoria(juegosXConsola);
                                                 request.getSession().setAttribute("info","Juego agregado correctamente");
                                                 response.sendRedirect("AdminTodosJuegos");
+
                                                 break;
                                             }else{
                                                 request.getSession().setAttribute("err","Juego no agregado, ingrese una imagen");
