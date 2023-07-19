@@ -20,7 +20,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Nueva Publicación</title>
+    <title>Ofertas</title>
 
 
     <!-- Custom fonts for this template-->
