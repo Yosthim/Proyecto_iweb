@@ -54,7 +54,8 @@ public class ModuloAdminDao {
                 "                                    vg_contador.contador AS contador_ventas,\n" +
                 "                                    vg_suma_precios.suma_precios_ventas,\n" +
                 "                                    jcr_suma_precios.suma_precios_compras,\n" +
-                "                                    i.direccion_archivo\n" +
+                "                                    i.direccion_archivo,\n" +
+                "                                    p.dni\n" +
                 "                                FROM\n" +
                 "                                    personas p\n" +
                 "\t\t\t\t\t\t\t\tLEFT JOIN imagenes i ON p.id_perfil = i.idImagenes\n" +
@@ -125,6 +126,7 @@ public class ModuloAdminDao {
                 adminModulo.setDineroGastoTotal(resultSet.getBigDecimal(7));
                 adminModulo.setDineroCompraTotal(resultSet.getBigDecimal(8));
                 adminModulo.setImagen(resultSet.getString(9));
+                adminModulo.setDni(resultSet.getInt(10));
 
                 lista.add(adminModulo);
             }
@@ -142,20 +144,14 @@ public class ModuloAdminDao {
             e.printStackTrace();
         }
 
-        String sql2 = "INSERT INTO imagenes (idImagenes, tipo, direccion_archivo) VALUES (?, ?,?)";
         String sql3 = "INSERT INTO personas (idPersona,correo, contrasenia, nombre, apellido, fechaDeNacimiento,fechaRegistro, estado, categoriaJuegoPreferida ,dni, genero, id_roles, id_perfil) VALUES (?,?, SHA2(?,256), ?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
 
         String url = "jdbc:mysql://localhost:3306/japyld";
 
         try (Connection connection = DriverManager.getConnection(url, "root", "root");
-             PreparedStatement smt2 = connection.prepareStatement(sql2);
              PreparedStatement smt3 = connection.prepareStatement(sql3)) {
 
 
-            smt2.setInt(1,admin.getIdImagen());
-            smt2.setString(2, admin.getTipo());
-            smt2.setString(3, admin.getImagen());
-            smt2.executeUpdate();
 
             smt3.setInt(1,admin.getId());
             smt3.setString(2, admin.getCorreo());
@@ -175,35 +171,6 @@ public class ModuloAdminDao {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    public int contarImagenes(){
-        int total=0;
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        String sql = "SELECT COUNT(*) AS total_imagenes FROM imagenes;";
-
-        String url = "jdbc:mysql://localhost:3306/japyld";
-        try (Connection connection = DriverManager.getConnection(url, "root", "root");
-             Statement stmt = connection.createStatement();
-             ResultSet rs = stmt.executeQuery(sql)) {
-
-            while (rs.next()) {
-                ModuloAdmin p1 = new ModuloAdmin();
-                p1.setIdImagen(rs.getInt(1));
-                total = p1.getIdImagen();
-
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
-        return total+1;
-
     }
 
     public int contarPersonas(){

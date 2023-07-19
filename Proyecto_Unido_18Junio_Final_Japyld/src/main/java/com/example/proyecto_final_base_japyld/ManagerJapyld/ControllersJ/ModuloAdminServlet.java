@@ -98,7 +98,6 @@ public class ModuloAdminServlet extends HttpServlet {
                 int indiceCategoria = random.nextInt(categoriaPreferidas.size());
                 int indiceAleatorio = random.nextInt(perfiles.size());
 
-                ImagenesAdmin perfilAleatorio = perfiles.get(indiceAleatorio);
                 CategoriasAdmin categoriaAleatorio = categoriaPreferidas.get(indiceCategoria);
 
                 admin.setNombre(request.getParameter("nombre"));
@@ -106,32 +105,27 @@ public class ModuloAdminServlet extends HttpServlet {
                 admin.setCorreo(request.getParameter("correo"));
                 admin.setContrasenia(request.getParameter("contrasenia"));
 
-                int dniAleatorio;
-                boolean dniUnico = false;
-                while (!dniUnico) {
-                    dniAleatorio = generarNumeroAleatorio8Digitos();
-                    dniUnico = esDniUnico(dniAleatorio, adminModuloDao.listarAdmin());
-                    if (dniUnico) {
-                        admin.setDni(dniAleatorio);
-                    }
-                }
+                admin.setDni(Integer.parseInt(request.getParameter("dni")));
 
+                String fecha1 = request.getParameter("fecha");
                 admin.setEstado("Activo");
-                admin.setFechaDeNacimiento(Date.valueOf("2002-05-15"));
+
+                admin.setFechaDeNacimiento(Date.valueOf(fecha1));
+
                 String genero = determinarGeneroPorNombre(request.getParameter("nombre"));
                 admin.setGenero(genero);
                 admin.setId_rol("ADM");
-                admin.setImagen(perfilAleatorio.getDireccionArchivo());
                 admin.setTipo("Predeterminado");
                 admin.setCategoriaJuegoPreferida(categoriaAleatorio.getNombreCategoria());
                 admin.setFechaRegistro(new Date(System.currentTimeMillis()));
-                int contador=adminModuloDao.contarImagenes();
-                admin.setIdImagen(contador);
+
+                admin.setIdImagen(indiceAleatorio);
                 int contador2=adminModuloDao.contarPersonas();
                 admin.setId(contador2);
 
                 int centinela2=0;
                 int centinela=0;
+                int centinela3=0;
 
                 ArrayList<ModuloAdmin> comparar= adminModuloDao.listarAdmin();
                 for (ModuloAdmin admi1: comparar){
@@ -145,10 +139,26 @@ public class ModuloAdminServlet extends HttpServlet {
                         centinela2=1;
                         break;
                     }
+                    if (admi1.getDni()==admin.getDni()){
+                        centinela3=1;
+                        break;
+                    }
                 }
 
-                if (centinela==1 || centinela2 ==1){
-                    response.sendRedirect(request.getContextPath()+"/ModuloAdminServlet?action=crear");
+                if (centinela==1 || centinela2 ==1 ||  centinela3 ==1){
+
+                    if(centinela==1){
+                        request.getSession().setAttribute("corr","El correo ingresado ya fue registrado");
+                        response.sendRedirect(request.getContextPath()+"/ModuloAdminServlet?action=crear");
+                    }
+                    if (centinela2==1){
+                        request.getSession().setAttribute("noma","No puede crear un administrador con el mismo nombre y apellido que otro");
+                        response.sendRedirect(request.getContextPath()+"/ModuloAdminServlet?action=crear");
+                    }
+                    if (centinela3==1){
+                        request.getSession().setAttribute("dny","El dni ingresado ya fue registrado");
+                        response.sendRedirect(request.getContextPath()+"/ModuloAdminServlet?action=crear");
+                    }
                 }else {
                     adminModuloDao.crearAdmin(admin);
                     request.getSession().setAttribute("info","Administrador Creado Correctamente");
@@ -156,19 +166,6 @@ public class ModuloAdminServlet extends HttpServlet {
                 }
                 break;
         }
-    }
-
-    public boolean esDniUnico(int dniGenerado, ArrayList<ModuloAdmin> administradores) {
-        for (ModuloAdmin admin : administradores) {
-            if (admin.getDni() == dniGenerado) {
-                return false; // El DNI ya existe, no es único
-            }
-        }
-        return true; // El DNI es único
-    }
-
-    public int generarNumeroAleatorio8Digitos() {
-        return new Random().nextInt(90000000) + 10000000;
     }
 
     public static String determinarGeneroPorNombre(String nombre) {
