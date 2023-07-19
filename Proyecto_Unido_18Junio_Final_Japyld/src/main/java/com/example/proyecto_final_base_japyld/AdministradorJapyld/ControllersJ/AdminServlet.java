@@ -144,17 +144,13 @@ public class AdminServlet extends HttpServlet {
 
                     if (validarPrecio(request.getParameter("precio").trim()) == true){
 
-                            if (validar_texto(request.getParameter("descripcion").trim())==true){
 
                                 Juegos juegos = setJuegos(request);
                                 juegos.setIdJuegos(Integer.parseInt(request.getParameter("id_juego")));
                                 crudDao.editarJuego(juegos);
                                 request.getSession().setAttribute("info","Actualizacion exitosa");
                                 response.sendRedirect("AdminTodosJuegos");
-                            }else{
-                                request.getSession().setAttribute("err","Cambios no hechos, asegurece de ingresar una descripcion correcta");
-                                response.sendRedirect("AdminTodosJuegos");
-                            }
+
 
                     }else{
                         request.getSession().setAttribute("err","Cambios no hechos,  asegurece de ingresar un precio valido y una descripcion diferente");
@@ -167,20 +163,16 @@ public class AdminServlet extends HttpServlet {
             case "buscar":
 
                 String textoBuscar = request.getParameter("textoBuscar");
-                if (validar_texto(textoBuscar)==true){
+
                     request.setAttribute("textoBusqueda", textoBuscar);
                     RequestDispatcher view = request.getRequestDispatcher("AdministradorJapyld/adminVideojuegos.jsp");
                     view.forward(request, response);
-                }else{
-                    request.getSession().setAttribute("err","Agregue un texto valido");
-                    response.sendRedirect("AdminTodosJuegos");
-                }
+
+
 
             case"agregarCategoria":
 
-                if(validar_texto(request.getParameter("nombre").trim()) == true){
-
-                    Categoria categoria = new Categoria();
+                Categoria categoria = new Categoria();
 
                     String oracion = request.getParameter("nombre").trim();
                     String primeraLetraMayuscula = oracion.substring(0, 1).toUpperCase();
@@ -196,10 +188,6 @@ public class AdminServlet extends HttpServlet {
                         response.sendRedirect("AdminServlet?action=listasPaginaVideojuegos");
                     }
 
-                }else {
-                    request.getSession().setAttribute("err","Categoria no agregada, verifique que se ingrese solo letras");
-                    response.sendRedirect("AdminServlet?action=listasPaginaVideojuegos");
-                }
                 break;
 
             case"agregarPrecio":
@@ -218,16 +206,10 @@ public class AdminServlet extends HttpServlet {
 
             case"agregarDescripcion":
 
-                if(validar_texto(request.getParameter("nombre").trim()) == true){
-
                     adminDao.actualizarDescripcion(Integer.parseInt(request.getParameter("id_venta")) ,request.getParameter("nombre"));
                     request.getSession().setAttribute("info","Descripción actualizada correctamente");
                     response.sendRedirect("AdminTodosJuegos");
 
-                }else {
-                    request.getSession().setAttribute("err","Descripción no actualizada, asegurese de ingresar una correctamente");
-                    response.sendRedirect("AdminTodosJuegos");
-                }
                 break;
             case"agrergarCategoria":
 
