@@ -25,7 +25,7 @@
       <div class="modal-body">Seleccione "Confirmar" si desea salir de su cuenta.</div>
       <div class="modal-footer">
         <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-        <a class="btn btn-primary" href="<%=request.getContextPath()%>/LoginServlet?action=logout">Salir</a>
+        <a class="btn btn-primary" href="<%=request.getContextPath()%>/LoginServlet?action=logout">Confirmar</a>
       </div>
     </div>
   </div>
