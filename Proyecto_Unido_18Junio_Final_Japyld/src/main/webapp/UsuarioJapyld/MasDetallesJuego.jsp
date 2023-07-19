@@ -268,18 +268,27 @@
                 <div class="d-flex justify-content-between">
                   <div>
                     <% if (juego.getPrecio_nuevo() == 0) { %>
+                    <label>
+                      Stock: <%= juego.getStock()%>
+                    </label>
+
                     <div class="btn-success disabled" style="padding: 0.375rem 0.75rem; border: 1px solid transparent; border-radius: 0.25rem; background:#1cc88a ">
                       Precio: S/. <%= juego.getPrecio() %>
                     </div>
                     <% } else { %>
+                    <label>
+                      Stock: <%= juego.getStock()%>
+                    </label>
+
                     <div class="btn-success disabled" style="padding: 0.375rem 0.75rem; border: 1px solid transparent; border-radius: 0.25rem; background-image:#1cc88a ">
                       Precio: S/. <%= juego.getPrecio_nuevo() %>
                     </div>
                     <% } %>
                   </div>
-
+                  <%if(juego.getStock() != 0){%>
                   <div id="comprarButton">
                   </div>
+                  <%}%>
                 </div>
               </div>
             </div>

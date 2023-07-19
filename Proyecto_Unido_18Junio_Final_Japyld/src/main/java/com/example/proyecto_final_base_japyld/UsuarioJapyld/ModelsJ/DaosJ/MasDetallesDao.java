@@ -18,12 +18,12 @@ public class MasDetallesDao extends BaseDao {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        String sql = "SELECT idJuegos, nombreJuegos, precio,direccion_archivo,i.idImagenes, COALESCE(d.precio_nuevo, 0) AS precio_nuevo,c.nombre,j.descripcion\n" +
-                "                FROM juegos j\n" +
-                "                LEFT JOIN descuentos d ON j.idJuegos = d.id_juego\n" +
-                "                LEFT JOIN categorias c ON j.id_categoria = c.idCategorias\n" +
-                "                INNER JOIN imagenes i ON j.id_imagen = i.idImagenes\n" +
-                "                WHERE (j.estadoJuego = 'Activo' OR j.estadoJuego = 'Oferta') and idJuegos = ?";
+        String sql = "SELECT idJuegos, nombreJuegos, precio,direccion_archivo,i.idImagenes,stock, COALESCE(d.precio_nuevo, 0) AS precio_nuevo,c.nombre,j.descripcion\n" +
+                "                                FROM juegos j\n" +
+                "                                LEFT JOIN descuentos d ON j.idJuegos = d.id_juego\n" +
+                "                                LEFT JOIN categorias c ON j.id_categoria = c.idCategorias\n" +
+                "                                INNER JOIN imagenes i ON j.id_imagen = i.idImagenes\n" +
+                "                             WHERE (j.estadoJuego = 'Activo' OR j.estadoJuego = 'Oferta') and idJuegos = ?;";
         String url = "jdbc:mysql://localhost:3306/japyld";
         try (Connection connection = DriverManager.getConnection(url, "root", "root");
                 /*Usaremos prepared Statement*/
@@ -39,9 +39,10 @@ public class MasDetallesDao extends BaseDao {
                     juegodetalles.setPrecio(rs.getInt(3));
                     juegodetalles.setDireccion_imagen(rs.getString(4));
                     juegodetalles.setIdImagen(rs.getInt(5));
-                    juegodetalles.setPrecio_nuevo(rs.getInt(6));
-                    juegodetalles.setCategoria(rs.getString(7));
-                    juegodetalles.setDescripcion(rs.getString(8));
+                    juegodetalles.setStock(rs.getInt(6));
+                    juegodetalles.setPrecio_nuevo(rs.getInt(7));
+                    juegodetalles.setCategoria(rs.getString(8));
+                    juegodetalles.setDescripcion(rs.getString(9));
 
                     listaMasDetallesJuego.add(juegodetalles);
                 }
@@ -63,20 +64,21 @@ public class MasDetallesDao extends BaseDao {
             e.printStackTrace();
         }
         String sql = "SELECT id_juego,\n" +
-                "       GROUP_CONCAT(CASE WHEN id_consola IN ('PS5') THEN id_consola END) AS consola_1,\n" +
-                "       GROUP_CONCAT(CASE WHEN id_consola IN ('PS4') THEN id_consola END) AS consola_2,\n" +
-                "       GROUP_CONCAT(CASE WHEN id_consola IN ('XB3') THEN id_consola END) AS consola_3,\n" +
-                "       GROUP_CONCAT(CASE WHEN id_consola IN ('XBO') THEN id_consola END) AS consola_4,\n" +
-                "       GROUP_CONCAT(CASE WHEN id_consola IN ('SWI') THEN id_consola END) AS consola_5,\n" +
-                "       GROUP_CONCAT(CASE WHEN id_consola IN ('WIU') THEN id_consola END) AS consola_6\n" +
+                "       GROUP_CONCAT(CASE WHEN id_consola = 'PS5' AND stock_consola > 0 THEN id_consola END) AS consola_1,\n" +
+                "       GROUP_CONCAT(CASE WHEN id_consola = 'PS4' AND stock_consola > 0 THEN id_consola END) AS consola_2,\n" +
+                "       GROUP_CONCAT(CASE WHEN id_consola = 'XB3' AND stock_consola > 0 THEN id_consola END) AS consola_3,\n" +
+                "       GROUP_CONCAT(CASE WHEN id_consola = 'XBO' AND stock_consola > 0 THEN id_consola END) AS consola_4,\n" +
+                "       GROUP_CONCAT(CASE WHEN id_consola = 'SWI' AND stock_consola > 0 THEN id_consola END) AS consola_5,\n" +
+                "       GROUP_CONCAT(CASE WHEN id_consola = 'WIU' AND stock_consola > 0 THEN id_consola END) AS consola_6\n" +
                 "FROM (\n" +
-                "    SELECT t1.id_juego, t1.id_consola, t2.nombre AS consola\n" +
+                "    SELECT t1.id_juego, t1.id_consola, t2.nombre AS consola, t1.stock_consola\n" +
                 "    FROM juegos_por_consolas t1\n" +
                 "    INNER JOIN consolas t2 ON t1.id_consola = t2.idConsolas\n" +
+                "    WHERE t1.stock_consola > 0 -- Verificar que el stock sea mayor que cero\n" +
                 ") AS subquery\n" +
                 "WHERE id_juego = ? \n" +
                 "GROUP BY id_juego\n" +
-                "ORDER BY id_juego;\n";
+                "ORDER BY id_juego;";
 
         String url = "jdbc:mysql://localhost:3306/japyld";
 
