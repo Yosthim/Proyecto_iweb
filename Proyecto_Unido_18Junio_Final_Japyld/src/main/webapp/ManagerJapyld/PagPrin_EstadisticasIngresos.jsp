@@ -128,16 +128,16 @@
                                 labels: ['Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Setiembre','Octubre', 'Noviembre', 'Diciembre'],
                                 datasets: [{
                                   labels: ' Ventas por mes ',
-                                  data: [<%=Math.abs(estadisticasDao.VentaPorMes("March") - estadisticasDao.CompraPorMes("March")) %>,
-                                          <%=Math.abs(estadisticasDao.VentaPorMes("April") - estadisticasDao.CompraPorMes("April")) %>,
-                                          <%=Math.abs(estadisticasDao.VentaPorMes("May") - estadisticasDao.CompraPorMes("May")) %>,
-                                          <%=Math.abs(estadisticasDao.VentaPorMes("June") - estadisticasDao.CompraPorMes("June")) %>,
-                                          <%=Math.abs(estadisticasDao.VentaPorMes("July") - estadisticasDao.CompraPorMes("July")) %>,
-                                          <%=Math.abs(estadisticasDao.VentaPorMes("August") - estadisticasDao.CompraPorMes("August")) %>,
-                                          <%=Math.abs(estadisticasDao.VentaPorMes("September") - estadisticasDao.CompraPorMes("September")) %>,
-                                          <%=Math.abs(estadisticasDao.VentaPorMes("October") - estadisticasDao.CompraPorMes("October")) %>,
-                                          <%=Math.abs(estadisticasDao.VentaPorMes("November") - estadisticasDao.CompraPorMes("November")) %>,
-                                          <%=Math.abs(estadisticasDao.VentaPorMes("December") - estadisticasDao.CompraPorMes("December")) %>],
+                                  data: [<%=estadisticasDao.VentaPorMes("March") - estadisticasDao.CompraPorMes("March") %>,
+                                          <%=estadisticasDao.VentaPorMes("April") - estadisticasDao.CompraPorMes("April") %>,
+                                          <%=estadisticasDao.VentaPorMes("May") - estadisticasDao.CompraPorMes("May") %>,
+                                          <%=estadisticasDao.VentaPorMes("June") - estadisticasDao.CompraPorMes("June") %>,
+                                          <%=estadisticasDao.VentaPorMes("July") - estadisticasDao.CompraPorMes("July") %>,
+                                          <%=estadisticasDao.VentaPorMes("August") - estadisticasDao.CompraPorMes("August") %>,
+                                          <%=estadisticasDao.VentaPorMes("September") - estadisticasDao.CompraPorMes("September") %>,
+                                          <%=estadisticasDao.VentaPorMes("October") - estadisticasDao.CompraPorMes("October") %>,
+                                          <%=estadisticasDao.VentaPorMes("November") - estadisticasDao.CompraPorMes("November") %>,
+                                          <%=estadisticasDao.VentaPorMes("December") - estadisticasDao.CompraPorMes("December") %>],
 
                                   backgroundColor: [
                                     'rgba(76, 175, 80, 0.5)', // Verde
