@@ -105,7 +105,7 @@
 
                                             <div class="mb-3 col-md-6 form-group">
                                                 <label class="small mb-1" for="fecha">Nacimiento</label>
-                                                <input  class="form-control datetimepicker" id="fecha" name="fecha" type="date" wtx-context="434A1E15-D4FD-4427-8AAE-AEFCABA1691D" title="Ingrese una fecha de nacimiento" required>
+                                                <input  class="form-control datetimepicker" id="fecha" name="fecha" type="date" wtx-context="434A1E15-D4FD-4427-8AAE-AEFCABA1691D" title="Ingrese una fecha de nacimiento" min="1994-12-31" max="2015-12-31" required>
                                                 <span class="error-message"></span>
                                             </div>
                                         </div>

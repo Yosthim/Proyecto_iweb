@@ -32,14 +32,14 @@ public class ModuloAdminServlet extends HttpServlet {
         switch (action) {
             case "lista":
 
-                ArrayList<ModuloAdmin> listarAdminActivos = adminModuloDao.listarAdmin();
+                ArrayList<ModuloAdmin> adminMes = adminModuloDao.listarAdminMes();
                 ArrayList<Integer> idsConResultadoMenorCero = new ArrayList<>();
 
                 double maxResultado = Double.NEGATIVE_INFINITY;
 
                 int idMaxResultado = 0;
 
-                for (ModuloAdmin a : listarAdminActivos) {
+                for (ModuloAdmin a : adminMes) {
 
                     BigDecimal dineroCompraTotal = a.getDineroCompraTotal();
                     BigDecimal dineroGastoTotal = a.getDineroGastoTotal();
