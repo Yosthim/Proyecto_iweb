@@ -16,7 +16,7 @@ public class PorConsolaJuegoDao extends BaseDao {
 
         String sql = "SELECT jcr.id_consola, count(jpc.id_consola)\n" +
                 "FROM juegoscompradosreservados jcr, juegos_por_consolas jpc, juegos j, personas p\n" +
-                "WHERE jcr.id_consola = jpc.id_consola and jcr.id_juego = jpc.id_juego and jcr.estadoCompraJuego = 'Comprado' and jcr.id_juego = j.idJuegos and jcr.id_usuario = p.idPersona and p.id_roles = \"USR\"\n" +
+                "WHERE jcr.id_consola = jpc.id_consola and jcr.id_juego = jpc.id_juego and jcr.id_juego = j.idJuegos and jcr.id_usuario = p.idPersona and p.id_roles = \"USR\"\n" +
                 "GROUP BY jcr.id_consola\n" +
                 "ORDER BY count(jpc.id_consola) DESC;";
 

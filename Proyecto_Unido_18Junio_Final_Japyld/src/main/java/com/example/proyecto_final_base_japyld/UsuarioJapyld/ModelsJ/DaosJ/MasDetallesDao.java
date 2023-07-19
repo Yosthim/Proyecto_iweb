@@ -18,7 +18,7 @@ public class MasDetallesDao extends BaseDao {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        String sql = "SELECT idJuegos, nombreJuegos, precio,direccion_archivo, COALESCE(d.precio_nuevo, 0) AS precio_nuevo,c.nombre,j.descripcion\n" +
+        String sql = "SELECT idJuegos, nombreJuegos, precio,direccion_archivo,i.idImagenes, COALESCE(d.precio_nuevo, 0) AS precio_nuevo,c.nombre,j.descripcion\n" +
                 "                FROM juegos j\n" +
                 "                LEFT JOIN descuentos d ON j.idJuegos = d.id_juego\n" +
                 "                LEFT JOIN categorias c ON j.id_categoria = c.idCategorias\n" +
@@ -38,9 +38,10 @@ public class MasDetallesDao extends BaseDao {
                     juegodetalles.setNombreJuegos(rs.getString(2));
                     juegodetalles.setPrecio(rs.getInt(3));
                     juegodetalles.setDireccion_imagen(rs.getString(4));
-                    juegodetalles.setPrecio_nuevo(rs.getInt(5));
-                    juegodetalles.setCategoria(rs.getString(6));
-                    juegodetalles.setDescripcion(rs.getString(7));
+                    juegodetalles.setIdImagen(rs.getInt(5));
+                    juegodetalles.setPrecio_nuevo(rs.getInt(6));
+                    juegodetalles.setCategoria(rs.getString(7));
+                    juegodetalles.setDescripcion(rs.getString(8));
 
                     listaMasDetallesJuego.add(juegodetalles);
                 }

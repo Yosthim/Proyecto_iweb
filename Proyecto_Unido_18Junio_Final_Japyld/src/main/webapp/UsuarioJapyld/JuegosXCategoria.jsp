@@ -37,6 +37,11 @@
       height: 340px;
     }
 
+    .img_juego {
+      width: 275px;
+      height: 280px;
+    }
+
     .img-gaga {
       display: inline-block; /* Hacemos que el contenedor sea inline-block para que solo ocupe el tamaño de la imagen */
       width: 50px; /* Ajusta el tamaño del círculo según tus necesidades */
@@ -160,9 +165,13 @@
                     <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                       <h6><%=juegos.getNombreJuegos()%></h6>
                     </div>
-                    <img src="<%=juegos.getDireccion_imagen()%>" class="img-fluid" alt="Imagen">
+                    <img src="<%=request.getContextPath()%>/Image?act=juego&id=<%=juegos.getIdImagen()%>" class="img-fluid img_juego" alt="Imagen">
                     <div class="mt-3">
+                      <% if(juegos.getPrecio_nuevo() == 0){%>
                       <p class="mt-2">Precio: S/. <%=juegos.getPrecio()%></p>
+                      <%}else{%>
+                      <p class="mt-2">Precio: S/. <%=juegos.getPrecio_nuevo()%></p>
+                      <%}%>
                       <a class="btn btn-success" href="<%=request.getContextPath()%>/MasDetallesJuego?idjuego=<%=juegos.getIdJuegos()%>">Más Detalles</a>
                     </div>
                   </div>

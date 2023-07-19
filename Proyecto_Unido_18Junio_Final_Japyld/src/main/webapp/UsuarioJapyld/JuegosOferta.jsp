@@ -168,7 +168,7 @@
                                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                             <h6><%=juegos.getNombreJuegos()%></h6>
                                         </div>
-                                        <img src="<%=juegos.getDireccion_imagen()%>" class="img-fluid img_juego" alt="Imagen">
+                                        <img src="<%=request.getContextPath()%>/Image?act=juego&id=<%=juegos.getIdImagen()%>" class="img-fluid img_juego" alt="Imagen">
                                         <div class="mt-3">
                                             <p class="mt-2">Precio: S/. <%=juegos.getPrecio()%></p>
                                             <a class="btn btn-success" href="<%=request.getContextPath()%>/MasDetallesJuego?idjuego=<%=juegos.getIdJuegos()%>">Más Detalles</a>

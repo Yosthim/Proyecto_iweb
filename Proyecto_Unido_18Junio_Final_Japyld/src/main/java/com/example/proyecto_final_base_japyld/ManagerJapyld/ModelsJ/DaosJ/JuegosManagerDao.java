@@ -15,12 +15,12 @@ public class JuegosManagerDao extends BaseDao {
 
         ArrayList <JuegosManager> listaMasVendidos = new ArrayList<>();
 
-        String sql = "SELECT  j.idJuegos, j.nombreJuegos, j.precio, j.stock, j.descripcion, c.nombre, j.id_imagen, i.direccion_archivo\n" +
-                "FROM personas p, juegoscompradosreservados jcr, juegos j, categorias c, imagenes i\n" +
-                "where  p.idPersona = jcr.id_usuario and jcr.estadoCompraJuego = 'Comprado' and jcr.id_juego = j.idJuegos and j.id_categoria = c.idCategorias and i.idImagenes = j.id_imagen\n" +
-                "GROUP BY id_juego\n" +
-                "ORDER BY count(j.nombreJuegos) DESC\n" +
-                "LIMIT 5;";
+        String sql = "SELECT jc.id_juego, j.nombreJuegos, j.precio, j.id_imagen, COUNT(*) as cantidad_compras\n" +
+                "FROM juegoscompradosreservados jc\n" +
+                "LEFT JOIN juegos j ON jc.id_juego = j.idJuegos\n" +
+                "GROUP BY jc.id_juego, j.nombreJuegos, jc.precio_compra, j.id_imagen\n" +
+                "ORDER BY cantidad_compras DESC\n" +
+                "limit 5;";
 
         try (Connection connection = this.getConnection();
              Statement smt = connection.createStatement();
@@ -31,8 +31,7 @@ public class JuegosManagerDao extends BaseDao {
                 juegosMasVendidos.setIdJuegos(resultSet.getInt(1));
                 juegosMasVendidos.setNombreJuegos(resultSet.getString(2));
                 juegosMasVendidos.setPrecio(resultSet.getInt(3));
-                juegosMasVendidos.setId_imagen(resultSet.getInt(7));
-                juegosMasVendidos.setDireccion_imagen(resultSet.getString(8));
+                juegosMasVendidos.setId_imagen(resultSet.getInt(4));
                 listaMasVendidos.add(juegosMasVendidos);
             }
         }catch (SQLException e){
@@ -46,12 +45,12 @@ public class JuegosManagerDao extends BaseDao {
 
         ArrayList <JuegosManager> listaMenosVendidos = new ArrayList<>();
 
-        String sql = "SELECT  j.idJuegos, j.nombreJuegos, j.precio, j.stock, j.descripcion, c.nombre, j.id_imagen, i.direccion_archivo\n" +
-                "FROM personas p, juegoscompradosreservados jcr, juegos j, categorias c, imagenes i\n" +
-                "where  p.idPersona = jcr.id_usuario and jcr.estadoCompraJuego = 'Comprado' and jcr.id_juego = j.idJuegos and j.id_categoria = c.idCategorias and i.idImagenes = j.id_imagen\n" +
-                "GROUP BY id_juego\n" +
-                "ORDER BY count(j.nombreJuegos) ASC\n" +
-                "LIMIT 5;";
+        String sql = "SELECT jc.id_juego, j.nombreJuegos, j.precio, j.id_imagen, COUNT(*) as cantidad_compras\n" +
+                "FROM juegoscompradosreservados jc\n" +
+                "LEFT JOIN juegos j ON jc.id_juego = j.idJuegos\n" +
+                "GROUP BY jc.id_juego, j.nombreJuegos, jc.precio_compra, j.id_imagen\n" +
+                "ORDER BY cantidad_compras ASC\n" +
+                "limit 5;";
 
         try (Connection connection = this.getConnection();
              Statement smt = connection.createStatement();
@@ -62,8 +61,7 @@ public class JuegosManagerDao extends BaseDao {
                 juegosMenosVendidos.setIdJuegos(resultSet.getInt(1));
                 juegosMenosVendidos.setNombreJuegos(resultSet.getString(2));
                 juegosMenosVendidos.setPrecio(resultSet.getInt(3));
-                juegosMenosVendidos.setId_imagen(resultSet.getInt(7));
-                juegosMenosVendidos.setDireccion_imagen(resultSet.getString(8));
+                juegosMenosVendidos.setId_imagen(resultSet.getInt(4));
                 listaMenosVendidos.add(juegosMenosVendidos);
             }
         }catch (SQLException e){
@@ -76,7 +74,7 @@ public class JuegosManagerDao extends BaseDao {
 
         ArrayList<JuegosManager> listaMasDetallesJuego = new ArrayList<>();
 
-        String sql = "SELECT idJuegos, nombreJuegos, precio,direccion_archivo, COALESCE(d.precio_nuevo, 0) AS precio_nuevo,c.nombre,j.descripcion\n" +
+        String sql = "SELECT idJuegos, nombreJuegos, precio, i.idImagenes, i.direccion_archivo, COALESCE(d.precio_nuevo, 0) AS precio_nuevo,c.nombre,j.descripcion\n" +
                 "                FROM juegos j\n" +
                 "                LEFT JOIN descuentos d ON j.idJuegos = d.id_juego\n" +
                 "                LEFT JOIN categorias c ON j.id_categoria = c.idCategorias\n" +
@@ -93,10 +91,11 @@ public class JuegosManagerDao extends BaseDao {
                     juegodetalles.setIdJuegos(rs.getInt(1));
                     juegodetalles.setNombreJuegos(rs.getString(2));
                     juegodetalles.setPrecio(rs.getInt(3));
-                    juegodetalles.setDireccion_imagen(rs.getString(4));
-                    juegodetalles.setPrecio_nuevo(rs.getInt(5));
-                    juegodetalles.setCategoria(rs.getString(6));
-                    juegodetalles.setDescripcion_juego(rs.getString(7));
+                    juegodetalles.setId_imagen(rs.getInt(4));
+                    juegodetalles.setDireccion_imagen(rs.getString(5));
+                    juegodetalles.setPrecio_nuevo(rs.getInt(6));
+                    juegodetalles.setCategoria(rs.getString(7));
+                    juegodetalles.setDescripcion_juego(rs.getString(8));
 
                     listaMasDetallesJuego.add(juegodetalles);
                 }
@@ -111,7 +110,7 @@ public class JuegosManagerDao extends BaseDao {
 
         ArrayList<JuegosManager> listaTodosJuegos = new ArrayList<>();
 
-        String sql = "SELECT idJuegos, nombreJuegos, precio,direccion_archivo, COALESCE(d.precio_nuevo, 0) AS precio_nuevo\n" +
+        String sql = "SELECT idJuegos, nombreJuegos, precio,i.idImagenes, COALESCE(d.precio_nuevo, 0) AS precio_nuevo\n" +
                     "FROM juegos j\n" +
                     "LEFT JOIN descuentos d ON j.idJuegos = d.id_juego\n" +
                     "INNER JOIN imagenes i ON j.id_imagen = i.idImagenes\n" +
@@ -126,7 +125,7 @@ public class JuegosManagerDao extends BaseDao {
                 listaJuegos.setIdJuegos(resultSet.getInt(1));
                 listaJuegos.setNombreJuegos(resultSet.getString(2));
                 listaJuegos.setPrecio(resultSet.getInt(3));
-                listaJuegos.setDireccion_imagen(resultSet.getString(4));
+                listaJuegos.setId_imagen(resultSet.getInt(4));
                 listaJuegos.setPrecio_nuevo(resultSet.getInt(5));
                 listaTodosJuegos.add(listaJuegos);
             }

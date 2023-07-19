@@ -138,7 +138,7 @@
                                             <td class="text-center"><%=ubaneado.getFechaRegistro()%></td>
                                             <td class="text-center">
                                                 <div class="center">
-                                                    <a class="btn btn-warning" href="<%=request.getContextPath()%>/DetalleUsuarioServlet?action=noban&idUser=<%=ubaneado.getId()%>">Desbanear</a>
+                                                    <a class="btn btn-warning" href="<%=request.getContextPath()%>/DetalleUsuarioServlet?action=noban&idUser=<%=ubaneado.getId()%>&desti=<%=ubaneado.getCorreo()%>">Desbanear</a>
                                                 </div>
                                             </td>
 

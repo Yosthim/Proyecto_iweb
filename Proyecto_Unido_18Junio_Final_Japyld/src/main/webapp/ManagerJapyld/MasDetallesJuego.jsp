@@ -101,7 +101,7 @@
                     <h6 class="m-0 font-weight-bold text-primary"><%=juego.getNombreJuegos()%></h6>
                   </div>
                   <div class="card-body text-center">
-                    <img src="<%=juego.getDireccion_imagen()%>" class="img-fluid img_juego_grande" alt="Imagen">
+                    <img src="<%=request.getContextPath()%>/Image?act=juego&id=<%=juego.getId_imagen()%>" class="img-fluid img_juego" alt="Imagen">
                     <div class="mt-3">
                       <%int contador = 0;%>
                       <%int suma = 0;%>

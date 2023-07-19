@@ -14,7 +14,7 @@ public class JuegosOfertaDao {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        String sql = "select idJuegos,nombreJuegos,d.precio_nuevo,direccion_archivo\n" +
+        String sql = "select idJuegos,nombreJuegos,d.precio_nuevo,i.idImagenes,direccion_archivo\n" +
                 "                from juegos j\n" +
                 "                inner join descuentos d on j.idJuegos = d.id_juego\n" +
                 "                inner join imagenes i on j.id_imagen = i.idImagenes\n" +
@@ -33,7 +33,8 @@ public class JuegosOfertaDao {
                 juegooferta.setIdJuegos(resultSet.getInt(1));
                 juegooferta.setNombreJuegos(resultSet.getString(2));
                 juegooferta.setPrecio(resultSet.getInt(3));
-                juegooferta.setDireccion_imagen(resultSet.getString(4));
+                juegooferta.setIdImagen(resultSet.getInt(4));
+                juegooferta.setDireccion_imagen(resultSet.getString(5));
 
                 listaJuegosOferta.add(juegooferta);
             }

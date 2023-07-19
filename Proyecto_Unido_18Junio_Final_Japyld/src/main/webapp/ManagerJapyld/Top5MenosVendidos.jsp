@@ -84,13 +84,9 @@
                                                 <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                                     <h6><%=juegosMenosVendidos.getNombreJuegos()%></h6>
                                                 </div>
-                                                <img src="<%=juegosMenosVendidos.getDireccion_imagen()%>" class="img-fluid img_juego" alt="Imagen">
+                                                <img src="<%=request.getContextPath()%>/Image?act=juego&id=<%=juegosMenosVendidos.getId_imagen()%>" class="img-fluid img_juego" alt="Imagen">
                                                 <div class="mt-3">
-                                                    <% if(juegosMenosVendidos.getPrecio_nuevo() == 0){%>
                                                     <p class="mt-2">Precio: S/. <%=juegosMenosVendidos.getPrecio()%></p>
-                                                    <%}else{%>
-                                                    <p class="mt-2">Precio: S/. <%=juegosMenosVendidos.getPrecio_nuevo()%></p>
-                                                    <%}%>
                                                     <a class="btn btn-success" href="<%=request.getContextPath()%>/MasDetallesJuegosServlet?idjuego=<%=juegosMenosVendidos.getIdJuegos()%>">Más Detalles</a>
                                                 </div>
                                             </div>

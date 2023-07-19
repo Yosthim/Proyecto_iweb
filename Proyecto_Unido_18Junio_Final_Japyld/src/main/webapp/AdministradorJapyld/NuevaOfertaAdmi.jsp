@@ -269,7 +269,7 @@
                 <h6 class="m-0 font-weight-bold text-primary"><%=ventaJuegosGeneral.getJuego().getNombreJuegos()%> </h6>
               </div>
               <div class="card-body text-center">
-                <img src="<%=request.getContextPath()%>/Image?act=venta&id=<%=ventaJuegosGeneral.getIdVenta()%>" class="img-fluid img_juego" alt="Imagen">
+                <img src="<%=request.getContextPath()%>/Image?act=juego&id=<%=ventaJuegosGeneral.getJuego().getImagen().getIdImagenes()%>" alt="Imagen" class="img-fluid">
 
                 <div class="mt-3">
                   <h5>Género: <%=ventaJuegosGeneral.getJuego().getCategoria().getNombre()%></h5>
@@ -292,11 +292,14 @@
                 </div>
                 <hr>
                 <div class="d-flex justify-content-between align-items-center mb-3">
-                  <span>Stock: <%=ventaJuegosGeneral.getJuego().getStock()%></span>
+                  <span>Stock general de Juego: <%=ventaJuegosGeneral.getJuego().getStock()%></span>
 
                   <div class="d-flex">
-                    <button class="btn">Precio: S/. <%=ventaJuegosGeneral.getPrecioUsuario()%></button>
+                    <span>Precio: S/. <%=ventaJuegosGeneral.getPrecioUsuario()%></span>
                   </div>
+                </div>
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                  <span>Cantidad de copias: <%=ventaJuegosGeneral.getCantidad()%></span>
                 </div>
                 <div>
                   <%

@@ -108,7 +108,7 @@ public class CompraServlet extends HttpServlet {
     public JuegosCompradosReservados parseJuegoCompradoReservado(HttpServletRequest request){
 
         ModuloAdminDao moduloAdminDao = new ModuloAdminDao();
-        ArrayList<ModuloAdmin> listaAdmin = moduloAdminDao.listarAdmin();
+        ArrayList<ModuloAdmin> listaAdmin = moduloAdminDao.listarAdminMenosReservas();
 
         JuegosCompradosReservados juegosCompradosReservados = new JuegosCompradosReservados();
 
@@ -134,16 +134,13 @@ public class CompraServlet extends HttpServlet {
         String estadoCompra = "Reservado";
 
         //Id Administrador random para que sea justo
-        ArrayList<Integer> listaIds = new ArrayList<>();
+        int idAdmin = 1;
 
         for (ModuloAdmin admin : listaAdmin) {
             int id = admin.getId();
-            listaIds.add(id);
+            idAdmin = id;
         }
 
-        Random random = new Random();
-        int randomIndex = random.nextInt(listaIds.size());
-        int idAdmin = listaIds.get(randomIndex);
 
         //Terminamos con todos los datos que quiero para crear el juego
 

@@ -36,9 +36,7 @@ public class CorreoDao extends BaseDao {
             mensaje.setRecipient(Message.RecipientType.TO, new InternetAddress(correoDestino));
             mensaje.setSubject(asunto);
             mensaje.setText(contenido);
-            mensaje.setText(contenido + "\n\nGracias por su preferencia\n"
-                    +"Atentamente,\n" +
-                    "Japyld Solutions\n");
+            mensaje.setText(contenido);
             Transport mTransport = s.getTransport("smtp");
             mTransport.connect(correo, contra);
             mTransport.sendMessage(mensaje, mensaje.getRecipients(Message.RecipientType.TO));
@@ -75,7 +73,9 @@ public class CorreoDao extends BaseDao {
                 "Le informamos lo siguiente:\n\n" +
                 "El usuario " + require.getUserName() + " modificó el precio de su oferta en el juego " + require.getGameName() + ".\n" +
                 "La información del precio actualizado la puede ver en el registro de ofertas:\n" +
-                "   N° de oferta = " + require.getOfferId();
+                "   N° de oferta = " + require.getOfferId() + "\n\n" +
+                "Gracias por su atención,\n" +
+                "Japyld Solutions";
 
         //Se envia el correo
         this.correo(this.getEmail(require.getIdAdmin()), asunto, contenido);
@@ -85,7 +85,9 @@ public class CorreoDao extends BaseDao {
         String asunto = "Nueva oferta";
         String contenido =
                 "Una nueva oferta fue publicada a su cargo por parte del usuario " + usuario.getNombre() + " " + usuario.getApellido() + ".\n" +
-                "Los detalles de la oferta lo puede observar en su página de ofertas.\n";
+                "Los detalles de la oferta lo puede observar en su página de ofertas.\n\n" +
+                "Gracias por su atención,\n" +
+                "Japyld Solutions";
         //Se envia el correo
         this.correo(this.getEmail(idAdmin), asunto, contenido);
     }
@@ -103,7 +105,9 @@ public class CorreoDao extends BaseDao {
                 "   Consola: " + sistemaDao.obtenerNombreConsola(infoCompra.getConsola().getIdConsola()) + "\n" +
                 "   Precio de la compra: " + infoCompra.getPrecio_compra() + "\n" +
                 "   Dirección de entrega: " +  infoCompra.getDireccion_compra() + "\n" +
-                "   Fecha de compra: " + infoCompra.getFechaCompraJuego() + "\n\n";
+                "   Fecha de compra: " + infoCompra.getFechaCompraJuego() + "\n\n" +
+                "Gracias por su atención,\n" +
+                "Japyld Solutions";
         //Se envia el correo
         this.correo(this.getEmail(infoCompra.getAdministrador().getIdPersona()), asunto, contenido);
     }

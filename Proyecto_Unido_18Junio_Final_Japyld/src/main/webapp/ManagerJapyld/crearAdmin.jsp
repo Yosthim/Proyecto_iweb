@@ -50,6 +50,27 @@
                     </jsp:include>
                     <!-- End of Topbar -->
 
+                    <% if (session.getAttribute("corr") != null) { %>
+                    <div class="alert alert-danger d-flex align-items-center justify-content-center" role="alert">
+                        <%= session.getAttribute("corr") %>
+                    </div>
+                    <% session.setAttribute("corr", null); %>
+                    <% } %>
+
+                    <% if (session.getAttribute("noma") != null) { %>
+                    <div class="alert alert-danger d-flex align-items-center justify-content-center" role="alert">
+                        <%= session.getAttribute("noma") %>
+                    </div>
+                    <% session.setAttribute("noma", null); %>
+                    <% } %>
+
+                    <% if (session.getAttribute("dny") != null) { %>
+                    <div class="alert alert-danger d-flex align-items-center justify-content-center" role="alert">
+                        <%= session.getAttribute("dny") %>
+                    </div>
+                    <% session.setAttribute("dny", null); %>
+                    <% } %>
+
             <!-- Begin Page Content -->
                     <div class="container-xl px-4 mt-4">
                         <!-- Account page navigation-->
@@ -73,6 +94,22 @@
                                                 <span class="error-message"></span>
                                             </div>
                                         </div>
+
+                                        <div class="row gx-3">
+                                            <div class="mb-3 col-md-6 form-group">
+                                                <label class="small mb-1" for="dni">Dni</label>
+                                                <input class="form-control" id="dni" type="text" name="dni" placeholder="Enter dni" pattern="[0-9]{8}" title="Ingrese solo números" wtx-context="42795CFB-4E11-4FF6-A475-9275BD7BCAAE" title="Ingrese solo numeros" maxlength="8" required oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+                                                <span class="error-message"></span>
+                                            </div>
+
+
+                                            <div class="mb-3 col-md-6 form-group">
+                                                <label class="small mb-1" for="fecha">Nacimiento</label>
+                                                <input  class="form-control datetimepicker" id="fecha" name="fecha" type="date" wtx-context="434A1E15-D4FD-4427-8AAE-AEFCABA1691D" title="Ingrese una fecha de nacimiento" min="1994-12-31" max="2015-12-31" required>
+                                                <span class="error-message"></span>
+                                            </div>
+                                        </div>
+
                                         <div class="mb-3" class="form-group">
                                             <label class="small mb-1" for="correo">Correo electrónico</label>
                                             <input class="form-control" id="correo" type="email" name="correo" placeholder="Enter your email address"  wtx-context="9DF972A9-6C9A-45AE-8715-63056FD50C08" required>

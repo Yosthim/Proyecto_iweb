@@ -124,6 +124,12 @@
               </div>
 
             </form>
+            <% if (request.getParameter("error1") != null) { %>
+            <div class = "text-danger justify-content-center"><span>Error. Ingrese solo datos numéricos.</span></div>
+            <% } %>
+            <% if (request.getParameter("error2") != null) { %>
+            <div class = "text-danger justify-content-center"><span>Ningún campo puede estar vacio.</span></div>
+            <% } %>
           </div>
 
           <br>
