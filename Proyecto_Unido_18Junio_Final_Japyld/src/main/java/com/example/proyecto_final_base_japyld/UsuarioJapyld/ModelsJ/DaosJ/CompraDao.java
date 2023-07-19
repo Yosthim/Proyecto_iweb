@@ -19,7 +19,7 @@ public class CompraDao extends BaseDao{
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        String sql = "SELECT j.nombreJuegos, i.direccion_archivo, c.nombre, jc.id_consola, jc.stock_consola, j.precio, COALESCE(d.precio_nuevo, 0) AS precio_nuevo, j.idJuegos\n" +
+        String sql = "SELECT j.nombreJuegos, i.direccion_archivo, c.nombre, jc.id_consola, jc.stock_consola,i.idImagenes, j.precio, COALESCE(d.precio_nuevo, 0) AS precio_nuevo, j.idJuegos\n" +
                 "FROM juegos j\n" +
                 "LEFT join categorias c on j.id_categoria = c.idCategorias\n" +
                 "LEFT join imagenes i on j.id_imagen = i.idImagenes\n" +
@@ -44,9 +44,10 @@ public class CompraDao extends BaseDao{
                     juegoCompra.setNombreCategoria(rs.getString(3));
                     juegoCompra.setIdConsola(rs.getString(4));
                     juegoCompra.setStock_consola(rs.getInt(5));
-                    juegoCompra.setPrecio(rs.getInt(6));
-                    juegoCompra.setPrecio_nuevo(rs.getInt(7));
-                    juegoCompra.setIdJuego(rs.getInt(8));
+                    juegoCompra.setIdImagen(rs.getInt(6));
+                    juegoCompra.setPrecio(rs.getInt(7));
+                    juegoCompra.setPrecio_nuevo(rs.getInt(8));
+                    juegoCompra.setIdJuego(rs.getInt(9));
 
                     listaDetallesCompra.add(juegoCompra);
 

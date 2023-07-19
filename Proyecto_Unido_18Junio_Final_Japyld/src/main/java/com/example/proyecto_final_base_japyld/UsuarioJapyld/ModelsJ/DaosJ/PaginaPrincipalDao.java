@@ -17,7 +17,7 @@ public class PaginaPrincipalDao extends BaseDao {
             e.printStackTrace();
         }
 
-        String sql = "SELECT idJuegos, nombreJuegos, precio,direccion_archivo, COALESCE(d.precio_nuevo, 0) AS precio_nuevo\n" +
+        String sql = "SELECT idJuegos, nombreJuegos, precio,direccion_archivo,i.idImagenes, COALESCE(d.precio_nuevo, 0) AS precio_nuevo\n" +
                 "FROM juegos j\n" +
                 "LEFT JOIN descuentos d ON j.idJuegos = d.id_juego\n" +
                 "INNER JOIN imagenes i ON j.id_imagen = i.idImagenes\n" +
@@ -33,7 +33,8 @@ public class PaginaPrincipalDao extends BaseDao {
                 juegosPrincipal.setNombreJuegos(resultSet.getString(2));
                 juegosPrincipal.setPrecio(resultSet.getInt(3));
                 juegosPrincipal.setDireccion_imagen(resultSet.getString(4));
-                juegosPrincipal.setPrecio_nuevo(resultSet.getInt(5));
+                juegosPrincipal.setIdImagen(resultSet.getInt(5));
+                juegosPrincipal.setPrecio_nuevo(resultSet.getInt(6));
 
                 listaJuegos.add(juegosPrincipal);
             }
@@ -49,10 +50,11 @@ public class PaginaPrincipalDao extends BaseDao {
 
         ArrayList<PaginaPrincipalDto> listaJuegos = new ArrayList<>();
 
-        String sql = "SELECT idJuegos, nombreJuegos, precio, direccion_archivo\n" +
-                "FROM juegos j\n" +
-                "INNER JOIN imagenes i ON j.id_imagen = i.idImagenes\n" +
-                "WHERE (j.estadoJuego = 'Activo' OR j.estadoJuego = 'Oferta') AND (j.nombreJuegos LIKE ?);";
+        String sql = "SELECT idJuegos, nombreJuegos, precio, direccion_archivo, i.idImagenes, COALESCE(d.precio_nuevo, 0) AS precio_nuevo\n" +
+                "                FROM juegos j\n" +
+                "                LEFT JOIN descuentos d ON j.idJuegos = d.id_juego\n" +
+                "                INNER JOIN imagenes i ON j.id_imagen = i.idImagenes\n" +
+                "                WHERE (j.estadoJuego = 'Activo' OR j.estadoJuego = 'Oferta') AND (j.nombreJuegos LIKE ?);";
 
 
         try (Connection conn = this.getConnection();
@@ -68,6 +70,8 @@ public class PaginaPrincipalDao extends BaseDao {
                     juego.setNombreJuegos(rs.getString(2));
                     juego.setPrecio(rs.getInt(3));
                     juego.setDireccion_imagen(rs.getString(4));
+                    juego.setIdImagen(rs.getInt(5));
+                    juego.setPrecio_nuevo(rs.getInt(6));
 
                     listaJuegos.add(juego);
                 }

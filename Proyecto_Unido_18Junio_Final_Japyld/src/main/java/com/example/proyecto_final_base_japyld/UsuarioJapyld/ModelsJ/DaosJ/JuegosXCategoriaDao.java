@@ -17,11 +17,12 @@ public class JuegosXCategoriaDao {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        String sql = "select idJuegos,nombreJuegos,precio,direccion_archivo \n" +
+        String sql = "select idJuegos,nombreJuegos,precio,i.direccion_archivo,i.idImagenes, COALESCE(d.precio_nuevo, 0) AS precio_nuevo\n" +
                 "from juegos j \n" +
+                "LEFT JOIN descuentos d ON j.idJuegos = d.id_juego\n" +
                 "inner join imagenes i on j.id_imagen = i.idImagenes\n" +
                 "inner join categorias c on j.id_categoria = c.idCategorias\n" +
-                "where j.estadoJuego = \"Activo\" and id_categoria = ?;";
+                "where (j.estadoJuego = 'Activo' OR j.estadoJuego = 'Oferta') and id_categoria = ?";
 
         String url = "jdbc:mysql://localhost:3306/japyld";
 
@@ -40,6 +41,9 @@ public class JuegosXCategoriaDao {
                     categoriasjuego.setNombreJuegos(rs.getString(2));
                     categoriasjuego.setPrecio(rs.getInt(3));
                     categoriasjuego.setDireccion_imagen(rs.getString(4));
+                    categoriasjuego.setIdImagen(rs.getInt(5));
+                    categoriasjuego.setPrecio_nuevo(rs.getInt(6));
+
 
                     listaJuegosXcategoria.add(categoriasjuego);
                 }

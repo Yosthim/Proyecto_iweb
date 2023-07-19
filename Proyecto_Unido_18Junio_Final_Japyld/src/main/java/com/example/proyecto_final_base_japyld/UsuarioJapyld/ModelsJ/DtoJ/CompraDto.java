@@ -16,6 +16,7 @@ public class CompraDto {
     private int precio;
 
     private int precio_nuevo;
+    private int IdImagen;
 
     public String getNombreJuego() {
         return nombreJuego;
@@ -79,5 +80,13 @@ public class CompraDto {
 
     public void setIdJuego(int idJuego) {
         IdJuego = idJuego;
+    }
+
+    public int getIdImagen() {
+        return IdImagen;
+    }
+
+    public void setIdImagen(int idImagen) {
+        IdImagen = idImagen;
     }
 }

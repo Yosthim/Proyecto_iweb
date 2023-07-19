@@ -153,7 +153,7 @@
                                     <h6 class="m-0 font-weight-bold text-primary"><%=juegocompra.getNombreJuego()%></h6>
                                 </div>
                                 <div class="card-body text-center">
-                                    <img src="<%=juegocompra.getDireccion_imagen()%>" class="img-fluid img_juego_grande" alt="Imagen">
+                                    <img src="<%=request.getContextPath()%>/Image?act=juego&id=<%=juegocompra.getIdImagen()%>" class="img-fluid img_juego_grande" alt="Imagen">
                                     <div class="mt-3">
                                     </div>
                                 </div>
