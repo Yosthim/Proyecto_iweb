@@ -13,7 +13,7 @@ public class ProductosVendidosDao extends BaseDao {
     public ArrayList<ProductosVendidos> listarJuegosMasVendidos(String mes) throws SQLException {
         ArrayList<ProductosVendidos> listaMasVendidos = new ArrayList<>();
 
-        String sql = "SELECT id_juego, direccion_archivo, nombreJuegos, precio, \n" +
+        String sql = "SELECT id_juego, i.idImagenes, direccion_archivo, nombreJuegos, precio, \n" +
                 "       MONTHNAME(fechaCompraJuego) AS mes_compra, COUNT(*) AS ventas\n" +
                 "FROM juegoscompradosreservados jc\n" +
                 "INNER JOIN juegos j ON j.idJuegos = jc.id_juego\n" +
@@ -33,11 +33,12 @@ public class ProductosVendidosDao extends BaseDao {
                 while (rs.next()) {
                     ProductosVendidos loMasVendido = new ProductosVendidos();
                     loMasVendido.setId_juego(rs.getInt(1));
-                    loMasVendido.setDireccion_archivo(rs.getString(2));
-                    loMasVendido.setNombreJuego(rs.getString(3));
-                    loMasVendido.setPrecio(rs.getInt(4));
-                    loMasVendido.setMes(rs.getString(5));
-                    loMasVendido.setVentas(rs.getInt(6));
+                    loMasVendido.setId_imagen(rs.getInt(2));
+                    loMasVendido.setDireccion_archivo(rs.getString(3));
+                    loMasVendido.setNombreJuego(rs.getString(4));
+                    loMasVendido.setPrecio(rs.getInt(5));
+                    loMasVendido.setMes(rs.getString(6));
+                    loMasVendido.setVentas(rs.getInt(7));
                     listaMasVendidos.add(loMasVendido);
                 }
 
@@ -53,7 +54,7 @@ public class ProductosVendidosDao extends BaseDao {
     public ArrayList<ProductosVendidos> listarJuegosMenosVendidos(String mes) throws SQLException {
         ArrayList<ProductosVendidos> listaMenosVendidos = new ArrayList<>();
 
-        String sql = "SELECT id_juego, direccion_archivo, nombreJuegos, precio, \n" +
+        String sql = "SELECT id_juego, i.idImagenes, direccion_archivo, nombreJuegos, precio, \n" +
                 "       MONTHNAME(fechaCompraJuego) AS mes_compra, COUNT(*) AS ventas\n" +
                 "FROM juegoscompradosreservados jc\n" +
                 "INNER JOIN juegos j ON j.idJuegos = jc.id_juego\n" +
@@ -73,11 +74,12 @@ public class ProductosVendidosDao extends BaseDao {
                 while (rs.next()) {
                     ProductosVendidos lomenosVendido = new ProductosVendidos();
                     lomenosVendido.setId_juego(rs.getInt(1));
-                    lomenosVendido.setDireccion_archivo(rs.getString(2));
-                    lomenosVendido.setNombreJuego(rs.getString(3));
-                    lomenosVendido.setPrecio(rs.getInt(4));
-                    lomenosVendido.setMes(rs.getString(5));
-                    lomenosVendido.setVentas(rs.getInt(6));
+                    lomenosVendido.setId_imagen(rs.getInt(2));
+                    lomenosVendido.setDireccion_archivo(rs.getString(3));
+                    lomenosVendido.setNombreJuego(rs.getString(4));
+                    lomenosVendido.setPrecio(rs.getInt(5));
+                    lomenosVendido.setMes(rs.getString(6));
+                    lomenosVendido.setVentas(rs.getInt(7));
                     listaMenosVendidos.add(lomenosVendido);
                 }
             } catch (SQLException e) {
