@@ -116,8 +116,10 @@
                         <h5 class="text-primary text-center">RECORD DE JUEGOS COMPRADOS POR USUARIOS</h5>
                         <div class="card-body text">
                           <br>
-                          <div class="container">
-                            <canvas id="barChart"></canvas>
+                          <div style="width: 100%; overflow-x: auto;">
+                            <div class="container" style="width: 800px;">
+                              <canvas id="barChart"></canvas>
+                            </div>
                           </div>
                           <% EstadisticasDao estadisticasDao = new EstadisticasDao();%>
                           <script>
