@@ -38,7 +38,7 @@ public class CorreoDao extends BaseDao {
             mensaje.setText(contenido);
             mensaje.setText(contenido + "\n\nGracias por su preferencia\n"
                     +"Atentamente,\n" +
-                    "Japyld\n");
+                    "Japyld Solutions\n");
             Transport mTransport = s.getTransport("smtp");
             mTransport.connect(correo, contra);
             mTransport.sendMessage(mensaje, mensaje.getRecipients(Message.RecipientType.TO));
@@ -85,7 +85,7 @@ public class CorreoDao extends BaseDao {
         String asunto = "Nueva oferta";
         String contenido =
                 "Una nueva oferta fue publicada a su cargo por parte del usuario " + usuario.getNombre() + " " + usuario.getApellido() + ".\n" +
-                "Los detalles de la oferta lo puede observar en su página de ofertas.\n\nGracias por su atención,\n\nJapyld Solutions";
+                "Los detalles de la oferta lo puede observar en su página de ofertas.\n";
         //Se envia el correo
         this.correo(this.getEmail(idAdmin), asunto, contenido);
     }
@@ -97,15 +97,13 @@ public class CorreoDao extends BaseDao {
         String asunto = "Nueva reserva de juego";
         String contenido =
                 "Estimado(a) administrador(a):\n\n" +
-                "Le informamos que se le ha asignado una nueva reserva con los siguientes detalles:\n" +
+                "Le informamos que se le ha asignado una nueva reserva con los siguientes detalles:\n\n" +
                 "   Usuario: " + usuario.getNombre() + " " + usuario.getApellido() + "\n" +
                 "   Juego: " + sistemaDao.obtenerNombreJuego(infoCompra.getJuego().getIdJuegos()) + "\n" +
                 "   Consola: " + sistemaDao.obtenerNombreConsola(infoCompra.getConsola().getIdConsola()) + "\n" +
                 "   Precio de la compra: " + infoCompra.getPrecio_compra() + "\n" +
                 "   Dirección de entrega: " +  infoCompra.getDireccion_compra() + "\n" +
-                "   Fecha de compra: " + infoCompra.getFechaCompraJuego() + "\n\n" +
-                "Gracias por su atención,\n" +
-                "Japyld Solutions";
+                "   Fecha de compra: " + infoCompra.getFechaCompraJuego() + "\n\n";
         //Se envia el correo
         this.correo(this.getEmail(infoCompra.getAdministrador().getIdPersona()), asunto, contenido);
     }

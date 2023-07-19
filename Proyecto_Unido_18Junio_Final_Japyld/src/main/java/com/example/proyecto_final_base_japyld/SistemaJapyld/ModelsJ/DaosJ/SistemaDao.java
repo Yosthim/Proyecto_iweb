@@ -32,7 +32,7 @@ public class SistemaDao extends BaseDao {
 
     public String obtenerNombreConsola(String idConsola) {
         String nombreConsola = null;
-        String sql = "SELECT * FROM consolas where idConsolas = " + idConsola;
+        String sql = "SELECT * FROM consolas WHERE idConsolas = '" + idConsola + "'";
 
         try(Connection connection = this.getConnection();
             Statement stmt = connection.createStatement();
