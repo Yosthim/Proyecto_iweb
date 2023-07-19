@@ -228,7 +228,7 @@ public class OfertasDao extends BaseDao {
 
                     ventaJuegosGeneral1 = new VentaJuegosGeneral();
 
-                    ventaJuegosGeneral1.setIdVenta(1);
+                    ventaJuegosGeneral1.setIdVenta(rs.getInt(1));
 
                 }
 
@@ -238,10 +238,11 @@ public class OfertasDao extends BaseDao {
         }catch (SQLException e){
             throw new RuntimeException(e);
         }
-        System.out.println("resultado 0 si no hay relacion " + ventaJuegosGeneral1.getIdVenta());
         return ventaJuegosGeneral1.getIdVenta();
 
     }
+
+
     // se actualiza el stock de la tabla juegos por consola si hay una relacion
     public void actualizarStockConsola(VentaJuegosGeneral ventaJuegosGeneral){
 
@@ -256,12 +257,9 @@ public class OfertasDao extends BaseDao {
 
 
             int nuevo =juegosXConsola.getStockXConsola()+ventaJuegosGeneral.getCantidad();
-            System.out.println("el valor actualizado del stock " + nuevo);
             pstmt.setInt(1,nuevo);
             pstmt.setInt(2, ventaJuegosGeneral.getJuego().getIdJuegos());
-            System.out.println("el valor del id del juego" + ventaJuegosGeneral.getJuego().getIdJuegos());
             pstmt.setString(3,ventaJuegosGeneral.getConsola().getIdConsola());
-            System.out.println("el valor del id de la categoria" + ventaJuegosGeneral.getConsola().getIdConsola());
             pstmt.executeUpdate();
 
         } catch (SQLException e) {
@@ -291,7 +289,6 @@ public class OfertasDao extends BaseDao {
                     juegosXConsola = new JuegosXConsola();
 
                     juegosXConsola.setStockXConsola(rs.getInt(3));
-                    System.out.println("valor del stock anterior"+juegosXConsola.getStockXConsola());
 
                 }
 
@@ -302,6 +299,7 @@ public class OfertasDao extends BaseDao {
         }
         return juegosXConsola;
     }
+
     // en el caso que la ralacion no exista se agrega dicah relacion y con el stock en valor 1
     public void agregarJuegoXconsola(VentaJuegosGeneral ventaJuegosGeneral ){
 
@@ -315,7 +313,7 @@ public class OfertasDao extends BaseDao {
 
             pstmt.setInt(1, ventaJuegosGeneral.getJuego().getIdJuegos());
             pstmt.setString(2,ventaJuegosGeneral.getConsola().getIdConsola());
-            pstmt.setInt(3,1);
+            pstmt.setInt(3,ventaJuegosGeneral.getCantidad());
             pstmt.executeUpdate();
 
         } catch (SQLException e) {

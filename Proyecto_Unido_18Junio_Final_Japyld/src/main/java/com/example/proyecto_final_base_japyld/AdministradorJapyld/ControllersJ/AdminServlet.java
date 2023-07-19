@@ -78,6 +78,7 @@ public class AdminServlet extends HttpServlet {
 
                         request.setAttribute("juego", juego);
                         request.setAttribute("categorias",categoriaDao.listaCategoria());
+                        request.setAttribute("consolas",crudDao.listaConsola());
                         request.setAttribute("listaFotoPerfil",perfilDao1.listarFotoPerfil());
                         view = request.getRequestDispatcher("AdministradorJapyld/adminEditVideojuego.jsp");
                         view.forward(request,response);
@@ -216,6 +217,34 @@ public class AdminServlet extends HttpServlet {
                     adminDao.actualizarCategoria(Integer.parseInt(request.getParameter("id_venta")) ,request.getParameter("categoria_id"));
                     request.getSession().setAttribute("info","Categoria actualizada correctamente");
                     response.sendRedirect("AdminTodosJuegos");
+
+                break;
+
+            case"agregarComsola":
+
+                if(validarPrecio(request.getParameter("cantidad").trim()) == true){
+
+                    adminDao.agregarCopias(Integer.parseInt(request.getParameter("id_venta")) , Integer.parseInt(request.getParameter("cantidad")));
+
+                    if (adminDao.validaExistenciaConsola(Integer.parseInt(request.getParameter("id_venta")) ,request.getParameter("consola_id")) != 0){
+
+                        adminDao.actualizarStockConsola(Integer.parseInt(request.getParameter("id_venta")) ,request.getParameter("consola_id"), Integer.parseInt(request.getParameter("cantidad")));
+                        request.getSession().setAttribute("info","Copias guardadas de manera correcta");
+                        response.sendRedirect("AdminTodosJuegos");
+                    }else{
+                        // se debe agregar relacion JuegosXconsola
+                        adminDao.agregarJuegoXconsola(Integer.parseInt(request.getParameter("id_venta")) ,request.getParameter("consola_id") , Integer.parseInt(request.getParameter("cantidad")));
+                        request.getSession().setAttribute("info","Copias guardadas de manera correcta");
+                        response.sendRedirect("AdminTodosJuegos");
+                    }
+
+
+
+                }else {
+                    request.getSession().setAttribute("err","Copias no guardas, ingrese una cantidad valida");
+                    response.sendRedirect("AdminTodosJuegos");
+                }
+
 
                 break;
 

@@ -2,13 +2,12 @@ package com.example.proyecto_final_base_japyld.AdministradorJapyld.ModelsJ.DaosJ
 
 import com.example.proyecto_final_base_japyld.BaseDao;
 import com.example.proyecto_final_base_japyld.BeansGenerales.Categoria;
+import com.example.proyecto_final_base_japyld.BeansGenerales.Consola;
 import com.example.proyecto_final_base_japyld.BeansGenerales.Imagen;
 import com.example.proyecto_final_base_japyld.BeansGenerales.Juegos;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
 
 public class CrudDao extends BaseDao {
 
@@ -95,6 +94,33 @@ public class CrudDao extends BaseDao {
         juegos.setCategoria(categoria);
 
         return juegos;
+    }
+
+    public ArrayList<Consola> listaConsola (){
+
+        ArrayList<Consola> consolas= new ArrayList<>();
+
+        String sql1 = "SELECT * FROM consolas";
+
+
+        try(Connection connection = this.getConnection();
+            Statement stmt = connection.createStatement();
+            ResultSet resultSet = stmt.executeQuery(sql1)){
+
+            while (resultSet.next()){
+
+                Consola consola = new Consola();
+                consola.setIdConsola(resultSet.getString(1));
+                consola.setNombre(resultSet.getString(2));
+
+                consolas.add(consola);
+
+            }
+
+        }catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+        return consolas;
     }
 
 }

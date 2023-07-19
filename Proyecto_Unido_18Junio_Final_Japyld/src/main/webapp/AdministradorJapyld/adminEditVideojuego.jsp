@@ -1,7 +1,8 @@
     <%@ page import="com.example.proyecto_final_base_japyld.BeansGenerales.Categoria" %>
     <%@ page import="java.util.ArrayList" %>
     <%@ page import="com.example.proyecto_final_base_japyld.BeansGenerales.Juegos" %>
-    <%@ page import="com.example.proyecto_final_base_japyld.UsuarioJapyld.ModelsJ.DtoJ.ImagenPerfilDto" %><%--
+    <%@ page import="com.example.proyecto_final_base_japyld.UsuarioJapyld.ModelsJ.DtoJ.ImagenPerfilDto" %>
+    <%@ page import="com.example.proyecto_final_base_japyld.BeansGenerales.Consola" %><%--
       Created by IntelliJ IDEA.
       User: jossr
       Date: 4/06/2023
@@ -15,6 +16,9 @@
     %>
     <%
         ArrayList<Categoria> categorias = (ArrayList<Categoria>) request.getAttribute("categorias");
+    %>
+    <%
+        ArrayList<Consola> consolas = (ArrayList<Consola>) request.getAttribute("consolas");
     %>
     <% ArrayList<ImagenPerfilDto> listaFotoPerfil = (ArrayList<ImagenPerfilDto>) request.getAttribute("listaFotoPerfil"); %>
     <html lang="en">
@@ -287,6 +291,9 @@
                                     <div class="card-body text-center">
                                         <span>Categoria: <%=juego.getCategoria().getNombre()%></span>
                                     </div>
+                                    <div class="card-body text-center">
+                                        <span>Stock general: <%=juego.getStock()%></span>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-xl-6 col-lg-8">
@@ -378,6 +385,39 @@
                                             <script>
                                                 function enviarFormulario2() {
                                                     var formulario = document.getElementById("categoria");
+                                                    formulario.style.display = "block";
+                                                }
+                                            </script>
+                                        </div>
+                                        <BR>
+                                        <div class="container">
+                                            <button class="btn btn-primary container" type="button" onclick="enviarFormulario3()">Agregar nuevas copias</button>
+                                            <form id="consola" style="display: none;" action="<%=request.getContextPath()%>/AdminServlet?action=agregarComsola" method="post">
+                                                <input type="hidden" name="id_venta" value="<%=juego.getIdJuegos()%>"/>
+                                                <!-- Aquí van los campos del formulario -->
+                                                <div class="container">
+                                                    <div>
+                                                        <label class="text-gray-900 px-4 mt-4" for="consola">Seleccione la consola </label>
+                                                        <select class="px-5 mt-4 form-select" name="consola_id">
+                                                            <% for (Consola c : consolas) { %>
+                                                            <option value="<%=c.getIdConsola()%>" >
+                                                                <%=c.getNombre()%>
+                                                            </option>
+                                                            <% } %>
+                                                        </select>
+                                                    </div>
+                                                    <div>
+                                                        <input class="px-4 mt-4" style="margin-right: 10px; margin-left: 20px;" type="number" name="cantidad" placeholder="Cantidad" required>
+                                                    </div>
+                                                    <div>
+                                                        <button type="submit" class="btn btn-success px-4 mt-4" style="margin-right: 10px; margin-left: 20px;" form="consola">Enviar</button>
+                                                    </div>
+                                                </div>
+                                                <BR>
+                                            </form>
+                                            <script>
+                                                function enviarFormulario3() {
+                                                    var formulario = document.getElementById("consola");
                                                     formulario.style.display = "block";
                                                 }
                                             </script>

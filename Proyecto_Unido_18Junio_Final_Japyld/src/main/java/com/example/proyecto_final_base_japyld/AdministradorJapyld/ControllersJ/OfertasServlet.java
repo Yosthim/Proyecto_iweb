@@ -88,10 +88,11 @@ public class OfertasServlet extends HttpServlet {
 
                         ofertasDao.actualizarStock(ventaJuegosGeneral);
                         ofertasDao.borrar(ventaJuegosGeneral);
+                        // agregar sotk general y que el sotk inicial sea igual a la cantidad
 
                         if (ofertasDao.validaExistenciaConsola(ventaJuegosGeneral) != 0){
 
-                            // se debe actualizar el stock en la tabla de juegos por consolas
+                            // se debe actualizar el stock en la tabla de juegos por consolas y stock general
                             ofertasDao.actualizarStockConsola(ventaJuegosGeneral);
                             request.setAttribute("listaFotoPerfil",perfilDao1.listarFotoPerfil());
                             correoDao.correo(ventaJuegosGeneral.getUsuario().getCorreo(),"Estado de Oferta","Le enformamos que su oferta del juego "+ ventaJuegosGeneral.getJuego().getNombreJuegos()+" ha sido aceptada" + "\n\nGracias por su preferencia\n"
